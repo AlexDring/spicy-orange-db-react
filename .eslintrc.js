@@ -1,4 +1,5 @@
-export default {
+// eslint-disable-next-line no-undef
+module.exports = {
   'env': {
     'browser': true,
     'es2021': true
@@ -33,6 +34,7 @@ export default {
     'semi': [
       'error',
       'never'
-    ]
+    ],
+    'react/react-in-jsx-scope': 'off',
   }
 }
