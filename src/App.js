@@ -1,5 +1,10 @@
 import 'normalize.css'
+import { 
+  BrowserRouter as Router, 
+  Route, 
+  Switch } from 'react-router-dom'
 import Layout from './components/Layout'
+import Home from './pages/Home'
 import GlobalStyles from './styles/GlobalStyles'
 import Typography from './styles/Typography'
 
@@ -9,8 +14,13 @@ function App() {
       <GlobalStyles />
       <Typography />
       <Layout>
-        <h1>test</h1>
-        <p>test</p>
+        <Router>
+          <Switch>
+            <Route path='/'>
+              <Home />
+            </Route>
+          </Switch>
+        </Router>
       </Layout>
     </>
   )
