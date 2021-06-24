@@ -9,13 +9,17 @@ const GlobalStyles = createGlobalStyle`
     --light-yellow: #FFFDED;
     --light-orange: #FFF8ED;
   }
+  html {
+    height: 100vh;
+  }
   button {
     background: var(--navy);
     color: white;
     border: 0;
     padding: 12px 24px;
     cursor: pointer;
-    
+    text-transform: uppercase;
+    letter-spacing: 2px;
   }
 `
 
