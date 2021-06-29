@@ -2,21 +2,22 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { ReactComponent as IMDb} from '../assets/images/logos/imdb.svg'
 import metaCritic from '../assets/images/logos/meta-critic.svg'
-import fresh from '../assets/images/rotten-gas/fresh.png'
+import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
+import PropTypes from 'prop-types'
 
 const MediaCardStyles = styled.div`
   /* width: 48.45%; */
-  max-height: 275px;
+  /* max-height: 275px; */
   border: 1px solid #ededed;
   background: white;
   display: flex;
   .mediaPoster {
-    height: 100%;
-    width: 44.68%;
+    /* height: 100%; */
+    max-width: 44.68%;
     object-fit: cover;
   }
   .mediaInfo {
-    border-top: 3px solid var(--orange);
+    border-top: ${props => props.type === 'movie' ? '3px solid #FFB17A' : '3px solid #FCE762'};
     width: 100%;
     padding: 24px;
     display: flex;
@@ -38,6 +39,9 @@ const MediaCardStyles = styled.div`
       padding-bottom: 3px;
     }
   }
+  .mediaGenre {
+    font-size: 12px;
+  }
   .reviewIcon {
     height: 20px;
     margin-right: 6px;
@@ -54,9 +58,6 @@ const MediaCardStyles = styled.div`
         font-size: 12px;
       }
     }
-    .reviewCount {
-      font-size: 12px;
-    }
   }
   .rottenReviews {
     margin-top: 12px;
@@ -68,40 +69,54 @@ const MediaCardStyles = styled.div`
       object-fit: contain;
     }
   }
+  h3 {
+    max-height: 45px;
+    overflow: hidden;
+  }
 `
 
-const MediaCard = () => {
+const MediaCard = ({ singleMedia }) => {
   return(
-    <div style={{'display': 'flex', 'justifyContent': 'space-between'}}>
-      <MediaCardStyles>
-        <img className='mediaPoster' src="https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg" alt="" />
+    // <div style={{'display': 'flex', 'justifyContent': 'space-between'}}>
+    <div>
+      <MediaCardStyles type={singleMedia.Type}>
+        <img className='mediaPoster' src={singleMedia.Poster} alt="" />
         <div className='mediaInfo'>
           <div className='mediaMeta'>
             <Link to='/recommendations/inception' >
-              <h3>Inception</h3>
+              <h3>{singleMedia.Title}</h3>
             </Link>
-            <p>Film | 2020 | 119 min</p>
-            <p className="gray">Action, Drama, Thriller</p>
+            <p><span style={{'textTransform': 'capitalize'}}>{singleMedia.Type}</span> | {singleMedia.Year} | {singleMedia.Runtime}</p>
+            <p className="gray mediaGenre">{singleMedia.Genre}</p>
           </div>
           <div className='mediaRatings'>
             <div>
-              <IMDb height='20px' width='45px' /> 8.8<span>/10</span>
+              <IMDb height='20px' width='45px' /> {singleMedia.imdbRating}<span>/10</span>
             </div>
-            <div>
-              <img className='reviewIcon' src={metaCritic} alt="" /> 74<span>/100</span>
-            </div>
+            {singleMedia.Metascore !== 'N/A'  ? 
+              <div>
+                <img className='reviewIcon' src={metaCritic} alt="" /> {singleMedia.Metascore}<span>/100</span>
+              </div> : ''}
           </div>
           <div className='rottenReviews'>
-            <img src={fresh} alt="" />
+            <img 
+              src={
+                singleMedia.rottenAverage > 899 ? rottenIcons.certifiedGa 
+                  : singleMedia.rottenAverage > 599 ? rottenIcons.freshGa 
+                    : rottenIcons.rottenGa} alt="review score icon" />
             <div className='rottenScore'>
-              <p className='reviewScore'>567<span>/1000</span></p>
-              <p className='gray caps reviewCount'>2 Reviews</p>
+              <p className='reviewScore'> {singleMedia.rottenAverage}<span>/1000</span></p>
+              <small>{singleMedia.rottenCount} Reviews</small>
             </div>
           </div>
         </div>
       </ MediaCardStyles>
     </div>
   )
+}
+
+MediaCard.propTypes = {
+  singleMedia: PropTypes.object
 }
 
 export default MediaCard

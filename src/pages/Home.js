@@ -1,29 +1,20 @@
-import MediaCard from '../components/MediaCard'
 import { SectionStyles } from '../styles/styles'
-import styled from 'styled-components'
-
-const MediaGridStyles = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(470px, 1fr));
-  grid-gap: 30px;
-`
+import ReviewList from '../components/ReviewList'
+import MediaList from '../components/MediaList'
 
 const Home = () => {
   return(
     <>
       <SectionStyles>
         <section>
-          <MediaGridStyles >
-            <MediaCard />
-            <MediaCard />
-            <MediaCard />
-            <MediaCard />
-          </MediaGridStyles>
+          <h1 style={{'marginBottom': 24}}>Recent Recommendations</h1>
+          <MediaList />
         </section>
       </SectionStyles>
       <SectionStyles orange>
         <section>
-          <h2>Yes!!!</h2>
+          <h1 style={{'marginBottom': 24}}>Recent Reviews</h1>
+          <ReviewList />
         </section>
       </SectionStyles>
     </>

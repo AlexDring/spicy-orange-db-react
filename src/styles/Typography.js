@@ -9,6 +9,7 @@ const Typography = createGlobalStyle`
     font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', san-serif;
     color: var(--navy);
+    line-height: 1.5;
   }
   strong {
     font-weight: 700;
@@ -17,6 +18,12 @@ const Typography = createGlobalStyle`
     font-family: 'Lora', Georgia, Cambria, "Times New Roman", Times, serif;
     font-weight: 700;
     margin: 0;
+    line-height: 1.2;
+  }
+  small {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--gray)
   }
   a {
     text-decoration: none;
