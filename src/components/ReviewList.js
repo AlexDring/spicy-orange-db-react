@@ -32,8 +32,9 @@ const ReviewStyles = styled.div`
 
 const ReviewGridStyles = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   grid-gap: 24px;
+  align-items: baseline;
 `
 
 const reviews = [
@@ -106,7 +107,7 @@ const reviews = [
     'title': 'The Lord of the Rings: The Fellowship of the Ring',
     'poster': 'https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_SX300.jpg',
     'score': 923,
-    'review': 'niceeee123',
+    'review': 'Simply incredible. Never before have I seen a 3 hour movie that didn\'t seem like 3 hours. I read the Lord of the Rings very recently and I was surprised at how similar Peter Jackson\'s vision was to my own',
     '__v': 0
   }
 ]

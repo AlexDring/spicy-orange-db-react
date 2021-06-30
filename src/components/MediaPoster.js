@@ -5,13 +5,13 @@ import PropTypes from 'prop-types'
 
 const MediaPosterStyles = styled.div`
   /* width: 23.195%; */
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: 23.195%;
+  /* flex-grow: 1; */
+  /* flex-shrink: 1; */
+  /* flex-basis: 23.195%; */
   display: flex;
   flex-direction: column;
-  min-width: 215px;
-  max-width: 225px;
+  /* min-width: 215px; */
+  /* max-width: 225px; */
   .poster {
     width: 100%;
     object-fit: cover;
@@ -19,8 +19,17 @@ const MediaPosterStyles = styled.div`
   .rottenGas {
     display: flex;
     align-items: center;
-    border-top: 3px solid var(--yellow);
+    border-top: ${props => props.type === 'movie' ? '3px solid #FFB17A' : '3px solid #FCE762'};
     background: white;
+    @media (max-width: 500px) {
+      
+      small {
+        display: block;
+      }
+      p {
+        margin: 6px;
+      }
+    }
   }
   .rottenIcon {
     height: 30px;
@@ -33,10 +42,10 @@ const MediaPosterStyles = styled.div`
 `
 
 const MediaPoster = (props) => {
-  const { poster, rottenAverage, rottenCount } = props
+  const { poster, rottenAverage, rottenCount, type } = props
   console.log(props)
   return(
-    <MediaPosterStyles>
+    <MediaPosterStyles type={type}>
       <img className='poster' src={poster} alt="" />
       <div className='rottenGas'>
         <img className='rottenIcon' 
@@ -53,7 +62,8 @@ const MediaPoster = (props) => {
 MediaPoster.propTypes = {
   poster: PropTypes.string,
   rottenAverage: PropTypes.number,
-  rottenCount: PropTypes.number
+  rottenCount: PropTypes.number,
+  type: PropTypes.string,
 }
 
 export default MediaPoster

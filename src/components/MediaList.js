@@ -2,10 +2,20 @@ import styled from 'styled-components'
 import MediaCard from './MediaCard'
 import MediaPoster from './MediaPoster'
 
-const MediaGridStyles = styled.div`
+const MediaCardGridStyles = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(470px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   grid-gap: 30px;
+`
+
+const MediaPosterGridStyles = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  grid-gap: 15px;
+  margin-top: 30px;
 `
 
 const media = [
@@ -61,6 +71,22 @@ const media = [
     'mediaDetail': '60daf4aaf97f998c0e6e723c',
     'rottenAverage': 888,
     'rottenCount': 4,
+    '__v': 0
+  },
+  {
+    '_id': '60dc679bc26320d82eb3871a',
+    'Poster': 'https://m.media-amazon.com/images/M/MV5BZjUyMjQ0YmUtZWNmMi00NjE5LWJhNzctNDUxYWMwM2Y3NzhmXkEyXkFqcGdeQXVyMzM0MTEzMTg@._V1_SX300.jpg',
+    'Title': 'Time',
+    'Type': 'series',
+    'Year': '2021–',
+    'Runtime': 'N/A',
+    'Director': 'N/A',
+    'Genre': 'Crime, Drama',
+    'Language': 'English',
+    'Metascore': 'N/A',
+    'imdbRating': 'N/A',
+    'user': 'Dringer',
+    'mediaDetail': '60dc679bc26320d82eb38719',
     '__v': 0
   },
   {
@@ -135,27 +161,10 @@ const media = [
     'rottenCount': 4,
     '__v': 0
   },
-  {
-    '_id': '60dafa9ff97f998c0e6e7244',
-    'Poster': 'https://m.media-amazon.com/images/M/MV5BOTNjZDA2NDMtNzU3My00YWMzLWI4NDQtNDkyZGMzMzkyODA0XkEyXkFqcGdeQXVyNzU4ODEwNDI@._V1_SX300.jpg',
-    'Title': 'Mouthpiece',
-    'Type': 'movie',
-    'Year': '2018',
-    'Runtime': '91 min',
-    'Director': 'Patricia Rozema',
-    'Genre': 'Drama',
-    'Language': 'English',
-    'Metascore': '73',
-    'imdbRating': '6.4',
-    'user': 'Dringer',
-    'mediaDetail': '60dafa9ff97f998c0e6e723f',
-    'rottenAverage': 921,
-    'rottenCount': 4,
-    '__v': 0
-  },
+  
 ]
 
-const highlightedMedia = media.slice(0, 6)
+const highlightedMedia = media.slice(0, 4)
 const remainingMedia = media.slice(4)
 
 console.log(remainingMedia)
@@ -163,16 +172,25 @@ console.log(remainingMedia)
 const MediaList = () => {
   return(
     <>
-      <MediaGridStyles>
+      <MediaCardGridStyles>
         {highlightedMedia.map(singleMedia => (
-          <MediaCard key={singleMedia._id} singleMedia={singleMedia} />
+          <MediaCard 
+            key={singleMedia._id} 
+            singleMedia={singleMedia} />
         ))}
-      </MediaGridStyles>
-      <div style={{'display': 'flex', 'justifyContent': 'space-between', 'marginTop': 30, 'flexWrap': 'wrap'}}>
+      </MediaCardGridStyles>
+      {/* <div style={{'display': 'flex', 'justifyContent': 'space-between', 'marginTop': 30, 'flexWrap': 'wrap'}}> */}
+      <MediaPosterGridStyles>
         {remainingMedia.map(singleMedia => (
-          <MediaPoster key={singleMedia._id} poster={singleMedia.Poster} rottenAverage={singleMedia.rottenAverage} rottenCount={singleMedia.rottenCount} />
+          <MediaPoster 
+            key={singleMedia._id} 
+            poster={singleMedia.Poster} 
+            rottenAverage={singleMedia.rottenAverage} 
+            rottenCount={singleMedia.rottenCount}
+            type={singleMedia.Type} />
         ))}
-      </div>
+      </MediaPosterGridStyles>
+      {/* </div> */}
     </>
   )
 }

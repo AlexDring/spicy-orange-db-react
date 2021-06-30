@@ -11,6 +11,7 @@ const MediaCardStyles = styled.div`
   border: 1px solid #ededed;
   background: white;
   display: flex;
+  height: 100%;
   .mediaPoster {
     /* height: 100%; */
     max-width: 44.68%;
@@ -20,12 +21,20 @@ const MediaCardStyles = styled.div`
     border-top: ${props => props.type === 'movie' ? '3px solid #FFB17A' : '3px solid #FCE762'};
     width: 100%;
     padding: 24px;
+    @media (max-width: 500px) {
+      padding: 12px;
+    }
     display: flex;
     flex-direction: column;
     align-items: space-between;
   }
   .mediaMeta {
     margin-bottom: auto;
+    @media (max-width: 500px) {
+      p {
+        font-size: 14px;
+      }
+    }
   }
   .mediaRatings {
     display: flex;
@@ -33,7 +42,13 @@ const MediaCardStyles = styled.div`
     flex-wrap: wrap;
     div:first-child {
       margin-right: 24px;
+      @media (max-width: 500px) {
+        margin-right: 12px;
+      }
     }
+    @media (max-width: 500px) {
+        font-size: 14px;
+      }
     span {
       font-size: 12px;
       padding-bottom: 3px;
@@ -41,10 +56,16 @@ const MediaCardStyles = styled.div`
   }
   .mediaGenre {
     font-size: 12px;
+    @media (max-width: 376px) {
+      display: none;
+    }
   }
   .reviewIcon {
     height: 20px;
     margin-right: 6px;
+    @media (max-width: 500px) {
+        margin-right: 0;
+      }
   }
   .rottenScore {
     text-align: center;
@@ -70,7 +91,7 @@ const MediaCardStyles = styled.div`
     }
   }
   h3 {
-    max-height: 45px;
+    max-height: 46px;
     overflow: hidden;
   }
 `
@@ -90,9 +111,10 @@ const MediaCard = ({ singleMedia }) => {
             <p className="gray mediaGenre">{singleMedia.Genre}</p>
           </div>
           <div className='mediaRatings'>
-            <div>
-              <IMDb height='20px' width='45px' /> {singleMedia.imdbRating}<span>/10</span>
-            </div>
+            {singleMedia.imdbRating !== 'N/A' ?
+              <div>
+                <IMDb height='20px' width='45px' /> {singleMedia.imdbRating}<span>/10</span>
+              </div> : '' }
             {singleMedia.Metascore !== 'N/A'  ? 
               <div>
                 <img className='reviewIcon' src={metaCritic} alt="" /> {singleMedia.Metascore}<span>/100</span>
