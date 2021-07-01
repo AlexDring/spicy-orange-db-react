@@ -14,6 +14,7 @@ const GlobalStyles = createGlobalStyle`
   }
   ul {
     padding: 0;
+    list-style: none;
   }
   p {
     margin: 0;
