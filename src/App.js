@@ -5,6 +5,7 @@ import {
   Switch } from 'react-router-dom'
 import Layout from './components/Layout'
 import Home from './pages/Home'
+import Media from './pages/Media'
 import GlobalStyles from './styles/GlobalStyles'
 import Typography from './styles/Typography'
 
@@ -16,6 +17,9 @@ function App() {
       <Layout>
         <Router>
           <Switch>
+            <Route path='/media'>
+              <Media />
+            </Route>
             <Route path='/'>
               <Home />
             </Route>

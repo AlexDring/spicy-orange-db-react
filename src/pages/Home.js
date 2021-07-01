@@ -7,13 +7,13 @@ const Home = () => {
     <>
       <SectionStyles>
         <section>
-          <h1 style={{'marginBottom': 24}}>Recent Recommendations</h1>
+          <h1>Recent Recommendations</h1>
           <MediaList />
         </section>
       </SectionStyles>
       <SectionStyles orange>
         <section>
-          <h1 style={{'marginBottom': 24}}>Recent Reviews</h1>
+          <h1>Recent Reviews</h1>
           <ReviewList />
         </section>
       </SectionStyles>

@@ -12,6 +12,12 @@ const GlobalStyles = createGlobalStyle`
   html {
     height: 100vh;
   }
+  ul {
+    padding: 0;
+  }
+  p {
+    margin: 0;
+  }
   button {
     background: var(--navy);
     color: white;

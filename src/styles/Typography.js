@@ -20,6 +20,9 @@ const Typography = createGlobalStyle`
     margin: 0;
     line-height: 1.2;
   }
+  h1 {
+    margin-bottom: 24px;
+  }
   small {
     font-size: 12px;
     text-transform: uppercase;
