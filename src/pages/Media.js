@@ -1,6 +1,8 @@
 import { SectionStyles } from '../styles/styles'
 import MediaDetail from '../components/MediaDetail'
+import ReviewGridStyles from '../styles/Grids'
 import styled from 'styled-components'
+import Review from '../components/Review'
 
 const inception = {
   '_id': '60ba24a46960ba215ceabb99',
@@ -76,6 +78,8 @@ const inception = {
   'rottenCount': 3
 }
 
+inception.mediaDetail.rottenReviews.map(review => console.log(review.score, review.review, review.user))
+
 const MediaInformationWrapper = styled.section`
   padding: 0;
   h2 {
@@ -128,7 +132,12 @@ const Media = () => {
       </NewSectionStyles>
       <SectionStyles orange>
         <section>
-          <div>Reviews</div>
+          <h2>Rotten Ga&apos;s</h2>
+          <ReviewGridStyles>
+            {inception.mediaDetail.rottenReviews.map(review => (
+              <Review large='false' key={review._id} review={review} />
+            ))}
+          </ReviewGridStyles>
         </section>
       </SectionStyles>
     </> 

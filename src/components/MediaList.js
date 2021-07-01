@@ -167,8 +167,6 @@ const media = [
 const highlightedMedia = media.slice(0, 4)
 const remainingMedia = media.slice(4)
 
-console.log(remainingMedia)
-
 const MediaList = () => {
   return(
     <>
@@ -179,7 +177,6 @@ const MediaList = () => {
             singleMedia={singleMedia} />
         ))}
       </MediaCardGridStyles>
-      {/* <div style={{'display': 'flex', 'justifyContent': 'space-between', 'marginTop': 30, 'flexWrap': 'wrap'}}> */}
       <MediaPosterGridStyles>
         {remainingMedia.map(singleMedia => (
           <MediaPoster 
@@ -190,7 +187,6 @@ const MediaList = () => {
             type={singleMedia.Type} />
         ))}
       </MediaPosterGridStyles>
-      {/* </div> */}
     </>
   )
 }
