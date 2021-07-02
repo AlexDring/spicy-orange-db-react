@@ -9,6 +9,9 @@ const ModalStyles = styled.div`
   transform: translate(-50%, -50%);
   transition: bottom 0.3s ease-out;
   z-index: 10;
+  @media (max-width: 500px) {
+    width: 100%;
+  }
   > button {
     position: absolute;
     right: 6px;

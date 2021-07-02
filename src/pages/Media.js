@@ -112,6 +112,9 @@ const RottenReviewStles = styled.div`
   text-align: center;
   background: var(--light-orange);
   position: relative;
+  @media (max-width: 500px) {
+    width: auto;
+  }
   img {
     width: 140px;
     position: absolute;
