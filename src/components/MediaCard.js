@@ -104,7 +104,7 @@ const MediaCard = ({ singleMedia }) => {
         <img className='mediaPoster' src={singleMedia.Poster} alt="" />
         <div className='mediaInfo'>
           <div className='mediaMeta'>
-            <Link to='/recommendations/inception' >
+            <Link to='/media' >
               <h3>{singleMedia.Title}</h3>
             </Link>
             <p><span style={{'textTransform': 'capitalize'}}>{singleMedia.Type}</span> | {singleMedia.Year} | {singleMedia.Runtime}</p>

@@ -12,6 +12,13 @@ const GlobalStyles = createGlobalStyle`
   html {
     height: 100vh;
   }
+  ul {
+    padding: 0;
+    list-style: none;
+  }
+  p {
+    margin: 0;
+  }
   button {
     background: var(--navy);
     color: white;
@@ -20,6 +27,19 @@ const GlobalStyles = createGlobalStyle`
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 2px;
+    &.minimal {
+      background: none;
+      color: var(--navy);
+    }
+  }
+  input, textarea {
+    padding: 12px;
+    border-radius: 3px;
+    border: 1px solid #ededed;
+    :focus {
+      outline: none !important;
+      border: 1px solid var(--orange);
+    }
   }
 `
 

@@ -1,41 +1,5 @@
-import styled from 'styled-components'
-import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
-import avatar from '../assets/images/avatar.png'
-import PropTypes from 'prop-types'
-
-const ReviewStyles = styled.div`
-  display: grid;
-  grid-template-columns: 70px 1fr;
-  grid-column-gap: 12px;
-  border-bottom: 1px solid #ededed;
-  margin-bottom: 12px;
-  padding-bottom: 12px;
-  .mediaPoster {
-    width: 100%;
-  }
-  .mediaScore {
-    display: flex;
-    align-items: center;
-    font-size: 0.9em;
-    > * {
-      margin-right: 6px
-    }
-  }
-  .mediaTitle {
-    display: inline;
-    margin-right: 6;
-  }
-  .mediaReview {
-    grid-column: 1 / -1;
-  }
-`
-
-const ReviewGridStyles = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  grid-gap: 24px;
-  align-items: baseline;
-`
+import ReviewGridStyles from '../styles/Grids'
+import Review from './Review'
 
 const reviews = [
   {
@@ -112,45 +76,14 @@ const reviews = [
   }
 ]
 
-const SingleReview = (props) => {
-  const { review  } = props
-  console.log(props)
-  return(
-    <ReviewStyles>
-      <img className='mediaPoster' src={review.poster} alt="" />
-      <div className='mediaMeta'>
-        <div className='mediaScore'>
-          <img height="25" 
-            src={avatar}
-            alt="Logged in users avatar" />
-          <p>{review.user}</p>
-          <img height="25" 
-            src={
-              review.score > 899 ? rottenIcons.certifiedGa 
-                : review.score > 599 ? rottenIcons.freshGa 
-                  : rottenIcons.rottenGa} 
-            alt="review score icon" />
-          <p>{review.score}/1000</p>
-        </div>
-        <h2 className='mediaTitle'>{review.title}</h2><small>{review.year}</small>
-      </div>
-      <p className='mediaReview'>{review.review}</p>
-    </ReviewStyles>
-  )
-}
-
 const ReviewList = () => {
   return(
     <ReviewGridStyles>
       {reviews.map(review => (
-        <SingleReview key={review._id} review={review} />
+        <Review large='true' key={review._id} review={review} />
       ))}
     </ReviewGridStyles>
   )
-}
-
-SingleReview.propTypes = {
-  review: PropTypes.object
 }
 
 export default ReviewList
