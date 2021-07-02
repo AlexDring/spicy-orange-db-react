@@ -35,7 +35,6 @@ const OverlayStyles = styled.div`
 
 const Modal = (props) => {
   const { children, displayModal, setDisplayModal } = props
-  console.log(props)
   return(
     <>
       {displayModal && 
@@ -51,7 +50,7 @@ const Modal = (props) => {
 }
 
 Modal.propTypes = {
-  displayModal: PropTypes.boolean,
+  displayModal: PropTypes.bool,
   setDisplayModal: PropTypes.func,
   children: PropTypes.node.isRequired
 }

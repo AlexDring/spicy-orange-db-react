@@ -240,7 +240,7 @@ const MediaDetail = (props) => {
 
 MediaDetail.propTypes = {
   media: PropTypes.object,
-  displayModal: PropTypes.boolean,
+  displayModal: PropTypes.bool,
   setDisplayModal: PropTypes.func,
 }
 
