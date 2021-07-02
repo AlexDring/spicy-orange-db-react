@@ -1,8 +1,11 @@
+import { useState } from 'react'
 import { SectionStyles } from '../styles/styles'
 import MediaDetail from '../components/MediaDetail'
 import ReviewGridStyles from '../styles/Grids'
 import styled from 'styled-components'
 import Review from '../components/Review'
+import Modal from '../components/Modal'
+import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 
 const inception = {
   '_id': '60ba24a46960ba215ceabb99',
@@ -78,13 +81,8 @@ const inception = {
   'rottenCount': 3
 }
 
-inception.mediaDetail.rottenReviews.map(review => console.log(review.score, review.review, review.user))
-
 const MediaInformationWrapper = styled.section`
   padding: 0;
-  h2 {
-    margin-bottom: 12px;
-  }
   p {
     max-width: 750px;
   }
@@ -108,12 +106,57 @@ const NewSectionStyles = styled(SectionStyles)`
   }
 `
 
+const RottenReviewStles = styled.div`
+  padding: 75px 24px 24px;
+  width: 550px;
+  text-align: center;
+  background: var(--light-orange);
+  position: relative;
+  img {
+    width: 140px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  textarea {
+    width: 80%;
+  }
+  input {
+    width: 100px;
+    margin-bottom: 24px;
+    font-size: 36px;
+  }
+  div:last-child {
+    text-align: right;
+    margin: 24px 0 auto;
+  }
+`
+
 const Media = () => {
+  const [displayModal, setDisplayModal] = useState(false)
   return (
     <>
       <SectionStyles>
         <section>
-          <MediaDetail media={inception} />
+          <Modal displayModal={displayModal} setDisplayModal={setDisplayModal} >
+            <RottenReviewStles>
+              <img src={rottenIcons.certifiedGa} alt="" />
+              <small>You Rating</small>
+              <h1>{inception.Title}</h1>
+              <div>
+                <input type="number" min="1" max="1000" /> /1000 
+              </div>
+              <textarea placeholder="Review (Optional)" rows="8" />
+              <div>
+                <button className='minimal'>Delete</button><button>Save</button>
+              </div>
+            </RottenReviewStles>
+          </Modal>
+          <MediaDetail 
+            displayModal={displayModal} 
+            setDisplayModal={setDisplayModal} 
+            media={inception} />
         </section>
       </SectionStyles>
       <NewSectionStyles>
@@ -130,7 +173,7 @@ const Media = () => {
           </MediaInformation>
         </MediaInformationWrapper>
       </NewSectionStyles>
-      <SectionStyles orange>
+      <SectionStyles id='rottenGas' orange>
         <section>
           <h2>Rotten Ga&apos;s</h2>
           <ReviewGridStyles>

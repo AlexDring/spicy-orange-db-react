@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 import metaCritic from '../assets/images/logos/meta-critic.svg'
+import { HashLink } from 'react-router-hash-link'
 
 // const MediaContainer = styled.div`
 //   display: grid;
@@ -119,6 +120,7 @@ const RottenScore = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   small {
     margin-bottom: 6px;
   }
@@ -157,7 +159,7 @@ const ExternalReviewsWrapper = styled.ul`
 
 
 const MediaDetail = (props) => {
-  const { media } = props
+  const { displayModal, setDisplayModal, media } = props
   return(
     <>
       {/* <MediaContainer>
@@ -203,16 +205,18 @@ const MediaDetail = (props) => {
           <p><span style={{'textTransform': 'capitalize'}}>{media.Type}</span> | {media.Year} | {media.Runtime}</p>
         </MediaMeta>
         <RottenWrapper>
-          <RottenScore>
-            <small>Rotten Ga&apos;s</small>
-            <img src={rottenIcons.freshGa} alt="" />
-            <div>{media.rottenAverage}/1000</div>
-          </RottenScore>
-          <RottenScore>
+          <HashLink to='/media/#rottenGas'>
+            <RottenScore>
+              <small>Rotten Ga&apos;s Total</small>
+              <img src={rottenIcons.freshGa} alt="" />
+              <div>{media.rottenAverage}/1000</div>
+              <small>{media.rottenCount} Reviews</small>
+            </RottenScore>
+          </HashLink>
+          <RottenScore onClick={() => setDisplayModal(!displayModal)}>
             <small>Your Rating</small>
             <img src={rottenIcons.certifiedGa} alt="" />
             <div>{media.mediaDetail.rottenReviews[0].score}/1000</div>
-            <small>{media.rottenCount} Reviews</small>
           </RottenScore>
         </RottenWrapper>
         <ExternalReviewsWrapper>
@@ -235,7 +239,9 @@ const MediaDetail = (props) => {
 }
 
 MediaDetail.propTypes = {
-  media: PropTypes.object
+  media: PropTypes.object,
+  displayModal: PropTypes.boolean,
+  setDisplayModal: PropTypes.func,
 }
 
 export default MediaDetail

@@ -27,6 +27,19 @@ const GlobalStyles = createGlobalStyle`
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 2px;
+    &.minimal {
+      background: none;
+      color: var(--navy);
+    }
+  }
+  input, textarea {
+    padding: 12px;
+    border-radius: 3px;
+    border: 1px solid #ededed;
+    :focus {
+      outline: none !important;
+      border: 1px solid var(--orange);
+    }
   }
 `
 

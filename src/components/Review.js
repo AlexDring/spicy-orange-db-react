@@ -35,7 +35,6 @@ const MediaScore = styled.div`
 
 const Review = (props) => {
   const { large, review } = props
-  console.log('reviews', props)
   return(
     <ReviewStyles large={large}>
       {large  === 'true' && <img src={review.poster} alt="" />}
