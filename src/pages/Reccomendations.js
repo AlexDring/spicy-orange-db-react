@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 /* eslint-disable react/jsx-key */
-import { useMemo } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { useTable } from 'react-table'
 import { SectionStyles } from '../styles/styles'
 import { Link } from 'react-router-dom'
@@ -57,6 +57,44 @@ const TableStyles = styled.table`
 
 
 const Recommendations = () => {
+  const size = useWindowSize()
+
+  function useWindowSize() {
+    // Initialize state with undefined width/height so server and client renders match
+    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+    const [windowSize, setWindowSize] = useState({
+      width: undefined,
+      height: undefined,
+    })
+  
+    useEffect(() => {
+      // Handler to call on window resize
+      function handleResize() {
+        // Set window width/height to state
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        })
+      }
+  
+      // Add event listener
+      window.addEventListener('resize', handleResize)
+  
+      // Call handler right away so state gets updated with initial window size
+      handleResize()
+  
+      // Remove event listener on cleanup
+      return () => window.removeEventListener('resize', handleResize)
+    }, []) // Empty array ensures that effect is only run on mount
+  
+    return windowSize
+  }
+  
+  console.log(size)
+  // let hiddenColumns = []
+  
+  // console.log(hiddenColumns)
+ 
   const media = useMemo(
     () => [
       {
@@ -225,7 +263,7 @@ const Recommendations = () => {
                 <p><small>Director: {row.row.original.Director}</small></p> */}
                 <p>
                   {row.row.original.imdbRating !== 'N/A' && <small>IMDb: {row.row.original.imdbRating}/10 </small>}
-                  {row.row.original.Metascore !== 'N/A' && <small>MetaCritic: {row.row.original.Metascore}/100</small>}
+                  {row.row.original.Metascore !== 'N/A' && <small>• MetaCritic: {row.row.original.Metascore}/100</small>}
                 </p>
               </div>
             </div>
@@ -239,7 +277,7 @@ const Recommendations = () => {
       {
         Header: 'Genre',
         accessor: 'Genre',
-        Cell: row => (   <small>{row.row.original.Genre}</small> )
+        Cell: row => (   <small>{row.row.original.Genre}</small> ),
       },
       // {
       //   Header: 'Ratings',
@@ -258,7 +296,7 @@ const Recommendations = () => {
         Cell: row => {
           return(
             <div style={{'textAlign': 'center'}}>
-              {row.row.original.rottenAverage && <img width={20} src={row.row.original.rottenAverage > 899 ? rottenIcons.certifiedGa 
+              {row.row.original.rottenAverage && <img width={25} src={row.row.original.rottenAverage > 899 ? rottenIcons.certifiedGa 
                 : row.row.original.rottenAverage > 599 ? rottenIcons.freshGa 
                   : rottenIcons.rottenGa} alt="" />}
               {row.row.original.rottenAverage && <div>{row.row.original.rottenAverage}/1000</div>}
@@ -269,17 +307,30 @@ const Recommendations = () => {
       }
     ], [])
 
+  // console.log(size.width < 500)
+  // let hiddenColumns = []
+
+  // if(size.width < 501) {
+  //   hiddenColumns = ['Genre']
+  // }
+
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     rows,
     prepareRow,
+    setHiddenColumns
   } = useTable({ 
     columns, 
-    data: media, 
+    data: media,
   })
 
+  useEffect(() => {
+    console.log('runs')
+    setHiddenColumns(size.width < 501 ? ['Genre'] : [])
+  }, [size.width < 501])
+  
   return(
     <>
       <SectionStyles>
