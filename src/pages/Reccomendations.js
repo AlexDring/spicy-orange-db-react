@@ -3,9 +3,11 @@
 import { useMemo } from 'react'
 import { useTable } from 'react-table'
 import { SectionStyles } from '../styles/styles'
-import imdb from '../assets/images/logos/imdb.jpg'
-import meta from '../assets/images/logos/meta-critic.svg'
+import { Link } from 'react-router-dom'
+// import imdb from '../assets/images/logos/imdb.jpg'
+// import meta from '../assets/images/logos/meta-critic.svg'
 import styled from 'styled-components'
+import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 
 const TableStyles = styled.table`
   background: white;
@@ -13,6 +15,12 @@ const TableStyles = styled.table`
   border: 1px solid var(--light-gray);
   text-align: left;
   border-collapse: collapse; 
+  width: 100%;
+  tr {
+    :hover {
+      background: #f7f7f7;
+    }
+  }
   th { 
     padding: 12px;
     font-family: 'lora';
@@ -22,7 +30,17 @@ const TableStyles = styled.table`
   td {
     padding: 16px;
     border-bottom: 1px solid var(--light-gray);
-    /* border-right: 1px solid var(--light-gray); */
+    :first-child {
+      img {
+        max-width: 50px;
+        height: 70px;
+        margin-right: 12px;
+        object-fit: cover;
+        @media (max-width: 500px) {
+          display: none;
+        }
+      }
+    }
     h4 {
       display: inline;
     }
@@ -31,6 +49,9 @@ const TableStyles = styled.table`
       /* border-right: 0; */
       /* border-bottom: 0; */
     }
+  }
+  thead {
+    border-left: 3px solid var(--light-gray);
   }
 `
 
@@ -127,24 +148,24 @@ const Recommendations = () => {
         rottenCount: 4,
         __v: 0
       },
-      {
-        _id: '60dafb42f97f998c0e6e7248',
-        Poster: 'https://m.media-amazon.com/images/M/MV5BMTk0MTQ3NDQ4Ml5BMl5BanBnXkFtZTcwOTQ3OTQzMw@@._V1_SX300.jpg',
-        Title: 'Borat: Cultural Learnings of America for Make Benefit Glorious Nation of Kazakhstan',
-        Type: 'movie',
-        Year: '2006',
-        Runtime: '84 min',
-        Director: 'Larry Charles',
-        Genre: 'Comedy',
-        Language: 'English, Romanian, Hebrew, Polish, Armenian',
-        Metascore: '89',
-        imdbRating: '7.3',
-        user: 'Dringer',
-        mediaDetail: '60dafb42f97f998c0e6e7244',
-        rottenAverage: 589,
-        rottenCount: 4,
-        __v: 0
-      },
+      // {
+      //   _id: '60dafb42f97f998c0e6e7248',
+      //   Poster: 'https://m.media-amazon.com/images/M/MV5BMTk0MTQ3NDQ4Ml5BMl5BanBnXkFtZTcwOTQ3OTQzMw@@._V1_SX300.jpg',
+      //   Title: 'Borat: Cultural Learnings of America for Make Benefit Glorious Nation of Kazakhstan',
+      //   Type: 'movie',
+      //   Year: '2006',
+      //   Runtime: '84 min',
+      //   Director: 'Larry Charles',
+      //   Genre: 'Comedy',
+      //   Language: 'English, Romanian, Hebrew, Polish, Armenian',
+      //   Metascore: '89',
+      //   imdbRating: '7.3',
+      //   user: 'Dringer',
+      //   mediaDetail: '60dafb42f97f998c0e6e7244',
+      //   rottenAverage: 589,
+      //   rottenCount: 4,
+      //   __v: 0
+      // },
       {
         _id: '60dafa9ff97f998c0e6e7244',
         Poster: 'https://m.media-amazon.com/images/M/MV5BOTNjZDA2NDMtNzU3My00YWMzLWI4NDQtNDkyZGMzMzkyODA0XkEyXkFqcGdeQXVyNzU4ODEwNDI@._V1_SX300.jpg',
@@ -187,55 +208,62 @@ const Recommendations = () => {
   const columns = useMemo(
     () => [
       {
-        Header: 'Poster',
-        Cell: row => {
-          return(
-            <img width="60" height="90px" src={row.row.original.Poster} alt="" />
-          )
-        }
-      },
-      {
         Header: 'Title',
         // accessor: 'Title',
         Cell: row => {
           return(
-            <div type={row.row.original.Type}>
-              <h4>{row.row.original.Title}</h4><small> • {row.row.original.Year}</small>
-              {row.row.original.Runtime !== 'N/A' &&  <small> • {row.row.original.Runtime}</small> }
-              {row.row.original.totalSeasons &&  <small> • {row.row.original.totalSeasons} Season</small> }
-              <p><small>{row.row.original.Genre}</small></p>
+            <div style={{'display': 'flex', 'alignItems': 'center'}}>
+              <img src={row.row.original.Poster} alt="" />
+              <div type={row.row.original.Type}>
+                <Link to='/media'>
+                  <h4>{row.row.original.Title}</h4>
+                </Link> 
+                <small> • {row.row.original.Year}</small>
+                {row.row.original.Runtime !== 'N/A' &&  <small> • {row.row.original.Runtime}</small> }
+                {row.row.original.totalSeasons &&  <small> • {row.row.original.totalSeasons} Season</small> }
+                {/* <p><small>{row.row.original.Genre}</small></p>
+                <p><small>Director: {row.row.original.Director}</small></p> */}
+                <p>
+                  {row.row.original.imdbRating !== 'N/A' && <small>IMDb: {row.row.original.imdbRating}/10 </small>}
+                  {row.row.original.Metascore !== 'N/A' && <small>MetaCritic: {row.row.original.Metascore}/100</small>}
+                </p>
+              </div>
             </div>
           )
         }
       },
-      {
-        Header: 'Director',
-        accessor: 'Director',
-      },
       // {
-      //   Header: 'Genre',
-      //   accessor: 'Genre',
+      //   Header: 'Director',
+      //   accessor: 'Director',
       // },
       {
-        Header: 'Ratings',
-        // accessor: 'Metascore',
-        Cell: row => {
-          return(
-            <>
-              {row.row.original.imdbRating !== 'N/A' && <div><img width="30" src={imdb} alt="" /> <span>{row.row.original.imdbRating}/10</span></div>}
-              {row.row.original.Metascore !== 'N/A' && <div><img wiwth="20" src={meta} alt="" /> <span>{row.row.original.Metascore}/10</span></div>}
-            </>
-          )
-        }
+        Header: 'Genre',
+        accessor: 'Genre',
+        Cell: row => (   <small>{row.row.original.Genre}</small> )
       },
+      // {
+      //   Header: 'Ratings',
+      //   // accessor: 'Metascore',
+      //   Cell: row => {
+      //     return(
+      //       <>
+      //         {row.row.original.imdbRating !== 'N/A' && <div><img width="30" src={imdb} alt="" /> <span>{row.row.original.imdbRating}/10</span></div>}
+      //         {row.row.original.Metascore !== 'N/A' && <div><img wiwth="20" src={meta} alt="" /> <span>{row.row.original.Metascore}/10</span></div>}
+      //       </>
+      //     )
+      //   }
+      // },
       {
         Header: 'Rotten Ga\'s',
         Cell: row => {
           return(
-            <>
+            <div style={{'textAlign': 'center'}}>
+              {row.row.original.rottenAverage && <img width={20} src={row.row.original.rottenAverage > 899 ? rottenIcons.certifiedGa 
+                : row.row.original.rottenAverage > 599 ? rottenIcons.freshGa 
+                  : rottenIcons.rottenGa} alt="" />}
               {row.row.original.rottenAverage && <div>{row.row.original.rottenAverage}/1000</div>}
               {row.row.original.rottenAverage ? <small>{row.row.original.rottenCount} Reviews</small> : <small>No Reviews</small>}
-            </>
+            </div>
           )
         },
       }
@@ -247,7 +275,10 @@ const Recommendations = () => {
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({ columns, data: media })
+  } = useTable({ 
+    columns, 
+    data: media, 
+  })
 
   return(
     <>
