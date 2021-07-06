@@ -88,7 +88,7 @@ const MediaInformationWrapper = styled.section`
   }
 `
 
-const MediaInformation = styled.ul`
+const MediaInformationStyles = styled.ul`
   li {
     margin-bottom: 16px;
   }
@@ -96,7 +96,11 @@ const MediaInformation = styled.ul`
     font-weight: 700;
     text-transform: uppercase;
     width: 150px;
-    display: inline-block;
+    float: left;
+    display: block;
+  }
+  div { 
+    overflow: hidden;
   }
 `
 
@@ -144,7 +148,7 @@ const Media = () => {
         <section>
           <Modal displayModal={displayModal} setDisplayModal={setDisplayModal} >
             <RottenReviewStles>
-              <img src={rottenIcons.certifiedGa} alt="" />
+              <img src={rottenIcons.noReview} alt="" />
               <small>You Rating</small>
               <h1>{inception.Title}</h1>
               <div>
@@ -166,14 +170,14 @@ const Media = () => {
         <MediaInformationWrapper>
           <h2>{inception.Title} Information</h2>
           <p>{inception.mediaDetail.Plot}</p>
-          <MediaInformation>
-            <li><span>Director</span>{inception.Director}</li>
-            <li><span>Writer</span>{inception.mediaDetail.Writer}</li>
-            <li><span>Cast</span>{inception.mediaDetail.Actors}</li>
-            <li><span>Production</span>{inception.mediaDetail.Production}</li>
-            <li><span>Awards</span>{inception.mediaDetail.Awards}</li>
-            <li><span>BoxOffice</span>{inception.mediaDetail.BoxOffice}</li>
-          </MediaInformation>
+          <MediaInformationStyles>
+            <li><span>Director</span><div>{inception.Director}</div></li>
+            <li><span>Writer</span><div>{inception.mediaDetail.Writer}</div></li>
+            <li><span>Cast</span><div>{inception.mediaDetail.Actors}</div></li>
+            <li><span>Production</span><div>{inception.mediaDetail.Production}</div></li>
+            <li><span>Awards</span><div>{inception.mediaDetail.Awards}</div></li>
+            <li><span>BoxOffice</span><div>{inception.mediaDetail.BoxOffice}</div></li>
+          </MediaInformationStyles>
         </MediaInformationWrapper>
       </NewSectionStyles>
       <SectionStyles id='rottenGas' orange>
