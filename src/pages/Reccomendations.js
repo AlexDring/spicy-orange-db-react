@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom'
 // import meta from '../assets/images/logos/meta-critic.svg'
 import styled from 'styled-components'
 import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
+import Modal from '../components/Modal'
+import MediaInformationList from '../components/MediaInformationList'
 
 const TableStyles = styled.table`
   background: white;
@@ -57,6 +59,7 @@ const TableStyles = styled.table`
 
 
 const Recommendations = () => {
+  const [displayModal, setDisplayModal] = useState(false) 
   const size = useWindowSize()
 
   function useWindowSize() {
@@ -89,11 +92,6 @@ const Recommendations = () => {
   
     return windowSize
   }
-  
-  console.log(size)
-  // let hiddenColumns = []
-  
-  // console.log(hiddenColumns)
  
   const media = useMemo(
     () => [
@@ -186,24 +184,24 @@ const Recommendations = () => {
         rottenCount: 4,
         __v: 0
       },
-      // {
-      //   _id: '60dafb42f97f998c0e6e7248',
-      //   Poster: 'https://m.media-amazon.com/images/M/MV5BMTk0MTQ3NDQ4Ml5BMl5BanBnXkFtZTcwOTQ3OTQzMw@@._V1_SX300.jpg',
-      //   Title: 'Borat: Cultural Learnings of America for Make Benefit Glorious Nation of Kazakhstan',
-      //   Type: 'movie',
-      //   Year: '2006',
-      //   Runtime: '84 min',
-      //   Director: 'Larry Charles',
-      //   Genre: 'Comedy',
-      //   Language: 'English, Romanian, Hebrew, Polish, Armenian',
-      //   Metascore: '89',
-      //   imdbRating: '7.3',
-      //   user: 'Dringer',
-      //   mediaDetail: '60dafb42f97f998c0e6e7244',
-      //   rottenAverage: 589,
-      //   rottenCount: 4,
-      //   __v: 0
-      // },
+      {
+        _id: '60dafb42f97f998c0e6e7248',
+        Poster: 'https://m.media-amazon.com/images/M/MV5BMTk0MTQ3NDQ4Ml5BMl5BanBnXkFtZTcwOTQ3OTQzMw@@._V1_SX300.jpg',
+        Title: 'Borat: Cultural Learnings of America for Make Benefit Glorious Nation of Kazakhstan',
+        Type: 'movie',
+        Year: '2006',
+        Runtime: '84 min',
+        Director: 'Larry Charles',
+        Genre: 'Comedy',
+        Language: 'English, Romanian, Hebrew, Polish, Armenian',
+        Metascore: '89',
+        imdbRating: '7.3',
+        user: 'Dringer',
+        mediaDetail: '60dafb42f97f998c0e6e7244',
+        rottenAverage: 589,
+        rottenCount: 4,
+        __v: 0
+      },
       {
         _id: '60dafa9ff97f998c0e6e7244',
         Poster: 'https://m.media-amazon.com/images/M/MV5BOTNjZDA2NDMtNzU3My00YWMzLWI4NDQtNDkyZGMzMzkyODA0XkEyXkFqcGdeQXVyNzU4ODEwNDI@._V1_SX300.jpg',
@@ -258,7 +256,7 @@ const Recommendations = () => {
                 </Link> 
                 <small> • {row.row.original.Year}</small>
                 {row.row.original.Runtime !== 'N/A' &&  <small> • {row.row.original.Runtime}</small> }
-                {row.row.original.totalSeasons &&  <small> • {row.row.original.totalSeasons} Season</small> }
+                {row.row.original.totalSeasons && <small> • {row.row.original.totalSeasons} Season</small> }
                 {/* <p><small>{row.row.original.Genre}</small></p>
                 <p><small>Director: {row.row.original.Director}</small></p> */}
                 <p>
@@ -307,12 +305,6 @@ const Recommendations = () => {
       }
     ], [])
 
-  // console.log(size.width < 500)
-  // let hiddenColumns = []
-
-  // if(size.width < 501) {
-  //   hiddenColumns = ['Genre']
-  // }
 
   const {
     getTableProps,
@@ -327,7 +319,6 @@ const Recommendations = () => {
   })
 
   useEffect(() => {
-    console.log('runs')
     setHiddenColumns(size.width < 501 ? ['Genre'] : [])
   }, [size.width < 501])
   
@@ -336,6 +327,10 @@ const Recommendations = () => {
       <SectionStyles>
         <section>
           <h1>Recommendations</h1>
+          <button onClick={() => setDisplayModal(!displayModal)}></button>
+          <Modal displayModal={displayModal} setDisplayModal={setDisplayModal} >
+            <MediaInformationList />
+          </Modal>
           <TableStyles {...getTableProps()}>
             <thead>
               {// Loop over the header rows

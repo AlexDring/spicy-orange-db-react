@@ -15,8 +15,8 @@ function App() {
     <>
       <GlobalStyles />
       <Typography />
-      <Layout>
-        <Router>
+      <Router>
+        <Layout>
           <Switch>
             <Route path='/media'>
               <Media />
@@ -28,8 +28,8 @@ function App() {
               <Home />
             </Route>
           </Switch>
-        </Router>
-      </Layout>
+        </Layout>
+      </Router>
     </>
   )
 }
