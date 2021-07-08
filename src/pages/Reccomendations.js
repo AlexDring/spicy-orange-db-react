@@ -1,9 +1,10 @@
-/* eslint-disable react/display-name */
 /* eslint-disable react/jsx-key */
+/* eslint-disable react/display-name */
 import { useMemo, useState, useEffect } from 'react'
 import { useTable } from 'react-table'
 import { SectionStyles } from '../styles/styles'
 import { Link } from 'react-router-dom'
+import { useWindowSize } from '../hooks'
 import styled from 'styled-components'
 import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 import Modal from '../components/Modal'
@@ -55,41 +56,9 @@ const TableStyles = styled.table`
   }
 `
 
-
 const Recommendations = () => {
   const [displayModal, setDisplayModal] = useState(false) 
   const size = useWindowSize()
-
-  function useWindowSize() {
-    // Initialize state with undefined width/height so server and client renders match
-    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
-    const [windowSize, setWindowSize] = useState({
-      width: undefined,
-      height: undefined,
-    })
-  
-    useEffect(() => {
-      // Handler to call on window resize
-      function handleResize() {
-        // Set window width/height to state
-        setWindowSize({
-          width: window.innerWidth,
-          height: window.innerHeight,
-        })
-      }
-  
-      // Add event listener
-      window.addEventListener('resize', handleResize)
-  
-      // Call handler right away so state gets updated with initial window size
-      handleResize()
-  
-      // Remove event listener on cleanup
-      return () => window.removeEventListener('resize', handleResize)
-    }, []) // Empty array ensures that effect is only run on mount
-  
-    return windowSize
-  }
  
   const media = useMemo(
     () => [
@@ -266,27 +235,11 @@ const Recommendations = () => {
           )
         }
       },
-      // {
-      //   Header: 'Director',
-      //   accessor: 'Director',
-      // },
       {
         Header: 'Genre',
         accessor: 'Genre',
         Cell: row => (   <small>{row.row.original.Genre}</small> ),
       },
-      // {
-      //   Header: 'Ratings',
-      //   // accessor: 'Metascore',
-      //   Cell: row => {
-      //     return(
-      //       <>
-      //         {row.row.original.imdbRating !== 'N/A' && <div><img width="30" src={imdb} alt="" /> <span>{row.row.original.imdbRating}/10</span></div>}
-      //         {row.row.original.Metascore !== 'N/A' && <div><img wiwth="20" src={meta} alt="" /> <span>{row.row.original.Metascore}/10</span></div>}
-      //       </>
-      //     )
-      //   }
-      // },
       {
         Header: 'Rotten Ga\'s',
         Cell: row => {

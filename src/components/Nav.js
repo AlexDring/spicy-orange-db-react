@@ -26,7 +26,6 @@ const NavStyles = styled.nav`
     align-items: center;
     width: 100%;
     a {
-      /* font-family: 'Lora'; */
       font-weight: 700;
     }
     @media (max-width: 900px) {
@@ -34,7 +33,6 @@ const NavStyles = styled.nav`
       position: absolute;
       top: 79px;
       background: var(--orange);
-      /* border: 1px solid var(--light-gray); */
       text-align: center;
       &.active {
         display: flex;

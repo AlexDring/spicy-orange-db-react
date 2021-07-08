@@ -54,10 +54,13 @@ const MediaRatingsStyles = styled.div`
   display: flex;
   align-items: flex-end;
   flex-wrap: wrap;
-  div:first-child {
-    margin-right: 24px;
-    @media (max-width: 500px) {
-      margin-right: 12px;
+  > div {
+    display: flex;
+  &:first-child {
+      margin-right: 24px;
+      @media (max-width: 500px) {
+        margin-right: 12px;
+      }
     }
   }
   img {
