@@ -5,6 +5,7 @@ import metaCritic from '../assets/images/logos/meta-critic.svg'
 import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 import PropTypes from 'prop-types'
 
+
 const MediaCardStyles = styled.div`
   /* width: 48.45%; */
   /* max-height: 275px; */
@@ -123,12 +124,14 @@ const MediaCard = ({ singleMedia }) => {
           <div className='rottenReviews'>
             <img 
               src={
-                singleMedia.rottenAverage > 899 ? rottenIcons.certifiedGa 
-                  : singleMedia.rottenAverage > 599 ? rottenIcons.freshGa 
-                    : rottenIcons.rottenGa} alt="review score icon" />
+                !singleMedia.rottenAverage ? rottenIcons.noReview :
+                  singleMedia.rottenAverage > 899 ? rottenIcons.certifiedGa 
+                    : singleMedia.rottenAverage > 599 ? rottenIcons.freshGa 
+                      : rottenIcons.rottenGa} 
+              alt="review score icon" />
             <div className='rottenScore'>
-              <p className='reviewScore'> {singleMedia.rottenAverage}<span>/1000</span></p>
-              <small>{singleMedia.rottenCount} Reviews</small>
+              {!singleMedia.rottenAverage ? <small>Not yet rated</small> : <><p className='reviewScore'> {singleMedia.rottenAverage}<span>/1000</span></p>
+                <small>{singleMedia.rottenCount} Reviews</small></> }
             </div>
           </div>
         </div>

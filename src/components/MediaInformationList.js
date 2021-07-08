@@ -7,24 +7,20 @@ const NewMediaModalStyles = styled.div`
   background: var(--light-orange);
   display: flex;
   flex-direction: column;
-  padding: 24px;
-  /* max-width: 600px; */
+  padding: 0 24px 24px;
+  max-width: 550px;
   img {
     max-width: 120px;
     object-fit: cover;
-    margin: -150px auto 0;
+    margin: -110px auto 0;
     margin-bottom: 24px;
   }
   button {
     margin-top: 24px;
-    /* align-self: flex-end; */
   }
 `
 
 const MediaInformationStyles = styled.ul`
-/* display: flex;
-flex-direction: column;
-justify-content: flex-end; */
   li {
     margin-bottom: 16px;
   }
