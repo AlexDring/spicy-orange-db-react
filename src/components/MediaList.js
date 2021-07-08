@@ -161,13 +161,12 @@ const media = [
     'rottenCount': 4,
     '__v': 0
   },
-  
 ]
 
-const highlightedMedia = media.slice(0, 4)
-const remainingMedia = media.slice(4)
-
 const MediaList = () => {
+  const highlightedMedia = media.slice(0, 4)
+  const remainingMedia = media.slice(4)
+
   return(
     <>
       <MediaCardGridStyles>

@@ -1,10 +1,8 @@
+import { HashLink } from 'react-router-hash-link'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import reviewLogos from '../assets/images/review-logos/review-icons'
 import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
-import IMDb from '../assets/images/logos/imdb-color.png'
-import metaCritic from '../assets/images/logos/meta-critic-color.png'
-import rottenToms from '../assets/images/logos/rotten-toms.png'
-import { HashLink } from 'react-router-hash-link'
 
 const MediaContainer = styled.div`
   display: grid;
@@ -82,6 +80,7 @@ const ExternalReviewsWrapper = styled.ul`
   align-items: flex-start;
   margin: 0;
   padding-bottom: 24px;
+  flex-wrap: wrap;
   img {
     margin-right: 6px;
   }
@@ -91,13 +90,19 @@ const ExternalReviewsWrapper = styled.ul`
     align-items: center;
     :nth-child(-n + 2) {
       margin-right: 36px;
+      @media (max-width: 600px) {
+        margin-right: 0;
+      }
     }
   }
   @media (max-width: 600px) {
+    padding-bottom: 0;
+    justify-content: space-evenly;
     img {
       margin-bottom: 6px;
     }
     > li {
+      
       flex-direction: column;
       align-items: center;
     }
@@ -142,11 +147,11 @@ const MediaDetail = (props) => {
           {media.mediaDetail.Ratings.map(r => 
             (<li key={r._id}>
               <img 
-                width="60px" 
+
                 src={
-                  r.Source === 'Internet Movie Database' ? IMDb : 
-                    r.Source === 'Rotten Tomatoes' ? rottenToms : 
-                      metaCritic} 
+                  r.Source === 'Internet Movie Database' ? reviewLogos.IMDbColor : 
+                    r.Source === 'Rotten Tomatoes' ? reviewLogos.rottenToms : 
+                      reviewLogos.metaCriticColor} 
                 alt="imdb logo and score" />
               <p>{r.Value}
               </p>

@@ -1,17 +1,10 @@
 import styled from 'styled-components'
 import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 import PropTypes from 'prop-types'
-// import { Link } from 'react-router-dom'
 
 const MediaPosterStyles = styled.div`
-  /* width: 23.195%; */
-  /* flex-grow: 1; */
-  /* flex-shrink: 1; */
-  /* flex-basis: 23.195%; */
   display: flex;
   flex-direction: column;
-  /* min-width: 215px; */
-  /* max-width: 225px; */
   .poster {
     width: 100%;
     object-fit: cover;
@@ -43,7 +36,7 @@ const MediaPosterStyles = styled.div`
 
 const MediaPoster = (props) => {
   const { poster, rottenAverage, rottenCount, type } = props
-  console.log(props)
+
   return(
     <MediaPosterStyles type={type}>
       <img className='poster' src={poster} alt="" />

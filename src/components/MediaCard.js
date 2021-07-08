@@ -1,20 +1,19 @@
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-import { ReactComponent as IMDb} from '../assets/images/logos/imdb.svg'
-import metaCritic from '../assets/images/logos/meta-critic.svg'
-import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 import PropTypes from 'prop-types'
-
+import styled from 'styled-components'
+import reviewLogos from '../assets/images/review-logos/review-icons'
+import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 
 const MediaCardStyles = styled.div`
-  /* width: 48.45%; */
-  /* max-height: 275px; */
   border: 1px solid #ededed;
   background: white;
   display: flex;
   height: 100%;
+  &:hover {
+    /* border: 1px solid var(--yellow);
+    background: var(--light-yellow); */
+  }
   .mediaPoster {
-    /* height: 100%; */
     max-width: 44.68%;
     object-fit: cover;
   }
@@ -99,7 +98,6 @@ const MediaCardStyles = styled.div`
 
 const MediaCard = ({ singleMedia }) => {
   return(
-    // <div style={{'display': 'flex', 'justifyContent': 'space-between'}}>
     <div>
       <MediaCardStyles type={singleMedia.Type}>
         <img className='mediaPoster' src={singleMedia.Poster} alt="" />
@@ -114,11 +112,11 @@ const MediaCard = ({ singleMedia }) => {
           <div className='mediaRatings'>
             {singleMedia.imdbRating !== 'N/A' ?
               <div>
-                <IMDb height='20px' width='45px' /> {singleMedia.imdbRating}<span>/10</span>
+                <img height='20px' width='45px' src={reviewLogos.IMDb} alt="" />{singleMedia.imdbRating}<span></span>
               </div> : '' }
             {singleMedia.Metascore !== 'N/A'  ? 
               <div>
-                <img className='reviewIcon' src={metaCritic} alt="" /> {singleMedia.Metascore}<span>/100</span>
+                <img className='reviewIcon' src={reviewLogos.metaCritic} alt="" /> {singleMedia.Metascore}<span>/100</span>
               </div> : ''}
           </div>
           <div className='rottenReviews'>

@@ -4,8 +4,6 @@ import { useMemo, useState, useEffect } from 'react'
 import { useTable } from 'react-table'
 import { SectionStyles } from '../styles/styles'
 import { Link } from 'react-router-dom'
-// import imdb from '../assets/images/logos/imdb.jpg'
-// import meta from '../assets/images/logos/meta-critic.svg'
 import styled from 'styled-components'
 import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 import Modal from '../components/Modal'
@@ -354,7 +352,6 @@ const Recommendations = () => {
                 rows.map(row => {
                   // Prepare the row for display
                   prepareRow(row)
-                  console.log(row.original.Type)
                   return (
                   // Apply the row props
                     <tr style={row.original.Type === 'movie' ? {'borderLeft': '3px solid var(--orange)'} : {'borderLeft': '3px solid var(--yellow'}} {...row.getRowProps()}>
