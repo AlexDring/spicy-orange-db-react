@@ -6,7 +6,7 @@ import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 
 const MediaContainer = styled.div`
   display: grid;
-  border: 1px solid #ededed;
+  border: 1px solid var(--light-gray);
   background: white;
   grid-template-columns: auto 1fr;
   grid-template-rows: auto auto auto;
@@ -68,7 +68,6 @@ const RottenScore = styled.div`
     margin-bottom: 6px;
   }
   img {
-    /* max-height: 170px; */
     height: 140px;
     margin-bottom: 12px;
   }
@@ -147,12 +146,11 @@ const MediaDetail = (props) => {
           {media.mediaDetail.Ratings.map(r => 
             (<li key={r._id}>
               <img 
-
                 src={
                   r.Source === 'Internet Movie Database' ? reviewLogos.IMDbColor : 
                     r.Source === 'Rotten Tomatoes' ? reviewLogos.rottenToms : 
                       reviewLogos.metaCriticColor} 
-                alt="imdb logo and score" />
+                alt="" />
               <p>{r.Value}
               </p>
             </li>)

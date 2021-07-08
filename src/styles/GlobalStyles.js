@@ -7,6 +7,7 @@ const GlobalStyles = createGlobalStyle`
     --orange: #FFB17A;
     --yellow: #FCE762;
     --light-gray: #ededed;
+    --lighter-gray: #f7f7f7;
     --light-yellow: #FFFDED;
     --light-orange: #FFF8ED;
     --san-serif: 'Lora', Georgia, Cambria, "Times New Roman", Times, serif;
