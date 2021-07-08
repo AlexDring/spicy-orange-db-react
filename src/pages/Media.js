@@ -77,8 +77,8 @@ const inception = {
     '__v': 62
   },
   '__v': 0,
-  'rottenAverage': 768,
-  'rottenCount': 3
+  'rottenAverage': 914,
+  'rottenCount': 4
 }
 
 const MediaInformationWrapper = styled.section`

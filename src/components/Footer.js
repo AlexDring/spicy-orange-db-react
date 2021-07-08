@@ -10,6 +10,7 @@ const FooterStyles = styled.footer`
     list-style: none;
     display: flex;
     max-width: 970px;
+    padding: 0 15px;
     margin: auto;
   }
   li {

@@ -1,64 +1,10 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
-import metaCritic from '../assets/images/logos/meta-critic.svg'
+import IMDb from '../assets/images/logos/imdb-color.png'
+import metaCritic from '../assets/images/logos/meta-critic-color.png'
+import rottenToms from '../assets/images/logos/rotten-toms.png'
 import { HashLink } from 'react-router-hash-link'
-
-// const MediaContainer = styled.div`
-//   display: grid;
-//   grid-template-columns: 335px 1fr;
-//   grid-gap: 24px;
-//   > img {
-//     height: 100%;
-//     object-fit: cover;
-//   }
-// `
-
-// const MediaWrapper = styled.div`
-//   border: 1px solid #ededed;
-//   border-top: ${props => props.type === 'movie' ? '3px solid #FFB17A' : '3px solid #FCE762'};
-//   background-color: white;
-//   padding: 24px;
-//   text-align: center;
-// `
-
-// const RottenWrapper = styled.div`
-//   display: flex;
-//   justify-content: center;
-//   align-items: flex-start;
-//   div:first-child {
-//     margin-right: 24px;
-//   }
-// `
-
-// const RottenScore = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-//   small {
-//     margin-bottom: 6px;
-//   }
-//   img {
-//     max-height: 170px;
-//     margin-bottom: 12px;
-//   }
-// `
-
-// const ExternalReviewsWrapper = styled.ul`
-//   display: flex;
-//   justify-content: center;
-//   img {
-//     margin-right: 6px;
-//   }
-//   > li {
-//     display: flex;
-//     list-style: none;
-//     :nth-child(-n + 2) {
-//       margin-right: 24px;
-//     }
-//   }
-// `
 
 const MediaContainer = styled.div`
   display: grid;
@@ -66,7 +12,6 @@ const MediaContainer = styled.div`
   background: white;
   grid-template-columns: auto 1fr;
   grid-template-rows: auto auto auto;
-  /* grid-column-gap: 24px; */
   grid-template-areas:
         "poster meta"
         "poster rottenGas"
@@ -125,7 +70,8 @@ const RottenScore = styled.div`
     margin-bottom: 6px;
   }
   img {
-    max-height: 170px;
+    /* max-height: 170px; */
+    height: 140px;
     margin-bottom: 12px;
   }
 `
@@ -142,6 +88,7 @@ const ExternalReviewsWrapper = styled.ul`
   > li {
     display: flex;
     list-style: none;
+    align-items: center;
     :nth-child(-n + 2) {
       margin-right: 36px;
     }
@@ -157,45 +104,10 @@ const ExternalReviewsWrapper = styled.ul`
   }
 `
 
-
 const MediaDetail = (props) => {
   const { displayModal, setDisplayModal, media } = props
   return(
     <>
-      {/* <MediaContainer>
-        <img src={media.Poster} alt={`${media.Title} poster`} />
-        <MediaWrapper type={media.Type}>
-          <h1>{media.Title}</h1>
-          <p><span style={{'textTransform': 'capitalize'}}>{media.Type}</span> | {media.Year} | {media.Runtime}</p>
-          <RottenWrapper>
-            <RottenScore>
-              <small>Rotten Ga&apos;s</small>
-              <img src={rottenIcons.freshGa} alt="" />
-              <div>{media.rottenAverage}/1000</div>
-            </RottenScore>
-            <RottenScore>
-              <small>Your Rating</small>
-              <img src={rottenIcons.certifiedGa} alt="" />
-              <div>{media.mediaDetail.rottenReviews[0].score}/1000</div>
-              <small>{media.rottenCount} Reviews</small>
-            </RottenScore>
-          </RottenWrapper>
-          <ExternalReviewsWrapper>
-            <li>
-              <img src={metaCritic} alt="imdb logo and score" />
-              <p>{media.mediaDetail.Ratings[0].Value}</p>
-            </li>
-            <li>
-              <img src={metaCritic} alt="metacritic logo and score" />
-              <p>{media.mediaDetail.Ratings[1].Value}</p>
-            </li>
-            <li>
-              <img src={metaCritic} alt="rotten tomatoes and score" />
-              <p>{media.mediaDetail.Ratings[2].Value}</p>
-            </li>
-          </ExternalReviewsWrapper>
-        </MediaWrapper>
-      </MediaContainer> */}
       <MediaContainer>
         <MediaPoster>
           <img src={media.Poster} alt={`${media.Title} poster`} />
@@ -208,9 +120,16 @@ const MediaDetail = (props) => {
           <HashLink to='/media/#rottenGas'>
             <RottenScore>
               <small>Rotten Ga&apos;s Total</small>
-              <img src={rottenIcons.freshGa} alt="" />
-              <div>{media.rottenAverage}/1000</div>
-              <small>{media.rottenCount} Reviews</small>
+              <img src={
+                !media.rottenAverage ? rottenIcons.noReview :
+                  media.rottenAverage > 899 ? rottenIcons.certifiedGa 
+                    : media.rottenAverage > 599 ? rottenIcons.freshGa 
+                      : rottenIcons.rottenGa} alt="" />
+              {media.rottenCount !== 0 ? 
+                <>
+                  <div>{media.rottenAverage}/1000</div>
+                  <small>{media.rottenCount} Reviews</small>
+                </> : <small>No Ratings</small>}
             </RottenScore>
           </HashLink>
           <RottenScore onClick={() => setDisplayModal(!displayModal)}>
@@ -220,18 +139,19 @@ const MediaDetail = (props) => {
           </RottenScore>
         </RottenWrapper>
         <ExternalReviewsWrapper>
-          <li>
-            <img src={metaCritic} alt="imdb logo and score" />
-            <p>{media.mediaDetail.Ratings[0].Value}</p>
-          </li>
-          <li>
-            <img src={metaCritic} alt="metacritic logo and score" />
-            <p>{media.mediaDetail.Ratings[1].Value}</p>
-          </li>
-          <li>
-            <img src={metaCritic} alt="rotten tomatoes and score" />
-            <p>{media.mediaDetail.Ratings[2].Value}</p>
-          </li>
+          {media.mediaDetail.Ratings.map(r => 
+            (<li key={r._id}>
+              <img 
+                width="60px" 
+                src={
+                  r.Source === 'Internet Movie Database' ? IMDb : 
+                    r.Source === 'Rotten Tomatoes' ? rottenToms : 
+                      metaCritic} 
+                alt="imdb logo and score" />
+              <p>{r.Value}
+              </p>
+            </li>)
+          )}
         </ExternalReviewsWrapper>
       </MediaContainer>
     </>

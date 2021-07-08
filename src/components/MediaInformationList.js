@@ -7,8 +7,8 @@ const NewMediaModalStyles = styled.div`
   background: var(--light-orange);
   display: flex;
   flex-direction: column;
-  padding: 24px;
-  width: 550px;
+  padding: 0 24px 24px;
+  max-width: 550px;
   img {
     max-width: 120px;
     object-fit: cover;

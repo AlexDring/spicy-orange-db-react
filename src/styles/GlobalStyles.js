@@ -9,6 +9,7 @@ const GlobalStyles = createGlobalStyle`
     --light-gray: #ededed;
     --light-yellow: #FFFDED;
     --light-orange: #FFF8ED;
+    --san-serif: 'Lora', Georgia, Cambria, "Times New Roman", Times, serif;
   }
   html {
     height: 100vh;
