@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom'
 import { useWindowSize } from '../hooks'
 import styled from 'styled-components'
 import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
-import Modal from '../components/Modal'
-import MediaInformationList from '../components/MediaInformationList'
+import Modal from '../components/modals/Modal'
+import NewMediaModal from '../components/modals/NewMediaModal'
 
 const TableStyles = styled.table`
   background: white;
@@ -253,7 +253,6 @@ const Recommendations = () => {
       }
     ], [])
 
-
   const {
     getTableProps,
     getTableBodyProps,
@@ -277,7 +276,7 @@ const Recommendations = () => {
           <h1>Recommendations</h1>
           <button onClick={() => setDisplayModal(!displayModal)}></button>
           <Modal displayModal={displayModal} setDisplayModal={setDisplayModal} >
-            <MediaInformationList />
+            <NewMediaModal />
           </Modal>
           <TableStyles {...getTableProps()}>
             <thead>
