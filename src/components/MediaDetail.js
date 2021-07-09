@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import reviewLogos from '../assets/images/review-logos/review-icons'
 import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
+import WatchlistToggle from './WatchlistToggle'
 
 const MediaContainer = styled.div`
   display: grid;
@@ -110,8 +111,10 @@ const ExternalReviewsWrapper = styled.ul`
 
 const MediaDetail = (props) => {
   const { displayModal, setDisplayModal, media } = props
+  
   return(
     <>
+      <WatchlistToggle />
       <MediaContainer>
         <MediaPoster>
           <img src={media.Poster} alt={`${media.Title} poster`} />
