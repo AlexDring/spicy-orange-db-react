@@ -1,14 +1,15 @@
 import { SectionStyles } from '../styles/styles'
 import ReviewList from '../components/ReviewList'
 import MediaList from '../components/MediaList'
+import PropTypes from 'prop-types'
 
-const Home = () => {
+const Home = ({ recommendations }) => {
   return(
     <>
       <SectionStyles>
         <section>
           <h1>Recent Recommendations</h1>
-          <MediaList />
+          <MediaList recommendations={recommendations} />
         </section>
       </SectionStyles>
       <SectionStyles orange>
@@ -19,6 +20,10 @@ const Home = () => {
       </SectionStyles>
     </>
   )
+}
+
+Home.propTypes = {
+  recommendations: PropTypes.array
 }
 
 export default Home

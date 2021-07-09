@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import MediaCard from './MediaCard'
 import MediaPoster from './MediaPoster'
+import PropTypes from 'prop-types'
 
 const MediaCardGridStyles = styled.div`
   display: grid;
@@ -19,164 +20,21 @@ const MediaPosterGridStyles = styled.div`
   margin-top: 30px;
 `
 
-const media = [
-  {
-    '_id': '60ba24a46960ba215ceabb99',
-    'Poster': 'https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg',
-    'Title': 'Inception',
-    'Type': 'movie',
-    'Year': '2010',
-    'Runtime': '148 min',
-    'Director': 'Christopher Nolan',
-    'Genre': 'Action, Adventure, Sci-Fi, Thriller',
-    'Language': 'English, Japanese, French',
-    'Metascore': '74',
-    'imdbRating': '8.8',
-    'user': 'Dringer',
-    'mediaDetail': '60ba24a46960ba215ceabb95',
-    '__v': 0,
-    'rottenAverage': 921,
-    'rottenCount': 3
-  },
-  {
-    '_id': '60c0a9244fcbb433ce53658a',
-    'Poster': 'https://m.media-amazon.com/images/M/MV5BMTk3NDE2NzI4NF5BMl5BanBnXkFtZTgwNzE1MzEyMTE@._V1_SX300.jpg',
-    'Title': 'Up',
-    'Type': 'movie',
-    'Year': '2009',
-    'Runtime': '96 min',
-    'Director': 'Pete Docter, Bob Peterson(co-director)',
-    'Genre': 'Animation, Adventure, Comedy, Family',
-    'Language': 'English',
-    'Metascore': '88',
-    'imdbRating': '8.2',
-    'user': 'Dringer',
-    'mediaDetail': '60c0a9244fcbb433ce536586',
-    '__v': 0,
-    'rottenAverage': 599,
-    'rottenCount': 2
-  },
-  {
-    '_id': '60e8369061df6e4c2ab61b81',
-    'Poster': 'https://m.media-amazon.com/images/M/MV5BMTExMzU0ODcxNDheQTJeQWpwZ15BbWU4MDE1OTI4MzAy._V1_SX300.jpg',
-    'Title': 'Arrival',
-    'Type': 'movie',
-    'Year': '2016',
-    'Runtime': '116 min',
-    'Director': 'Denis Villeneuve',
-    'Genre': 'Drama, Sci-Fi',
-    'Language': 'English, Russian, Mandarin',
-    'Metascore': '81',
-    'imdbRating': '7.9',
-    'user': 'Dringer',
-    'mediaDetail': '60e8369061df6e4c2ab61b7d',
-    '__v': 0
-  },
-  {
-    '_id': '60daf4aaf97f998c0e6e723e',
-    'Poster': 'https://m.media-amazon.com/images/M/MV5BYjIyOGU1NzAtODZmYi00NGMzLWJiMjItNGNjNTFjOTM5ZDJhXkEyXkFqcGdeQXVyMTEyMjM2NDc2._V1_SX300.jpg',
-    'Title': 'Mare of Easttown',
-    'Type': 'series',
-    'Year': '2021',
-    'Runtime': '403 min',
-    'Director': 'N/A',
-    'Genre': 'Crime, Drama, Mystery',
-    'Language': 'English',
-    'Metascore': 'N/A',
-    'imdbRating': '8.6',
-    'user': 'Dringer',
-    'mediaDetail': '60daf4aaf97f998c0e6e723c',
-    'rottenAverage': 888,
-    'rottenCount': 4,
-    '__v': 0
-  },
-  {
-    '_id': '60dc679bc26320d82eb3871a',
-    'Poster': 'https://m.media-amazon.com/images/M/MV5BZjUyMjQ0YmUtZWNmMi00NjE5LWJhNzctNDUxYWMwM2Y3NzhmXkEyXkFqcGdeQXVyMzM0MTEzMTg@._V1_SX300.jpg',
-    'Title': 'Time',
-    'Type': 'series',
-    'Year': '2021–',
-    'Runtime': 'N/A',
-    'Director': 'N/A',
-    'Genre': 'Crime, Drama',
-    'Language': 'English',
-    'Metascore': 'N/A',
-    'imdbRating': 'N/A',
-    'user': 'Dringer',
-    'mediaDetail': '60dc679bc26320d82eb38719',
-    '__v': 0
-  },
-  {
-    '_id': '60dafa9ff97f998c0e6e7243',
-    'Poster': 'https://m.media-amazon.com/images/M/MV5BOTNjZDA2NDMtNzU3My00YWMzLWI4NDQtNDkyZGMzMzkyODA0XkEyXkFqcGdeQXVyNzU4ODEwNDI@._V1_SX300.jpg',
-    'Title': 'Mouthpiece',
-    'Type': 'movie',
-    'Year': '2018',
-    'Runtime': '91 min',
-    'Director': 'Patricia Rozema',
-    'Genre': 'Drama',
-    'Language': 'English',
-    'Metascore': '73',
-    'imdbRating': '6.4',
-    'user': 'Dringer',
-    'mediaDetail': '60dafa9ff97f998c0e6e723f',
-    'rottenAverage': 888,
-    'rottenCount': 4,
-    '__v': 0
-  },
-  {
-    '_id': '60dafb42f97f998c0e6e7248',
-    'Poster': 'https://m.media-amazon.com/images/M/MV5BMTk0MTQ3NDQ4Ml5BMl5BanBnXkFtZTcwOTQ3OTQzMw@@._V1_SX300.jpg',
-    'Title': 'Borat: Cultural Learnings of America for Make Benefit Glorious Nation of Kazakhstan',
-    'Type': 'movie',
-    'Year': '2006',
-    'Runtime': '84 min',
-    'Director': 'Larry Charles',
-    'Genre': 'Comedy',
-    'Language': 'English, Romanian, Hebrew, Polish, Armenian',
-    'Metascore': '89',
-    'imdbRating': '7.3',
-    'user': 'Dringer',
-    'mediaDetail': '60dafb42f97f998c0e6e7244',
-    'rottenAverage': 589,
-    'rottenCount': 4,
-    '__v': 0
-  },
-  {
-    '_id': '60dafa9ff97f998c0e6e7244',
-    'Poster': 'https://m.media-amazon.com/images/M/MV5BOTNjZDA2NDMtNzU3My00YWMzLWI4NDQtNDkyZGMzMzkyODA0XkEyXkFqcGdeQXVyNzU4ODEwNDI@._V1_SX300.jpg',
-    'Title': 'Mouthpiece',
-    'Type': 'movie',
-    'Year': '2018',
-    'Runtime': '91 min',
-    'Director': 'Patricia Rozema',
-    'Genre': 'Drama',
-    'Language': 'English',
-    'Metascore': '73',
-    'imdbRating': '6.4',
-    'user': 'Dringer',
-    'mediaDetail': '60dafa9ff97f998c0e6e723f',
-    'rottenAverage': 921,
-    'rottenCount': 4,
-    '__v': 0
-  },
-]
-
-const MediaList = () => {
-  const highlightedMedia = media.slice(0, 4)
-  const remainingMedia = media.slice(4)
+const MediaList = ({ recommendations }) => {
+  const highlightedRecommendations = recommendations.slice(0, 4)
+  const remainingRecommendations = recommendations.slice(4)
 
   return(
     <>
       <MediaCardGridStyles>
-        {highlightedMedia.map(singleMedia => (
+        {highlightedRecommendations.map(singleMedia => (
           <MediaCard 
             key={singleMedia._id} 
             singleMedia={singleMedia} />
         ))}
       </MediaCardGridStyles>
       <MediaPosterGridStyles>
-        {remainingMedia.map(singleMedia => (
+        {remainingRecommendations.map(singleMedia => (
           <MediaPoster 
             key={singleMedia._id} 
             id={singleMedia._id} 
@@ -188,6 +46,10 @@ const MediaList = () => {
       </MediaPosterGridStyles>
     </>
   )
+}
+
+MediaList.propTypes = {
+  recommendations: PropTypes.array
 }
 
 export default MediaList

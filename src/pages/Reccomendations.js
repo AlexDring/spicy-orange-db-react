@@ -9,6 +9,7 @@ import styled from 'styled-components'
 import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 import Modal from '../components/modals/Modal'
 import NewMediaModal from '../components/modals/NewMediaModal'
+import Breadcrumbs from '../components/Breadcrumbs'
 
 const TableStyles = styled.table`
   background: white;
@@ -217,7 +218,7 @@ const Recommendations = () => {
             <div style={{'display': 'flex', 'alignItems': 'center'}}>
               <img src={row.row.original.Poster} alt="" />
               <div type={row.row.original.Type}>
-                <Link to='/media'>
+                <Link to={`/recommendation/${row.row.original._id}`}>
                   <h4>{row.row.original.Title}</h4>
                 </Link> 
                 <small> • {row.row.original.Year}</small>
@@ -273,6 +274,10 @@ const Recommendations = () => {
     <>
       <SectionStyles>
         <section>
+          <Breadcrumbs routes={
+            [{ path: '/', breadcrumb: 'Home' }, 
+              { path: '/recommendations', breadcrumb: 'Recommendations' }]}
+          />
           <h1>Recommendations</h1>
           <button onClick={() => setDisplayModal(!displayModal)}></button>
           <Modal displayModal={displayModal} setDisplayModal={setDisplayModal} >

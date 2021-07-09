@@ -38,10 +38,9 @@ const RottenGaStyles = styled.div`
     }
 `
 
-const MediaPoster = (props) => {
-  const { id, poster, rottenAverage, rottenCount, type } = props
+const MediaPoster = ({ id, poster, rottenAverage, rottenCount, type }) => {
   return(
-    <Link to={`/recommendations/${id}`}>
+    <Link to={`/recommendation/${id}`}>
       <MediaPosterStyles type={type}>
         <img className='poster' src={poster} alt="" />
         <RottenGaStyles className='rottenGas' type={type} >

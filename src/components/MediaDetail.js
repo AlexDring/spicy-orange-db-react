@@ -112,7 +112,20 @@ const ExternalReviewsWrapper = styled.ul`
 const MediaDetail = ({ displayModal, setDisplayModal, media }) => {
   return(
     <>
-      <Breadcumbs />
+      <Breadcumbs routes={[
+        {
+          path: '/',
+          breadcrumb: 'Home'
+        },
+        {
+          path: '/recommendations',
+          breadcrumb: 'Recommendations'
+        },
+        {
+          path: '/media',
+          breadcrumb: 'Inception'
+        }
+      ]} />
       <WatchlistToggle />
       <MediaContainer>
         <MediaPoster>
@@ -141,7 +154,7 @@ const MediaDetail = ({ displayModal, setDisplayModal, media }) => {
           <RottenScore onClick={() => setDisplayModal(!displayModal)}>
             <small>Your Rating</small>
             <img src={rottenIcons.certifiedGa} alt="" />
-            <div>{media.mediaDetail.rottenReviews[0].score}/1000</div>
+            <div>/1000</div>
           </RottenScore>
         </RottenWrapper>
         <ExternalReviewsWrapper>
