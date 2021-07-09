@@ -4,8 +4,8 @@ import MediaDetail from '../components/MediaDetail'
 import ReviewGridStyles from '../styles/Grids'
 import styled from 'styled-components'
 import Review from '../components/Review'
-import Modal from '../components/Modal'
-import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
+import Modal from '../components/modals/Modal'
+import RottenReviewModal from '../components/modals/RottenReviewModal'
 
 const inception = {
   '_id': '60ba24a46960ba215ceabb99',
@@ -110,36 +110,6 @@ const NewSectionStyles = styled(SectionStyles)`
   }
 `
 
-const RottenReviewStles = styled.div`
-  padding: 75px 24px 24px;
-  width: 550px;
-  text-align: center;
-  background: var(--light-orange);
-  position: relative;
-  @media (max-width: 500px) {
-    width: auto;
-  }
-  img {
-    width: 140px;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  textarea {
-    width: 80%;
-  }
-  input {
-    width: 100px;
-    margin-bottom: 24px;
-    font-size: 36px;
-  }
-  div:last-child {
-    text-align: right;
-    margin: 24px 0 auto;
-  }
-`
-
 const Media = () => {
   const [displayModal, setDisplayModal] = useState(false)
   return (
@@ -147,18 +117,7 @@ const Media = () => {
       <SectionStyles>
         <section>
           <Modal displayModal={displayModal} setDisplayModal={setDisplayModal} >
-            <RottenReviewStles>
-              <img src={rottenIcons.noReview} alt="" />
-              <small>You Rating</small>
-              <h1>{inception.Title}</h1>
-              <div>
-                <input type="number" min="1" max="1000" /> /1000 
-              </div>
-              <textarea placeholder="Review (Optional)" rows="8" />
-              <div>
-                <button className='minimal'>Delete</button><button>Save</button>
-              </div>
-            </RottenReviewStles>
+            <RottenReviewModal media={inception} />
           </Modal>
           <MediaDetail 
             displayModal={displayModal} 

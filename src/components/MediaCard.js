@@ -1,127 +1,133 @@
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-import { ReactComponent as IMDb} from '../assets/images/logos/imdb.svg'
-import metaCritic from '../assets/images/logos/meta-critic.svg'
-import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 import PropTypes from 'prop-types'
-
+import styled from 'styled-components'
+import reviewLogos from '../assets/images/review-logos/review-icons'
+import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 
 const MediaCardStyles = styled.div`
-  /* width: 48.45%; */
-  /* max-height: 275px; */
-  border: 1px solid #ededed;
+  border: 1px solid var(--lighter-gray);
   background: white;
   display: flex;
   height: 100%;
-  .mediaPoster {
-    /* height: 100%; */
+  transition: all 0.5s ease;
+  &:hover {
+    background: var(--lighter-gray);
+  }
+  > img {
     max-width: 44.68%;
     object-fit: cover;
   }
-  .mediaInfo {
-    border-top: ${props => props.type === 'movie' ? '3px solid #FFB17A' : '3px solid #FCE762'};
-    width: 100%;
-    padding: 24px;
-    @media (max-width: 500px) {
-      padding: 12px;
-    }
-    display: flex;
-    flex-direction: column;
-    align-items: space-between;
+`
+
+const MediaWrapperStyles = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  border-top: ${props => props.type === 'movie' ? '3px solid #FFB17A' : '3px solid #FCE762'};
+  width: 100%;
+  padding: 24px;
+  @media (max-width: 500px) {
+    padding: 12px;
   }
-  .mediaMeta {
-    margin-bottom: auto;
-    @media (max-width: 500px) {
-      p {
-        font-size: 14px;
-      }
-    }
-  }
-  .mediaRatings {
-    display: flex;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    div:first-child {
-      margin-right: 24px;
-      @media (max-width: 500px) {
-        margin-right: 12px;
-      }
-    }
-    @media (max-width: 500px) {
-        font-size: 14px;
-      }
-    span {
-      font-size: 12px;
-      padding-bottom: 3px;
-    }
-  }
-  .mediaGenre {
-    font-size: 12px;
-    @media (max-width: 376px) {
-      display: none;
-    }
-  }
-  .reviewIcon {
-    height: 20px;
-    margin-right: 6px;
-    @media (max-width: 500px) {
-        margin-right: 0;
-      }
-  }
-  .rottenScore {
-    text-align: center;
-    margin-left: 24px;
-    p {
-      margin: 0;
-    }
-    .reviewScore {
-      font-size: 20px;
-      span {
-        font-size: 12px;
-      }
-    }
-  }
-  .rottenReviews {
-    margin-top: 12px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    img {
-      height: 74px;
-      object-fit: contain;
-    }
+`
+
+const MediaMetaStyles = styled.div`
+  flex-grow: 2;
+  span {
+    text-transform: capitalize;
   }
   h3 {
     max-height: 46px;
     overflow: hidden;
   }
+  @media (max-width: 500px) {
+    p {
+      font-size: 14px;
+    }
+  }
+  p:last-child {
+    font-size: 12px;
+    @media (max-width: 376px) {
+      display: none;
+    }
+  }
+`
+
+const MediaRatingsStyles = styled.div`
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  font-size: 14px;
+  > div {
+    display: flex;
+  &:first-child {
+      margin-right: 24px;
+      @media (max-width: 500px) {
+        margin-right: 12px;
+      }
+    }
+  }
+  img {
+    height: 20px;
+    margin-right: 6px;
+    @media (max-width: 500px) {
+      margin-right: 0;
+    }
+  }
+`
+
+const RottenScoreStyles =styled.div`
+  text-align: center;
+  margin-left: 24px;
+  @media (max-width: 500px) {
+    margin-left: 12px;
+  }
+`
+
+const RottenReviewStyles = styled.div`
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  img {
+    height: 74px;
+    object-fit: contain;
+    @media (max-width: 500px) {
+      max-width: 60px;
+    }
+  }
 `
 
 const MediaCard = ({ singleMedia }) => {
   return(
-    // <div style={{'display': 'flex', 'justifyContent': 'space-between'}}>
     <div>
-      <MediaCardStyles type={singleMedia.Type}>
-        <img className='mediaPoster' src={singleMedia.Poster} alt="" />
-        <div className='mediaInfo'>
-          <div className='mediaMeta'>
-            <Link to='/media' >
+      <MediaCardStyles>
+        <img src={singleMedia.Poster} alt="" />
+        <MediaWrapperStyles type={singleMedia.Type}>
+          <MediaMetaStyles>
+            <Link to={`/recommendations/${singleMedia._id}`} >
               <h3>{singleMedia.Title}</h3>
             </Link>
-            <p><span style={{'textTransform': 'capitalize'}}>{singleMedia.Type}</span> | {singleMedia.Year} | {singleMedia.Runtime}</p>
-            <p className="gray mediaGenre">{singleMedia.Genre}</p>
-          </div>
-          <div className='mediaRatings'>
+            <p><span>{singleMedia.Type}</span> | {singleMedia.Year} | {singleMedia.Runtime}</p>
+            <p className="gray">{singleMedia.Genre}</p>
+          </MediaMetaStyles>
+          <MediaRatingsStyles>
             {singleMedia.imdbRating !== 'N/A' ?
               <div>
-                <IMDb height='20px' width='45px' /> {singleMedia.imdbRating}<span>/10</span>
+                <img 
+                  height='20px' 
+                  width='45px' 
+                  src={reviewLogos.IMDb} 
+                  alt="" />{singleMedia.imdbRating}/10
               </div> : '' }
             {singleMedia.Metascore !== 'N/A'  ? 
               <div>
-                <img className='reviewIcon' src={metaCritic} alt="" /> {singleMedia.Metascore}<span>/100</span>
+                <img className='reviewIcon'
+                  src={reviewLogos.metaCritic} 
+                  alt="" /> {singleMedia.Metascore}/100
               </div> : ''}
-          </div>
-          <div className='rottenReviews'>
+          </MediaRatingsStyles>
+          <RottenReviewStyles className='rottenReviews'>
             <img 
               src={
                 !singleMedia.rottenAverage ? rottenIcons.noReview :
@@ -129,12 +135,13 @@ const MediaCard = ({ singleMedia }) => {
                     : singleMedia.rottenAverage > 599 ? rottenIcons.freshGa 
                       : rottenIcons.rottenGa} 
               alt="review score icon" />
-            <div className='rottenScore'>
-              {!singleMedia.rottenAverage ? <small>Not yet rated</small> : <><p className='reviewScore'> {singleMedia.rottenAverage}<span>/1000</span></p>
-                <small>{singleMedia.rottenCount} Reviews</small></> }
-            </div>
-          </div>
-        </div>
+            <RottenScoreStyles>
+              {!singleMedia.rottenAverage ? <small>Not yet rated</small> : 
+                <><p> {singleMedia.rottenAverage}<span>/1000</span></p>
+                  <small>{singleMedia.rottenCount} Reviews</small></> }
+            </RottenScoreStyles>
+          </RottenReviewStyles>
+        </MediaWrapperStyles>
       </ MediaCardStyles>
     </div>
   )

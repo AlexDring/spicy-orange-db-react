@@ -36,15 +36,20 @@ const MediaInformationStyles = styled.ul`
   }
 `
 
-const MediaInformationList = () => {
+const NewMediaModal = () => {
   return(
     <NewMediaModalStyles>
       <img src={media.Poster} alt="" />
       <div style={{'textAlign': 'center', 'marginBottom': 24  }}>
         <h2 style={{'display': 'inline-block', 'marginBottom': 6}}>{media.Title}</h2>
-        <span className="caps gray">  {media.Runtime !== 'N/A' && media.Year}  {media.Runtime !== 'N/A' && `• ${media.Runtime}`} {media.totalSeasons && `• ${media.totalSeasons} Seasons`}</span>
-        <p><small>{media.Genre} {media.imdbRating !== 'N/A' && ` • IMDb: ${media.imdbRating}/10`} {media.Metascore !== 'N/A' && ` • MetaCritic: ${media.Metascore}/100`}
-        </small></p>
+        <span className="caps gray">  
+          {media.Runtime !== 'N/A' && media.Year}  {media.Runtime !== 'N/A' && `• ${media.Runtime}`} {media.totalSeasons && `• ${media.totalSeasons} Seasons`}
+        </span>
+        <div>
+          <small>
+            {media.Genre} {media.imdbRating !== 'N/A' && ` • IMDb: ${media.imdbRating}/10`} {media.Metascore !== 'N/A' && ` • MetaCritic: ${media.Metascore}/100`}
+          </small>
+        </div>
       </div>  
       <p>{media.Plot}</p>
       <MediaInformationStyles>
@@ -57,8 +62,8 @@ const MediaInformationList = () => {
   )
 }
 
-MediaInformationList.propTypes = {
+NewMediaModal.propTypes = {
   media: PropTypes.object
 }
 
-export default MediaInformationList
+export default NewMediaModal

@@ -10,7 +10,8 @@ const MediaCardGridStyles = styled.div`
 
 const MediaPosterGridStyles = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(4, minmax(180px, 1fr));
+  grid-auto-rows: 1fr;
   @media (max-width: 500px) {
     grid-template-columns: 1fr 1fr;
   }
@@ -54,6 +55,22 @@ const media = [
     '__v': 0,
     'rottenAverage': 599,
     'rottenCount': 2
+  },
+  {
+    '_id': '60e8369061df6e4c2ab61b81',
+    'Poster': 'https://m.media-amazon.com/images/M/MV5BMTExMzU0ODcxNDheQTJeQWpwZ15BbWU4MDE1OTI4MzAy._V1_SX300.jpg',
+    'Title': 'Arrival',
+    'Type': 'movie',
+    'Year': '2016',
+    'Runtime': '116 min',
+    'Director': 'Denis Villeneuve',
+    'Genre': 'Drama, Sci-Fi',
+    'Language': 'English, Russian, Mandarin',
+    'Metascore': '81',
+    'imdbRating': '7.9',
+    'user': 'Dringer',
+    'mediaDetail': '60e8369061df6e4c2ab61b7d',
+    '__v': 0
   },
   {
     '_id': '60daf4aaf97f998c0e6e723e',
@@ -143,31 +160,12 @@ const media = [
     'rottenCount': 4,
     '__v': 0
   },
-  {
-    '_id': '60dafa9ff97f998c0e6e7244',
-    'Poster': 'https://m.media-amazon.com/images/M/MV5BOTNjZDA2NDMtNzU3My00YWMzLWI4NDQtNDkyZGMzMzkyODA0XkEyXkFqcGdeQXVyNzU4ODEwNDI@._V1_SX300.jpg',
-    'Title': 'Mouthpiece',
-    'Type': 'movie',
-    'Year': '2018',
-    'Runtime': '91 min',
-    'Director': 'Patricia Rozema',
-    'Genre': 'Drama',
-    'Language': 'English',
-    'Metascore': '73',
-    'imdbRating': '6.4',
-    'user': 'Dringer',
-    'mediaDetail': '60dafa9ff97f998c0e6e723f',
-    'rottenAverage': 921,
-    'rottenCount': 4,
-    '__v': 0
-  },
-  
 ]
 
-const highlightedMedia = media.slice(0, 4)
-const remainingMedia = media.slice(4)
-
 const MediaList = () => {
+  const highlightedMedia = media.slice(0, 4)
+  const remainingMedia = media.slice(4)
+
   return(
     <>
       <MediaCardGridStyles>
@@ -181,6 +179,7 @@ const MediaList = () => {
         {remainingMedia.map(singleMedia => (
           <MediaPoster 
             key={singleMedia._id} 
+            id={singleMedia._id} 
             poster={singleMedia.Poster} 
             rottenAverage={singleMedia.rottenAverage} 
             rottenCount={singleMedia.rottenCount}

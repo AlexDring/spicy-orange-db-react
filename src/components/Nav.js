@@ -1,8 +1,8 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import logo from '../assets/images/spicy-orange-logo.svg'
 import avatar from '../assets/images/avatar.png'
-import { useState } from 'react'
 
 const NavStyles = styled.nav`
   background: var(--orange);
@@ -26,7 +26,6 @@ const NavStyles = styled.nav`
     align-items: center;
     width: 100%;
     a {
-      /* font-family: 'Lora'; */
       font-weight: 700;
     }
     @media (max-width: 900px) {
@@ -34,7 +33,6 @@ const NavStyles = styled.nav`
       position: absolute;
       top: 79px;
       background: var(--orange);
-      /* border: 1px solid var(--light-gray); */
       text-align: center;
       &.active {
         display: flex;
@@ -101,7 +99,6 @@ const NavStyles = styled.nav`
 const Nav = () => {
   const [openNav, setOpenNav] = useState(false)
 
-  console.log(openNav)
   return(
     <NavStyles>
       <img className="logo" src={logo} alt="Spicy Orang Database Logo" />
@@ -115,16 +112,16 @@ const Nav = () => {
           </form>
         </li>
         <li>
-          <Link to='/'>Home</Link>
+          <Link onClick={() => setOpenNav(!openNav)} to='/'>Home</Link>
         </li>
         <li>
-          <Link to='/recommendations'>Recommendations</Link>
+          <Link onClick={() => setOpenNav(!openNav)} to='/recommendations'>Recommendations</Link>
         </li>
         <li>
-          <Link to='/watchlist'>Watchlist</Link>
+          <Link onClick={() => setOpenNav(!openNav)} to='/watchlist'>Watchlist</Link>
         </li>
         <li>
-          <Link to='/user/'><img height="40" src={avatar} alt="Logged in users avatar" /></Link>
+          <Link onClick={() => setOpenNav(!openNav)} to='/user/'><img height="40" src={avatar} alt="Logged in users avatar" /></Link>
         </li>
       </ul>
       <button onClick={() => setOpenNav(!openNav)} style={{'fontSize': 48}}>☰</button>

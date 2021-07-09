@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 import avatar from '../assets/images/avatar.png'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 const ReviewStyles = styled.div`
   display: grid;
@@ -52,7 +53,10 @@ const Review = (props) => {
             alt="review score icon" />
           <p>{review.score}/1000</p>
         </MediaScore>
-        {large == 'true' && <><h2>{review.title}</h2><small>{review.year}</small></>}
+        {large == 'true' && 
+        <Link to={`/reccomendations/${review.mediaId}`}>
+          <h2>{review.title}</h2><small>{review.year}</small>
+        </Link>}
       </div>
       <p className='mediaReview'>{review.review}</p>
     </ReviewStyles>
