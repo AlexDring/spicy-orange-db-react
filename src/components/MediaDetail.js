@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import reviewLogos from '../assets/images/review-logos/review-icons'
 import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 import WatchlistToggle from './WatchlistToggle'
+import Breadcumbs from './Breadcrumbs'
 
 const MediaContainer = styled.div`
   display: grid;
@@ -102,18 +103,16 @@ const ExternalReviewsWrapper = styled.ul`
       margin-bottom: 6px;
     }
     > li {
-      
       flex-direction: column;
       align-items: center;
     }
   }
 `
 
-const MediaDetail = (props) => {
-  const { displayModal, setDisplayModal, media } = props
-  
+const MediaDetail = ({ displayModal, setDisplayModal, media }) => {
   return(
     <>
+      <Breadcumbs />
       <WatchlistToggle />
       <MediaContainer>
         <MediaPoster>
