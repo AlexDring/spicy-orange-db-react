@@ -17,9 +17,9 @@ function App() {
   useEffect(async () => {
     const response = await blogService.getAll()
     setRecommendations(response)
-  }, [])
+  }, [setRecommendations])
 
-  console.log(recommendations)
+  // console.log(recommendations)
 
   return (
     <>
