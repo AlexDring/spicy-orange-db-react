@@ -212,7 +212,6 @@ const Recommendations = () => {
     () => [
       {
         Header: 'Title',
-        // accessor: 'Title',
         Cell: row => {
           return(
             <div style={{'display': 'flex', 'alignItems': 'center'}}>
@@ -224,8 +223,6 @@ const Recommendations = () => {
                 <small> • {row.row.original.Year}</small>
                 {row.row.original.Runtime !== 'N/A' &&  <small> • {row.row.original.Runtime}</small> }
                 {row.row.original.totalSeasons && <small> • {row.row.original.totalSeasons} Season</small> }
-                {/* <p><small>{row.row.original.Genre}</small></p>
-                <p><small>Director: {row.row.original.Director}</small></p> */}
                 <p>
                   {row.row.original.imdbRating !== 'N/A' && <small>IMDb: {row.row.original.imdbRating}/10 </small>}
                   {row.row.original.Metascore !== 'N/A' && <small>• MetaCritic: {row.row.original.Metascore}/100</small>}
