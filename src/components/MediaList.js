@@ -180,6 +180,7 @@ const MediaList = () => {
         {remainingMedia.map(singleMedia => (
           <MediaPoster 
             key={singleMedia._id} 
+            id={singleMedia._id} 
             poster={singleMedia.Poster} 
             rottenAverage={singleMedia.rottenAverage} 
             rottenCount={singleMedia.rottenCount}

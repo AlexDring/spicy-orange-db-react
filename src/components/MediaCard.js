@@ -101,7 +101,7 @@ const MediaCard = ({ singleMedia }) => {
         <img src={singleMedia.Poster} alt="" />
         <MediaWrapperStyles type={singleMedia.Type}>
           <MediaMetaStyles>
-            <Link to='/media' >
+            <Link to={`/recommendations/${singleMedia._id}`} >
               <h3>{singleMedia.Title}</h3>
             </Link>
             <p><span style={{'textTransform': 'capitalize'}}>{singleMedia.Type}</span> | {singleMedia.Year} | {singleMedia.Runtime}</p>
