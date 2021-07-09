@@ -33,6 +33,9 @@ const MediaWrapperStyles = styled.div`
 
 const MediaMetaStyles = styled.div`
   flex-grow: 2;
+  span {
+    text-transform: capitalize;
+  }
   h3 {
     max-height: 46px;
     overflow: hidden;
@@ -54,6 +57,7 @@ const MediaRatingsStyles = styled.div`
   display: flex;
   align-items: flex-end;
   flex-wrap: wrap;
+  font-size: 14px;
   > div {
     display: flex;
   &:first-child {
@@ -104,7 +108,7 @@ const MediaCard = ({ singleMedia }) => {
             <Link to={`/recommendations/${singleMedia._id}`} >
               <h3>{singleMedia.Title}</h3>
             </Link>
-            <p><span style={{'textTransform': 'capitalize'}}>{singleMedia.Type}</span> | {singleMedia.Year} | {singleMedia.Runtime}</p>
+            <p><span>{singleMedia.Type}</span> | {singleMedia.Year} | {singleMedia.Runtime}</p>
             <p className="gray">{singleMedia.Genre}</p>
           </MediaMetaStyles>
           <MediaRatingsStyles>
@@ -114,13 +118,13 @@ const MediaCard = ({ singleMedia }) => {
                   height='20px' 
                   width='45px' 
                   src={reviewLogos.IMDb} 
-                  alt="" />{singleMedia.imdbRating}
+                  alt="" />{singleMedia.imdbRating}/10
               </div> : '' }
             {singleMedia.Metascore !== 'N/A'  ? 
               <div>
                 <img className='reviewIcon'
                   src={reviewLogos.metaCritic} 
-                  alt="" /> {singleMedia.Metascore}
+                  alt="" /> {singleMedia.Metascore}/100
               </div> : ''}
           </MediaRatingsStyles>
           <RottenReviewStyles className='rottenReviews'>
