@@ -12,6 +12,7 @@ const MediaCardStyles = styled.div`
   transition: all 0.5s ease;
   &:hover {
     background: var(--lighter-gray);
+    /* border: 1px solid #A5243D; */
   }
   > img {
     max-width: 44.68%;

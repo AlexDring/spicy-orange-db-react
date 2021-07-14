@@ -48,7 +48,7 @@ const Media = () => {
     setRecommendation(response)
   }, [])
 
-  console.log(recommendation)
+  // console.log(recommendation)
 
   if(!recommendation) {
     return null
