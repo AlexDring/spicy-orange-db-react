@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 const BreadcrumbStyles = styled.ul`
 display: flex;
+flex-wrap: wrap;
  a {
    text-transform: uppercase;
    color: var(--gray);

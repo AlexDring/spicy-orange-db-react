@@ -112,31 +112,33 @@ const ExternalReviewsWrapper = styled.ul`
 const MediaDetail = ({ displayModal, setDisplayModal, media }) => {
   return(
     <>
-      <Breadcumbs routes={[
-        {
-          path: '/',
-          breadcrumb: 'Home'
-        },
-        {
-          path: '/recommendations',
-          breadcrumb: 'Recommendations'
-        },
-        {
-          path: '/media',
-          breadcrumb: 'Inception'
-        }
-      ]} />
-      <WatchlistToggle />
+      <div style={{'display': 'flex', 'justifyContent': 'space-between', 'flexWrap': 'wrap'}}>
+        <Breadcumbs routes={[
+          {
+            path: '/',
+            breadcrumb: 'Home'
+          },
+          {
+            path: '/recommendations',
+            breadcrumb: 'Recommendations'
+          },
+          {
+            path: `/recommendation/${media._id}`,
+            breadcrumb: `${media.Title}`
+          }
+        ]} />
+        <WatchlistToggle />
+      </div>
       <MediaContainer>
         <MediaPoster>
           <img src={media.Poster} alt={`${media.Title} poster`} />
         </MediaPoster>
         <MediaMeta type={media.Type}>
           <h1>{media.Title}</h1>
-          <p><span style={{'textTransform': 'capitalize'}}>{media.Type}</span> | {media.Year} | {media.Runtime}</p>
+          <p><span style={{'textTransform': 'capitalize'}}>{media.Type}</span> • {media.Year} • {media.Runtime}</p>
         </MediaMeta>
         <RottenWrapper>
-          <HashLink to='/media/#rottenGas'>
+          <HashLink to='#rottenGas'>
             <RottenScore>
               <small>Rotten Ga&apos;s Total</small>
               <img src={

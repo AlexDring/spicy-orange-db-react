@@ -109,7 +109,7 @@ const MediaCard = ({ singleMedia }) => {
             <Link to={`/recommendation/${singleMedia._id}`} >
               <h3>{singleMedia.Title}</h3>
             </Link>
-            <p><span>{singleMedia.Type}</span> | {singleMedia.Year} | {singleMedia.Runtime}</p>
+            <p><span>{singleMedia.Type}</span> • {singleMedia.Year} • {singleMedia.Runtime}</p>
             <p className="gray">{singleMedia.Genre}</p>
           </MediaMetaStyles>
           <MediaRatingsStyles>

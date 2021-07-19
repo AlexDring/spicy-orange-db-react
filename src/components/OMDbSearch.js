@@ -8,6 +8,7 @@ const OMDbSearch = () => {
   const getSearch = async (query) => {
     const response = await omdbRouter.searchOMDb(query)
     setData(response.Search)
+    setValue('')
   }
   
   useEffect(async () => {

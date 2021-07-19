@@ -2,12 +2,7 @@ import styled from 'styled-components'
 import MediaCard from './MediaCard'
 import MediaPoster from './MediaPoster'
 import PropTypes from 'prop-types'
-
-const MediaCardGridStyles = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  grid-gap: 30px;
-`
+import { MediaCardGridStyles } from '../styles/styles'
 
 const MediaPosterGridStyles = styled.div`
   display: grid;

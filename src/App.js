@@ -11,6 +11,7 @@ import GlobalStyles from './styles/GlobalStyles'
 import Typography from './styles/Typography'
 import blogService from './services/recommendations'
 import { useEffect, useState } from 'react'
+import AddRecommendation from './pages/AddRecommendation'
 
 function App() {
   const [recommendations, setRecommendations] = useState([])
@@ -29,7 +30,10 @@ function App() {
         <Layout>
           <Switch>
             <Route path='/recommendations'>
-              <Recommendations />
+              <Recommendations recommendations={recommendations} />
+            </Route>
+            <Route path='/add-recommendation'>
+              <AddRecommendation />
             </Route>
             <Route path='/recommendation/:id'>
               <Media />

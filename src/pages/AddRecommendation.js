@@ -1,6 +1,14 @@
+import AddRecommendationTable from '../components/AddRecommendationTable'
+import { SectionStyles } from '../styles/styles'
+
 const AddRecommendation = () => {
+
   return(
-    <div>working!</div>
+    <SectionStyles>
+      <section>
+        <AddRecommendationTable />
+      </section>
+    </SectionStyles>
   )
 }
 
