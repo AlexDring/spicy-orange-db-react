@@ -54,7 +54,7 @@ const Review = (props) => {
           <p>{review.score}/1000</p>
         </MediaScore>
         {large == 'true' && 
-        <Link to={`/reccomendations/${review.mediaId}`}>
+        <Link to={`/recommendation/${review.mediaId}`}>
           <h2>{review.title}</h2><small>{review.year}</small>
         </Link>}
       </div>

@@ -12,6 +12,7 @@ const MediaCardStyles = styled.div`
   transition: all 0.5s ease;
   &:hover {
     background: var(--lighter-gray);
+    /* border: 1px solid #A5243D; */
   }
   > img {
     max-width: 44.68%;
@@ -105,10 +106,10 @@ const MediaCard = ({ singleMedia }) => {
         <img src={singleMedia.Poster} alt="" />
         <MediaWrapperStyles type={singleMedia.Type}>
           <MediaMetaStyles>
-            <Link to={`/recommendations/${singleMedia._id}`} >
+            <Link to={`/recommendation/${singleMedia._id}`} >
               <h3>{singleMedia.Title}</h3>
             </Link>
-            <p><span>{singleMedia.Type}</span> | {singleMedia.Year} | {singleMedia.Runtime}</p>
+            <p><span>{singleMedia.Type}</span> • {singleMedia.Year} • {singleMedia.Runtime}</p>
             <p className="gray">{singleMedia.Genre}</p>
           </MediaMetaStyles>
           <MediaRatingsStyles>

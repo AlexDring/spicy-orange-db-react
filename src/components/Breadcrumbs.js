@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const BreadcrumbStyles = styled.ul`
 display: flex;
+flex-wrap: wrap;
  a {
    text-transform: uppercase;
    color: var(--gray);
@@ -16,27 +18,11 @@ display: flex;
  }
 `
 
-const routes = [
-  {
-    path: '/',
-    breadcrumb: 'Home'
-  },
-  {
-    path: '/recommendations',
-    breadcrumb: 'Recommendations'
-  },
-  {
-    path: '/recommendations/inception',
-    breadcrumb: 'Inception'
-  }
-]
-
-const Breadcumbs = () => {
+const Breadcrumbs = ({ routes }) => {
   return(
     <BreadcrumbStyles>
-      {routes.map(l => (
-        // eslint-disable-next-line react/jsx-key
-        <li>
+      {routes.map((l, i) => (
+        <li key={i}>
           <Link to={l.path}>{l.breadcrumb}</Link>
         </li>
       ))}
@@ -45,4 +31,8 @@ const Breadcumbs = () => {
   )
 }
 
-export default Breadcumbs
+Breadcrumbs.propTypes = {
+  routes: PropTypes.array
+}
+
+export default Breadcrumbs
