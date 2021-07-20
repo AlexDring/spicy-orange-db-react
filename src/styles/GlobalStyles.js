@@ -12,8 +12,19 @@ const GlobalStyles = createGlobalStyle`
     --light-orange: #FFF8ED;
     --san-serif: 'Lora', Georgia, Cambria, "Times New Roman", Times, serif;
   }
-  html {
-    height: 100vh;
+  html, body {
+    height: 100%;
+  }
+  #root {
+    display: flex; 
+    flex-direction: column;
+    height: 100%;
+  }
+  main {
+    flex: 1 0 auto;
+  }
+  footer {
+    flex-shrink: 0;
   }
   ul {
     padding: 0;
@@ -22,7 +33,7 @@ const GlobalStyles = createGlobalStyle`
   p {
     margin: 0;
   }
-  button {
+  button, input[type=submit] {
     background: var(--navy);
     color: white;
     border: 0;
@@ -30,6 +41,7 @@ const GlobalStyles = createGlobalStyle`
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 2px;
+    border-radius: 0;
     &.minimal {
       background: none;
       color: var(--navy);

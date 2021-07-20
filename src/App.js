@@ -9,22 +9,18 @@ import Media from './pages/Media'
 import Recommendations from './pages/Reccomendations'
 import GlobalStyles from './styles/GlobalStyles'
 import Typography from './styles/Typography'
-// import blogService from './services/recommendations'
+import recommendationsService from './services/recommendations'
 import { useEffect } from 'react'
 import AddRecommendation from './pages/AddRecommendation'
 import { selectAllRecommendations, fetchRecommendations } from './reducers/recommendationsSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import Login from './pages/Login'
+import { useState } from 'react'
 
 function App() {
+  const [loggedUser, setLoggedUser] = useState()
   const dispatch = useDispatch()
   const recommendations = useSelector(selectAllRecommendations)
-  console.log(recommendations)
-  // const [recommendations, setRecommendations] = useState([])
-  // useEffect(async () => {
-  //   const response = await blogService.getAll()
-  //   setRecommendations(response)
-  // }, [setRecommendations])
-
   const recommendationStatus = useSelector((state) => state.recommendations.status)
 
   useEffect(() => {
@@ -33,6 +29,16 @@ function App() {
     }
   }, [recommendationStatus, dispatch])
 
+  useEffect(() => {
+    const loggedInUserJSON = window.localStorage.getItem('SPODbUser')
+    if(loggedInUserJSON) {
+      const user = JSON.parse(loggedInUserJSON)
+      setLoggedUser(user)
+      recommendationsService.setToken(user.token)
+    }
+  }, [])
+
+  console.log(loggedUser)
   return (
     <>
       <GlobalStyles />
@@ -48,6 +54,9 @@ function App() {
             </Route>
             <Route path='/recommendation/:id'>
               <Media />
+            </Route>
+            <Route path='/login'>
+              <Login />
             </Route>
             <Route path='/'>
               <Home recommendations={recommendations} />

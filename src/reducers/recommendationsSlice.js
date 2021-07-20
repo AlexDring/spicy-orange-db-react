@@ -9,15 +9,8 @@ const initialState = {
 
 export const fetchRecommendations = createAsyncThunk('recommendations/fetchRecommendations', async () => {
   const response = await recommendationsRouter.getAll()
-  console.log(response)
   return response
 })
-
-// export const fetchRecommendation = createAsyncThunk('recommendations/fetchRecommendations', async (imdbId) => {
-//   const response = await recommendationsRouter.getRecommendation(imdbId)
-//   console.log(response)
-//   return response
-// })
 
 export const addNewRecommendation = createAsyncThunk('recommendations/addNewRecommendation', async (initialRec) => {
   console.log('here')
