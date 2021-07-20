@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 
 const ModalStyles = styled.div`
   position: fixed;
-  bottom: -150vh;
-  /* top: 50%; */
+  bottom: -250vh;
   transform: translate(-50%, -50%);
   left: 50%;
   transition: bottom 0.3s ease-out;
@@ -16,7 +15,8 @@ const ModalStyles = styled.div`
     font-size: 36px;
   }
   &.Show {
-    bottom: -50px;
+    bottom: 0;
+    top: 50%;
   }
   @media (max-width: 500px) {
     width: 100%;

@@ -11,4 +11,9 @@ const getRecommendation = (id) => {
   return response.then(response => response.data)
 }
 
-export default { getAll, getRecommendation }
+const addRecommendation = (newRec) => {
+  const response = axios.post(baseUrl, newRec)
+  return response.then(response => response.data)
+}
+
+export default { getAll, getRecommendation, addRecommendation }
