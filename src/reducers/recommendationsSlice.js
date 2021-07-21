@@ -9,7 +9,7 @@ const initialState = {
 
 export const fetchRecommendations = createAsyncThunk('recommendations/fetchRecommendations', async () => {
   const response = await recommendationsRouter.getAll()
-  return response
+  return response.slice().reverse() // reverse array so most erecently added is displayed first.  
 })
 
 export const addNewRecommendation = createAsyncThunk('recommendations/addNewRecommendation', async (initialRec) => {
