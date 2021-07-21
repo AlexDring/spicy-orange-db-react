@@ -17,17 +17,24 @@ import recommendationsService from './services/recommendations'
 
 import { fetchRecommendations } from './reducers/recommendationsSlice'
 import { loggedIn } from './reducers/loggedInUserSlice'
+import { fetchReviews } from './reducers/reviewSlice'
 
 function App() {
-  // // const [loggedUser, setLoggedUser] = useState()
   const dispatch = useDispatch()
   const recommendationStatus = useSelector((state) => state.recommendations.status)
+  const reviewStatus = useSelector((state) => state.reviews.status)
 
   useEffect(() => {
     if (recommendationStatus === 'idle') {
       dispatch(fetchRecommendations())
     }
   }, [recommendationStatus, dispatch])
+
+  useEffect(() => {
+    if (reviewStatus === 'idle') {
+      dispatch(fetchReviews())
+    }
+  }, [reviewStatus, dispatch])
 
   useEffect(() => {
     const loggedInUserJSON = window.localStorage.getItem('SPODbUser')

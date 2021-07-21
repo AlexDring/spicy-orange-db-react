@@ -13,7 +13,6 @@ export const fetchRecommendations = createAsyncThunk('recommendations/fetchRecom
 })
 
 export const addNewRecommendation = createAsyncThunk('recommendations/addNewRecommendation', async (initialRec) => {
-  console.log('here')
   const response = await recommendationsRouter.addRecommendation(initialRec)
   console.log(response)
   return response
@@ -29,7 +28,7 @@ const recommendationsSlice = createSlice({
     },
     [fetchRecommendations.fulfilled]: (state, action) => {
       state.status = 'succeeded'
-      state.recommendations = state.recommendations.concat(action.payload)
+      state.recommendations = [...action.payload]
     },
     [fetchRecommendations.rejected]: (state, action) => {
       state.status = 'failed'
