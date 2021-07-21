@@ -14,7 +14,6 @@ export const fetchRecommendations = createAsyncThunk('recommendations/fetchRecom
 
 export const addNewRecommendation = createAsyncThunk('recommendations/addNewRecommendation', async (initialRec) => {
   const response = await recommendationsRouter.addRecommendation(initialRec)
-  console.log(response)
   return response
 })
 
