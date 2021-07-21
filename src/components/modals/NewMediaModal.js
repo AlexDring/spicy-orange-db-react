@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import omdbRouter from '../../services/omdb'
+import { addNewRecommendation } from '../../reducers/recommendationsSlice'
+import { useDispatch } from 'react-redux'
 
 const NewMediaModalStyles = styled.div`
   background: var(--light-orange);
@@ -38,6 +40,7 @@ const MediaInformationStyles = styled.ul`
 
 const NewMediaModal = ({ recId }) => {
   const [data, setData] = useState('')
+  const dispatch = useDispatch()
 
   useEffect(async () => {
     if(recId) {
@@ -45,10 +48,17 @@ const NewMediaModal = ({ recId }) => {
       setData(response)
     }
   },[recId])
+
+  const saveRecommendation = async () => {
+    console.log(data)
+    const resultAction = await dispatch(addNewRecommendation(data)) //!FINISHHHTHISSS // https://redux.js.org/tutorials/essentials/part-5-async-logic#checking-thunk-results-in-components
+    console.log(resultAction)
+  }
   
   if(!data) {
     return null
   } else {
+    console.log(data)
     return(
       <NewMediaModalStyles>
         <img src={data.Poster} alt="" />
@@ -69,7 +79,7 @@ const NewMediaModal = ({ recId }) => {
           <li><span>Writer</span><div>{data.Writer}</div></li>
           <li><span>Cast</span><div>{data.Actors}</div></li>
         </MediaInformationStyles>
-        <button>Add to Recommendations</button>
+        <button onClick={saveRecommendation}>Add to Recommendations</button>
       </NewMediaModalStyles>
     )
   }

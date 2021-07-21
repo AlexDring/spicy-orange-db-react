@@ -3,13 +3,13 @@ import ReviewList from '../components/ReviewList'
 import MediaList from '../components/MediaList'
 import PropTypes from 'prop-types'
 
-const Home = ({ recommendations }) => {
+const Home = () => {
   return(
     <>
       <SectionStyles>
         <section>
           <h1>Recent Recommendations</h1>
-          <MediaList recommendations={recommendations} />
+          <MediaList />
         </section>
       </SectionStyles>
       <SectionStyles orange>

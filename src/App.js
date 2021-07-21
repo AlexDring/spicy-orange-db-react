@@ -1,26 +1,42 @@
-import 'normalize.css'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { 
   BrowserRouter as Router, 
   Route, 
   Switch } from 'react-router-dom'
+import 'normalize.css'
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import Media from './pages/Media'
+import AddRecommendation from './pages/AddRecommendation'
 import Recommendations from './pages/Reccomendations'
+import Login from './pages/Login'
 import GlobalStyles from './styles/GlobalStyles'
 import Typography from './styles/Typography'
-import blogService from './services/recommendations'
-import { useEffect, useState } from 'react'
-import AddRecommendation from './pages/AddRecommendation'
+import recommendationsService from './services/recommendations'
+
+import { fetchRecommendations } from './reducers/recommendationsSlice'
+import { loggedIn } from './reducers/loggedInUserSlice'
 
 function App() {
-  const [recommendations, setRecommendations] = useState([])
-  useEffect(async () => {
-    const response = await blogService.getAll()
-    setRecommendations(response)
-  }, [setRecommendations])
+  // // const [loggedUser, setLoggedUser] = useState()
+  const dispatch = useDispatch()
+  const recommendationStatus = useSelector((state) => state.recommendations.status)
 
-  // console.log(recommendations)
+  useEffect(() => {
+    if (recommendationStatus === 'idle') {
+      dispatch(fetchRecommendations())
+    }
+  }, [recommendationStatus, dispatch])
+
+  useEffect(() => {
+    const loggedInUserJSON = window.localStorage.getItem('SPODbUser')
+    if(loggedInUserJSON) {
+      const user = JSON.parse(loggedInUserJSON)
+      dispatch(loggedIn(user))
+      recommendationsService.setToken(user.token)
+    }
+  }, [])
 
   return (
     <>
@@ -28,20 +44,26 @@ function App() {
       <Typography />
       <Router>
         <Layout>
+          {/* {!loggedUser ? 
+            <Login /> : */}
           <Switch>
             <Route path='/recommendations'>
-              <Recommendations recommendations={recommendations} />
+              <Recommendations />
             </Route>
             <Route path='/add-recommendation'>
               <AddRecommendation />
-            </Route>
+            </Route>§
             <Route path='/recommendation/:id'>
               <Media />
             </Route>
+            <Route path='/login'>
+              <Login />
+            </Route>
             <Route path='/'>
-              <Home recommendations={recommendations} />
+              <Home />
             </Route>
           </Switch>
+          {/* } */}
         </Layout>
       </Router>
     </>

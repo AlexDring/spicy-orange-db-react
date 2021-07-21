@@ -56,6 +56,7 @@ const TableStyles = styled.table`
 const AddRecommendationTable = () => {
   const [displayModal, setDisplayModal] = useState(false)
   const [recId, setRecId] = useState('') 
+  
   const data = useMemo(() => 
     [
       {

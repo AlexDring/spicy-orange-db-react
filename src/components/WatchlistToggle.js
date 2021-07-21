@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const WatchlistToggleStyles = styled.div`
   display: flex;
-  margin-bottom: 6px;
+  /* margin-bottom: 6px; */
   span {
     cursor: pointer;
     display: flex; 

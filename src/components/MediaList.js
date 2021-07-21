@@ -3,6 +3,8 @@ import MediaCard from './MediaCard'
 import MediaPoster from './MediaPoster'
 import PropTypes from 'prop-types'
 import { MediaCardGridStyles } from '../styles/styles'
+import { useSelector } from 'react-redux'
+import { selectAllRecommendations } from '../reducers/recommendationsSlice'
 
 const MediaPosterGridStyles = styled.div`
   display: grid;
@@ -15,9 +17,11 @@ const MediaPosterGridStyles = styled.div`
   margin-top: 30px;
 `
 
-const MediaList = ({ recommendations }) => {
-  const highlightedRecommendations = recommendations.slice(0, 4)
-  const remainingRecommendations = recommendations.slice(4)
+const MediaList = () => {
+  const recommendations = useSelector(selectAllRecommendations)
+
+  const highlightedRecommendations = recommendations.slice(0, 4) // display first 4 as cards
+  const remainingRecommendations = recommendations.slice(4) // display remaining as posters
 
   return(
     <>
