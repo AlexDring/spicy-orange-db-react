@@ -6,4 +6,11 @@ const getAllReviews = () => {
   return response.then(response => response.data)
 }
 
-export default { getAllReviews }
+const addNewReview = (newReview) => {
+  console.log(newReview, 'newReview')
+  const response = axios.post(`${baseUrl}/${newReview.mediaDetailId}`, newReview)
+  console.log(response)
+  return response.then(response => response.data)
+}
+
+export default { getAllReviews, addNewReview }

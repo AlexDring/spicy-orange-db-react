@@ -8,6 +8,7 @@ import Review from '../components/Review'
 import Modal from '../components/modals/Modal'
 import RottenReviewModal from '../components/modals/RottenReviewModal'
 import recommendationRouter from '../services/recommendations'
+import { useSelector } from 'react-redux'
 
 const MediaInformationWrapper = styled.section`
   padding: 0;
@@ -40,13 +41,16 @@ const NewSectionStyles = styled(SectionStyles)`
 
 const Media = () => {
   const [displayModal, setDisplayModal] = useState(false)
-  const [recommendation, setRecommendation] = useState(null)
+  // const [recommendation, setRecommendation] = useState(null)
   const id = useParams().id
+  const recommendation = useSelector(state => state.recommendation)
+  
+  // useEffect(async () => {
+  //   const response = await recommendationRouter.getRecommendation(id)
+  //   setRecommendation(response)
+  // }, [])
 
-  useEffect(async () => {
-    const response = await recommendationRouter.getRecommendation(id)
-    setRecommendation(response)
-  }, [])
+
 
   // console.log(recommendation)
 
@@ -58,7 +62,7 @@ const Media = () => {
         <SectionStyles>
           <section>
             <Modal displayModal={displayModal} setDisplayModal={setDisplayModal} >
-              <RottenReviewModal media={recommendation} />
+              <RottenReviewModal displayModal={displayModal} setDisplayModal={setDisplayModal} media={recommendation} />
             </Modal>
             <MediaDetail 
               displayModal={displayModal} 

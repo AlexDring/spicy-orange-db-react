@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import omdbService from '../services/omdb'
 
 const initialState = {
-  omdbSearch: [],
+  data: [],
   status: 'idle',
   error: null
 }
@@ -23,7 +23,7 @@ const omdbSearchSlice = createSlice({
     },
     [fetchOMDbSearch.fulfilled]: (state, action) => {
       state.status = 'succeeded'
-      state.omdbSearch = [...action.payload]
+      state.data = [...action.payload]
     },
     [fetchOMDbSearch.rejected]: (state, action) => {
       state.status = 'failed'

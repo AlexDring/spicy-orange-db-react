@@ -24,3 +24,5 @@ const loggedInUserSlice = createSlice({
 export const { loggedIn } = loggedInUserSlice.actions
 
 export default loggedInUserSlice.reducer
+
+export const selectUser = (state) => state.loggedInUser.user
