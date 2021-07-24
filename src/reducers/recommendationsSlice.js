@@ -1,5 +1,7 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+/* eslint-disable no-unused-vars */
+import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
 import recommendationsRouter from '../services/recommendations'
+
 
 const initialState = {
   data: [],
@@ -14,7 +16,7 @@ export const fetchRecommendations = createAsyncThunk('recommendations/fetchRecom
 
 export const fetchSingleRecommendation = createAsyncThunk('recommendations/fetchSingleRecommendation', async (id) => {
   const response = await recommendationsRouter.getRecommendation(id)
-  return response // reverse array so most erecently added is displayed first.  
+  return response
 })
 
 export const addNewRecommendation = createAsyncThunk('recommendations/addNewRecommendation', async (initialRec) => {
@@ -32,21 +34,22 @@ const recommendationsSlice = createSlice({
     },
     [fetchRecommendations.fulfilled]: (state, action) => {
       state.status = 'succeeded'
-      state.data = [...action.payload]
+      state.data = action.payload
     },
     [fetchRecommendations.rejected]: (state, action) => {
       state.status = 'failed'
       state.error = action.error.message
     },
     [fetchSingleRecommendation.pending]: (state) => {
-      state.status = 'loading'
+      state.individualStatus = 'loading'
     },
-    [fetchSingleRecommendation.fulfilled]: (state, action) => {
-      state.status = 'succeeded'
-      state.data = [...action.payload]
+    [fetchSingleRecommendation.fulfilled]: (state, { payload }) => {
+      const index = state.data.findIndex(rec => rec._id === payload._id)
+      if(index !== -1) {
+        state.data[index].mediaDetail = payload.mediaDetail
+      }
     },
     [fetchSingleRecommendation.rejected]: (state, action) => {
-      state.status = 'failed'
       state.error = action.error.message
     },
     [addNewRecommendation.fulfilled]: (state, action) => {
@@ -54,6 +57,8 @@ const recommendationsSlice = createSlice({
     }
   }
 })
+
+// export const { fetchSingleRecommendation } = recommendationsSlice.actions
 
 export default recommendationsSlice.reducer
 

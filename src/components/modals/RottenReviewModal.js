@@ -62,7 +62,6 @@ const RottenReviewModal = ({ media, setDisplayModal, displayModal }) => {
     console.log('added!!!')
     console.log(resultAction)
   }
-  console.log(media.mediaDetail._id)
 
   return(
     <RottenReviewStyles>

@@ -9,7 +9,6 @@ const initialState = {
 
 export const fetchReviews = createAsyncThunk('reviews/fetchReviews', async () => {
   const response = await reviewService.getAllReviews()
-  console.log(response)
   return response
 })
 
