@@ -39,12 +39,11 @@ const RottenReviewStyles = styled.div`
 
 const RottenReviewModal = ({ media, setDisplayModal, displayModal }) => {
   const dispatch = useDispatch()
-  const [score, setScore] = useState(0)
   const [review, setReview] = useState('')
   const loggedUser = useSelector(selectUser)
-  // console.log(score, 'score')
-  // console.log(review, 'review')
+  const [score, setScore] = useState(media.mediaDetail.rottenReviews.find(r => r.user === loggedUser.username))
 
+  console.log(score)
   const addReviewSubmit = async(e) => {
     e.preventDefault()
     const scoreNum = parseInt(score)
