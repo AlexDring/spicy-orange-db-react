@@ -49,7 +49,7 @@ const Media = () => {
   const recommendation = useSelector(state => state.recommendations.data.find(rec => rec._id === id))
 
   useEffect(() => {
-    console.log(recommendation && typeof recommendation.mediaDetail == 'string')
+    // Check that recommendation has loaded and that media detail hasn't been fetched already
     if(recommendation && typeof recommendation.mediaDetail == 'string') {
       console.log('useEffect Runs')
       dispatch(fetchSingleRecommendation(id))
