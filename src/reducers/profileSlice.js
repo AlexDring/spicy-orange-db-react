@@ -15,7 +15,7 @@ export const fetchProfile = createAsyncThunk('/profile/fetchProfile', async (pro
 
 export const fetchWatchlist = createAsyncThunk('/profile/fetchWatchlist', async (profileId) => {
   const response = await profileRouter.getWatchlist(profileId)
-  console.log(response)
+  console.log('watchlist response', response)
   return response
 })
 
@@ -45,6 +45,17 @@ const profileSlice = createSlice({
       state.data = action.payload
     },
     [fetchProfile.failed]: (state, action) => {
+      state.status = 'failed'
+      state.error = action.error.message
+    },
+    [fetchWatchlist.pending]: (state) => {
+      state.status = 'loading'
+    },
+    [fetchWatchlist.fulfilled]: (state, action) => {
+      state.status = 'suceeded'
+      state.data = action.payload
+    },
+    [fetchWatchlist.failed]: (state, action) => {
       state.status = 'failed'
       state.error = action.error.message
     },

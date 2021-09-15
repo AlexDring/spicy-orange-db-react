@@ -43,7 +43,6 @@ const RottenReviewModal = ({ media, setDisplayModal, displayModal }) => {
   const loggedUser = useSelector(selectUser)
   const [score, setScore] = useState(media.mediaDetail.rottenReviews.find(r => r.user === loggedUser.username))
 
-  console.log(score)
   const addReviewSubmit = async(e) => {
     e.preventDefault()
     const scoreNum = parseInt(score)

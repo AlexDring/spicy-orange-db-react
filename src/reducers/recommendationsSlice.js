@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import recommendationsRouter from '../services/recommendations'
 
 

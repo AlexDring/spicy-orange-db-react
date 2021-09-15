@@ -54,7 +54,7 @@ const Media = () => {
       console.log('useEffect Runs')
       dispatch(fetchSingleRecommendation(id))
     }
-  }, [recommendation])
+  }, [dispatch, id, recommendation])
 
   if(!recommendation|| !recommendation.mediaDetail._id) {
     return null
@@ -77,12 +77,18 @@ const Media = () => {
           <h2>{recommendation.Title} Information</h2>
           <p>{recommendation.mediaDetail.Plot}</p>
           <MediaInformationStyles>
-            <li><span>Director</span><div>{recommendation.Director}</div></li>
-            <li><span>Writer</span><div>{recommendation.mediaDetail.Writer}</div></li>
-            <li><span>Cast</span><div>{recommendation.mediaDetail.Actors}</div></li>
-            <li><span>Production</span><div>{recommendation.mediaDetail.Production}</div></li>
-            <li><span>Awards</span><div>{recommendation.mediaDetail.Awards}</div></li>
-            <li><span>BoxOffice</span><div>{recommendation.mediaDetail.BoxOffice}</div></li>
+            {recommendation.Director !== 'N/A' && 
+            <li><span>Director</span><div>{recommendation.Director}</div></li>}
+            {recommendation.mediaDetail.Writer !== 'N/A' && 
+            <li><span>Writer</span><div>{recommendation.mediaDetail.Writer}</div></li>}
+            {recommendation.mediaDetail.Actors !== 'N/A' && 
+            <li><span>Cast</span><div>{recommendation.mediaDetail.Actors}</div></li>}
+            {recommendation.mediaDetail.Production !== 'N/A' || undefined && 
+            <li><span>Production</span><div>{recommendation.mediaDetail.Production}</div></li>}
+            {recommendation.mediaDetail.Awards !== 'N/A' && 
+            <li><span>Awards</span><div>{recommendation.mediaDetail.Awards}</div></li>}
+            {recommendation.mediaDetail.BoxOffice !== 'N/A' || undefined && 
+            <li><span>BoxOffice</span><div>{recommendation.mediaDetail.BoxOffice}</div></li>}
           </MediaInformationStyles>
         </MediaInformationWrapper>
       </NewSectionStyles>
