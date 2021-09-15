@@ -42,11 +42,14 @@ const NewMediaModal = ({ recId }) => {
   const [data, setData] = useState('')
   const dispatch = useDispatch()
 
-  useEffect(async () => {
-    if(recId) {
-      const response = await omdbRouter.searchOMDb(`i=${recId}`)
-      setData(response)
+  useEffect(() => {
+    async function fetchData() {
+      if(recId) {
+        const response = await omdbRouter.searchOMDb(`i=${recId}`)
+        setData(response)
+      }
     }
+    fetchData()
   },[recId])
 
   const saveRecommendation = async () => {

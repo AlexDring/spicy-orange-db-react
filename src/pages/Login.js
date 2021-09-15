@@ -4,8 +4,6 @@ import recommendationsService from '../services/recommendations'
 import { SectionStyles } from '../styles/styles'
 import styled from 'styled-components'
 
-
-
 const LoginForm = styled.form`
   display: flex;
   flex-direction: column;

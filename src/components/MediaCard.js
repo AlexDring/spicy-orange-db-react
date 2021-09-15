@@ -100,6 +100,8 @@ const RottenReviewStyles = styled.div`
 `
 
 const MediaCard = ({ singleMedia }) => {
+  console.log(typeof(singleMedia.Type))
+
   return(
     <div>
       <MediaCardStyles>

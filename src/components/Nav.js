@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import logo from '../assets/images/spicy-orange-logo.svg'
 import avatar from '../assets/images/avatar.png'
 import OMDbSearch from './OMDbSearch'
+import PropTypes from 'prop-types'
 
 const NavStyles = styled.nav`
   background: var(--orange);
@@ -114,7 +115,7 @@ const Nav = () => {
           <Link onClick={() => setOpenNav(!openNav)} to='/recommendations'>Recommendations</Link>
         </li>
         <li>
-          <Link onClick={() => setOpenNav(!openNav)} to='/watchlist'>Watchlist</Link>
+          <Link onClick={() => setOpenNav(!openNav)} to='/watchlist' >Watchlist</Link>
         </li>
         <li>
           <Link onClick={() => setOpenNav(!openNav)} to='/user/'><img height="40" src={avatar} alt="Logged in users avatar" /></Link>
@@ -124,5 +125,12 @@ const Nav = () => {
         
     </NavStyles>
   )}
+
+Nav.propTypes = {
+  profileId: PropTypes.string
+  // Defining types for component props improves reusability of your components by validating received data. It can warn other developers if they make a mistake while reusing the component with improper data type.
+  // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prop-types.md
+  // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prop-types.md#rule-options
+}
 
 export default Nav

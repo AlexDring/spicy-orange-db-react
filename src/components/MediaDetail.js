@@ -127,7 +127,7 @@ const MediaDetail = ({ displayModal, setDisplayModal, media }) => {
             breadcrumb: `${media.Title}`
           }
         ]} />
-        <WatchlistToggle />
+        <WatchlistToggle mediaId={media._id} />
       </div>
       <MediaContainer>
         <MediaPoster>

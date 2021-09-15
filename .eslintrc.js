@@ -16,7 +16,7 @@ module.exports = {
     'sourceType': 'module'
   },
   'plugins': [
-    'react'
+    'react', 'react-hooks',
   ],
   'rules': {
     'indent': [
@@ -36,5 +36,6 @@ module.exports = {
       'never'
     ],
     'react/react-in-jsx-scope': 'off',
+    'react-hooks/exhaustive-deps': 'warn' 
   }
 }
