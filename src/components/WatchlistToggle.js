@@ -1,6 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { addToWatchlist, removeFromWatchlist } from '../reducers/profileSlice'
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 
@@ -19,26 +17,26 @@ const WatchlistToggleStyles = styled.div`
 `
 
 const WatchlistToggle = ({ mediaId }) => {
-  const dispatch = useDispatch()
-  const [itemExists, setItemExists] = useState()
-  const profileId = useSelector(state => state.loggedInUser.user.profile_id)
-  const profile = useSelector(state => state.profile.data)
 
-  useEffect(() => {
-    if(profile !== null) {
-      console.log('running second')
-      const item = profile.watchlist.find(w => w.media_id === mediaId)
-      setItemExists(item)
-    }
-  }, [mediaId, profile])
+  const [itemExists, setItemExists] = useState()
+  // const profileId = useSelector(state => state.loggedInUser.user.profile_id)
+  // const profile = useSelector(state => state.profile.data)
+
+  // useEffect(() => {
+  //   if(profile !== null) {
+  //     console.log('running second')
+  //     const item = profile.watchlist.find(w => w.media_id === mediaId)
+  //     setItemExists(item)
+  //   }
+  // }, [mediaId, profile])
 
   const Toggle = () => {
     if(!itemExists) {
       console.log('togglewatchAdd')
-      dispatch(addToWatchlist({ profileId, media_id: mediaId, date_added: new Date() }))
+      // dispatch(addToWatchlist({ profileId, media_id: mediaId, date_added: new Date() }))
     } else {
       console.log('togglewatchRemove')
-      dispatch(removeFromWatchlist({ profileId, watchlistId: itemExists._id }))
+      // dispatch(removeFromWatchlist({ profileId, watchlistId: itemExists._id }))
     }
   }
 

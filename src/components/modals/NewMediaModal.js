@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import omdbRouter from '../../services/omdb'
-import { addNewRecommendation } from '../../reducers/recommendationsSlice'
-import { useDispatch } from 'react-redux'
 
 const NewMediaModalStyles = styled.div`
   background: var(--light-orange);
@@ -40,7 +38,7 @@ const MediaInformationStyles = styled.ul`
 
 const NewMediaModal = ({ recId }) => {
   const [data, setData] = useState('')
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   useEffect(() => {
     async function fetchData() {
@@ -54,8 +52,8 @@ const NewMediaModal = ({ recId }) => {
 
   const saveRecommendation = async () => {
     console.log(data)
-    const resultAction = await dispatch(addNewRecommendation(data)) //!FINISHHHTHISSS // https://redux.js.org/tutorials/essentials/part-5-async-logic#checking-thunk-results-in-components
-    console.log(resultAction)
+    // const resultAction = await dispatch(addNewRecommendation(data)) //!FINISHHHTHISSS // https://redux.js.org/tutorials/essentials/part-5-async-logic#checking-thunk-results-in-components
+    // console.log(resultAction)
   }
   
   if(!data) {

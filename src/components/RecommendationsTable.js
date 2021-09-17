@@ -1,5 +1,5 @@
-/* eslint-disable react/jsx-key */
 /* eslint-disable react/display-name */
+/* eslint-disable react/jsx-key */
 import { useEffect, useMemo } from 'react'
 import { useTable } from 'react-table'
 import { useWindowSize } from '../utils/hooks'
@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom'
 import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
-import { selectAllRecommendations } from '../reducers/recommendationsSlice'
+import recommendationsRouter from '../services/recommendations'
+import { useQuery } from 'react-query'
 
 
 const TableStyles = styled.table`
@@ -60,7 +60,10 @@ const TableStyles = styled.table`
 
 const RecommendationsTable = () => {
   const size = useWindowSize()
-  const recommendations = useSelector(selectAllRecommendations)
+  const { data: recommendations } = useQuery({
+    queryKey: 'recommendations',
+    queryFn: () => recommendationsRouter.getAll().then(data => data) 
+  })
   
   console.log(recommendations)
   const data = useMemo(() => recommendations, [recommendations])
@@ -69,6 +72,7 @@ const RecommendationsTable = () => {
     () => [
       {
         Header: 'Title',
+        // eslint-disable-next-line react/display-name
         Cell: row => {
           return(
             <div style={{'display': 'flex', 'alignItems': 'center'}}>

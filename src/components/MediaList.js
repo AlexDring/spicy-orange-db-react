@@ -7,7 +7,6 @@ import { useQuery } from 'react-query'
 import recommendationsService from '../services/recommendations'
 
 const MediaList = () => {
-  // eslint-disable-next-line no-unused-vars
   const { data: recommendations } = useQuery({
     queryKey: 'recommendations',
     queryFn: () => recommendationsService.getAll().then(data => data) 

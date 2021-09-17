@@ -16,7 +16,6 @@ const getProfile = (profileId) => {
 
 const getWatchlist = (profileId) => {
   const request = axios.get(`${baseUrl}/${profileId}/watchlist`)
-  console.log(request)
   return request.then(response => response.data)
 }
 

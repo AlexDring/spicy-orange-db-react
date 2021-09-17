@@ -18,7 +18,7 @@ export const MediaPosterGridStyles = styled.div`
 `
 
 export const SectionStyles = styled.div`
-  background: ${props => props.orange ?  '#FFF8ED' : '#FFFDED'};
+  background: ${props => props.orange ?  '#FFF8ED' : null};
   section {
     padding: 48px 15px;
     max-width: 970px;

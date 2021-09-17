@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
-import 'normalize.css'
 
+import 'normalize.css'
 import Typography from './styles/Typography'
 import GlobalStyles from './styles/GlobalStyles'
 import Layout from './components/Layout'
@@ -18,7 +18,10 @@ async function getUser () {
   const token = await storage.getToken()
   if(token) {  
     const data = await authRouter.checkToken(token)
-    user = data.data
+    user = {
+      ...data.data,
+      token
+    }
   }
   return user
 }
@@ -32,7 +35,8 @@ function App() {
     isError,
     isSuccess,
     run,
-    setData} = useAsync()
+    setData 
+  } = useAsync()
 
   useEffect(() => {
     run(getUser())

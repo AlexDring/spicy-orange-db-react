@@ -1,6 +1,4 @@
-import { 
-  Route, 
-  Switch } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 
 import 'normalize.css'
 import Home from './pages/Home'
@@ -10,45 +8,32 @@ import Recommendations from './pages/Reccomendations'
 
 import Watchlist from './pages/Watchlist'
 import Search from './pages/Search'
-// import profileRouter from './services/profile'
-// import {useQuery} from 'react-query'
+import profileRouter from './services/profile'
+import {useQuery} from 'react-query'
 import PropTypes from 'prop-types'
 
 
 function AuthenticatedApp({ user }) {
-
-  // const result = useQuery({
-  //   queryKey: ['profile', user.profile_id],
-  //   queryFn: () => profileRouter.getProfile(user.profile_id)
-  // })
-  // console.log(result)
+  const {data: profile} = useQuery({
+    queryKey: ['profile', user.profile_id],
+    // queryFn: () => profileRouter.getProfile(user.profile_id)
+    queryFn: () => profileRouter.getWatchlist(user.profile_id).then(data => data)
+  })
+  console.log(profile)
 
   return (
-    <>
-      <Switch>
-        <Route path='/search'>
-          <Search />
-        </Route>
-        <Route path='/watchlist'>
-          <Watchlist />
-        </Route>
-        <Route path='/recommendations'>
-          <Recommendations />
-        </Route>
-        <Route path='/add-recommendation'>
-          <AddRecommendation />
-        </Route>
-        <Route path='/recommendation/:id'>
-          <Media />
-        </Route>
-        {/* <Route path='/login'>
-          <Login />
-        </Route> */}
-        <Route path='/'>
-          <Home />
-        </Route>
-      </Switch>
-    </>
+    <Switch>
+      <Route path='/search' component={Search} />
+      <Route path='/watchlist'>
+        <Watchlist user={user} />
+      </Route>
+      <Route path='/recommendations' component={Recommendations} />
+      <Route path='/add-recommendation' component={AddRecommendation} />
+      <Route path='/recommendation/:id' >
+        <Media user={user} />
+      </Route>
+      <Route path='/' component={Home} />
+    </Switch>
   )
 }
 

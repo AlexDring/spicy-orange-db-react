@@ -1,46 +1,32 @@
-import { useEffect } from 'react'
-// import { useQuery } from 'react-query'
-import { useDispatch, useSelector } from 'react-redux'
-// import { useParams } from 'react-router-dom'
+import { useQuery } from 'react-query'
 import MediaCard from '../components/MediaCard'
-import { fetchWatchlist } from '../reducers/profileSlice'
 import { MediaCardGridStyles, SectionStyles } from '../styles/styles'
+import PropTypes from 'prop-types'
+import profileRouter from '../services/profile'
 
-const Watchlist = () => {
-  const dispatch = useDispatch()
-  // let { slug } = useParams()
-  const profile = useSelector(state => state.profile)
-  console.log(typeof(profile))
-  useEffect(() => {
-    if(profile.data) {
-      dispatch(fetchWatchlist(profile.data._id))
-    }
-  }, [dispatch, profile.data])
-
-  // const result = useQuery({
-  //   queryKey: ['watchlist', {profile.data.id}],
-  //   queryFn: () => profileRouter.getWatchlist(profile.data.id).then(data => data)
-  // })
-
-  // if(!watchlist) {
-  //   return null                 
-  // }
-
-  console.log(profile)
+const Watchlist = ({ user }) => {
+  const {data: profile} = useQuery({
+    queryKey: ['profile', user.profile_id],
+    queryFn: () => profileRouter.getWatchlist(user.profile_id).then(data => data)
+  })
 
   return(
     <SectionStyles>
       <section>
         <h1>Your Watchlist</h1>
         <MediaCardGridStyles>
-          {profile.data ? profile.data.watchlist.map(p =>
+          {profile?.watchlist.map(p =>
             <MediaCard 
               key={p._id} 
-              singleMedia={p.media_id} />) : null}
+              singleMedia={p.media_id} />)}
         </MediaCardGridStyles>
       </section>
     </SectionStyles>
   )
+}
+
+Watchlist.propTypes = {
+  user: PropTypes.object
 }
 
 export default Watchlist

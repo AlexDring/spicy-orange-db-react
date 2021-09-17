@@ -1,10 +1,7 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import rottenIcons from '../../assets/images/rotten-gas/rottenIcons'
-import { selectUser } from '../../reducers/loggedInUserSlice'
-import { addReview } from '../../reducers/reviewSlice'
 
 const RottenReviewStyles = styled.div`
   padding: 75px 24px 24px;
@@ -37,28 +34,28 @@ const RottenReviewStyles = styled.div`
 `
 
 
-const RottenReviewModal = ({ media, setDisplayModal, displayModal }) => {
-  const dispatch = useDispatch()
+const RottenReviewModal = ({ media, setDisplayModal, displayModal, user }) => {
+
   const [review, setReview] = useState('')
-  const loggedUser = useSelector(selectUser)
-  const [score, setScore] = useState(media.mediaDetail.rottenReviews.find(r => r.user === loggedUser.username))
+
+  const [score, setScore] = useState(media.mediaDetail.rottenReviews.find(r => r.user === user.username))
 
   const addReviewSubmit = async(e) => {
     e.preventDefault()
-    const scoreNum = parseInt(score)
-    const resultAction = await dispatch(addReview({ 
-      mediaId: media._id,
-      mediaDetailId: media.mediaDetail._id,
-      score: scoreNum, 
-      review,  
-      title: media.Title,
-      poster: media.Poster,
-      user: loggedUser.username,
-      avatar: loggedUser.avatar
-    }))
-    setDisplayModal(!displayModal)
-    console.log('added!!!')
-    console.log(resultAction)
+    // const scoreNum = parseInt(score)
+    // const resultAction = await dispatch(addReview({ 
+    //   mediaId: media._id,
+    //   mediaDetailId: media.mediaDetail._id,
+    //   score: scoreNum, 
+    //   review,  
+    //   title: media.Title,
+    //   poster: media.Poster,
+    //   user: user.username,
+    //   avatar: user.avatar
+    // }))
+    // setDisplayModal(!displayModal)
+    // console.log('added!!!')
+    // console.log(resultAction)
   }
 
   return(
@@ -78,7 +75,8 @@ const RottenReviewModal = ({ media, setDisplayModal, displayModal }) => {
 RottenReviewModal.propTypes = {
   media: PropTypes.object,
   setDisplayModal: PropTypes.func,
-  displayModal: PropTypes.bool
+  displayModal: PropTypes.bool,
+  user: PropTypes.object
 }
 
 export default RottenReviewModal

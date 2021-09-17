@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { SectionStyles } from '../styles/styles'
@@ -10,6 +9,7 @@ import Modal from '../components/modals/Modal'
 import RottenReviewModal from '../components/modals/RottenReviewModal'
 import recommendationRouter from '../services/recommendations'
 import { useQuery } from 'react-query'
+import PropTypes from 'prop-types'
 
 const MediaInformationWrapper = styled.section`
   padding: 0;
@@ -40,7 +40,7 @@ const NewSectionStyles = styled(SectionStyles)`
   }
 `
 
-const Media = () => {
+const Media = ({user}) => {
   const [displayModal, setDisplayModal] = useState(false)
   const id = useParams().id
   
@@ -56,8 +56,15 @@ const Media = () => {
     <>
       <SectionStyles>
         <section>
-          <Modal displayModal={displayModal} setDisplayModal={setDisplayModal} >
-            <RottenReviewModal displayModal={displayModal} setDisplayModal={setDisplayModal} media={recommendation} />
+          <Modal 
+            displayModal={displayModal} 
+            setDisplayModal={setDisplayModal}>
+            <RottenReviewModal 
+              user={user}
+              displayModal={displayModal}
+              setDisplayModal={setDisplayModal}
+              media={recommendation} 
+            />
           </Modal>
           <MediaDetail 
             displayModal={displayModal} 
@@ -97,6 +104,10 @@ const Media = () => {
       </SectionStyles>
     </> 
   )
+}
+
+Media.propTypes = {
+  user: PropTypes.object
 }
 
 export default Media
