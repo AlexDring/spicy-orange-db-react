@@ -16,7 +16,7 @@ import PropTypes from 'prop-types'
 
 
 function AuthenticatedApp({ user }) {
-  console.log(user)
+
   // const result = useQuery({
   //   queryKey: ['profile', user.profile_id],
   //   queryFn: () => profileRouter.getProfile(user.profile_id)

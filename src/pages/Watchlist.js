@@ -15,7 +15,7 @@ const Watchlist = () => {
     if(profile.data) {
       dispatch(fetchWatchlist(profile.data._id))
     }
-  }, [profile.data ? profile.data._id : null, dispatch])
+  }, [dispatch, profile.data])
 
   // const result = useQuery({
   //   queryKey: ['watchlist', {profile.data.id}],

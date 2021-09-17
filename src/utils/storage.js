@@ -1,16 +1,16 @@
-const storageKey = 'SPODbUser'
+const storageKey = 'SPODbToken'
 
-const saveUser = (user) =>
+const saveToken = (user) =>
   localStorage.setItem(storageKey, JSON.stringify(user))
 
-const loadUser = () =>
+const getToken = () =>
   JSON.parse(localStorage.getItem(storageKey))
 
 const logoutUser = () =>
   localStorage.removeItem(storageKey)
 
 export default {
-  saveUser,
-  loadUser,
+  saveToken,
+  getToken,
   logoutUser
 }

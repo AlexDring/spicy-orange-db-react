@@ -5,20 +5,20 @@ import 'normalize.css'
 import Typography from './styles/Typography'
 import GlobalStyles from './styles/GlobalStyles'
 import Layout from './components/Layout'
+import {FullPageSpinner} from './components/lib'
 
 import authRouter from './services/login'
+import storage from './utils/storage'
 import AuthenticatedApp from './authenticated-app'
 import UnauthenticatedApp from './unauthenticated-app'
 import {useAsync} from './utils/hooks'
-import {FullPageSpinner} from './components/lib'
 
 async function getUser () {
   let user = null
-  const token = await authRouter.getLocalUser()
+  const token = await storage.getToken()
   if(token) {  
-    const {data} = await authRouter.checkToken(token)
-    console.log(data)
-    user = data
+    const data = await authRouter.checkToken(token)
+    user = data.data
   }
   return user
 }
@@ -40,7 +40,7 @@ function App() {
 
   const login = form => authRouter.login(form).then(user => setData(user))
   const logout = () => {
-    authRouter.logout()
+    storage.logoutUser()
     setData(null)
   }
 
