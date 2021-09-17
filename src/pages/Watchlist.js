@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+// import { useQuery } from 'react-query'
 import { useDispatch, useSelector } from 'react-redux'
 // import { useParams } from 'react-router-dom'
 import MediaCard from '../components/MediaCard'
@@ -15,6 +16,11 @@ const Watchlist = () => {
       dispatch(fetchWatchlist(profile.data._id))
     }
   }, [profile.data ? profile.data._id : null, dispatch])
+
+  // const result = useQuery({
+  //   queryKey: ['watchlist', {profile.data.id}],
+  //   queryFn: () => profileRouter.getWatchlist(profile.data.id).then(data => data)
+  // })
 
   // if(!watchlist) {
   //   return null                 

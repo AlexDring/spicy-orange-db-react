@@ -19,6 +19,7 @@ module.exports = {
     'react', 'react-hooks',
   ],
   'rules': {
+    'no-unused-vars': 'off',
     'indent': [
       'error',
       2

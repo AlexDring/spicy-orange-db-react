@@ -9,9 +9,7 @@ import Review from '../components/Review'
 import Modal from '../components/modals/Modal'
 import RottenReviewModal from '../components/modals/RottenReviewModal'
 import recommendationRouter from '../services/recommendations'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchSingleRecommendation, selectAllRecommendations } from '../reducers/recommendationsSlice'
-import { useEffect } from 'react'
+import { useQuery } from 'react-query'
 
 const MediaInformationWrapper = styled.section`
   padding: 0;
@@ -44,17 +42,12 @@ const NewSectionStyles = styled(SectionStyles)`
 
 const Media = () => {
   const [displayModal, setDisplayModal] = useState(false)
-  const dispatch = useDispatch()
   const id = useParams().id
-  const recommendation = useSelector(state => state.recommendations.data.find(rec => rec._id === id))
-
-  useEffect(() => {
-    // Check that recommendation has loaded and that media detail hasn't been fetched already
-    if(recommendation && typeof recommendation.mediaDetail == 'string') {
-      console.log('useEffect Runs')
-      dispatch(fetchSingleRecommendation(id))
-    }
-  }, [dispatch, id, recommendation])
+  
+  const { data: recommendation } = useQuery({
+    queryKey: ['recommendation', {id}],
+    queryFn: () => recommendationRouter.getRecommendation(id).then(data => data)
+  })
 
   if(!recommendation|| !recommendation.mediaDetail._id) {
     return null

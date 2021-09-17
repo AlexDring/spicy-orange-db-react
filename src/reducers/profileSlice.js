@@ -9,13 +9,11 @@ const initialState = {
 
 export const fetchProfile = createAsyncThunk('/profile/fetchProfile', async (profileId) => {
   const response = await profileRouter.getProfile(profileId)
-  console.log(response)
   return response
 })
 
 export const fetchWatchlist = createAsyncThunk('/profile/fetchWatchlist', async (profileId) => {
   const response = await profileRouter.getWatchlist(profileId)
-  console.log('watchlist response', response)
   return response
 })
 
@@ -26,11 +24,9 @@ export const addToWatchlist = createAsyncThunk('/profile/addToWatchlist', async 
 
 export const removeFromWatchlist = createAsyncThunk('/profile/removeFromWatchlist', async (item) => {
   await profileRouter.removeFromWatchlist(item)
-  console.log(item.watchlistId)
   return item.watchlistId
 })
 
-console.log(removeFromWatchlist)
 
 const profileSlice = createSlice({
   name: 'profile',
