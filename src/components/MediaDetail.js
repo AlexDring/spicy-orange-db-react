@@ -5,6 +5,9 @@ import reviewLogos from '../assets/images/review-logos/review-icons'
 import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 import WatchlistToggle from './WatchlistToggle'
 import Breadcumbs from './Breadcrumbs'
+import { QueryClient, useMutation, useQueryClient } from 'react-query'
+import recommendationsRouter from '../services/recommendations'
+import { useHistory } from 'react-router'
 
 const MediaContainer = styled.div`
   display: grid;
@@ -110,6 +113,16 @@ const ExternalReviewsWrapper = styled.ul`
 `
 
 const MediaDetail = ({ user, displayModal, setDisplayModal, media }) => {
+  const queryClient = useQueryClient()
+  const history = useHistory()
+  const remove = useMutation(
+    ({media_id, mediaDetail_id}) => recommendationsRouter.removeRecommendation({ media_id, mediaDetail_id }),
+    {onSuccess: () => {
+      queryClient.invalidateQueries('recommendations')
+      history.push('/')
+    }}
+  )
+
   return(
     <>
       <div style={{'display': 'flex', 'justifyContent': 'space-between', 'flexWrap': 'wrap'}}>
@@ -134,6 +147,9 @@ const MediaDetail = ({ user, displayModal, setDisplayModal, media }) => {
           <img src={media.Poster} alt={`${media.Title} poster`} />
         </MediaPoster>
         <MediaMeta type={media.Type}>
+          <small>Added by {media.user}</small>
+          {media.user === user.username && 
+          <button onClick={() => remove.mutate({media_id: media._id, mediaDetail_id: media.mediaDetail._id})} style={{padding: 'none', fontSize: 12}} className='minimal'>Delete</button>}
           <h1>{media.Title}</h1>
           <p><span style={{'textTransform': 'capitalize'}}>{media.Type}</span> • {media.Year} • {media.Runtime}</p>
         </MediaMeta>

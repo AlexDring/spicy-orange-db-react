@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import omdbRouter from '../../services/omdb'
+import { useHistory } from 'react-router'
+import { useMutation, useQueryClient } from 'react-query'
+import recommendationRouter from '../../services/recommendations'
+
 
 const NewMediaModalStyles = styled.div`
   background: var(--light-orange);
@@ -36,8 +40,9 @@ const MediaInformationStyles = styled.ul`
   }
 `
 
-const NewMediaModal = ({ recId }) => {
-  console.log(recId)
+const NewMediaModal = ({ recId, addRecommendation }) => {
+  let history = useHistory()
+  const queryClient = useQueryClient()
   const [data, setData] = useState('')
 
   useEffect(() => {
@@ -50,9 +55,12 @@ const NewMediaModal = ({ recId }) => {
     fetchData()
   },[recId])
 
-  const saveRecommendation = async () => {
-    console.log(data)
-  }
+  const create = useMutation(
+    recommendation => recommendationRouter.addRecommendation(recommendation),
+    {onSuccess: (data) => {
+      queryClient.invalidateQueries('recommendations')
+      history.push(`/recommendation/${data._id}`) // take users to added media page
+    }})
   
   if(!data) {
     return null
@@ -78,7 +86,7 @@ const NewMediaModal = ({ recId }) => {
           <li><span>Writer</span><div>{data.Writer}</div></li>
           <li><span>Cast</span><div>{data.Actors}</div></li>
         </MediaInformationStyles>
-        <button onClick={saveRecommendation}>Add to Recommendations</button>
+        <button onClick={() => create.mutate({data})}>Add to Recommendations</button>
       </NewMediaModalStyles>
     )
   }

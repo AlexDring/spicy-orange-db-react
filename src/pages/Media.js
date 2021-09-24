@@ -48,7 +48,7 @@ const Media = ({user}) => {
     queryKey: ['recommendation', {id}],
     queryFn: () => recommendationRouter.getRecommendation(id).then(data => data)
   })
-  
+  console.log(recommendation)
   if(!recommendation|| !recommendation.mediaDetail._id) {
     return null
   } 

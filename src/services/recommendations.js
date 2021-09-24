@@ -1,9 +1,12 @@
 import axios from 'axios'
+import { actions } from 'react-table'
+import storage from '../utils/storage'
 const baseUrl = '/api/media'
 
-let token = null
-const setToken = newToken => {  
-  token = `bearer ${newToken}`
+const getConfig = () => {
+  return {
+    headers: { Authorization: `bearer ${storage.getToken()}` }
+  }
 }
 
 const getAll = () => {
@@ -17,11 +20,12 @@ const getRecommendation = (id) => {
 }
 
 const addRecommendation = (newRec) => {
-  const config = {    
-    headers: { Authorization: token },  
-  }
-  const response = axios.post(baseUrl, newRec, config)
+  const response = axios.post(baseUrl, newRec.data, getConfig())
   return response.then(response => response.data)
 }
 
-export default { getAll, getRecommendation, addRecommendation, setToken }
+const removeRecommendation = ({media_id, mediaDetail_id}) => {
+  axios.delete(`${baseUrl}/${media_id}/${mediaDetail_id}`, getConfig())
+}
+
+export default { getAll, getRecommendation, addRecommendation, removeRecommendation }

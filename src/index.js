@@ -7,8 +7,13 @@ import { QueryClientProvider, QueryClient } from 'react-query'
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: 2,
-      refetchOnWindowFocus: false
+      useErrorBoundary: true,
+      refetchOnWindowFocus: false,
+      retry(failureCount, error) {
+        if (error.status === 404) return true
+        else if (failureCount < 2) return true
+        else return false
+      }
     },
   },
 })

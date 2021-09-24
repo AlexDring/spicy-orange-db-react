@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useQuery } from 'react-query'
 import { Spinner } from '../components/lib'
-import styled from 'styled-components'
 import Modal from '../components/modals/Modal'
 import NewMediaModal from '../components/modals/NewMediaModal'
 import omdbRouter from '../services/omdb'
@@ -33,7 +32,9 @@ function Search() {
       <Modal 
         displayModal={displayModal} 
         setDisplayModal={setDisplayModal}>
-        <NewMediaModal recId={reccommendationId} />
+        <NewMediaModal 
+          recId={reccommendationId}
+        />
       </Modal>
       <SectionStyles>
         <section>
