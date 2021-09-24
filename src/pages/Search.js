@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useQuery } from 'react-query'
-// import Spinner from '../components/lib'
+import { Spinner } from '../components/lib'
 import MediaPoster from '../components/MediaPoster'
 import omdbRouter from '../services/omdb'
 import { SectionStyles, MediaPosterGridStyles } from '../styles/styles'
@@ -17,7 +17,7 @@ function Search() {
   })
   console.log(search)
   
-  const searchQuery = async (e) => {
+  const searchForm = async (e) => {
     e.preventDefault()
     console.log(e.target.elements.search.value)
     setQuery(`s=${e.target.elements.search.value}`)
@@ -29,7 +29,7 @@ function Search() {
       <SectionStyles>
         <section>
           <h1>Search</h1>
-          <form onSubmit={searchQuery}>
+          <form onSubmit={searchForm}>
             <input type="text" placeholder="Add recommendation" id="search" />
             <label htmlFor="search">
               <button>
@@ -37,37 +37,25 @@ function Search() {
               </button>
             </label>
           </form>
-          {queried ? null : (
-            <div css={{marginTop: 20, fontSize: '1.2em', textAlign: 'center'}}>
-              <p>Search for a film or tv show to add to the Spicy Orange Database.</p>
-              {isLoading ? (
-                <div>
-                  {/* <Spinner /> */}
-                </div>
-              ) : isSuccess && search.totalResults ? (
-                <p>`Found ${search.totalResults} results`. Find more film and tv shows with the search bar above.</p>
-              ) : isSuccess && !search.totalResults ? (
-                <p>
-                  No results.
-                </p>
-              ) : null}
-            </div>)}
-          {isSuccess ?
-            <>
-              <div>Found {search.totalResults} results</div>
-              <MediaPosterGridStyles>
-                {search.Search.map(singleMedia => (
-                  <MediaPoster 
-                    media={singleMedia}
-                    key={singleMedia.imdbID} 
-                    id={singleMedia._id} 
-                    poster={singleMedia.Poster} 
-                    rottenAverage={singleMedia.rottenAverage} 
-                    rottenCount={singleMedia.rottenCount}
-                    type={singleMedia.Type} />
-                ))}
-              </MediaPosterGridStyles>
-            </>: null}
+          {!queried ? <p>Search for a film or tv show to add to the Spicy Orange Database.</p> : 
+            isSuccess && search.totalResults ? <p>Found {search.totalResults} results. Find more film and tv shows with the search bar above.</p> : null}
+          {isLoading ? <div><Spinner /></div> : 
+            isSuccess && search.Search ?
+              <>
+                <MediaPosterGridStyles>
+                  {search.Search.map(singleMedia => (
+                    <MediaPoster 
+                      media={singleMedia}
+                      key={singleMedia.imdbID} 
+                      id={singleMedia._id} 
+                      poster={singleMedia.Poster} 
+                      rottenAverage={singleMedia.rottenAverage} 
+                      rottenCount={singleMedia.rottenCount}
+                      type={singleMedia.Type} />
+                  ))}
+                </MediaPosterGridStyles>
+              </> : 
+              isSuccess && search.Error ? <div>Film or tv show not found.</div> : null}
         </section>
       </SectionStyles>
     </>

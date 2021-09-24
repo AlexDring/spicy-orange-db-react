@@ -19,7 +19,6 @@ function AuthenticatedApp({ user }) {
     // queryFn: () => profileRouter.getProfile(user.profile_id)
     queryFn: () => profileRouter.getWatchlist(user.profile_id).then(data => data)
   })
-  console.log(profile)
 
   return (
     <Switch>

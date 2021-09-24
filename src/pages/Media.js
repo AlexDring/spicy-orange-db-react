@@ -48,7 +48,7 @@ const Media = ({user}) => {
     queryKey: ['recommendation', {id}],
     queryFn: () => recommendationRouter.getRecommendation(id).then(data => data)
   })
-
+  
   if(!recommendation|| !recommendation.mediaDetail._id) {
     return null
   } 
@@ -67,6 +67,7 @@ const Media = ({user}) => {
             />
           </Modal>
           <MediaDetail 
+            user={user}
             displayModal={displayModal} 
             setDisplayModal={setDisplayModal} 
             media={recommendation} />
@@ -77,18 +78,12 @@ const Media = ({user}) => {
           <h2>{recommendation.Title} Information</h2>
           <p>{recommendation.mediaDetail.Plot}</p>
           <MediaInformationStyles>
-            {recommendation.Director !== 'N/A' && 
-            <li><span>Director</span><div>{recommendation.Director}</div></li>}
-            {recommendation.mediaDetail.Writer !== 'N/A' && 
-            <li><span>Writer</span><div>{recommendation.mediaDetail.Writer}</div></li>}
-            {recommendation.mediaDetail.Actors !== 'N/A' && 
-            <li><span>Cast</span><div>{recommendation.mediaDetail.Actors}</div></li>}
-            {recommendation.mediaDetail.Production !== 'N/A' || undefined && 
-            <li><span>Production</span><div>{recommendation.mediaDetail.Production}</div></li>}
-            {recommendation.mediaDetail.Awards !== 'N/A' && 
-            <li><span>Awards</span><div>{recommendation.mediaDetail.Awards}</div></li>}
-            {recommendation.mediaDetail.BoxOffice !== 'N/A' || undefined && 
-            <li><span>BoxOffice</span><div>{recommendation.mediaDetail.BoxOffice}</div></li>}
+            <MediaInformationLi role={'Director'} item={recommendation.Director}/>
+            <MediaInformationLi role={'Writer'} item={recommendation.mediaDetail.Writer}/>
+            <MediaInformationLi role={'Cast'} item={recommendation.mediaDetail.Actors}/>
+            <MediaInformationLi role={'Production'} item={recommendation.mediaDetail.Production}/>
+            <MediaInformationLi role={'Awards'} item={recommendation.mediaDetail.Awards}/>
+            <MediaInformationLi role={'Box Office'} item={recommendation.mediaDetail.BoxOffice}/>
           </MediaInformationStyles>
         </MediaInformationWrapper>
       </NewSectionStyles>
@@ -103,6 +98,13 @@ const Media = ({user}) => {
         </section>
       </SectionStyles>
     </> 
+  )
+}
+
+// eslint-disable-next-line react/prop-types
+function MediaInformationLi({role, item}) {
+  return(
+    ({item} === 'N/A' || undefined) ? null : <li><span>{role}</span><div>{item}</div></li>
   )
 }
 

@@ -109,7 +109,7 @@ const ExternalReviewsWrapper = styled.ul`
   }
 `
 
-const MediaDetail = ({ displayModal, setDisplayModal, media }) => {
+const MediaDetail = ({ user, displayModal, setDisplayModal, media }) => {
   return(
     <>
       <div style={{'display': 'flex', 'justifyContent': 'space-between', 'flexWrap': 'wrap'}}>
@@ -127,7 +127,7 @@ const MediaDetail = ({ displayModal, setDisplayModal, media }) => {
             breadcrumb: `${media.Title}`
           }
         ]} />
-        <WatchlistToggle mediaId={media._id} />
+        <WatchlistToggle user={user} mediaId={media._id} />
       </div>
       <MediaContainer>
         <MediaPoster>
@@ -182,6 +182,7 @@ MediaDetail.propTypes = {
   media: PropTypes.object,
   displayModal: PropTypes.bool,
   setDisplayModal: PropTypes.func,
+  user: PropTypes.object
 }
 
 export default MediaDetail

@@ -5,7 +5,7 @@ const baseUrl = '/api/profile/'
 
 const getConfig = () => {
   return {
-    headers: { Authorization: `bearer ${storage.loadUser().token}` }
+    headers: { Authorization: `bearer ${storage.getToken()}` }
   }
 }
 
@@ -20,13 +20,13 @@ const getWatchlist = (profileId) => {
 }
 
 const saveToWatchlist = (item) => {
-  const request = axios.post(`${baseUrl}/${item.profileId}/watchlist`, item, getConfig())
+  const request = axios.post(`${baseUrl}/${item.profile_id}/watchlist`, item, getConfig())
   return request.then(response => response.data)
 }
 
 const removeFromWatchlist = (item) => {
   console.log(item)
-  const request = axios.delete(`${baseUrl}/${item.profileId}/watchlist/${item.watchlistId}`, getConfig())
+  const request = axios.delete(`${baseUrl}/${item.profile_id}/watchlist/${item.watchlist_id}`, getConfig())
   return request.then(response => response.data)
 }
 

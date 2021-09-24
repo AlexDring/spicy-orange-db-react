@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
+import { useMutation, useQueryClient } from 'react-query'
+import reviewRouter from '../../services/reviews'
 import styled from 'styled-components'
 import rottenIcons from '../../assets/images/rotten-gas/rottenIcons'
 
@@ -35,27 +37,62 @@ const RottenReviewStyles = styled.div`
 
 
 const RottenReviewModal = ({ media, setDisplayModal, displayModal, user }) => {
+  const queryClient = useQueryClient()
 
-  const [review, setReview] = useState('')
+  const [review, setReview] = useState(media.mediaDetail.rottenReviews.find(u => u.user === user.username))
+  console.log(review)
 
-  const [score, setScore] = useState(media.mediaDetail.rottenReviews.find(r => r.user === user.username))
+  const create = useMutation(
+    updates => reviewRouter.addNewReview(updates)
+      .then(data => 
+        setReview(data.rottenReviews.find(u => u.user === user.username))),
+    {onSettled: () => queryClient.invalidateQueries('recommendation')}
+  )
 
-  const addReviewSubmit = async(e) => {
+  const update = useMutation(
+    updates => reviewRouter.updateReview(updates).then(data => {
+      console.log(data)
+      setReview(data.rottenReviews.find(u => u.user === user.username))
+    }),
+    {onSettled: () => queryClient.invalidateQueries('recommendation')}
+  )
+
+  const remove = useMutation(
+    remove => reviewRouter.removeReview(remove),
+    {onSettled: () => queryClient.invalidateQueries('recommendation')}
+  )
+
+  function addReviewSubmit(e) {
     e.preventDefault()
-    // const scoreNum = parseInt(score)
-    // const resultAction = await dispatch(addReview({ 
-    //   mediaId: media._id,
-    //   mediaDetailId: media.mediaDetail._id,
-    //   score: scoreNum, 
-    //   review,  
-    //   title: media.Title,
-    //   poster: media.Poster,
-    //   user: user.username,
-    //   avatar: user.avatar
-    // }))
-    // setDisplayModal(!displayModal)
-    // console.log('added!!!')
-    // console.log(resultAction)
+    create.mutate({ 
+      mediaId: media._id,
+      reviewId: review._id,
+      mediaDetailId: media.mediaDetail._id,
+      score: review.score, 
+      review: review.review,  
+      title: media.Title,
+      poster: media.Poster,
+      user: user.username,
+      avatar: user.avatar
+    })
+    setDisplayModal(!displayModal)
+  }
+
+  function removeReview() {
+    remove.mutate({mediaDetailId: media.mediaDetail._id, reviewId: review._id})
+    setReview(null)
+    setDisplayModal(!displayModal)
+  }
+
+  function updateReview() {
+    update.mutate({ 
+      mediaId: media._id,
+      reviewId: review._id,
+      mediaDetailId: media.mediaDetail._id,
+      score: review.score, 
+      review: review.review,  
+    })
+    setDisplayModal(!displayModal)
   }
 
   return(
@@ -63,11 +100,26 @@ const RottenReviewModal = ({ media, setDisplayModal, displayModal, user }) => {
       <img src={rottenIcons.noReview} alt="" />
       <small>You Rating</small>
       <h1>{media.Title}</h1>
-      <form onSubmit={addReviewSubmit}>
-        <input value={score} onChange={({ target }) => setScore(target.value)} type="number" min="1" max="1000" /> /1000 
-        <textarea value={review} onChange={({ target }) => setReview(target.value)} placeholder="Review (Optional)" rows="8" />
-        <input type='submit' className='minimal' value='Delete' /><input type='submit' value='Save' />
+      <form>
+        <input
+          type="number"
+          min="1"
+          max="1000"
+          value={review?.score ? review.score : ''}
+          onChange={({ target }) => setReview({...review, score: target.value })} 
+        /> /1000 
+        <textarea
+          placeholder="Review (Optional)"
+          rows="8"
+          value={review?.review ? review.review : ''}
+          onChange={({ target }) => setReview({...review, review: target.value })}
+        />
       </form>
+      {review?._id ? // Check review exists
+        <button onClick={updateReview}>Update</button> : 
+        <button onClick={addReviewSubmit}>Save</button>
+      }
+      {review && <button className='minimal' onClick={() => removeReview()} >Delete</button>}
     </RottenReviewStyles>
   )
 }

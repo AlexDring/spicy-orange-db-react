@@ -14,7 +14,7 @@ axios.interceptors.response.use(function (response) { // If token has expired in
   console.log(error.response.status)
   if (error.response.status === (401 || 500)) {
     storage.logoutUser()
-    // window.location.assign(window.location)
+    window.location.assign(window.location)
     return Promise.reject({message: 'Token is malformed or has expired, please login and re-authenticate.'}) // Need to handle errors.
   }
 })
