@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { useQuery } from 'react-query'
 import { Spinner } from '../components/lib'
-import MediaPoster from '../components/MediaPoster'
+import styled from 'styled-components'
+import Modal from '../components/modals/Modal'
+import NewMediaModal from '../components/modals/NewMediaModal'
 import omdbRouter from '../services/omdb'
 import { SectionStyles, MediaPosterGridStyles } from '../styles/styles'
 
@@ -9,13 +11,14 @@ import { SectionStyles, MediaPosterGridStyles } from '../styles/styles'
 function Search() {
   const [query, setQuery] = useState(null)
   const [queried, setQueried] = useState(false)
-  console.log(queried)
+  const [reccommendationId, setReccommendationId] = useState(null)
+  const [displayModal, setDisplayModal] = useState()
+
   const { data: search, isSuccess, isLoading } = useQuery({
     queryKey: ['mediaSearch', {query}],
     queryFn: () => omdbRouter.searchOMDb(query).then(data => data),
     enabled: !!query
   })
-  console.log(search)
   
   const searchForm = async (e) => {
     e.preventDefault()
@@ -24,8 +27,14 @@ function Search() {
     setQueried(true)
   }
 
+  console.log(reccommendationId)
   return(
     <>
+      <Modal 
+        displayModal={displayModal} 
+        setDisplayModal={setDisplayModal}>
+        <NewMediaModal recId={reccommendationId} />
+      </Modal>
       <SectionStyles>
         <section>
           <h1>Search</h1>
@@ -44,14 +53,15 @@ function Search() {
               <>
                 <MediaPosterGridStyles>
                   {search.Search.map(singleMedia => (
-                    <MediaPoster 
-                      media={singleMedia}
-                      key={singleMedia.imdbID} 
-                      id={singleMedia._id} 
-                      poster={singleMedia.Poster} 
-                      rottenAverage={singleMedia.rottenAverage} 
-                      rottenCount={singleMedia.rottenCount}
-                      type={singleMedia.Type} />
+                    <div 
+                      style={{height: 350, overflow: 'hidden'}} 
+                      key={singleMedia._id} 
+                      onClick={() => {
+                        setDisplayModal(!displayModal)
+                        setReccommendationId(singleMedia.imdbID)
+                      }} >
+                      <img style={{objectFit: 'cover', height: '100%', width: '100%', cursor: 'pointer'}} src={singleMedia.Poster} />
+                    </div>
                   ))}
                 </MediaPosterGridStyles>
               </> : 

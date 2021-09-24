@@ -37,8 +37,8 @@ const MediaInformationStyles = styled.ul`
 `
 
 const NewMediaModal = ({ recId }) => {
+  console.log(recId)
   const [data, setData] = useState('')
-  // const dispatch = useDispatch()
 
   useEffect(() => {
     async function fetchData() {
@@ -52,8 +52,6 @@ const NewMediaModal = ({ recId }) => {
 
   const saveRecommendation = async () => {
     console.log(data)
-    // const resultAction = await dispatch(addNewRecommendation(data)) //!FINISHHHTHISSS // https://redux.js.org/tutorials/essentials/part-5-async-logic#checking-thunk-results-in-components
-    // console.log(resultAction)
   }
   
   if(!data) {
