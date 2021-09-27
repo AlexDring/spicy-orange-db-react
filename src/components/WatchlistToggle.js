@@ -29,7 +29,7 @@ const WatchlistToggle = ({ user, mediaId }) => {
 
   useEffect(() => {
     if(profile !== null) {
-      const item = profile?.watchlist.find(w => w.media_id._id === mediaId)
+      const item = profile?.watchlist.find(w => w.media_id?._id === mediaId)
       setItemExists(item)
     }
   }, [mediaId, profile])

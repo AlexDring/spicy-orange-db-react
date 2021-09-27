@@ -40,7 +40,6 @@ const RottenReviewModal = ({ media, setDisplayModal, displayModal, user }) => {
   const queryClient = useQueryClient()
 
   const [review, setReview] = useState(media.mediaDetail.rottenReviews.find(u => u.user === user.username))
-  console.log(review)
 
   const create = useMutation(
     updates => reviewRouter.addNewReview(updates)

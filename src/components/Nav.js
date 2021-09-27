@@ -98,7 +98,7 @@ const NavStyles = styled.nav`
   }
 `
 
-const Nav = () => {
+const Nav = ({setSearchQuery}) => {
   const [openNav, setOpenNav] = useState(false)
 
   return(
@@ -106,7 +106,7 @@ const Nav = () => {
       <img className="logo" src={logo} alt="Spicy Orang Database Logo" />
       <ul className={openNav ? 'active' : ''}>
         <li>
-          <OMDbSearch />
+          <OMDbSearch setSearchQuery={setSearchQuery} />
         </li>
         <li>
           <Link onClick={() => setOpenNav(!openNav)} to='/'>Home</Link>
@@ -127,7 +127,8 @@ const Nav = () => {
   )}
 
 Nav.propTypes = {
-  profileId: PropTypes.string
+  profileId: PropTypes.string,
+  setSearchQuery: PropTypes.func
   // Defining types for component props improves reusability of your components by validating received data. It can warn other developers if they make a mistake while reusing the component with improper data type.
   // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prop-types.md
   // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prop-types.md#rule-options

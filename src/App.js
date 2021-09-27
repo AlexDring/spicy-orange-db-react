@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 import 'normalize.css'
@@ -27,6 +27,7 @@ async function getUser () {
 }
 
 function App() {
+  const [searchQuery, setSearchQuery] = useState('')
   const {
     data: user, 
     error, 
@@ -53,7 +54,7 @@ function App() {
       <GlobalStyles />
       <Typography /> 
       <Router>
-        <Layout>
+        <Layout setSearchQuery={setSearchQuery}> 
           {isLoading || isIdle ? <FullPageSpinner /> :
             isError ? 
               <div>
@@ -62,7 +63,7 @@ function App() {
               </div> :
               isSuccess ? (
                 user ? 
-                  <AuthenticatedApp user={user} logout={logout} /> :
+                  <AuthenticatedApp user={user} logout={logout} searchQuery={[searchQuery, setSearchQuery]} /> :
                   <UnauthenticatedApp login={login} />
               ) : null }
         </Layout> 

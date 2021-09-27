@@ -13,7 +13,7 @@ import {useQuery} from 'react-query'
 import PropTypes from 'prop-types'
 
 
-function AuthenticatedApp({ user }) {
+function AuthenticatedApp({ user, searchQuery }) {
   const {data: profile} = useQuery({
     queryKey: ['profile', user.profile_id],
     // queryFn: () => profileRouter.getProfile(user.profile_id)
@@ -22,7 +22,9 @@ function AuthenticatedApp({ user }) {
 
   return (
     <Switch>
-      <Route path='/search' component={Search} />
+      <Route path='/search'>
+        <Search searchQuery={searchQuery} />
+      </Route>
       <Route path='/watchlist'>
         <Watchlist user={user} />
       </Route>
@@ -37,7 +39,8 @@ function AuthenticatedApp({ user }) {
 }
 
 AuthenticatedApp.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.object,
+  searchQuery: PropTypes.array
 }
 
 export default AuthenticatedApp

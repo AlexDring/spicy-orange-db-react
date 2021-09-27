@@ -1,20 +1,21 @@
 import { useState } from 'react'
 import omdbRouter from '../services/omdb'
 import { useQuery } from 'react-query'
+import PropTypes from 'prop-types'
 
-const OMDbSearch = () => {
-  const [query, setQuery] = useState(null)
+const OMDbSearch = ({setSearchQuery}) => {
+  // const [query, setQuery] = useState(null)
 
-  const result = useQuery({
-    queryKey: ['mediaSearch', {query}],
-    queryFn: () => omdbRouter.searchOMDb(query).then(data => data),
-    enabled: !!query
-  })
+  // const result = useQuery({
+  //   queryKey: ['mediaSearch', {query}],
+  //   queryFn: () => omdbRouter.searchOMDb(query).then(data => data),
+  //   enabled: !!query
+  // })
 
   const searchQuery = async (e) => {
     e.preventDefault()
     console.log(e.target.elements.search.value)
-    setQuery(`s=${e.target.elements.search.value}`)
+    setSearchQuery(`s=${e.target.elements.search.value}`)
   }
 
   return(
@@ -25,6 +26,10 @@ const OMDbSearch = () => {
       </button>
     </form>
   )
+}
+
+OMDbSearch.propTypes = {
+  setSearchQuery: PropTypes.func
 }
 
 export default OMDbSearch
