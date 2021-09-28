@@ -1,24 +1,21 @@
 import { Switch, Route } from 'react-router-dom'
-
-import 'normalize.css'
+import {useProfile} from './utils/profile'
 import Home from './pages/Home'
 import Media from './pages/Media'
 import AddRecommendation from './pages/AddRecommendation'
 import Recommendations from './pages/Reccomendations'
-
 import Watchlist from './pages/Watchlist'
 import Search from './pages/Search'
-import profileRouter from './services/profile'
-import {useQuery} from 'react-query'
 import PropTypes from 'prop-types'
 
 
 function AuthenticatedApp({ user, searchQuery }) {
-  const {data: profile} = useQuery({
-    queryKey: ['profile', user.profile_id],
-    // queryFn: () => profileRouter.getProfile(user.profile_id)
-    queryFn: () => profileRouter.getWatchlist(user.profile_id).then(data => data)
-  })
+  // const {data: profile} = useQuery({
+  //   queryKey: ['profile', user.profile_id],
+  //   // queryFn: () => profileRouter.getProfile(user.profile_id)
+  //   queryFn: () => profileRouter.getWatchlist(user.profile_id).then(data => data)
+  // })
+  const profile = useProfile(user)
 
   return (
     <Switch>

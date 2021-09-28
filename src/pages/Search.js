@@ -8,10 +8,7 @@ import { SectionStyles, MediaPosterGridStyles } from '../styles/styles'
 import PropTypes from 'prop-types'
 
 function Search({searchQuery}) {
-  console.log(searchQuery)
   const [query, setQuery] = searchQuery
-  console.log(query, setQuery)
-  // const [query, setQuery] = useState(null)
   const [queried, setQueried] = useState(false)
   const [reccommendationId, setReccommendationId] = useState(null)
   const [displayModal, setDisplayModal] = useState()
@@ -24,10 +21,11 @@ function Search({searchQuery}) {
   
   const searchForm = async (e) => {
     e.preventDefault()
-    console.log(e.target.elements.search.value)
     setQuery(`s=${e.target.elements.search.value}`)
     setQueried(true)
   }
+
+  console.log(search)
 
   console.log(reccommendationId)
   return(

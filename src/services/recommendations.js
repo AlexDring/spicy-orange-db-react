@@ -25,7 +25,8 @@ const addRecommendation = (newRec) => {
 }
 
 const removeRecommendation = ({media_id, mediaDetail_id}) => {
-  axios.delete(`${baseUrl}/${media_id}/${mediaDetail_id}`, getConfig())
+  const response = axios.delete(`${baseUrl}/${media_id}/${mediaDetail_id}`, getConfig())
+  return response.then(response => console.log(response))
 }
 
 export default { getAll, getRecommendation, addRecommendation, removeRecommendation }

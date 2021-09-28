@@ -2,7 +2,8 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import profileRouter from '../services/profile'
 import { useEffect, useState } from 'react'
-import { useQueryClient, useMutation, useQuery } from 'react-query'
+import { useQueryClient, useQuery } from 'react-query'
+import { useAddWatchlist, useRemoveWatchlist, useWatchlistItem } from '../utils/profile'
 
 const WatchlistToggleStyles = styled.div`
   display: flex;
@@ -19,30 +20,25 @@ const WatchlistToggleStyles = styled.div`
 `
 
 const WatchlistToggle = ({ user, mediaId }) => {
-  const queryClient = useQueryClient()
-  const [itemExists, setItemExists] = useState()
+  // const queryClient = useQueryClient()
+  // const [itemExists, setItemExists] = useState()
 
-  const {data: profile} = useQuery({
-    queryKey: ['profile', user.profile_id],
-    queryFn: () => profileRouter.getWatchlist(user.profile_id).then(data => data)
-  })
+  // const {data: profile} = useQuery({
+  //   queryKey: ['profile', user.profile_id],
+  //   queryFn: () => profileRouter.getWatchlist(user.profile_id).then(data => data)
+  // })
 
-  useEffect(() => {
-    if(profile !== null) {
-      const item = profile?.watchlist.find(w => w.media_id?._id === mediaId)
-      setItemExists(item)
-    }
-  }, [mediaId, profile])
+  // useEffect(() => {
+  //   if(profile !== null) {
+  //     const item = profile?.watchlist.find(w => w.media_id?._id === mediaId)
+  //     setItemExists(item)
+  //   }
+  // }, [mediaId, profile])
 
-  const create = useMutation(
-    updates => profileRouter.saveToWatchlist(updates),
-    {onSettled: () => queryClient.invalidateQueries('profile')}
-  )
+  const itemExists = useWatchlistItem(user, mediaId)
+  const create = useAddWatchlist()
+  const remove = useRemoveWatchlist()
 
-  const remove = useMutation(
-    updates => profileRouter.removeFromWatchlist(updates),
-    {onSettled: () => queryClient.invalidateQueries('profile')}
-  )
 
   return(
     <WatchlistToggleStyles>

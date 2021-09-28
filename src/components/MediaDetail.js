@@ -117,10 +117,7 @@ const MediaDetail = ({ user, displayModal, setDisplayModal, media }) => {
   const history = useHistory()
   const remove = useMutation(
     ({media_id, mediaDetail_id}) => recommendationsRouter.removeRecommendation({ media_id, mediaDetail_id }),
-    {onSuccess: () => {
-      queryClient.invalidateQueries('recommendations')
-      history.push('/')
-    }}
+    {onSuccess: () => queryClient.invalidateQueries('recommendations')}
   )
 
   return(

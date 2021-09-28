@@ -9,18 +9,13 @@ const Watchlist = ({ user }) => {
     queryKey: ['profile', user.profile_id],
     queryFn: () => profileRouter.getWatchlist(user.profile_id).then(data => data)
   })
-  console.log(profile)
+
   return(
     <SectionStyles>
       <section>
         <h1>Your Watchlist</h1>
         <MediaCardGridStyles>
-          {profile?.watchlist.map(p =>{
-            console.log(p)
-            return <MediaCard 
-              key={p._id} 
-              singleMedia={p.media_id} />
-          })}
+          {profile?.watchlist.map(p => <MediaCard key={p._id} singleMedia={p.media_id} />)}
         </MediaCardGridStyles>
       </section>
     </SectionStyles>
