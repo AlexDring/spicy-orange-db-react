@@ -1,33 +1,33 @@
-import axios from 'axios'
-import storage from '../utils/storage'
+// import axios from 'axios'
+// import storage from '../utils/storage'
 
-const baseUrl = '/api/profile/'
+// const baseUrl = '/api/profile/'
 
-const getConfig = () => {
-  return {
-    headers: { Authorization: `bearer ${storage.getToken()}` }
-  }
-}
+// const getConfig = () => {
+//   return {
+//     headers: { Authorization: `bearer ${storage.getToken()}` }
+//   }
+// }
 
-const getProfile = (profileId) => {
-  const request = axios.get(`${baseUrl}/${profileId}`)
-  return request.then(response => response.data)
-}
+// const getProfile = (profileId) => {
+//   const request = axios.get(`${baseUrl}/${profileId}`)
+//   return request.then(response => response.data)
+// }
 
-const getWatchlist = (profileId) => {
-  const request = axios.get(`${baseUrl}/${profileId}/watchlist`)
-  return request.then(response => response.data)
-}
+// const getWatchlist = (profileId) => {
+//   const request = axios.get(`${baseUrl}/${profileId}/watchlist`)
+//   return request.then(response => response.data)
+// }
 
-const saveToWatchlist = (item) => {
-  const request = axios.post(`${baseUrl}/${item.profile_id}/watchlist`, item, getConfig())
-  return request.then(response => response.data)
-}
+// const saveToWatchlist = (item) => {
+//   const request = axios.post(`${baseUrl}/${item.profile_id}/watchlist`, item, getConfig())
+//   return request.then(response => response.data)
+// }
 
-const removeFromWatchlist = (item) => {
-  console.log(item)
-  const request = axios.delete(`${baseUrl}/${item.profile_id}/watchlist/${item.watchlist_id}`, getConfig())
-  return request.then(response => response.data)
-}
+// const removeFromWatchlist = (item) => {
+//   console.log(item)
+//   const request = axios.delete(`${baseUrl}/${item.profile_id}/watchlist/${item.watchlist_id}`, getConfig())
+//   return request.then(response => response.data)
+// }
 
-export default { getWatchlist, saveToWatchlist, removeFromWatchlist, getProfile }
+// export default { getWatchlist, saveToWatchlist, removeFromWatchlist, getProfile }

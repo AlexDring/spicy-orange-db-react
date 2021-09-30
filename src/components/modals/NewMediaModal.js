@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import omdbRouter from '../../services/omdb'
-import { useHistory } from 'react-router'
-import { useMutation, useQueryClient } from 'react-query'
-import recommendationRouter from '../../services/recommendations'
+import { useAddRecommendation } from '../../utils/recommendations'
 
 
 const NewMediaModalStyles = styled.div`
@@ -40,9 +38,7 @@ const MediaInformationStyles = styled.ul`
   }
 `
 
-const NewMediaModal = ({ recId, addRecommendation }) => {
-  let history = useHistory()
-  const queryClient = useQueryClient()
+const NewMediaModal = ({ recId, user }) => {
   const [data, setData] = useState('')
 
   useEffect(() => {
@@ -55,12 +51,14 @@ const NewMediaModal = ({ recId, addRecommendation }) => {
     fetchData()
   },[recId])
 
-  const create = useMutation(
-    recommendation => recommendationRouter.addRecommendation(recommendation),
-    {onSuccess: (data) => {
-      queryClient.invalidateQueries('recommendations')
-      history.push(`/recommendation/${data._id}`) // take users to added media page
-    }})
+  // const create = useMutation(
+  //   recommendation => recommendationRouter.addRecommendation(recommendation),
+  //   {onSuccess: (data) => {
+  //     queryClient.invalidateQueries('recommendations')
+  //     history.push(`/recommendation/${data._id}`) // take users to added media page
+  //   }})
+  const create = useAddRecommendation()
+
   
   if(!data) {
     return null

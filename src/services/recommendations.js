@@ -1,32 +1,32 @@
-import axios from 'axios'
-import { actions } from 'react-table'
-import storage from '../utils/storage'
-const baseUrl = '/api/media'
+// import axios from 'axios'
+// import { actions } from 'react-table'
+// import storage from '../utils/storage'
+// const baseUrl = '/api/media'
 
-const getConfig = () => {
-  return {
-    headers: { Authorization: `bearer ${storage.getToken()}` }
-  }
-}
+// const getConfig = () => {
+//   return {
+//     headers: { Authorization: `bearer ${storage.getToken()}` }
+//   }
+// }
 
-const getAll = () => {
-  const response = axios.get(baseUrl)
-  return response.then(response => response.data)
-}
+// const getAll = () => {
+//   const response = axios.get(baseUrl)
+//   return response.then(response => response.data)
+// }
 
-const getRecommendation = (id) => {
-  const response = axios.get(`${baseUrl}/${id}`)
-  return response.then(response => response.data)
-}
+// const getRecommendation = (id) => {
+//   const response = axios.get(`${baseUrl}/${id}`)
+//   return response.then(response => response.data)
+// }
 
-const addRecommendation = (newRec) => {
-  const response = axios.post(baseUrl, newRec.data, getConfig())
-  return response.then(response => response.data)
-}
+// const addRecommendation = (newRec) => {
+//   const response = axios.post(baseUrl, newRec.data, getConfig())
+//   return response.then(response => response.data)
+// }
 
-const removeRecommendation = ({media_id, mediaDetail_id}) => {
-  const response = axios.delete(`${baseUrl}/${media_id}/${mediaDetail_id}`, getConfig())
-  return response.then(response => console.log(response))
-}
+// const removeRecommendation = ({media_id, mediaDetail_id}) => {
+//   const response = axios.delete(`${baseUrl}/${media_id}/${mediaDetail_id}`, getConfig())
+//   return response.then(response => console.log(response))
+// }
 
-export default { getAll, getRecommendation, addRecommendation, removeRecommendation }
+// export default { getAll, getRecommendation, addRecommendation, removeRecommendation }

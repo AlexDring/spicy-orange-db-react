@@ -7,8 +7,7 @@ import { Link } from 'react-router-dom'
 import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import recommendationsRouter from '../services/recommendations'
-import { useQuery } from 'react-query'
+import { useRecommendations } from '../utils/recommendations'
 
 
 const TableStyles = styled.table`
@@ -60,10 +59,7 @@ const TableStyles = styled.table`
 
 const RecommendationsTable = () => {
   const size = useWindowSize()
-  const { data: recommendations } = useQuery({
-    queryKey: 'recommendations',
-    queryFn: () => recommendationsRouter.getAll().then(data => data) 
-  })
+  const {recommendations} = useRecommendations()
   
   console.log(recommendations)
   const data = useMemo(() => recommendations, [recommendations])

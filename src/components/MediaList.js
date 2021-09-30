@@ -3,14 +3,10 @@ import MediaCard from './MediaCard'
 import MediaPoster from './MediaPoster'
 import PropTypes from 'prop-types'
 import { MediaCardGridStyles, MediaPosterGridStyles } from '../styles/styles'
-import { useQuery } from 'react-query'
-import recommendationsService from '../services/recommendations'
+import { useRecommendations } from '../utils/recommendations'
 
 const MediaList = () => {
-  const { data: recommendations } = useQuery({
-    queryKey: 'recommendations',
-    queryFn: () => recommendationsService.getAll().then(data => data) 
-  })
+  const {recommendations} = useRecommendations()
 
   const highlightedRecommendations = recommendations?.slice(0, 4) // display first 4 as cards
   const remainingRecommendations = recommendations?.slice(4) // display remaining as posters

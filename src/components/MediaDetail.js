@@ -5,9 +5,7 @@ import reviewLogos from '../assets/images/review-logos/review-icons'
 import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 import WatchlistToggle from './WatchlistToggle'
 import Breadcumbs from './Breadcrumbs'
-import { QueryClient, useMutation, useQueryClient } from 'react-query'
-import recommendationsRouter from '../services/recommendations'
-import { useHistory } from 'react-router'
+import { useRemoveRecommendation } from '../utils/recommendations'
 
 const MediaContainer = styled.div`
   display: grid;
@@ -113,13 +111,12 @@ const ExternalReviewsWrapper = styled.ul`
 `
 
 const MediaDetail = ({ user, displayModal, setDisplayModal, media }) => {
-  const queryClient = useQueryClient()
-  const history = useHistory()
-  const remove = useMutation(
-    ({media_id, mediaDetail_id}) => recommendationsRouter.removeRecommendation({ media_id, mediaDetail_id }),
-    {onSuccess: () => queryClient.invalidateQueries('recommendations')}
-  )
-
+  // const remove = useMutation(
+  //   ({media_id, mediaDetail_id}) => recommendationsRouter.removeRecommendation({ media_id, mediaDetail_id }),
+  //   {onSuccess: () => queryClient.invalidateQueries('recommendations')}
+  // )
+  const remove = useRemoveRecommendation()
+  console.log({media_id: media._id, mediaDetail_id: media.mediaDetail._id})
   return(
     <>
       <div style={{'display': 'flex', 'justifyContent': 'space-between', 'flexWrap': 'wrap'}}>

@@ -7,9 +7,9 @@ import styled from 'styled-components'
 import Review from '../components/Review'
 import Modal from '../components/modals/Modal'
 import RottenReviewModal from '../components/modals/RottenReviewModal'
-import recommendationRouter from '../services/recommendations'
-import { useQuery } from 'react-query'
+import {useRecommendation} from '../utils/recommendations'
 import PropTypes from 'prop-types'
+import { FullPageSpinner } from '../components/lib'
 
 const MediaInformationWrapper = styled.section`
   padding: 0;
@@ -42,15 +42,11 @@ const NewSectionStyles = styled(SectionStyles)`
 
 const Media = ({user}) => {
   const [displayModal, setDisplayModal] = useState(false)
-  const id = useParams().id
-  
-  const { data: recommendation } = useQuery({
-    queryKey: ['recommendation', {id}],
-    queryFn: () => recommendationRouter.getRecommendation(id).then(data => data)
-  })
+  const {id} = useParams()
+  const {recommendation, isLoading} = useRecommendation(id)
 
-  if(!recommendation|| !recommendation.mediaDetail._id) {
-    return null
+  if(isLoading) {
+    return <FullPageSpinner />
   } 
   return (
     <>

@@ -1,14 +1,10 @@
-import { useQuery } from 'react-query'
 import MediaCard from '../components/MediaCard'
 import { MediaCardGridStyles, SectionStyles } from '../styles/styles'
 import PropTypes from 'prop-types'
-import profileRouter from '../services/profile'
+import { useProfile } from '../utils/profile'
 
 const Watchlist = ({ user }) => {
-  const {data: profile} = useQuery({
-    queryKey: ['profile', user.profile_id],
-    queryFn: () => profileRouter.getWatchlist(user.profile_id).then(data => data)
-  })
+  const {profile} = useProfile(user)
 
   return(
     <SectionStyles>

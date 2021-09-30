@@ -6,8 +6,10 @@ import { Link } from 'react-router-dom'
 const MediaPosterStyles = styled.div`
   display: flex;
   flex-direction: column;
+  height: 390px;
   > img {
     width: 100%;
+    height: 100%;
     object-fit: cover;
   }
 `

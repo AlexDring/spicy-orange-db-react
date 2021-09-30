@@ -6,6 +6,7 @@ import NewMediaModal from '../components/modals/NewMediaModal'
 import omdbRouter from '../services/omdb'
 import { SectionStyles, MediaPosterGridStyles } from '../styles/styles'
 import PropTypes from 'prop-types'
+import { useSearch } from '../utils/search'
 
 function Search({searchQuery}) {
   const [query, setQuery] = searchQuery
@@ -13,11 +14,7 @@ function Search({searchQuery}) {
   const [reccommendationId, setReccommendationId] = useState(null)
   const [displayModal, setDisplayModal] = useState()
 
-  const { data: search, isSuccess, isLoading } = useQuery({
-    queryKey: ['mediaSearch', {query}],
-    queryFn: () => omdbRouter.searchOMDb(query).then(data => data),
-    enabled: !!query
-  })
+  const {search, isSuccess, isLoading} = useSearch(query)
   
   const searchForm = async (e) => {
     e.preventDefault()
@@ -25,17 +22,13 @@ function Search({searchQuery}) {
     setQueried(true)
   }
 
-  console.log(search)
-
-  console.log(reccommendationId)
   return(
     <>
       <Modal 
         displayModal={displayModal} 
-        setDisplayModal={setDisplayModal}>
-        <NewMediaModal 
-          recId={reccommendationId}
-        />
+        setDisplayModal={setDisplayModal}
+      >
+        <NewMediaModal recId={reccommendationId} />
       </Modal>
       <SectionStyles>
         <section>
