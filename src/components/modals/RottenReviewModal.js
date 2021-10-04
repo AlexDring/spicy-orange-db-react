@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
-import { useMutation, useQueryClient } from 'react-query'
-import reviewRouter from '../../services/reviews'
+import { useCreateReview, useUpdateReview, useRemoveReview } from '../../utils/reviews'
 import styled from 'styled-components'
 import rottenIcons from '../../assets/images/rotten-gas/rottenIcons'
 
@@ -35,35 +34,16 @@ const RottenReviewStyles = styled.div`
   }
 `
 
-
 const RottenReviewModal = ({ media, setDisplayModal, displayModal, user }) => {
-  const queryClient = useQueryClient()
-
   const [review, setReview] = useState(media.mediaDetail.rottenReviews.find(u => u.user === user.username))
 
-  const create = useMutation(
-    updates => reviewRouter.addNewReview(updates)
-      .then(data => 
-        setReview(data.rottenReviews.find(u => u.user === user.username))),
-    {onSettled: () => queryClient.invalidateQueries('recommendation')}
-  )
-
-  const update = useMutation(
-    updates => reviewRouter.updateReview(updates).then(data => {
-      console.log(data)
-      setReview(data.rottenReviews.find(u => u.user === user.username))
-    }),
-    {onSettled: () => queryClient.invalidateQueries('recommendation')}
-  )
-
-  const remove = useMutation(
-    remove => reviewRouter.removeReview(remove),
-    {onSettled: () => queryClient.invalidateQueries('recommendation')}
-  )
+  const create = useCreateReview()
+  const update = useUpdateReview()
+  const remove = useRemoveReview()
 
   function addReviewSubmit(e) {
     e.preventDefault()
-    create.mutate({ 
+    create.mutateAsync({ 
       mediaId: media._id,
       reviewId: review._id,
       mediaDetailId: media.mediaDetail._id,
@@ -73,23 +53,27 @@ const RottenReviewModal = ({ media, setDisplayModal, displayModal, user }) => {
       poster: media.Poster,
       user: user.username,
       avatar: user.avatar
+    }, {
+      onSuccess: ({data}) => setReview(data.rottenReviews.find(u => u.user === user.username))
     })
     setDisplayModal(!displayModal)
   }
 
   function removeReview() {
-    remove.mutate({mediaDetailId: media.mediaDetail._id, reviewId: review._id})
+    remove.mutateAsync({mediaDetailId: media.mediaDetail._id, reviewId: review._id})
     setReview(null)
     setDisplayModal(!displayModal)
   }
 
   function updateReview() {
-    update.mutate({ 
+    update.mutateAsync({ 
       mediaId: media._id,
       reviewId: review._id,
       mediaDetailId: media.mediaDetail._id,
       score: review.score, 
       review: review.review,  
+    }, {
+      onSuccess: ({data}) => setReview(data.rottenReviews.find(u => u.user === user.username))
     })
     setDisplayModal(!displayModal)
   }

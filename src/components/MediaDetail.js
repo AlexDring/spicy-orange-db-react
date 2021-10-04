@@ -172,7 +172,9 @@ const MediaDetail = ({ user, displayModal, setDisplayModal, media }) => {
                 src={
                   r.Source === 'Internet Movie Database' ? reviewLogos.IMDbColor : 
                     r.Source === 'Rotten Tomatoes' ? reviewLogos.rottenToms : 
-                      reviewLogos.metaCriticColor} 
+                      r.Source === 'Metacritic' ? reviewLogos.metaCriticColor : 
+                        null
+                }  
                 alt="" />
               <p>{r.Value}
               </p>
