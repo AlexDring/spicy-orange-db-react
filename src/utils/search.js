@@ -8,7 +8,6 @@ function useSearch (query){
     queryFn: () => axios.get(`${baseUrl}/${query}`).then(search => search.data),
     enabled: !!query
   })
-  console.log({...result, search: result.data})
   return {...result, search: result.data}
 }
 

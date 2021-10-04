@@ -19,9 +19,9 @@ function useCreateReview () {
 
 function useUpdateReview () {
   const queryClient = useQueryClient()
-  return useMutation(updates => 
-    axios.put(`${baseUrl}/${updates.mediaDetailId}/${updates.reviewId}`, updates, getConfig()),
-  {onSettled: () => queryClient.invalidateQueries('recommendation')}
+  return useMutation(
+    updates => axios.put(`${baseUrl}/${updates.mediaDetailId}/${updates.reviewId}`, updates, getConfig()),
+    {onSettled: () => queryClient.invalidateQueries('recommendation')}
   )
 }
 

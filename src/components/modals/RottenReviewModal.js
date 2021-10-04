@@ -98,10 +98,7 @@ const RottenReviewModal = ({ media, setDisplayModal, displayModal, user }) => {
           onChange={({ target }) => setReview({...review, review: target.value })}
         />
       </form>
-      {review?._id ? // Check review exists
-        <button onClick={updateReview}>Update</button> : 
-        <button onClick={addReviewSubmit}>Save</button>
-      }
+      <button style={{marginTop: 16}} onClick={review?._id ? updateReview : addReviewSubmit}>Save</button>
       {review && <button className='minimal' onClick={() => removeReview()} >Delete</button>}
     </RottenReviewStyles>
   )
