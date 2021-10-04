@@ -15,6 +15,7 @@ function useRecommendations () {
     queryKey: ['recommendations'],
     queryFn: () => axios.get(baseUrl).then(response => response.data)
   })
+  console.log(result)
   return {...result, recommendations: result.data}
 }
 
