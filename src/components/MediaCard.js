@@ -94,6 +94,7 @@ const RottenReviewStyles = styled.div`
   justify-content: flex-start;
   align-items: center;
   img {
+    min-width: 67px;
     height: 74px;
     object-fit: contain;
     @media (max-width: 500px) {

@@ -9,7 +9,7 @@ import Modal from '../components/modals/Modal'
 import RottenReviewModal from '../components/modals/RottenReviewModal'
 import {useRecommendation} from '../utils/recommendations'
 import PropTypes from 'prop-types'
-import { FullPageSpinner } from '../components/lib'
+import { MediaDetailSkeleton } from '../utils/skeleton'
 
 const MediaInformationWrapper = styled.section`
   padding: 0;
@@ -46,7 +46,13 @@ const Media = ({user}) => {
   const {recommendation, isLoading} = useRecommendation(id)
 
   if(isLoading) {
-    return <FullPageSpinner />
+    return (
+      <SectionStyles>
+        <section>
+          <MediaDetailSkeleton />
+        </section>
+      </SectionStyles>
+    )
   } 
   return (
     <>
@@ -62,11 +68,15 @@ const Media = ({user}) => {
               media={recommendation} 
             />
           </Modal>
-          <MediaDetail 
-            user={user}
-            displayModal={displayModal} 
-            setDisplayModal={setDisplayModal} 
-            media={recommendation} />
+          {isLoading ? 
+            <MediaDetailSkeleton /> :
+            <MediaDetail 
+              user={user}
+              isLoading={isLoading}
+              displayModal={displayModal} 
+              setDisplayModal={setDisplayModal} 
+              media={recommendation} />
+          }
         </section>
       </SectionStyles>
       <NewSectionStyles>

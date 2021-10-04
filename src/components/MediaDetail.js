@@ -111,12 +111,8 @@ const ExternalReviewsWrapper = styled.ul`
 `
 
 const MediaDetail = ({ user, displayModal, setDisplayModal, media }) => {
-  // const remove = useMutation(
-  //   ({media_id, mediaDetail_id}) => recommendationsRouter.removeRecommendation({ media_id, mediaDetail_id }),
-  //   {onSuccess: () => queryClient.invalidateQueries('recommendations')}
-  // )
   const remove = useRemoveRecommendation()
-  console.log({media_id: media._id, mediaDetail_id: media.mediaDetail._id})
+
   return(
     <>
       <div style={{'display': 'flex', 'justifyContent': 'space-between', 'flexWrap': 'wrap'}}>

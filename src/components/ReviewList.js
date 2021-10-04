@@ -12,10 +12,6 @@ const ReviewList = () => {
     queryFn: () => reviewService.getAllReviews().then(data => data)
   })
 
-
-  // if(!reviews) {
-  //   return null
-  // }
   return(
     <ReviewGridStyles>
       {isLoading ? null : reviews.map(review => (
