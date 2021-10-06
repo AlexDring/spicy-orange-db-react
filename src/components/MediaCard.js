@@ -122,13 +122,16 @@ const MediaCard = ({ singleMedia }) => {
               <div>
                 <img 
                   height='20px' 
-                  width='45px' 
+                  width='45px'
+                  style={{}} 
                   src={reviewLogos.IMDb} 
                   alt="" />{singleMedia.imdbRating}/10
               </div> : '' }
             {singleMedia.Metascore !== 'N/A'  ? 
               <div>
                 <img className='reviewIcon'
+                  width="22.1px"
+                  height="20px"
                   src={reviewLogos.metaCritic} 
                   alt="" /> {singleMedia.Metascore}/100
               </div> : ''}
