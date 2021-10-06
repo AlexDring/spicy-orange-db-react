@@ -1,8 +1,9 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { useAddRecommendation } from '../../utils/recommendations'
-import { useSearch } from '../../utils/search'
+import { useIndividualSearch } from '../../utils/search'
 import { SearchResultSkeleton } from '../../utils/skeleton'
+import { ErrorFallback } from '../lib'
 
 const NewMediaModalStyles = styled.div`
   box-sizing: border-box;
@@ -12,7 +13,8 @@ const NewMediaModalStyles = styled.div`
   padding: 0 24px 24px;
   max-width: 550px;
   img {
-    max-width: 120px;
+    /* max-width: 120px; */
+    max-height: 180px;
     object-fit: cover;
     margin: -110px auto 0;
     margin-bottom: 24px;
@@ -39,15 +41,16 @@ const MediaInformationStyles = styled.ul`
 `
 
 const NewMediaModal = ({ recId }) => {
-  const {data: searchResult, isLoading, isIdle} = useSearch(`i=${recId}`)
+  const {data: searchResult, isLoading, isIdle} = useIndividualSearch(recId)
   const create = useAddRecommendation()
 
-  // if(isLoading) {
-  //   return null
-  // }
+  console.log(create.isError, create.error)
+  
+  if(isIdle) {
+    return null
+  }
   return(
     <>
-      {/* <SearchResultSkeleton /> */}
       {isLoading ? <SearchResultSkeleton /> : (
         <NewMediaModalStyles>
           <img src={searchResult.Poster} alt="" />
@@ -68,7 +71,8 @@ const NewMediaModal = ({ recId }) => {
             <li><span>Writer</span><div>{searchResult.Writer}</div></li>
             <li><span>Cast</span><div>{searchResult.Actors}</div></li>
           </MediaInformationStyles>
-          <button onClick={() => create.mutate({searchResult})}>Add to Recommendations</button>
+          {create.isError && <ErrorFallback error={create.error} />}
+          <button onClick={() => create.mutate({...searchResult, date_added: new Date()})}>Add to Recommendations</button>
         </NewMediaModalStyles>
       )}
     </>

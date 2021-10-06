@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styled from 'styled-components'
 
 const Spinner = () => (
@@ -61,8 +62,19 @@ const StyledFullPageSpinner = styled.div`
   justify-content: center;
 `
 
+function ErrorFallback({error, resetErrorBoundary}) {
+  return (
+    <div role="alert">
+      <p>Something went wrong:</p>
+      <pre style={{color: 'red'}}>{error.message}</pre>
+      {/* <button onClick={resetErrorBoundary}>Try again</button> */}
+    </div>
+  )
+}
+
 export {
   Spinner,
-  FullPageSpinner
+  FullPageSpinner,
+  ErrorFallback
 }
 

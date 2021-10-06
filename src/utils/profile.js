@@ -11,7 +11,7 @@ const getConfig = () => {
 
 function useProfile({profile_id}) {
   const result = useQuery({
-    queryKey: ['profile', profile_id],
+    queryKey: 'profile',
     queryFn: () => 
       axios.get(`${baseUrl}/${profile_id}/watchlist`).then(response => response.data)
   })
@@ -21,25 +21,48 @@ function useProfile({profile_id}) {
 function useAddWatchlist() {
   const queryClient = useQueryClient()
   return useMutation(
-    addItem => 
-      axios.post(`${baseUrl}/${addItem.profile_id}/watchlist`, addItem, getConfig()),
-    {onSettled: () => queryClient.invalidateQueries('profile')}
+    addItem => {
+      console.log(addItem)
+      return axios.post(`${baseUrl}/${addItem.profile_id}/watchlist`, addItem, getConfig())
+    },
+    {
+      onMutate: async newItem => {
+        console.log(newItem)
+        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+        await queryClient.cancelQueries('profile')
+        // Snapshot the previous value
+        const previousProfile = queryClient.getQueryData('profile')
+        // Optimistically update to the new value
+        queryClient.setQueryData('profile', oldProfile => ({
+          ...oldProfile,
+          watchlist: [...oldProfile.watchlist, newItem]
+        }))
+        return {previousProfile}
+      },
+      // If the mutation fails, use the context returned from onMutate to roll back
+      onError: (err, newTodo, context) => {
+        queryClient.setQueryData('profile', context.previousProfile)
+      },
+      // Always refetch after error or success:
+      onSettled: () => {
+        queryClient.invalidateQueries('profile')
+      },
+    }
   )
 }
 
 function useRemoveWatchlist() {
   const queryClient = useQueryClient()
   return useMutation(
-    removeItem => 
-      axios.delete(`${baseUrl}/${removeItem.profile_id}/watchlist/${removeItem.watchlist_id}`, getConfig()),
+    ({profile_id, watchlist_id}) => 
+      axios.delete(`${baseUrl}/${profile_id}/watchlist/${watchlist_id}`, getConfig()),
     {onSettled: () => queryClient.invalidateQueries('profile')}
   )
 }
 
 function useWatchlistItem (user, mediaId) {
   const {profile} = useProfile(user)
-  const item = profile?.watchlist.find(w => w.media_id?._id === mediaId)
-  return item
+  return profile?.watchlist.find(w => w.media_id === mediaId) ?? null
 }
 
 

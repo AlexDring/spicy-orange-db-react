@@ -12,10 +12,9 @@ const getConfig = () => {
 
 function useRecommendations () {
   const result = useQuery({
-    queryKey: ['recommendations'],
+    queryKey: 'recommendations',
     queryFn: () => axios.get(baseUrl).then(response => response.data)
   })
-  console.log(result)
   return {...result, recommendations: result.data}
 }
 
@@ -31,11 +30,15 @@ function useAddRecommendation () {
   const queryClient = useQueryClient()
   const history = useHistory()
   return useMutation(
-    recommendation => axios.post(baseUrl, recommendation.data, getConfig()),
-    {onSuccess: data => {
-      queryClient.invalidateQueries('recommendations')
-      history.push(`/recommendation/${data.data._id}`)
-    }})
+    recommendation => axios.post(baseUrl, recommendation, getConfig()),
+    {
+      onError: err => console.log(err, 'err'), 
+      onSuccess: data => {
+        queryClient.invalidateQueries('recommendations')
+        history.push(`/recommendation/${data.data._id}`)
+      }
+    }
+  )
 }
 
 function useRemoveRecommendation () {

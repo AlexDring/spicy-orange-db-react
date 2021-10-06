@@ -1,4 +1,4 @@
-import {useAddWatchlist, useRemoveWatchlist, useWatchlistItem} from '../utils/profile'
+import {useAddWatchlist, useProfile, useRemoveWatchlist, useWatchlistItem} from '../utils/profile'
 import {FaBookmark, FaRegBookmark} from 'react-icons/fa'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
@@ -20,13 +20,13 @@ const WatchlistToggle = ({ user, mediaId }) => {
   const item = useWatchlistItem(user, mediaId)
   const create = useAddWatchlist()
   const remove = useRemoveWatchlist()
-
+  console.log(item)
   return(
     <WatchlistToggleStyles>
       <span onClick={
         item ? 
           () => remove.mutate({profile_id: user.profile_id, watchlist_id: item._id}) : 
-          () => create.mutate({profile_id: user.profile_id, media_id: mediaId, date_added: new Date()})
+          () => create.mutate({profile_id: user.profile_id, media_id: mediaId, media: mediaId, date_added: new Date()})
       }>
         {item ? 
           <span><FaBookmark/> In your Watchlist</span> : 
@@ -39,7 +39,7 @@ const WatchlistToggle = ({ user, mediaId }) => {
 
 WatchlistToggle.propTypes = {
   mediaId: PropTypes.string,
-  user: PropTypes.object
+  user: PropTypes.object,
 }
 
 export default WatchlistToggle

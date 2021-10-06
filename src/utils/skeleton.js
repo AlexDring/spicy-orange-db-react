@@ -75,26 +75,23 @@ const MediaDetailSkeleton = (props) => (
 )
 
 const SearchResultSkeleton = (props) => (
-
-  <>
-    <ContentLoader 
-      style={{backgroundColor: '#fff8ed'}}
-      speed={2}
-      width={550}
-      height={490}
-      viewBox="0 0 490 490"
-      backgroundColor="#f9e8cd"
-      foregroundColor="#f9f3eb"
-      {...props}
-    >
-      <rect x="175" y="-110" rx="3" ry="3" width="130" height="180" /> 
-      <rect x="120" y="90" rx="3" ry="3" width="250" height="12" /> 
-      <rect x="155" y="116" rx="3" ry="3" width="175" height="6" /> 
-      <rect x="0" y="150" rx="3" ry="3" width="502" height="6" /> 
-      <rect x="0" y="166" rx="3" ry="3" width="502" height="6" /> 
-      <rect x="0" y="182" rx="3" ry="3" width="440" height="6" /> 
-    </ContentLoader>
-  </>
+  <ContentLoader 
+    style={{backgroundColor: '#fff8ed'}}
+    speed={2}
+    width={550}
+    height={490}
+    viewBox="0 0 490 490"
+    backgroundColor="#f9e8cd"
+    foregroundColor="#f9f3eb"
+    {...props}
+  >
+    <rect x="180" y="-110" rx="3" ry="3" width="130" height="180" /> 
+    <rect x="105" y="100" rx="3" ry="3" width="280" height="12" /> 
+    <rect x="147.5" y="126" rx="3" ry="3" width="195" height="6" /> 
+    <rect x="0" y="170" rx="3" ry="3" width="502" height="6" /> 
+    <rect x="0" y="186" rx="3" ry="3" width="502" height="6" /> 
+    <rect x="0" y="202" rx="3" ry="3" width="440" height="6" /> 
+  </ContentLoader>
 )
 
 export {

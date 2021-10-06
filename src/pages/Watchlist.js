@@ -13,7 +13,7 @@ const Watchlist = ({ user }) => {
         <MediaCardGridStyles>
           {isLoading || isIdle ? 
             Array.from({length: 4}, (v, i) => <CardSkeleton key={`media-card-${i}`} />) :
-            profile?.watchlist.map(p => <MediaCard key={p._id} singleMedia={p.media_id} />)
+            profile?.watchlist.map(p => <MediaCard key={p._id} singleMedia={p.media} />)
           }
         </MediaCardGridStyles>
       </section>
