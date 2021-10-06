@@ -54,9 +54,30 @@ function useAddWatchlist() {
 function useRemoveWatchlist() {
   const queryClient = useQueryClient()
   return useMutation(
-    ({profile_id, watchlist_id}) => 
-      axios.delete(`${baseUrl}/${profile_id}/watchlist/${watchlist_id}`, getConfig()),
-    {onSettled: () => queryClient.invalidateQueries('profile')}
+    ({profile_id, watchlist_id}) => axios.delete(`${baseUrl}/${profile_id}/watchlist/${watchlist_id}`, getConfig()),
+    {
+      onMutate: async removeItem => {
+        console.log(removeItem)
+        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+        await queryClient.cancelQueries('profile')
+        // Snapshot the previous value
+        const previousProfile = queryClient.getQueryData('profile')
+        // Optimistically update to the new value
+        queryClient.setQueryData('profile', oldProfile => ({
+          ...oldProfile,
+          watchlist: oldProfile.watchlist.filter(r => r._id === removeItem.watchlist_id)
+        }))
+        return {previousProfile}
+      },
+      // If the mutation fails, use the context returned from onMutate to roll back
+      onError: (err, newTodo, context) => {
+        queryClient.setQueryData('profile', context.previousProfile)
+      },
+      // Always refetch after error or success:
+      onSettled: () => {
+        queryClient.invalidateQueries('profile')
+      },
+    }
   )
 }
 

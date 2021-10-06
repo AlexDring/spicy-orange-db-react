@@ -20,7 +20,7 @@ const WatchlistToggle = ({ user, mediaId }) => {
   const item = useWatchlistItem(user, mediaId)
   const create = useAddWatchlist()
   const remove = useRemoveWatchlist()
-  console.log(item)
+
   return(
     <WatchlistToggleStyles>
       <span onClick={
