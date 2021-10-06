@@ -111,7 +111,7 @@ const ExternalReviewsWrapper = styled.ul`
 `
 
 const MediaDetail = ({ user, displayModal, setDisplayModal, media }) => {
-  const remove = useRemoveRecommendation()
+  const remove = useRemoveRecommendation(user)
 
   return(
     <>

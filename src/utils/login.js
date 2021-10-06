@@ -1,12 +1,7 @@
 import axios from 'axios'
+import { getConfig } from '../utils/misc'
 import storage from '../utils/storage'
 const baseUrl = '/api/login'
-
-const getConfig = (token) => {
-  return {
-    headers: { Authorization: `bearer ${token}` }
-  }
-}
 
 axios.interceptors.response.use(function (response) { // If token has expired intercept error code and logout
   return response

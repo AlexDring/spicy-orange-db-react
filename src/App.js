@@ -7,19 +7,19 @@ import GlobalStyles from './styles/GlobalStyles'
 import Layout from './components/Layout'
 import {FullPageSpinner} from './components/lib'
 
-import authRouter from './services/login'
+import authRouter from './utils/login'
 import storage from './utils/storage'
 import AuthenticatedApp from './authenticated-app'
 import UnauthenticatedApp from './unauthenticated-app'
 import {useAsync} from './utils/hooks'
 
-async function getUser () {
+async function getUser() {
   let user = null
   const token = await storage.getToken()
   if(token) {  
-    const data = await authRouter.checkToken(token)
+    const {data} = await authRouter.checkToken(token)
     user = {
-      ...data.data,
+      ...data,
       token
     }
   }
@@ -27,7 +27,6 @@ async function getUser () {
 }
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState('')
   const {
     data: user, 
     error, 
@@ -54,7 +53,7 @@ function App() {
       <GlobalStyles />
       <Typography /> 
       <Router>
-        <Layout setSearchQuery={setSearchQuery}> 
+        <Layout> 
           {isLoading || isIdle ? <FullPageSpinner /> :
             isError ? 
               <div>
@@ -63,7 +62,7 @@ function App() {
               </div> :
               isSuccess ? (
                 user ? 
-                  <AuthenticatedApp user={user} logout={logout} searchQuery={[searchQuery, setSearchQuery]} /> :
+                  <AuthenticatedApp user={user} logout={logout} /> :
                   <UnauthenticatedApp login={login} />
               ) : null }
         </Layout> 

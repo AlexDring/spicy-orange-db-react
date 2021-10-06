@@ -1,7 +1,7 @@
 const storageKey = 'SPODbToken'
 
-const saveToken = (user) =>
-  localStorage.setItem(storageKey, JSON.stringify(user))
+const saveToken = (token) =>
+  localStorage.setItem(storageKey, JSON.stringify(token))
 
 const getToken = () =>
   JSON.parse(localStorage.getItem(storageKey))

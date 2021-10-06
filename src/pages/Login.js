@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import loginService from '../services/login'
-import recommendationsService from '../services/recommendations'
+import authRouter from '../utils/login'
 import { SectionStyles } from '../styles/styles'
 import styled from 'styled-components'
 
@@ -26,10 +25,9 @@ const Login = () => {
   const userLogin = async (e) => {
     e.preventDefault()
     try {
-      const user = await loginService.login({ username, password })
+      const user = await authRouter.login({ username, password })
       setUser(user)
       window.localStorage.setItem('SPODbUser', JSON.stringify(user)) 
-      recommendationsService.setToken(user.token)
       setUsername('')
       setPassword('')
     } catch(e) {

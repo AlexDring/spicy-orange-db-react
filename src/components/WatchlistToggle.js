@@ -18,8 +18,8 @@ const WatchlistToggleStyles = styled.div`
 
 const WatchlistToggle = ({ user, mediaId }) => {
   const item = useWatchlistItem(user, mediaId)
-  const create = useAddWatchlist()
-  const remove = useRemoveWatchlist()
+  const create = useAddWatchlist(user)
+  const remove = useRemoveWatchlist(user)
 
   return(
     <WatchlistToggleStyles>

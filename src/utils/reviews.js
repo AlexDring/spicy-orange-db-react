@@ -1,12 +1,15 @@
 import axios from 'axios'
-import { useMutation, useQueryClient } from 'react-query'
-import storage from './storage'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { getConfig } from './misc'
 const baseUrl = '/api/rottenReviews'
 
-function getConfig () {
-  return {
-    headers: { Authorization: `bearer ${storage.getToken()}` }
-  }
+function useReviews() {
+  const result = useQuery({
+    queryKey: 'reviews',
+    queryFn: () => axios.get(baseUrl).then(response => response.data)
+  })
+  console.log({...result, reviews: result.data})
+  return {...result, reviews: result.data}
 }
 
 function useCreateReview () {
@@ -17,23 +20,24 @@ function useCreateReview () {
   )
 }
 
-function useUpdateReview () {
+function useUpdateReview (user) {
   const queryClient = useQueryClient()
   return useMutation(
-    updates => axios.put(`${baseUrl}/${updates.mediaDetailId}/${updates.reviewId}`, updates, getConfig()),
+    updates => axios.put(`${baseUrl}/${updates.mediaDetailId}/${updates.reviewId}`, updates, getConfig(user.token)),
     {onSettled: () => queryClient.invalidateQueries('recommendation')}
   )
 }
 
-function useRemoveReview () {
+function useRemoveReview (user) {
   const queryClient = useQueryClient()
   return useMutation(
-    data => axios.delete(`${baseUrl}/${data.mediaDetailId}/${data.reviewId}`, getConfig()),
+    data => axios.delete(`${baseUrl}/${data.mediaDetailId}/${data.reviewId}`, getConfig(user.token)),
     {onSettled: () => queryClient.invalidateQueries('recommendation')}
   )
 }
 
 export {
+  useReviews,
   useCreateReview,
   useUpdateReview,
   useRemoveReview

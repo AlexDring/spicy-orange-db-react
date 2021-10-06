@@ -7,7 +7,7 @@ import { SectionStyles, MediaPosterGridStyles } from '../styles/styles'
 import PropTypes from 'prop-types'
 import { useSearch } from '../utils/search'
 
-function Search({searchQuery}) {
+function Search({ user }) {
   const [query, setQuery] = useState('')
   const [queried, setQueried] = useState(false)
   const [reccommendationId, setReccommendationId] = useState(null)
@@ -27,7 +27,7 @@ function Search({searchQuery}) {
         displayModal={displayModal} 
         setDisplayModal={setDisplayModal}
       >
-        <NewMediaModal recId={reccommendationId} />
+        <NewMediaModal user={user} recId={reccommendationId} />
       </Modal>
       <SectionStyles>
         <section>
@@ -71,7 +71,7 @@ function Search({searchQuery}) {
 }
 
 Search.propTypes = {
-  searchQuery: PropTypes.array
+  user: PropTypes.object
 }
 
 export default Search

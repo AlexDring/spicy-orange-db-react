@@ -1,13 +1,7 @@
 import axios from 'axios'
-import {useMutation, useQuery, useQueryClient} from 'react-query'
-import storage from './storage'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { getConfig } from './misc'
 const baseUrl = '/api/profile/'
-
-const getConfig = () => {
-  return {
-    headers: { Authorization: `bearer ${storage.getToken()}` }
-  }
-}
 
 function useProfile({profile_id}) {
   const result = useQuery({
@@ -18,16 +12,12 @@ function useProfile({profile_id}) {
   return {...result, profile: result.data }
 }
 
-function useAddWatchlist() {
+function useAddWatchlist(user) {
   const queryClient = useQueryClient()
   return useMutation(
-    addItem => {
-      console.log(addItem)
-      return axios.post(`${baseUrl}/${addItem.profile_id}/watchlist`, addItem, getConfig())
-    },
+    addItem => axios.post(`${baseUrl}/${addItem.profile_id}/watchlist`, addItem, getConfig(user.token)),
     {
       onMutate: async newItem => {
-        console.log(newItem)
         // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
         await queryClient.cancelQueries('profile')
         // Snapshot the previous value
@@ -51,26 +41,21 @@ function useAddWatchlist() {
   )
 }
 
-function useRemoveWatchlist() {
+function useRemoveWatchlist(user) {
   const queryClient = useQueryClient()
   return useMutation(
-    ({profile_id, watchlist_id}) => axios.delete(`${baseUrl}/${profile_id}/watchlist/${watchlist_id}`, getConfig()),
+    ({profile_id, watchlist_id}) => axios.delete(`${baseUrl}/${profile_id}/watchlist/${watchlist_id}`, getConfig(user.token)),
     {
       onMutate: async removeItem => {
-        console.log(removeItem)
-        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
         await queryClient.cancelQueries('profile')
-        // Snapshot the previous value
         const previousProfile = queryClient.getQueryData('profile')
-        // Optimistically update to the new value
         queryClient.setQueryData('profile', oldProfile => ({
           ...oldProfile,
           watchlist: oldProfile.watchlist.filter(r => r._id !== removeItem.watchlist_id)
         }))
-        // Return a context with the previous and new todo
+
         return {previousProfile}
       },
-      // If the mutation fails, use the context returned from onMutate to roll back
       onError: (err, newTodo, context) => {
         queryClient.setQueryData('profile', context.previousProfile)
       },

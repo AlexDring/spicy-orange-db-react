@@ -1,14 +1,9 @@
 import axios from 'axios'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { useHistory } from 'react-router'
+import { getConfig } from './misc'
 import storage from './storage'
 const baseUrl = '/api/media'
-
-const getConfig = () => {
-  return {
-    headers: { Authorization: `bearer ${storage.getToken()}` }
-  }
-}
 
 function useRecommendations () {
   const result = useQuery({
@@ -26,11 +21,11 @@ function useRecommendation(id) {
   return {...result, recommendation: result.data}
 }
 
-function useAddRecommendation () {
+function useAddRecommendation(user) {
   const queryClient = useQueryClient()
   const history = useHistory()
   return useMutation(
-    recommendation => axios.post(baseUrl, recommendation, getConfig()),
+    recommendation => axios.post(baseUrl, recommendation, getConfig(user.token)),
     {
       onError: err => console.log(err, 'err'), 
       onSuccess: data => {
@@ -41,10 +36,10 @@ function useAddRecommendation () {
   )
 }
 
-function useRemoveRecommendation () {
+function useRemoveRecommendation(user) {
   const queryClient = useQueryClient()
   return useMutation(
-    ({media_id, mediaDetail_id}) => axios.delete(`${baseUrl}/${media_id}/${mediaDetail_id}`, getConfig()),
+    ({media_id, mediaDetail_id}) => axios.delete(`${baseUrl}/${media_id}/${mediaDetail_id}`, getConfig(user.token)),
     {onSuccess: () => queryClient.invalidateQueries('recommendations')}
   )
 }

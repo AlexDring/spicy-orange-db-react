@@ -12,7 +12,7 @@ function AuthenticatedApp({ user, searchQuery }) {
   return (
     <Switch>
       <Route path='/search'>
-        <Search searchQuery={searchQuery} />
+        <Search user={user} />
       </Route>
       <Route path='/watchlist'>
         <Watchlist user={user} />
@@ -21,7 +21,7 @@ function AuthenticatedApp({ user, searchQuery }) {
         <Recommendations />
       </Route>
       <Route path='/add-recommendation'>
-        <AddRecommendation />
+        <AddRecommendation user={user} />
       </Route>
       <Route path='/recommendation/:id' >
         <Media user={user} />

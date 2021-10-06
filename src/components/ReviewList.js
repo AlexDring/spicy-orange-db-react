@@ -1,16 +1,9 @@
-import { useQuery } from 'react-query'
-import reviewService from '../services/reviews'
 import ReviewGridStyles from '../styles/Grids'
+import { useReviews } from '../utils/reviews'
 import Review from './Review'
 
 const ReviewList = () => {
-  const { 
-    data: reviews, 
-    isLoading
-  } = useQuery({
-    queryKey: 'reviews',
-    queryFn: () => reviewService.getAllReviews().then(data => data)
-  })
+  const {reviews, isLoading} = useReviews()
 
   return(
     <ReviewGridStyles>

@@ -40,9 +40,9 @@ const MediaInformationStyles = styled.ul`
   }
 `
 
-const NewMediaModal = ({ recId }) => {
+const NewMediaModal = ({ user, recId }) => {
   const {data: searchResult, isLoading, isIdle} = useIndividualSearch(recId)
-  const create = useAddRecommendation()
+  const create = useAddRecommendation(user)
 
   console.log(create.isError, create.error)
   
@@ -80,7 +80,8 @@ const NewMediaModal = ({ recId }) => {
 }
 
 NewMediaModal.propTypes = {
-  recId: PropTypes.string
+  recId: PropTypes.string,
+  user: PropTypes.object
 }
 
 export default NewMediaModal
