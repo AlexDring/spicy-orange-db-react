@@ -65,8 +65,9 @@ function useRemoveWatchlist() {
         // Optimistically update to the new value
         queryClient.setQueryData('profile', oldProfile => ({
           ...oldProfile,
-          watchlist: oldProfile.watchlist.filter(r => r._id === removeItem.watchlist_id)
+          watchlist: oldProfile.watchlist.filter(r => r._id !== removeItem.watchlist_id)
         }))
+        // Return a context with the previous and new todo
         return {previousProfile}
       },
       // If the mutation fails, use the context returned from onMutate to roll back

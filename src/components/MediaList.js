@@ -7,7 +7,7 @@ import { useRecommendations } from '../utils/recommendations'
 import { CardSkeleton, PosterSkeleton } from '../utils/skeleton'
 
 const MediaList = () => {
-  const {recommendations, isLoading, isIdle} = useRecommendations()
+  const { recommendations, isLoading } = useRecommendations()
 
   const highlightedRecommendations = recommendations?.slice(0, 4) // display first 4 as cards
   const remainingRecommendations = recommendations?.slice(4) // display remaining as posters
@@ -15,7 +15,7 @@ const MediaList = () => {
   return(
     <>
       <MediaCardGridStyles>
-        {isLoading || isIdle ? 
+        {isLoading ? 
           Array.from({length: 4}, (v, i) => <CardSkeleton key={`media-card-${i}`} />) :
           highlightedRecommendations?.map(singleMedia => (
             <MediaCard 
@@ -24,7 +24,7 @@ const MediaList = () => {
           ))}
       </MediaCardGridStyles>
       <MediaPosterGridStyles>
-        {isLoading || isIdle ? 
+        {isLoading ? 
           Array.from({length: 8}, (v, i) => <PosterSkeleton key={`media-poster-${i}`} />) :
           remainingRecommendations?.map(singleMedia => (
             <MediaPoster 
