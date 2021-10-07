@@ -1,6 +1,7 @@
 import { SectionStyles } from './styles/styles'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { useAsync } from './utils/hooks'
 
 const LoginForm = styled.form`
 display: flex;
@@ -16,16 +17,17 @@ input[type="submit"] {
 `
 
 const UnauthenticatedApp = ({ login }) => {
+  const { error, isLoading, isError, run } = useAsync()
   const userLogin = async (e) => {
     e.preventDefault()
     const {username, password} = e.target.elements  
-
-    login({ 
-      username: username.value, 
-      password: password.value 
-    })
+    run(
+      login({ 
+        username: username.value, 
+        password: password.value 
+      })
+    )
   }
-
 
   return(
     <SectionStyles>
@@ -38,6 +40,7 @@ const UnauthenticatedApp = ({ login }) => {
           <input type="password" id="password" />
           <input type='submit' value="Login" />
         </LoginForm>
+        {isError ? <div>{error.response.data.message}</div> : null}
       </section>
     </SectionStyles>
   )

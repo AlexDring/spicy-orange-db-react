@@ -42,7 +42,12 @@ function App() {
     run(getUser())
   }, [run])
 
-  const login = form => authRouter.login(form).then(user => setData(user))
+  const login = form => authRouter.login(form)
+    .then(user => {
+      storage.saveToken(user.token)
+      setData(user)
+    })
+
   const logout = () => {
     storage.logoutUser()
     setData(null)
@@ -54,7 +59,7 @@ function App() {
       <Typography /> 
       <Router>
         <Layout> 
-          {isLoading || isIdle ? <FullPageSpinner /> :
+          {isLoading ? <FullPageSpinner /> :
             isError ? 
               <div>
                 <p>There &apos;s an error, try refreshing the app.</p>
