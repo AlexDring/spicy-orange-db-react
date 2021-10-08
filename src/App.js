@@ -5,10 +5,11 @@ import 'normalize.css'
 import Typography from './styles/Typography'
 import GlobalStyles from './styles/GlobalStyles'
 import Layout from './components/Layout'
-import {FullPageSpinner} from './components/lib'
+import {ErrorMessage, FullPageSpinner} from './components/lib'
 
 import authRouter from './utils/login'
 import storage from './utils/storage'
+import {ErrorBoundary} from 'react-error-boundary'
 import AuthenticatedApp from './authenticated-app'
 import UnauthenticatedApp from './unauthenticated-app'
 import {useAsync} from './utils/hooks'
@@ -31,7 +32,6 @@ function App() {
     data: user, 
     error, 
     isLoading, 
-    isIdle,
     isError,
     isSuccess,
     run,
@@ -61,13 +61,16 @@ function App() {
         <Layout> 
           {isLoading ? <FullPageSpinner /> :
             isError ? 
-              <div>
-                <p>There &apos;s an error, try refreshing the app.</p>
-                <pre>{error.message}</pre>
-              </div> :
+              <ErrorMessage 
+                error={error.message} 
+                messge="There &apos;s an error, try refreshing the app." 
+              /> :
               isSuccess ? (
-                user ? 
-                  <AuthenticatedApp user={user} logout={logout} /> :
+                user ? (
+                  <ErrorBoundary FallbackComponent={ErrorMessage}>
+                    <AuthenticatedApp user={user} logout={logout} />
+                  </ErrorBoundary>
+                ) :
                   <UnauthenticatedApp login={login} />
               ) : null }
         </Layout> 

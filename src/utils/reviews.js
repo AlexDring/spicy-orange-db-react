@@ -8,7 +8,6 @@ function useReviews() {
     queryKey: 'reviews',
     queryFn: () => axios.get(baseUrl).then(response => response.data)
   })
-  console.log({...result, reviews: result.data})
   return {...result, reviews: result.data}
 }
 

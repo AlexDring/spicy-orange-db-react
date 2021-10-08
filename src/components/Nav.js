@@ -5,6 +5,7 @@ import logo from '../assets/images/spicy-orange-logo.svg'
 import avatar from '../assets/images/avatar.png'
 import OMDbSearch from './OMDbSearch'
 import PropTypes from 'prop-types'
+import storage from '../utils/storage'
 
 const NavStyles = styled.nav`
   background: var(--orange);
@@ -103,10 +104,10 @@ const Nav = ({setSearchQuery}) => {
 
   return(
     <NavStyles>
-      <img className="logo" src={logo} alt="Spicy Orang Database Logo" />
+      <img className="logo" src={logo} alt="Spicy Orange Database Logo" />
       <ul className={openNav ? 'active' : ''}>
         <li>
-          <OMDbSearch setSearchQuery={setSearchQuery} />
+          <OMDbSearch />
         </li>
         <li>
           <Link onClick={() => setOpenNav(!openNav)} to='/'>Home</Link>
@@ -115,7 +116,13 @@ const Nav = ({setSearchQuery}) => {
           <Link onClick={() => setOpenNav(!openNav)} to='/recommendations'>Recommendations</Link>
         </li>
         <li>
-          <Link onClick={() => setOpenNav(!openNav)} to='/watchlist' >Watchlist</Link>
+          <Link onClick={() => setOpenNav(!openNav)} to='/watchlist'>Watchlist</Link>
+        </li>
+        <li>
+          <Link onClick={() => {
+            storage.logoutUser()
+            setOpenNav(!openNav)
+          }} to='/user/'>Logout</Link>
         </li>
         <li>
           <Link onClick={() => setOpenNav(!openNav)} to='/user/'><img height="40" src={avatar} alt="Logged in users avatar" /></Link>

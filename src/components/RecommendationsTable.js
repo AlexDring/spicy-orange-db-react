@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-key */
 import { useEffect, useMemo } from 'react'
 import { useTable } from 'react-table'
-import { useWindowSize } from '../utils/hooks'
+// import { useWindowSize } from '../utils/hooks'
 import { Link } from 'react-router-dom'
 import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 import styled from 'styled-components'
@@ -58,7 +58,7 @@ const TableStyles = styled.table`
 `
 
 const RecommendationsTable = () => {
-  const size = useWindowSize()
+  // const size = useWindowSize()
   const {recommendations} = useRecommendations()
   
   console.log(recommendations)
@@ -122,9 +122,9 @@ const RecommendationsTable = () => {
     data,
   }) 
 
-  useEffect(() => {
-    setHiddenColumns(size.width < 501 ? ['Genre'] : [])
-  }, [setHiddenColumns, size.width])
+  // useEffect(() => {
+  //   setHiddenColumns(size.width < 501 ? ['Genre'] : [])
+  // }, [setHiddenColumns, size.width])
 
   return(
     <TableStyles {...getTableProps()}>

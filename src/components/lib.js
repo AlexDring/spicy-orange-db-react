@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import styled from 'styled-components'
+import Alert from '@reach/alert'
 
 const Spinner = () => (
   <StyledSpinner viewBox="0 0 50 50">
@@ -62,19 +63,19 @@ const StyledFullPageSpinner = styled.div`
   justify-content: center;
 `
 
-function ErrorFallback({error, resetErrorBoundary}) {
+function ErrorMessage({error}) {
+  console.log
   return (
-    <div role="alert">
-      <p>Something went wrong:</p>
-      <pre style={{color: 'red'}}>{error.message}</pre>
-      {/* <button onClick={resetErrorBoundary}>Try again</button> */}
-    </div>
+    <Alert
+      style={{background: 'hsla(10, 50%, 50%, .10)', padding: '10px', margin: '15px 0'}}>      
+      ❗️ {error}
+    </Alert>
   )
 }
 
 export {
   Spinner,
   FullPageSpinner,
-  ErrorFallback
+  ErrorMessage
 }
 

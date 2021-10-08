@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useAddRecommendation } from '../../utils/recommendations'
 import { useIndividualSearch } from '../../utils/search'
 import { SearchResultSkeleton } from '../../utils/skeleton'
-import { ErrorFallback } from '../lib'
+import { ErrorMessage } from '../lib'
 
 const NewMediaModalStyles = styled.div`
   box-sizing: border-box;
@@ -71,7 +71,7 @@ const NewMediaModal = ({ user, recId }) => {
             <li><span>Writer</span><div>{searchResult.Writer}</div></li>
             <li><span>Cast</span><div>{searchResult.Actors}</div></li>
           </MediaInformationStyles>
-          {create.isError && <ErrorFallback error={create.error} />}
+          {create.isError && <ErrorMessage error={create.error} />}
           <button onClick={() => create.mutate({...searchResult, date_added: new Date()})}>Add to Recommendations</button>
         </NewMediaModalStyles>
       )}

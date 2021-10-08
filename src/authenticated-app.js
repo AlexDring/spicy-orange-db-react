@@ -1,4 +1,5 @@
 import { Switch, Route } from 'react-router-dom'
+import ErrorBoundary from 'react-error-boundary'
 import Home from './pages/Home'
 import Media from './pages/Media'
 import AddRecommendation from './pages/AddRecommendation'
@@ -7,8 +8,7 @@ import Watchlist from './pages/Watchlist'
 import Search from './pages/Search'
 import PropTypes from 'prop-types'
 
-
-function AuthenticatedApp({ user, searchQuery }) {
+function AuthenticatedApp({ user }) {
   return (
     <Switch>
       <Route path='/search'>
@@ -34,8 +34,7 @@ function AuthenticatedApp({ user, searchQuery }) {
 }
 
 AuthenticatedApp.propTypes = {
-  user: PropTypes.object,
-  searchQuery: PropTypes.array
+  user: PropTypes.object
 }
 
 export default AuthenticatedApp
