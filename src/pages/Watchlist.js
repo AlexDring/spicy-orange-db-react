@@ -1,40 +1,29 @@
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-// import { useParams } from 'react-router-dom'
 import MediaCard from '../components/MediaCard'
-import { fetchWatchlist } from '../reducers/profileSlice'
 import { MediaCardGridStyles, SectionStyles } from '../styles/styles'
+import PropTypes from 'prop-types'
+import { useProfile } from '../utils/profile'
+import { CardSkeleton } from '../utils/skeleton'
 
-const Watchlist = () => {
-  const dispatch = useDispatch()
-  // let { slug } = useParams()
-  const profile = useSelector(state => state.profile)
-  console.log(typeof(profile))
-  useEffect(() => {
-    if(profile.data) {
-      dispatch(fetchWatchlist(profile.data._id))
-    }
-  }, [profile.data ? profile.data._id : null, dispatch])
-
-  // if(!watchlist) {
-  //   return null                 
-  // }
-
-  console.log(profile)
-
+const Watchlist = ({ user }) => {
+  const {profile, isLoading, isIdle} = useProfile(user)
   return(
     <SectionStyles>
       <section>
         <h1>Your Watchlist</h1>
         <MediaCardGridStyles>
-          {profile.data ? profile.data.watchlist.map(p =>
-            <MediaCard 
-              key={p._id} 
-              singleMedia={p.media_id} />) : null}
+          {/* {Array.from({length: 4}, (v, i) => <CardSkeleton key={`media-card-${i}`} />)} */}
+          {isLoading || isIdle ? 
+            Array.from({length: 4}, (v, i) => <CardSkeleton key={`media-card-${i}`} />) :
+            profile?.watchlist.map(p => <MediaCard key={p._id} singleMedia={p.media} />)
+          }
         </MediaCardGridStyles>
       </section>
     </SectionStyles>
   )
+}
+
+Watchlist.propTypes = {
+  user: PropTypes.object
 }
 
 export default Watchlist

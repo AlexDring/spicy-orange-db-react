@@ -1,24 +1,13 @@
-import { useSelector } from 'react-redux'
-import { selectAllReviews } from '../reducers/reviewSlice'
 import ReviewGridStyles from '../styles/Grids'
+import { useReviews } from '../utils/reviews'
 import Review from './Review'
 
 const ReviewList = () => {
-  // const [reviews, setReviews] = useState(null)
-  const reviews = useSelector(selectAllReviews)
+  const {reviews, isLoading} = useReviews()
 
-  // useEffect(async () => {
-  //   const response = await reviewRouter.getAllReviews()
-  //   setReviews(response)
-  // }, [setReviews])
-  console.log(reviews)
-
-  if(!reviews) {
-    return null
-  }
   return(
     <ReviewGridStyles>
-      {reviews.map(review => (
+      {isLoading ? null : reviews.map(review => (
         <Review large='true' key={review._id} review={review} />
       ))}
     </ReviewGridStyles>

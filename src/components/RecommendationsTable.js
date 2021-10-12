@@ -1,14 +1,14 @@
-/* eslint-disable react/jsx-key */
 /* eslint-disable react/display-name */
+/* eslint-disable react/jsx-key */
 import { useEffect, useMemo } from 'react'
 import { useTable } from 'react-table'
-import { useWindowSize } from '../hooks'
+// import { useWindowSize } from '../utils/hooks'
 import { Link } from 'react-router-dom'
 import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
-import { selectAllRecommendations } from '../reducers/recommendationsSlice'
+import { useRecommendations } from '../utils/recommendations'
+
 
 const TableStyles = styled.table`
   background: white;
@@ -58,14 +58,17 @@ const TableStyles = styled.table`
 `
 
 const RecommendationsTable = () => {
-  const size = useWindowSize()
-  const recommendations = useSelector(selectAllRecommendations)
-  const data = useMemo(() => recommendations)
+  // const size = useWindowSize()
+  const {recommendations} = useRecommendations()
   
+  console.log(recommendations)
+  const data = useMemo(() => recommendations, [recommendations])
+ 
   const columns = useMemo(
     () => [
       {
         Header: 'Title',
+        // eslint-disable-next-line react/display-name
         Cell: row => {
           return(
             <div style={{'display': 'flex', 'alignItems': 'center'}}>
@@ -119,9 +122,9 @@ const RecommendationsTable = () => {
     data,
   }) 
 
-  useEffect(() => {
-    setHiddenColumns(size.width < 501 ? ['Genre'] : [])
-  }, [size.width < 501])
+  // useEffect(() => {
+  //   setHiddenColumns(size.width < 501 ? ['Genre'] : [])
+  // }, [setHiddenColumns, size.width])
 
   return(
     <TableStyles {...getTableProps()}>

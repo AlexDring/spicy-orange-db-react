@@ -1,15 +1,34 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
-import store from './store'
-import { Provider } from 'react-redux'
 import reportWebVitals from './reportWebVitals'
+import { QueryClientProvider, QueryClient } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      useErrorBoundary: true,
+      refetchOnWindowFocus: false,
+      retry(failureCount, error) {
+        if (error.status === 404) return false
+        else if (failureCount < 2) return true
+        else return false
+      }
+    },
+    mutations: {
+      onError: (err, variables, recover) => 
+        typeof recover === 'function' ? recover() : null // If mutation has recovery function on error, call it.
+    }
+  },
+})
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store} >
+    <QueryClientProvider client={queryClient}>
       <App />
-    </Provider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )

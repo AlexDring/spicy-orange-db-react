@@ -14,6 +14,7 @@ const GlobalStyles = createGlobalStyle`
   }
   html, body {
     height: 100%;
+    background-color: var(--light-yellow);
   }
   #root {
     display: flex; 

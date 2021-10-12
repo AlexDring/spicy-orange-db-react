@@ -6,7 +6,7 @@ const Layout = ({ profileId, children }) => {
   return(
     <>
       <Nav profileId={profileId} />
-      <main>
+      <main style={{position: 'relative'}}>
         {children}
       </main>
       <Footer />
@@ -15,8 +15,8 @@ const Layout = ({ profileId, children }) => {
 }
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-  profileId: PropTypes.string
+  children: PropTypes.node,
+  profileId: PropTypes.string,
   // Defining types for component props improves reusability of your components by validating received data. It can warn other developers if they make a mistake while reusing the component with improper data type.
   // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prop-types.md
   // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prop-types.md#rule-options

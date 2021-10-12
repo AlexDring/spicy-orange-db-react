@@ -4,13 +4,23 @@ import RecommendationsTable from '../components/RecommendationsTable'
 import Breadcrumbs from '../components/Breadcrumbs'
 
 const Recommendations = () => {
+  // const {data: recommendations } = useQuery({
+  //   queryKey: ['recommendations'],
+  //   queryFn: () => recommendationsRouter.getAll().then(data => data)
+  // }) // Hook this up to new table component!!!!
+  // const {recommendations} = useRecommendations()
+  // console.log(recommendations)
   
   return(
     <>
       <SectionStyles>
         <section>
           <Breadcrumbs 
-            routes={[{ path: '/', breadcrumb: 'Home' }, { path: '/recommendations', breadcrumb: 'Recommendations' }]} />
+            routes={[
+              { path: '/', breadcrumb: 'Home' },
+              { path: '/recommendations', breadcrumb: 'Recommendations' }
+            ]} 
+          />
           <h1>Recommendations</h1>
           <RecommendationsTable />
         </section>

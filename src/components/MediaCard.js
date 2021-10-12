@@ -5,9 +5,11 @@ import reviewLogos from '../assets/images/review-logos/review-icons'
 import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 
 const MediaCardStyles = styled.div`
+  box-sizing: border-box;
   border: 1px solid var(--lighter-gray);
   background: white;
   display: flex;
+  min-height: 319px;
   height: 100%;
   transition: all 0.5s ease;
   &:hover {
@@ -15,6 +17,7 @@ const MediaCardStyles = styled.div`
     /* border: 1px solid #A5243D; */
   }
   > img {
+    min-width: 209.1px;
     max-width: 44.68%;
     object-fit: cover;
   }
@@ -91,6 +94,7 @@ const RottenReviewStyles = styled.div`
   justify-content: flex-start;
   align-items: center;
   img {
+    min-width: 67px;
     height: 74px;
     object-fit: contain;
     @media (max-width: 500px) {
@@ -100,7 +104,6 @@ const RottenReviewStyles = styled.div`
 `
 
 const MediaCard = ({ singleMedia }) => {
-  console.log(typeof(singleMedia.Type))
 
   return(
     <div>
@@ -119,13 +122,16 @@ const MediaCard = ({ singleMedia }) => {
               <div>
                 <img 
                   height='20px' 
-                  width='45px' 
+                  width='45px'
+                  style={{}} 
                   src={reviewLogos.IMDb} 
                   alt="" />{singleMedia.imdbRating}/10
               </div> : '' }
             {singleMedia.Metascore !== 'N/A'  ? 
               <div>
                 <img className='reviewIcon'
+                  width="22.1px"
+                  height="20px"
                   src={reviewLogos.metaCritic} 
                   alt="" /> {singleMedia.Metascore}/100
               </div> : ''}

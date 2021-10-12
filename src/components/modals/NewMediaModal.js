@@ -1,18 +1,20 @@
-import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import omdbRouter from '../../services/omdb'
-import { addNewRecommendation } from '../../reducers/recommendationsSlice'
-import { useDispatch } from 'react-redux'
+import { useAddRecommendation } from '../../utils/recommendations'
+import { useIndividualSearch } from '../../utils/search'
+import { SearchResultSkeleton } from '../../utils/skeleton'
+import { ErrorMessage } from '../lib'
 
 const NewMediaModalStyles = styled.div`
+  box-sizing: border-box;
   background: var(--light-orange);
   display: flex;
   flex-direction: column;
   padding: 0 24px 24px;
   max-width: 550px;
   img {
-    max-width: 120px;
+    /* max-width: 120px; */
+    max-height: 180px;
     object-fit: cover;
     margin: -110px auto 0;
     margin-bottom: 24px;
@@ -38,58 +40,48 @@ const MediaInformationStyles = styled.ul`
   }
 `
 
-const NewMediaModal = ({ recId }) => {
-  const [data, setData] = useState('')
-  const dispatch = useDispatch()
+const NewMediaModal = ({ user, recId }) => {
+  const {data: searchResult, isLoading, isIdle} = useIndividualSearch(recId)
+  const create = useAddRecommendation(user)
 
-  useEffect(() => {
-    async function fetchData() {
-      if(recId) {
-        const response = await omdbRouter.searchOMDb(`i=${recId}`)
-        setData(response)
-      }
-    }
-    fetchData()
-  },[recId])
-
-  const saveRecommendation = async () => {
-    console.log(data)
-    const resultAction = await dispatch(addNewRecommendation(data)) //!FINISHHHTHISSS // https://redux.js.org/tutorials/essentials/part-5-async-logic#checking-thunk-results-in-components
-    console.log(resultAction)
-  }
+  console.log(create.isError, create.error)
   
-  if(!data) {
+  if(isIdle) {
     return null
-  } else {
-    console.log(data)
-    return(
-      <NewMediaModalStyles>
-        <img src={data.Poster} alt="" />
-        <div style={{'textAlign': 'center', 'marginBottom': 24  }}>
-          <h2 style={{'display': 'inline-block', 'marginBottom': 6, 'marginRight': 6}}>{data.Title} </h2>
-          <span className="caps gray">  
-            {data.Runtime !== 'N/A' && data.Year}  {data.Runtime !== 'N/A' && `• ${data.Runtime}`} {data.totalSeasons && `• ${data.totalSeasons} Seasons`}
-          </span>
-          <div>
-            <small>
-              {data.Genre} {data.imdbRating !== 'N/A' && ` • IMDb: ${data.imdbRating}/10`} {data.Metascore !== 'N/A' && ` • MetaCritic: ${data.Metascore}/100`}
-            </small>
-          </div>
-        </div>  
-        <p>{data.Plot}</p>
-        <MediaInformationStyles>
-          <li><span>Director</span><div>{data.Director}</div></li>
-          <li><span>Writer</span><div>{data.Writer}</div></li>
-          <li><span>Cast</span><div>{data.Actors}</div></li>
-        </MediaInformationStyles>
-        <button onClick={saveRecommendation}>Add to Recommendations</button>
-      </NewMediaModalStyles>
-    )
   }
+  return(
+    <>
+      {isLoading ? <SearchResultSkeleton /> : (
+        <NewMediaModalStyles>
+          <img src={searchResult.Poster} alt="" />
+          <div style={{'textAlign': 'center', 'marginBottom': 24  }}>
+            <h2 style={{'display': 'inline-block', 'marginBottom': 6, 'marginRight': 6}}>{searchResult.Title} </h2>
+            <span className="caps gray">  
+              {searchResult.Runtime !== 'N/A' && searchResult.Year}  {searchResult.Runtime !== 'N/A' && `• ${searchResult.Runtime}`} {searchResult.totalSeasons && `• ${searchResult.totalSeasons} Seasons`}
+            </span>
+            <div>
+              <small>
+                {searchResult.Genre} {searchResult.imdbRating !== 'N/A' && ` • IMDb: ${searchResult.imdbRating}/10`} {searchResult.Metascore !== 'N/A' && ` • MetaCritic: ${searchResult.Metascore}/100`}
+              </small>
+            </div>
+          </div>  
+          <p>{searchResult.Plot}</p>
+          <MediaInformationStyles>
+            <li><span>Director</span><div>{searchResult.Director}</div></li>
+            <li><span>Writer</span><div>{searchResult.Writer}</div></li>
+            <li><span>Cast</span><div>{searchResult.Actors}</div></li>
+          </MediaInformationStyles>
+          {create.isError && <ErrorMessage error={create.error} />}
+          <button onClick={() => create.mutateAsync({...searchResult, date_added: new Date()})}>Add to Recommendations</button>
+        </NewMediaModalStyles>
+      )}
+    </>
+  )
 }
 
 NewMediaModal.propTypes = {
-  recId: PropTypes.string
+  recId: PropTypes.string,
+  user: PropTypes.object
 }
 
 export default NewMediaModal

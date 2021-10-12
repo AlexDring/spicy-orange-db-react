@@ -1,91 +1,82 @@
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { 
-  BrowserRouter as Router, 
-  Route, 
-  Switch } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { BrowserRouter as Router } from 'react-router-dom'
+
 import 'normalize.css'
-
-import Layout from './components/Layout'
-import Home from './pages/Home'
-import Media from './pages/Media'
-import AddRecommendation from './pages/AddRecommendation'
-import Recommendations from './pages/Reccomendations'
-import Login from './pages/Login'
-
-import GlobalStyles from './styles/GlobalStyles'
 import Typography from './styles/Typography'
-import recommendationsService from './services/recommendations'
+import GlobalStyles from './styles/GlobalStyles'
+import Layout from './components/Layout'
+import {ErrorMessage, FullPageSpinner} from './components/lib'
 
-import { fetchRecommendations } from './reducers/recommendationsSlice'
-import { loggedIn } from './reducers/loggedInUserSlice'
-import { fetchReviews } from './reducers/reviewSlice'
-import Watchlist from './pages/Watchlist'
-import { fetchProfile } from './reducers/profileSlice'
+import authRouter from './utils/login'
+import storage from './utils/storage'
+import {ErrorBoundary} from 'react-error-boundary'
+import AuthenticatedApp from './authenticated-app'
+import UnauthenticatedApp from './unauthenticated-app'
+import {useAsync} from './utils/hooks'
+
+async function getUser() {
+  let user = null
+  const token = await storage.getToken()
+  if(token) {  
+    const {data} = await authRouter.checkToken(token)
+    user = {
+      ...data,
+      token
+    }
+  }
+  return user
+}
 
 function App() {
-  const dispatch = useDispatch()
-  const recommendationStatus = useSelector((state) => state.recommendations.status)
-  const reviewStatus = useSelector((state) => state.reviews.status)
-  console.log(typeof(dispatch))
+  const {
+    data: user, 
+    error, 
+    isLoading, 
+    isError,
+    isSuccess,
+    run,
+    setData 
+  } = useAsync()
 
   useEffect(() => {
-    if (recommendationStatus === 'idle') {
-      dispatch(fetchRecommendations())
-    }
-  }, [recommendationStatus, dispatch])
-  
-  useEffect(() => {
-    if (reviewStatus === 'idle') {
-      dispatch(fetchReviews())
-    }
-  }, [reviewStatus, dispatch])
+    run(getUser())
+  }, [run])
 
-  useEffect(() => {
-    console.log('loggedInUSer useEffect runs')
-    const loggedInUserJSON = window.localStorage.getItem('SPODbUser')
-    console.log(typeof(loggedInUserJSON))
+  const login = form => authRouter.login(form)
+    .then(user => {
+      storage.saveToken(user.token)
+      setData(user)
+    })
 
-    if(loggedInUserJSON) {
-      const user = JSON.parse(loggedInUserJSON)
-      console.log(typeof(user))
-      dispatch(loggedIn(user))
-      recommendationsService.setToken(user.token)
-      console.log('user.profile_id', user.profile_id)
-      dispatch(fetchProfile(user.profile_id))
-    }
-  }, [dispatch])
+  const logout = () => {
+    storage.logoutUser()
+    setData(null)
+  }
 
+  console.log(error?.data)
   return (
     <>
       <GlobalStyles />
-      <Typography />
+      <Typography /> 
       <Router>
-        <Layout>
-          {/* {!loggedUser ? 
-            <Login /> : */}
-          <Switch>
-            <Route path='/watchlist'>
-              <Watchlist />
-            </Route>
-            <Route path='/recommendations'>
-              <Recommendations />
-            </Route>
-            <Route path='/add-recommendation'>
-              <AddRecommendation />
-            </Route>
-            <Route path='/recommendation/:id'>
-              <Media />
-            </Route>
-            <Route path='/login'>
-              <Login />
-            </Route>
-            <Route path='/'>
-              <Home />
-            </Route>
-          </Switch>
-          {/* } */}
-        </Layout>
+        <Layout> 
+          {isLoading ? <FullPageSpinner /> :
+            isError ? 
+            
+              <ErrorMessage 
+                error={error} 
+                messge="There &apos;s an error, try refreshing the app." 
+              /> :
+              isSuccess ? (
+                user ? (
+                  <ErrorBoundary FallbackComponent={ErrorMessage}>
+                    <AuthenticatedApp user={user} logout={logout} />
+                  </ErrorBoundary>
+                ) :
+                  <UnauthenticatedApp login={login} />
+              ) : null
+          }
+        </Layout> 
       </Router>
     </>
   )

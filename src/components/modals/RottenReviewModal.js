@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useCreateReview, useUpdateReview, useRemoveReview } from '../../utils/reviews'
 import styled from 'styled-components'
 import rottenIcons from '../../assets/images/rotten-gas/rottenIcons'
-import { selectUser } from '../../reducers/loggedInUserSlice'
-import { addReview } from '../../reducers/reviewSlice'
 
 const RottenReviewStyles = styled.div`
   padding: 75px 24px 24px;
@@ -36,29 +34,48 @@ const RottenReviewStyles = styled.div`
   }
 `
 
+const RottenReviewModal = ({ media, setDisplayModal, displayModal, user }) => {
+  const [review, setReview] = useState(media.mediaDetail.rottenReviews.find(u => u.user === user.username))
 
-const RottenReviewModal = ({ media, setDisplayModal, displayModal }) => {
-  const dispatch = useDispatch()
-  const [review, setReview] = useState('')
-  const loggedUser = useSelector(selectUser)
-  const [score, setScore] = useState(media.mediaDetail.rottenReviews.find(r => r.user === loggedUser.username))
+  const create = useCreateReview()
+  const update = useUpdateReview(user)
+  const remove = useRemoveReview(user)
 
-  const addReviewSubmit = async(e) => {
+  function addReviewSubmit(e) {
     e.preventDefault()
-    const scoreNum = parseInt(score)
-    const resultAction = await dispatch(addReview({ 
+    create.mutateAsync({ 
       mediaId: media._id,
+      reviewId: review._id,
       mediaDetailId: media.mediaDetail._id,
-      score: scoreNum, 
-      review,  
+      score: review.score, 
+      review: review.review,  
       title: media.Title,
       poster: media.Poster,
-      user: loggedUser.username,
-      avatar: loggedUser.avatar
-    }))
+      user: user.username,
+      avatar: user.avatar
+    }, {
+      onSuccess: ({data}) => setReview(data.rottenReviews.find(u => u.user === user.username))
+    })
     setDisplayModal(!displayModal)
-    console.log('added!!!')
-    console.log(resultAction)
+  }
+
+  function removeReview() {
+    remove.mutateAsync({mediaDetailId: media.mediaDetail._id, reviewId: review._id})
+    setReview(null)
+    setDisplayModal(!displayModal)
+  }
+
+  function updateReview() {
+    update.mutateAsync({ 
+      mediaId: media._id,
+      reviewId: review._id,
+      mediaDetailId: media.mediaDetail._id,
+      score: review.score, 
+      review: review.review,  
+    }, {
+      onSuccess: ({data}) => setReview(data.rottenReviews.find(u => u.user === user.username))
+    })
+    setDisplayModal(!displayModal)
   }
 
   return(
@@ -66,11 +83,23 @@ const RottenReviewModal = ({ media, setDisplayModal, displayModal }) => {
       <img src={rottenIcons.noReview} alt="" />
       <small>You Rating</small>
       <h1>{media.Title}</h1>
-      <form onSubmit={addReviewSubmit}>
-        <input value={score} onChange={({ target }) => setScore(target.value)} type="number" min="1" max="1000" /> /1000 
-        <textarea value={review} onChange={({ target }) => setReview(target.value)} placeholder="Review (Optional)" rows="8" />
-        <input type='submit' className='minimal' value='Delete' /><input type='submit' value='Save' />
+      <form>
+        <input
+          type="number"
+          min="1"
+          max="1000"
+          value={review?.score ? review.score : ''}
+          onChange={({ target }) => setReview({...review, score: target.value })} 
+        /> /1000 
+        <textarea
+          placeholder="Review (Optional)"
+          rows="8"
+          value={review?.review ? review.review : ''}
+          onChange={({ target }) => setReview({...review, review: target.value })}
+        />
       </form>
+      <button style={{marginTop: 16}} onClick={review?._id ? updateReview : addReviewSubmit}>Save</button>
+      {review && <button className='minimal' onClick={() => removeReview()} >Delete</button>}
     </RottenReviewStyles>
   )
 }
@@ -78,7 +107,8 @@ const RottenReviewModal = ({ media, setDisplayModal, displayModal }) => {
 RottenReviewModal.propTypes = {
   media: PropTypes.object,
   setDisplayModal: PropTypes.func,
-  displayModal: PropTypes.bool
+  displayModal: PropTypes.bool,
+  user: PropTypes.object
 }
 
 export default RottenReviewModal

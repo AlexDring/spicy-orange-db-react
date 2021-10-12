@@ -5,6 +5,7 @@ import reviewLogos from '../assets/images/review-logos/review-icons'
 import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
 import WatchlistToggle from './WatchlistToggle'
 import Breadcumbs from './Breadcrumbs'
+import { useRemoveRecommendation } from '../utils/recommendations'
 
 const MediaContainer = styled.div`
   display: grid;
@@ -109,7 +110,9 @@ const ExternalReviewsWrapper = styled.ul`
   }
 `
 
-const MediaDetail = ({ displayModal, setDisplayModal, media }) => {
+const MediaDetail = ({ user, displayModal, setDisplayModal, media }) => {
+  const remove = useRemoveRecommendation(user)
+
   return(
     <>
       <div style={{'display': 'flex', 'justifyContent': 'space-between', 'flexWrap': 'wrap'}}>
@@ -127,13 +130,16 @@ const MediaDetail = ({ displayModal, setDisplayModal, media }) => {
             breadcrumb: `${media.Title}`
           }
         ]} />
-        <WatchlistToggle mediaId={media._id} />
+        <WatchlistToggle user={user} mediaId={media._id} />
       </div>
       <MediaContainer>
         <MediaPoster>
           <img src={media.Poster} alt={`${media.Title} poster`} />
         </MediaPoster>
         <MediaMeta type={media.Type}>
+          <small>Added by {media.user}</small>
+          {media.user === user.username && 
+          <button onClick={() => remove.mutateAsync({media_id: media._id, mediaDetail_id: media.mediaDetail._id})} style={{padding: 'none', fontSize: 12}} className='minimal'>Delete</button>}
           <h1>{media.Title}</h1>
           <p><span style={{'textTransform': 'capitalize'}}>{media.Type}</span> • {media.Year} • {media.Runtime}</p>
         </MediaMeta>
@@ -166,7 +172,9 @@ const MediaDetail = ({ displayModal, setDisplayModal, media }) => {
                 src={
                   r.Source === 'Internet Movie Database' ? reviewLogos.IMDbColor : 
                     r.Source === 'Rotten Tomatoes' ? reviewLogos.rottenToms : 
-                      reviewLogos.metaCriticColor} 
+                      r.Source === 'Metacritic' ? reviewLogos.metaCriticColor : 
+                        null
+                }  
                 alt="" />
               <p>{r.Value}
               </p>
@@ -182,6 +190,7 @@ MediaDetail.propTypes = {
   media: PropTypes.object,
   displayModal: PropTypes.bool,
   setDisplayModal: PropTypes.func,
+  user: PropTypes.object
 }
 
 export default MediaDetail

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { SectionStyles } from '../styles/styles'
@@ -8,10 +7,9 @@ import styled from 'styled-components'
 import Review from '../components/Review'
 import Modal from '../components/modals/Modal'
 import RottenReviewModal from '../components/modals/RottenReviewModal'
-import recommendationRouter from '../services/recommendations'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchSingleRecommendation, selectAllRecommendations } from '../reducers/recommendationsSlice'
-import { useEffect } from 'react'
+import {useRecommendation} from '../utils/recommendations'
+import PropTypes from 'prop-types'
+import { MediaDetailSkeleton } from '../utils/skeleton'
 
 const MediaInformationWrapper = styled.section`
   padding: 0;
@@ -42,34 +40,43 @@ const NewSectionStyles = styled(SectionStyles)`
   }
 `
 
-const Media = () => {
+const Media = ({user}) => {
   const [displayModal, setDisplayModal] = useState(false)
-  const dispatch = useDispatch()
-  const id = useParams().id
-  const recommendation = useSelector(state => state.recommendations.data.find(rec => rec._id === id))
+  const {id} = useParams()
+  const {recommendation, isLoading} = useRecommendation(id)
 
-  useEffect(() => {
-    // Check that recommendation has loaded and that media detail hasn't been fetched already
-    if(recommendation && typeof recommendation.mediaDetail == 'string') {
-      console.log('useEffect Runs')
-      dispatch(fetchSingleRecommendation(id))
-    }
-  }, [dispatch, id, recommendation])
-
-  if(!recommendation|| !recommendation.mediaDetail._id) {
-    return null
+  if(isLoading) {
+    return (
+      <SectionStyles>
+        <section>
+          <MediaDetailSkeleton />
+        </section>
+      </SectionStyles>
+    )
   } 
   return (
     <>
       <SectionStyles>
         <section>
-          <Modal displayModal={displayModal} setDisplayModal={setDisplayModal} >
-            <RottenReviewModal displayModal={displayModal} setDisplayModal={setDisplayModal} media={recommendation} />
-          </Modal>
-          <MediaDetail 
+          <Modal 
             displayModal={displayModal} 
-            setDisplayModal={setDisplayModal} 
-            media={recommendation} />
+            setDisplayModal={setDisplayModal}>
+            <RottenReviewModal 
+              user={user}
+              displayModal={displayModal}
+              setDisplayModal={setDisplayModal}
+              media={recommendation} 
+            />
+          </Modal>
+          {isLoading ? 
+            <MediaDetailSkeleton /> :
+            <MediaDetail 
+              user={user}
+              isLoading={isLoading}
+              displayModal={displayModal} 
+              setDisplayModal={setDisplayModal} 
+              media={recommendation} />
+          }
         </section>
       </SectionStyles>
       <NewSectionStyles>
@@ -77,18 +84,12 @@ const Media = () => {
           <h2>{recommendation.Title} Information</h2>
           <p>{recommendation.mediaDetail.Plot}</p>
           <MediaInformationStyles>
-            {recommendation.Director !== 'N/A' && 
-            <li><span>Director</span><div>{recommendation.Director}</div></li>}
-            {recommendation.mediaDetail.Writer !== 'N/A' && 
-            <li><span>Writer</span><div>{recommendation.mediaDetail.Writer}</div></li>}
-            {recommendation.mediaDetail.Actors !== 'N/A' && 
-            <li><span>Cast</span><div>{recommendation.mediaDetail.Actors}</div></li>}
-            {recommendation.mediaDetail.Production !== 'N/A' || undefined && 
-            <li><span>Production</span><div>{recommendation.mediaDetail.Production}</div></li>}
-            {recommendation.mediaDetail.Awards !== 'N/A' && 
-            <li><span>Awards</span><div>{recommendation.mediaDetail.Awards}</div></li>}
-            {recommendation.mediaDetail.BoxOffice !== 'N/A' || undefined && 
-            <li><span>BoxOffice</span><div>{recommendation.mediaDetail.BoxOffice}</div></li>}
+            <MediaInformationLi role={'Director'} item={recommendation.Director}/>
+            <MediaInformationLi role={'Writer'} item={recommendation.mediaDetail.Writer}/>
+            <MediaInformationLi role={'Cast'} item={recommendation.mediaDetail.Actors}/>
+            <MediaInformationLi role={'Production'} item={recommendation.mediaDetail.Production}/>
+            <MediaInformationLi role={'Awards'} item={recommendation.mediaDetail.Awards}/>
+            <MediaInformationLi role={'Box Office'} item={recommendation.mediaDetail.BoxOffice}/>
           </MediaInformationStyles>
         </MediaInformationWrapper>
       </NewSectionStyles>
@@ -104,6 +105,17 @@ const Media = () => {
       </SectionStyles>
     </> 
   )
+}
+
+// eslint-disable-next-line react/prop-types
+function MediaInformationLi({role, item}) {
+  return(
+    ({item} === 'N/A' || undefined) ? null : <li><span>{role}</span><div>{item}</div></li>
+  )
+}
+
+Media.propTypes = {
+  user: PropTypes.object
 }
 
 export default Media
