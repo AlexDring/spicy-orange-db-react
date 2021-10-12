@@ -1,11 +1,10 @@
 import { Switch, Route } from 'react-router-dom'
-import ErrorBoundary from 'react-error-boundary'
-import Home from './pages/Home'
-import Media from './pages/Media'
-import AddRecommendation from './pages/AddRecommendation'
-import Recommendations from './pages/Reccomendations'
-import Watchlist from './pages/Watchlist'
-import Search from './pages/Search'
+import Home from 'pages/home'
+import Media from 'pages/Media'
+import AddRecommendation from 'pages/AddRecommendation'
+import Recommendations from 'pages/Reccomendations'
+import Watchlist from 'pages/Watchlist'
+import Search from 'pages/Search'
 import PropTypes from 'prop-types'
 
 function AuthenticatedApp({ user }) {

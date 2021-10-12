@@ -1,14 +1,16 @@
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { SectionStyles } from '../styles/styles'
-import MediaDetail from '../components/MediaDetail'
-import ReviewGridStyles from '../styles/Grids'
-import styled from 'styled-components'
-import Review from '../components/Review'
+import { ReviewGridStyles } from '../styles/grids'
+
 import Modal from '../components/modals/Modal'
 import RottenReviewModal from '../components/modals/RottenReviewModal'
+import MediaDetail from '../components/MediaDetail'
+import Review from '../components/Review'
+
 import {useRecommendation} from '../utils/recommendations'
-import PropTypes from 'prop-types'
 import { MediaDetailSkeleton } from '../utils/skeleton'
 
 const MediaInformationWrapper = styled.section`

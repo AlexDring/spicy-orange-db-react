@@ -1,7 +1,7 @@
 
+import PropTypes from 'prop-types'
 import MediaCard from './MediaCard'
 import MediaPoster from './MediaPoster'
-import PropTypes from 'prop-types'
 import { MediaCardGridStyles, MediaPosterGridStyles } from '../styles/styles'
 import { useRecommendations } from '../utils/recommendations'
 import { CardSkeleton, PosterSkeleton } from '../utils/skeleton'

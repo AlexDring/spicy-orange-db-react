@@ -3,11 +3,13 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import reviewLogos from '../assets/images/review-logos/review-icons'
 import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
-import WatchlistToggle from './WatchlistToggle'
+
 import Breadcumbs from './Breadcrumbs'
+import WatchlistToggle from './WatchlistToggle'
+
 import { useRemoveRecommendation } from '../utils/recommendations'
 
-const MediaContainer = styled.div`
+const MediaContainerStyles = styled.div`
   display: grid;
   border: 1px solid var(--light-gray);
   background: white;
@@ -32,7 +34,7 @@ const MediaContainer = styled.div`
   }
 `
 
-const MediaPoster = styled.div`
+const MediaPosterStyles = styled.div`
   grid-area: poster;
   img {
     width: 100%;
@@ -41,7 +43,7 @@ const MediaPoster = styled.div`
   }
 `
 
-const MediaMeta = styled.div`
+const MediaMetaStyles = styled.div`
   grid-area: meta;
   text-align: center;
   padding: 24px 0 0;
@@ -51,7 +53,7 @@ const MediaMeta = styled.div`
   }
 `
 
-const RottenWrapper = styled.div`
+const RottenWrapperStyles = styled.div`
   grid-area: rottenGas;
   display: flex;
   align-items: flex-start;
@@ -61,7 +63,7 @@ const RottenWrapper = styled.div`
     margin-right: 60px;
   }
 `
-const RottenScore = styled.div`
+const RottenScoreStyles = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -76,7 +78,7 @@ const RottenScore = styled.div`
   }
 `
 
-const ExternalReviewsWrapper = styled.ul`
+const ExternalReviewsWrapperStyles = styled.ul`
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -132,20 +134,27 @@ const MediaDetail = ({ user, displayModal, setDisplayModal, media }) => {
         ]} />
         <WatchlistToggle user={user} mediaId={media._id} />
       </div>
-      <MediaContainer>
-        <MediaPoster>
+      <MediaContainerStyles>
+        <MediaPosterStyles>
           <img src={media.Poster} alt={`${media.Title} poster`} />
-        </MediaPoster>
-        <MediaMeta type={media.Type}>
+        </MediaPosterStyles>
+        <MediaMetaStyles type={media.Type}>
           <small>Added by {media.user}</small>
           {media.user === user.username && 
-          <button onClick={() => remove.mutateAsync({media_id: media._id, mediaDetail_id: media.mediaDetail._id})} style={{padding: 'none', fontSize: 12}} className='minimal'>Delete</button>}
+          <button 
+            className='minimal'
+            style={{padding: 'none', fontSize: 12}} 
+            onClick={() => remove.mutateAsync({media_id: media._id, mediaDetail_id: media.mediaDetail._id})} 
+          >
+            Delete
+          </button>
+          }
           <h1>{media.Title}</h1>
           <p><span style={{'textTransform': 'capitalize'}}>{media.Type}</span> • {media.Year} • {media.Runtime}</p>
-        </MediaMeta>
-        <RottenWrapper>
+        </MediaMetaStyles>
+        <RottenWrapperStyles>
           <HashLink to='#rottenGas'>
-            <RottenScore>
+            <RottenScoreStyles>
               <small>Rotten Ga&apos;s Total</small>
               <img src={
                 !media.rottenAverage ? rottenIcons.noReview :
@@ -156,16 +165,17 @@ const MediaDetail = ({ user, displayModal, setDisplayModal, media }) => {
                 <>
                   <div>{media.rottenAverage}/1000</div>
                   <small>{media.rottenCount} Reviews</small>
-                </> : <small>No Ratings</small>}
-            </RottenScore>
+                </> : <small>No Ratings</small>
+              }
+            </RottenScoreStyles>
           </HashLink>
-          <RottenScore onClick={() => setDisplayModal(!displayModal)}>
+          <RottenScoreStyles onClick={() => setDisplayModal(!displayModal)}>
             <small>Your Rating</small>
             <img src={rottenIcons.certifiedGa} alt="" />
             <div>/1000</div>
-          </RottenScore>
-        </RottenWrapper>
-        <ExternalReviewsWrapper>
+          </RottenScoreStyles>
+        </RottenWrapperStyles>
+        <ExternalReviewsWrapperStyles>
           {media.mediaDetail.Ratings.map(r => 
             (<li key={r._id}>
               <img 
@@ -180,8 +190,8 @@ const MediaDetail = ({ user, displayModal, setDisplayModal, media }) => {
               </p>
             </li>)
           )}
-        </ExternalReviewsWrapper>
-      </MediaContainer>
+        </ExternalReviewsWrapperStyles>
+      </MediaContainerStyles>
     </>
   )
 }

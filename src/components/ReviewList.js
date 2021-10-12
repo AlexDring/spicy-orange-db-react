@@ -1,4 +1,4 @@
-import ReviewGridStyles from '../styles/Grids'
+import { ReviewGridStyles } from '../styles/grids'
 import { useReviews } from '../utils/reviews'
 import Review from './Review'
 

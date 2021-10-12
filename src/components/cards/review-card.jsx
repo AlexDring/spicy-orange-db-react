@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import avatar from '../assets/images/avatar.png'
-import rottenIcons from '../assets/images/rotten-gas/rottenIcons'
+import avatar from 'assets/images/avatar.png'
+import rottenIcons from 'assets/images/rotten-gas/rottenIcons'
 
 const ReviewStyles = styled.div`
   display: grid;
@@ -34,7 +34,7 @@ const MediaScore = styled.div`
     }
   `
 
-const Review = (props) => {
+const ReviewCard = (props) => {
   const { large, review } = props
   return(
     <ReviewStyles large={large}>
@@ -63,9 +63,9 @@ const Review = (props) => {
   )
 }
 
-Review.propTypes = {
+ReviewCard.propTypes = {
   large: PropTypes.string,
   review: PropTypes.object
 }
 
-export default Review
+export default ReviewCard
