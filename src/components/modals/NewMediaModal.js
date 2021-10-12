@@ -72,7 +72,7 @@ const NewMediaModal = ({ user, recId }) => {
             <li><span>Cast</span><div>{searchResult.Actors}</div></li>
           </MediaInformationStyles>
           {create.isError && <ErrorMessage error={create.error} />}
-          <button onClick={() => create.mutate({...searchResult, date_added: new Date()})}>Add to Recommendations</button>
+          <button onClick={() => create.mutateAsync({...searchResult, date_added: new Date()})}>Add to Recommendations</button>
         </NewMediaModalStyles>
       )}
     </>

@@ -1,7 +1,11 @@
-import {useAddWatchlist, useProfile, useRemoveWatchlist, useWatchlistItem} from '../utils/profile'
+/* eslint-disable react/prop-types */
+/* eslint-disable no-undef */
+import {useAddWatchlist, useRemoveWatchlist, useWatchlistItem} from '../utils/profile'
 import {FaBookmark, FaRegBookmark} from 'react-icons/fa'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import { useAsync } from '../utils/hooks'
+import { BiErrorCircle } from 'react-icons/bi'
 
 const WatchlistToggleStyles = styled.div`
   display: flex;
@@ -23,17 +27,36 @@ const WatchlistToggle = ({ user, mediaId }) => {
 
   return(
     <WatchlistToggleStyles>
-      <span onClick={
-        item ? 
-          () => remove.mutate({profile_id: user.profile_id, watchlist_id: item._id}) : 
-          () => create.mutate({profile_id: user.profile_id, media_id: mediaId, media: mediaId, date_added: new Date()})
-      }>
-        {item ? 
-          <span><FaBookmark/> In your Watchlist</span> : 
-          <span><FaRegBookmark /> Add to Watchlist</span>
-        }
-      </span>
+      {item?._id ? 
+        <IconButton 
+          label={'In your Watchlist'}
+          icon={<FaBookmark/>}
+          onClick={() => remove.mutateAsync({profile_id: user.profile_id, watchlist_id: item._id})} 
+        /> :
+        <IconButton 
+          label={'Add to Watchlist'}
+          icon={<FaRegBookmark />}
+          onClick={() => create.mutateAsync({profile_id: user.profile_id, media_id: mediaId, media: mediaId, date_added: new Date()})} 
+        />}
     </WatchlistToggleStyles>
+  )
+}
+
+function IconButton({label, icon, onClick}) {
+  const { isLoading, isError, error, run, reset } = useAsync()
+
+  function handleClick() {
+    if(isError) {
+      reset()
+    } else {
+      run(onClick())
+    }
+  }
+
+  return(
+    <span onClick={handleClick}>
+      <span style={{color: isError && 'red', fontSize: isError && '12px'}}>{isError ? <BiErrorCircle /> : icon} {isError ? error : label}</span>
+    </span>
   )
 }
 

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import styled from 'styled-components'
 import Alert from '@reach/alert'
+import { AiOutlineCloseSquare } from 'react-icons/ai'
 
 const Spinner = () => (
   <StyledSpinner viewBox="0 0 50 50">
@@ -64,11 +65,18 @@ const StyledFullPageSpinner = styled.div`
 `
 
 function ErrorMessage({error}) {
-  console.log
   return (
-    <Alert
-      style={{background: 'hsla(10, 50%, 50%, .10)', padding: '10px', margin: '15px 0'}}>      
-      ❗️ {error}
+    <Alert 
+      type="assertive"
+      style={{
+        display: 'inline-block', 
+        background: 'hsla(10, 50%, 50%, .10)', 
+        padding: '10px', 
+        margin: '15px 0',
+        position: 'absolute',
+        bottom: '0'
+      }}>      
+      ❗️ {error} <button style={{padding: '15px'}} className="minimal"><AiOutlineCloseSquare size={20} /></button>
     </Alert>
   )
 }

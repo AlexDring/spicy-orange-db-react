@@ -6,7 +6,7 @@ const Layout = ({ profileId, children }) => {
   return(
     <>
       <Nav profileId={profileId} />
-      <main>
+      <main style={{position: 'relative'}}>
         {children}
       </main>
       <Footer />

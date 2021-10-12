@@ -95,20 +95,14 @@ function useAsync(initialState) {
           return data
         },
         error => { // This is the Epic React useAsync hook. The error needs to be caught to avoid 'Unhandled Rejection (Error)'
-          console.log(error)
           if(error.response) {
-            setError(error.response.data.message)
+            console.log(error.response)
+            setError(error.response.data.error)
           } else {
+            console.log(error)
             setError(error)
           }
         },
-      // ).catch(error => {
-      //   if(error.response) {
-      //     setError(error.response.data.message)
-      //   } else {
-      //     setError(error)
-      //   }
-      // }
       )
     },
     [safeSetState, setData, setError],

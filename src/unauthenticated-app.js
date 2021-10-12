@@ -30,8 +30,6 @@ const UnauthenticatedApp = ({ login }) => {
     )
   }
 
-  console.log(isError, error?.error)
-
   return(
     <SectionStyles>
       <section>

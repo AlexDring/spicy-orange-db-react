@@ -53,6 +53,7 @@ function App() {
     setData(null)
   }
 
+  console.log(error?.data)
   return (
     <>
       <GlobalStyles />
@@ -61,8 +62,9 @@ function App() {
         <Layout> 
           {isLoading ? <FullPageSpinner /> :
             isError ? 
+            
               <ErrorMessage 
-                error={error.message} 
+                error={error} 
                 messge="There &apos;s an error, try refreshing the app." 
               /> :
               isSuccess ? (
@@ -72,7 +74,8 @@ function App() {
                   </ErrorBoundary>
                 ) :
                   <UnauthenticatedApp login={login} />
-              ) : null }
+              ) : null
+          }
         </Layout> 
       </Router>
     </>

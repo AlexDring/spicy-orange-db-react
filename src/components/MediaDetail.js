@@ -139,7 +139,7 @@ const MediaDetail = ({ user, displayModal, setDisplayModal, media }) => {
         <MediaMeta type={media.Type}>
           <small>Added by {media.user}</small>
           {media.user === user.username && 
-          <button onClick={() => remove.mutate({media_id: media._id, mediaDetail_id: media.mediaDetail._id})} style={{padding: 'none', fontSize: 12}} className='minimal'>Delete</button>}
+          <button onClick={() => remove.mutateAsync({media_id: media._id, mediaDetail_id: media.mediaDetail._id})} style={{padding: 'none', fontSize: 12}} className='minimal'>Delete</button>}
           <h1>{media.Title}</h1>
           <p><span style={{'textTransform': 'capitalize'}}>{media.Type}</span> • {media.Year} • {media.Runtime}</p>
         </MediaMeta>
