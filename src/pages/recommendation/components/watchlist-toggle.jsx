@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-undef */
-import {useAddWatchlist, useRemoveWatchlist, useWatchlistItem} from '../utils/profile'
+import {useAddWatchlist, useRemoveWatchlist, useWatchlistItem} from '../../../utils/profile'
 import {FaBookmark, FaRegBookmark} from 'react-icons/fa'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { useAsync } from '../utils/hooks'
+import { useAsync } from '../../../utils/hooks'
 import { BiErrorCircle } from 'react-icons/bi'
 
 const WatchlistToggleStyles = styled.div`
@@ -20,8 +20,8 @@ const WatchlistToggleStyles = styled.div`
   }
 `
 
-const WatchlistToggle = ({ user, mediaId }) => {
-  const item = useWatchlistItem(user, mediaId)
+const WatchlistToggle = ({ user, recommendation_id }) => {
+  const item = useWatchlistItem(user, recommendation_id)
   const create = useAddWatchlist(user)
   const remove = useRemoveWatchlist(user)
 
@@ -36,7 +36,7 @@ const WatchlistToggle = ({ user, mediaId }) => {
         <IconButton 
           label={'Add to Watchlist'}
           icon={<FaRegBookmark />}
-          onClick={() => create.mutateAsync({profile_id: user.profile_id, media_id: mediaId, media: mediaId, date_added: new Date()})} 
+          onClick={() => create.mutateAsync({profile_id: user.profile_id, media_id: recommendation_id, media: recommendation_id, date_added: new Date()})} 
         />}
     </WatchlistToggleStyles>
   )

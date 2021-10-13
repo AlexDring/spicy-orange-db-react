@@ -3,7 +3,8 @@ import { RecommendationCard, RecommendationCardSmall, ReviewCard } from 'compone
 import Skeleton from 'components/skeleton/skeleton'
 import { useRecommendations } from 'utils/recommendations'
 import { useReviews } from 'utils/reviews'
-import { MediaCardGridStyles, MediaPosterGridStyles, ReviewGridStyles } from 'styles/grids'
+import { MediaCardGridStyles, MediaPosterGridStyles } from 'styles/grids'
+import Reviews from 'components/cards/reviews'
 
 function Home() {
   const { recommendations, isLoading: recommendationsLoading } = useRecommendations()
@@ -38,18 +39,7 @@ function Home() {
         </MediaPosterGridStyles>
       </Section>
       <Section orange>
-        <ReviewGridStyles>
-          {reviewsLoading ? 
-            <Skeleton number={8} component="review" /> : 
-            reviews.map(review => (
-              <ReviewCard 
-                large='true'
-                key={review._id} 
-                review={review}   
-              />
-            ))
-          }
-        </ReviewGridStyles>
+        <Reviews loading={reviewsLoading} reviews={reviews} large />
       </Section>
     </>
   )

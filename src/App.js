@@ -62,7 +62,6 @@ function App() {
         <Layout> 
           {isLoading ? <FullPageSpinner /> :
             isError ? 
-            
               <ErrorMessage 
                 error={error} 
                 messge="There &apos;s an error, try refreshing the app." 

@@ -1,4 +1,4 @@
-import MediaCard from '../components/MediaCard'
+import { RecommendationCard } from 'components/cards'
 import { MediaCardGridStyles, SectionStyles } from '../styles/styles'
 import PropTypes from 'prop-types'
 import { useProfile } from '../utils/profile'
@@ -14,7 +14,7 @@ const Watchlist = ({ user }) => {
           {/* {Array.from({length: 4}, (v, i) => <CardSkeleton key={`media-card-${i}`} />)} */}
           {isLoading || isIdle ? 
             Array.from({length: 4}, (v, i) => <CardSkeleton key={`media-card-${i}`} />) :
-            profile?.watchlist.map(p => <MediaCard key={p._id} singleMedia={p.media} />)
+            profile?.watchlist.map(p => <RecommendationCard key={p._id} recommendation={p.media} />)
           }
         </MediaCardGridStyles>
       </section>

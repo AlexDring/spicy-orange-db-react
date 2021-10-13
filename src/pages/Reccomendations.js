@@ -1,7 +1,7 @@
 import { SectionStyles } from '../styles/styles'
 import PropTypes from 'prop-types'
 import RecommendationsTable from '../components/RecommendationsTable'
-import Breadcrumbs from '../components/Breadcrumbs'
+import Breadcrumbs from '../components/breadcrumbs'
 
 const Recommendations = () => {
   // const {data: recommendations } = useQuery({

@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import avatar from 'assets/images/avatar.png'
 import rottenIcons from 'assets/images/rotten-gas/rottenIcons'
+import { rottenReviewImage } from 'utils/misc'
 
 const ReviewStyles = styled.div`
   display: grid;
-  grid-template-columns: ${props => props.large === 'true' ? '70px 1fr' : '1fr'};
+  grid-template-columns: ${props => props.large ? '70px 1fr' : '1fr'};
   grid-column-gap: 12px;
   border-bottom: 1px solid #ededed;
   margin-bottom: 12px;
@@ -34,37 +35,31 @@ const MediaScore = styled.div`
     }
   `
 
-const ReviewCard = (props) => {
-  const { large, review } = props
-  return(
-    <ReviewStyles large={large}>
-      {large  === 'true' && <img src={review.poster} alt="" />}
-      <div>
-        <MediaScore>
-          <img height="25" 
-            src={avatar}
-            alt="Logged in users avatar" />
-          <p>{review.user}</p>
-          <img height="25" 
-            src={
-              review.score > 899 ? rottenIcons.certifiedGa 
-                : review.score > 599 ? rottenIcons.freshGa 
-                  : rottenIcons.rottenGa} 
-            alt="review score icon" />
-          <p>{review.score}/1000</p>
-        </MediaScore>
-        {large == 'true' && 
+const ReviewCard = ({ large, review }) => (
+  <ReviewStyles large={large}>
+    {large && <img src={review.poster} alt="" />}
+    <div>
+      <MediaScore>
+        <img height="25" 
+          src={avatar}
+          alt="Logged in users avatar" />
+        <p>{review.user}</p>
+        <img height="25" 
+          src={rottenReviewImage(review.score)} 
+          alt="review score icon" />
+        <p>{review.score}/1000</p>
+      </MediaScore>
+      {large && 
         <Link to={`/recommendation/${review.mediaId}`}>
           <h2>{review.title}</h2><small>{review.year}</small>
         </Link>}
-      </div>
-      <p className='mediaReview'>{review.review}</p>
-    </ReviewStyles>
-  )
-}
+    </div>
+    <p className='mediaReview'>{review.review}</p>
+  </ReviewStyles>
+)
 
 ReviewCard.propTypes = {
-  large: PropTypes.string,
+  large: PropTypes.bool,
   review: PropTypes.object
 }
 
