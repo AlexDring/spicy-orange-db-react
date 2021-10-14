@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import 'normalize.css'
 import Typography from './styles/Typography'
 import GlobalStyles from './styles/GlobalStyles'
-import Layout from './components/Layout'
+import Layout from './components/layout/layout-wrapper'
 import {ErrorMessage, FullPageSpinner} from './components/lib'
 
 import authRouter from './utils/login'

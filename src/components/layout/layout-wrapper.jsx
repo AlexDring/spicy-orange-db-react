@@ -1,5 +1,5 @@
-import Footer from './Footer'
-import Nav from './Nav'
+import Footer from './navigation/footer'
+import Nav from './navigation/nav-bar'
 import PropTypes from 'prop-types'
 
 const Layout = ({ profileId, children }) => {

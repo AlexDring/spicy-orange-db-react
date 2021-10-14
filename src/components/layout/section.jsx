@@ -10,7 +10,7 @@ section {
 }
 `
 const Section = ({orange, children}) => (
-  <SectionStyles orange={orange ? true : null}>
+  <SectionStyles orange={orange}>
     <section>
       {children}
     </section>

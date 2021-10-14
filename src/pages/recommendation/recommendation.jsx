@@ -4,7 +4,7 @@ import { useRecommendation, useRemoveRecommendation } from 'utils/recommendation
 import { PropTypes } from 'prop-types'
 
 import Section from 'components/layout/section'
-import Breadcrumbs from 'components/breadcrumbs'
+import Breadcrumbs from 'components/layout/navigation/breadcrumbs'
 import WatchlistToggle from './components/watchlist-toggle'
 import { RecommendationDetailSkeleton, RecommendationInfoSkeleton } from 'components/skeleton/skeleton-templates'
 import RecommendationMeta from './components/recommendation-meta'
