@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
-import { useCreateReview, useUpdateReview, useRemoveReview } from '../../utils/reviews'
+import { useCreateReview, useUpdateReview, useRemoveReview } from 'utils/reviews'
 import styled from 'styled-components'
-import rottenIcons from '../../assets/images/rotten-gas/rottenIcons'
-import Modal from './Modal'
+import rottenIcons from 'assets/images/rotten-gas/rottenIcons'
+import Modal from 'components/modals/modal-wrapper'
 
 const RottenReviewStyles = styled.div`
   padding: 75px 24px 24px;

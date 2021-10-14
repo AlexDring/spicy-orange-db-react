@@ -53,7 +53,6 @@ function App() {
     setData(null)
   }
 
-  console.log(error?.data)
   return (
     <>
       <GlobalStyles />

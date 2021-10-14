@@ -5,6 +5,7 @@ import { useRecommendations } from 'utils/recommendations'
 import { useReviews } from 'utils/reviews'
 import { MediaCardGridStyles, MediaPosterGridStyles } from 'styles/grids'
 import Reviews from 'components/cards/reviews'
+import RecommendationsSmallGrid from 'components/recommendations/recommendations-small-grid'
 
 function Home() {
   const { recommendations, isLoading: recommendationsLoading } = useRecommendations()
@@ -16,6 +17,7 @@ function Home() {
   return(
     <>
       <Section>
+        <h1>Recent Recommendations</h1>
         <MediaCardGridStyles>
           {recommendationsLoading ? 
             <Skeleton number={4} component="recommendation" /> :
@@ -26,19 +28,10 @@ function Home() {
               />
             ))}
         </MediaCardGridStyles>
-        <MediaPosterGridStyles>
-          {recommendationsLoading ? 
-            <Skeleton number={8} component="recommendation-small" /> :
-            remainingRecommendations?.map(recommendation => (
-              <RecommendationCardSmall 
-                key={recommendation._id} 
-                recommendation={recommendation} 
-              />
-            ))
-          }
-        </MediaPosterGridStyles>
+        <RecommendationsSmallGrid loading={recommendationsLoading} recommendations={remainingRecommendations} />
       </Section>
       <Section orange>
+        <h1>Recent Reviews</h1>
         <Reviews loading={reviewsLoading} reviews={reviews} large />
       </Section>
     </>

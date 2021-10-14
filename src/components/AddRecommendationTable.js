@@ -2,8 +2,8 @@
 /* eslint-disable react/jsx-key */
 import { useMemo, useState } from 'react'
 import { useTable } from 'react-table'
-import Modal from '../components/modals/Modal'
-import NewMediaModal from '../components/modals/NewMediaModal'
+import Modal from './modals/modal-wrapper'
+import NewMediaModal from '../pages/search/components/search-modal'
 import styled from 'styled-components'
 
 const TableStyles = styled.table`

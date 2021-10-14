@@ -2,7 +2,7 @@
 import { HashLink } from 'react-router-hash-link'
 import { rottenReviewImage } from 'utils/misc'
 import styled from 'styled-components'
-import RottenReviewModal from 'components/modals/RottenReviewModal'
+import RottenReviewModal from './rotten-review-modal'
 import { useState } from 'react'
 
 const RottenWrapper = styled.div`

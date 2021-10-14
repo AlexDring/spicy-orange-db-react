@@ -1,11 +1,12 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { useAddRecommendation } from '../../utils/recommendations'
-import { useIndividualSearch } from '../../utils/search'
-import { SearchResultSkeleton } from '../../utils/skeleton'
-import { ErrorMessage } from '../lib'
+import { useAddRecommendation } from 'utils/recommendations'
+import { useIndividualSearch } from 'utils/search'
+import { SearchResultSkeleton } from 'utils/skeleton'
+import { ErrorMessage } from 'components/lib'
+import Modal from 'components/modals/modal-wrapper'
 
-const NewMediaModalStyles = styled.div`
+const SearchModalStyles = styled.div`
   box-sizing: border-box;
   background: var(--light-orange);
   display: flex;
@@ -40,28 +41,31 @@ const MediaInformationStyles = styled.ul`
   }
 `
 
-const NewMediaModal = ({ user, recId }) => {
+// eslint-disable-next-line react/prop-types
+const SearchModal = ({ user, recId, displayModal, setDisplayModal }) => {
   const {data: searchResult, isLoading, isIdle} = useIndividualSearch(recId)
   const create = useAddRecommendation(user)
-
-  console.log(create.isError, create.error)
   
   if(isIdle) {
     return null
   }
   return(
-    <>
+    <Modal displayModal={displayModal} setDisplayModal={setDisplayModal} > 
       {isLoading ? <SearchResultSkeleton /> : (
-        <NewMediaModalStyles>
+        <SearchModalStyles>
           <img src={searchResult.Poster} alt="" />
           <div style={{'textAlign': 'center', 'marginBottom': 24  }}>
             <h2 style={{'display': 'inline-block', 'marginBottom': 6, 'marginRight': 6}}>{searchResult.Title} </h2>
             <span className="caps gray">  
-              {searchResult.Runtime !== 'N/A' && searchResult.Year}  {searchResult.Runtime !== 'N/A' && `• ${searchResult.Runtime}`} {searchResult.totalSeasons && `• ${searchResult.totalSeasons} Seasons`}
+              {searchResult.Runtime !== 'N/A' && searchResult.Year}  
+              {searchResult.Runtime !== 'N/A' && `• ${searchResult.Runtime}`} 
+              {searchResult.totalSeasons && `• ${searchResult.totalSeasons} Seasons`}
             </span>
             <div>
               <small>
-                {searchResult.Genre} {searchResult.imdbRating !== 'N/A' && ` • IMDb: ${searchResult.imdbRating}/10`} {searchResult.Metascore !== 'N/A' && ` • MetaCritic: ${searchResult.Metascore}/100`}
+                {searchResult.Genre} 
+                {searchResult.imdbRating !== 'N/A' && ` • IMDb: ${searchResult.imdbRating}/10`} 
+                {searchResult.Metascore !== 'N/A' && ` • MetaCritic: ${searchResult.Metascore}/100`}
               </small>
             </div>
           </div>  
@@ -73,15 +77,15 @@ const NewMediaModal = ({ user, recId }) => {
           </MediaInformationStyles>
           {create.isError && <ErrorMessage error={create.error} />}
           <button onClick={() => create.mutateAsync({...searchResult, date_added: new Date()})}>Add to Recommendations</button>
-        </NewMediaModalStyles>
+        </SearchModalStyles>
       )}
-    </>
+    </Modal>
   )
 }
 
-NewMediaModal.propTypes = {
+SearchModal.propTypes = {
   recId: PropTypes.string,
   user: PropTypes.object
 }
 
-export default NewMediaModal
+export default SearchModal

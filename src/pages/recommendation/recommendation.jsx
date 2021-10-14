@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { useState } from 'react'
 import { useParams } from 'react-router'
 import { useRecommendation, useRemoveRecommendation } from 'utils/recommendations'
 import { PropTypes } from 'prop-types'
@@ -13,9 +12,6 @@ import RottenReviews from './components/rotten-reviews'
 import ThirdPartyReviews from './components/third-party-review.'
 import RecommendationInformation from './components/recommendation-information'
 import Reviews from 'components/cards/reviews'
-import Modal from 'components/modals/Modal'
-import RottenReviewModal from 'components/modals/RottenReviewModal'
-
 
 const TopRowWrapper = styled.div`
   display: flex;
@@ -35,6 +31,7 @@ const RecommendationCardWrapper = styled.div`
         "poster reviews";
   > img {
     width: 100%;
+    min-width: 300px;
     height: 100%;
     object-fit: cover;
     grid-area: poster;
@@ -82,7 +79,7 @@ function Recommendation({ user }) {
         <RecommendationCardWrapper> 
           <img src={recommendation.Poster} alt={`${recommendation.Title} poster`} />
           <RecommendationMeta user={user} recommendation={recommendation} remove={remove} />
-          <RottenReviews user={user} recommendation={recommendation} />
+          <RottenReviews user={user} recommendation={recommendation} loading={isLoading} />
           <ThirdPartyReviews recommendation={recommendation} />
         </RecommendationCardWrapper>
         <RecommendationInformation recommendation={recommendation} />

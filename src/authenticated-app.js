@@ -3,7 +3,7 @@ import Home from 'pages/home'
 import AddRecommendation from 'pages/AddRecommendation'
 import Recommendations from 'pages/Reccomendations'
 import Watchlist from 'pages/Watchlist'
-import Search from 'pages/Search'
+import Search from 'pages/search/search'
 import PropTypes from 'prop-types'
 import Recommendation from 'pages/recommendation/recommendation'
 

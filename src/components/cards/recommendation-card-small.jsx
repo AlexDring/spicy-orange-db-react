@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import rottenIcons from 'assets/images/rotten-gas/rottenIcons'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { rottenReviewImage } from 'utils/misc'
@@ -43,21 +42,24 @@ const RottenGaStyles = styled.div`
 
 const RecommendationCardSmall = ({ recommendation }) => {
   const { _id, Type, Poster, rottenAverage, rottenCount } = recommendation
+
   return(
     <Link to={`/recommendation/${_id}`}>
       <MediaPosterStyles type={Type}>
-        <img className='poster' src={Poster} alt="Recommendation Poster" />
-        <RottenGaStyles className='rottenGas' type={Type} >
-          <img className='rottenIcon' 
-            src={rottenReviewImage(rottenAverage)}  
-            alt="" /> 
-          {!rottenAverage ? 
-            <small>Not yet rated</small> : 
-            <p>{rottenAverage}<span>/1000</span> 
-              <small>{rottenCount} Reviews</small>
-            </p>
-          }
-        </RottenGaStyles>
+        <img className='poster' src={Poster} alt="" />
+        {rottenCount ? 
+          ( // This hides it if it's being used in a search results page
+            <RottenGaStyles className='rottenGas' type={Type} >
+              <img className='rottenIcon' 
+                src={rottenReviewImage(rottenAverage)}  
+                alt="" /> 
+              {!rottenAverage ? <small>Not yet rated</small> : 
+                <p>{rottenAverage}<span>/1000</span> 
+                  <small>{rottenCount} Reviews</small>
+                </p>}
+            </RottenGaStyles>
+          ) 
+          : null}
       </MediaPosterStyles>
     </Link>
   )
