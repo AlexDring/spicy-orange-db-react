@@ -1,10 +1,8 @@
 import Section from 'components/layout/section'
-import { RecommendationCard, RecommendationCardSmall, ReviewCard } from 'components/cards'
-import Skeleton from 'components/skeleton/skeleton'
 import { useRecommendations } from 'utils/recommendations'
 import { useReviews } from 'utils/reviews'
-import { MediaCardGridStyles, MediaPosterGridStyles } from 'styles/grids'
-import Reviews from 'components/cards/reviews'
+import ReviewsGrid from 'components/cards/reviews'
+import RecommendationsGrid from 'components/recommendations/recommendations-grid'
 import RecommendationsSmallGrid from 'components/recommendations/recommendations-small-grid'
 
 function Home() {
@@ -18,21 +16,25 @@ function Home() {
     <>
       <Section>
         <h1>Recent Recommendations</h1>
-        <MediaCardGridStyles>
-          {recommendationsLoading ? 
-            <Skeleton number={4} component="recommendation" /> :
-            highlightedRecommendations?.map(recommendation => (
-              <RecommendationCard 
-                key={recommendation._id} 
-                recommendation={recommendation}
-              />
-            ))}
-        </MediaCardGridStyles>
-        <RecommendationsSmallGrid loading={recommendationsLoading} recommendations={remainingRecommendations} />
+        <RecommendationsGrid
+          loading={recommendationsLoading}
+          recommendations={highlightedRecommendations}
+          skeletonCount={4}
+        /> 
+        <RecommendationsSmallGrid
+          loading={recommendationsLoading}
+          recommendations={remainingRecommendations}
+          skeletonCount={8}
+        />
       </Section>
       <Section orange>
         <h1>Recent Reviews</h1>
-        <Reviews loading={reviewsLoading} reviews={reviews} large />
+        <ReviewsGrid
+          loading={reviewsLoading}
+          reviews={reviews}
+          skeletonCount={12}
+          large 
+        />
       </Section>
     </>
   )

@@ -20,8 +20,8 @@ const WatchlistToggleStyles = styled.div`
   }
 `
 
-const WatchlistToggle = ({ user, recommendation_id }) => {
-  const item = useWatchlistItem(user, recommendation_id)
+const WatchlistToggle = ({ user, recommendationId }) => {
+  const item = useWatchlistItem(user, recommendationId)
   const create = useAddWatchlist(user)
   const remove = useRemoveWatchlist(user)
 
@@ -36,7 +36,7 @@ const WatchlistToggle = ({ user, recommendation_id }) => {
         <IconButton 
           label={'Add to Watchlist'}
           icon={<FaRegBookmark />}
-          onClick={() => create.mutateAsync({profile_id: user.profile_id, media_id: recommendation_id, media: recommendation_id, date_added: new Date()})} 
+          onClick={() => create.mutateAsync({profile_id: user.profile_id, media_id: recommendationId, media: recommendationId, date_added: new Date()})} 
         />}
     </WatchlistToggleStyles>
   )

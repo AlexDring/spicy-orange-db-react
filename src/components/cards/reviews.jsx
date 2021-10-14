@@ -10,21 +10,20 @@ grid-gap: 24px;
 align-items: baseline;
 `
 
-const Reviews = ({ loading, reviews, large }) => {
-  return(
-    <ReviewGridStyles>
-      {loading ? 
-        <Skeleton number={8} component="review" /> : 
-        reviews.map(review => (
-          <ReviewCard 
-            key={review._id} 
-            review={review}   
-            large={large}
-          />
-        ))
-      }
-    </ReviewGridStyles>
-  )
-}
+const ReviewsGrid = ({ loading, reviews, large, skeletonCount }) => (
+  <ReviewGridStyles>
+    {loading ? 
+      <Skeleton count={skeletonCount} component="review" /> : 
+      reviews.map(review => (
+        <ReviewCard 
+          key={review._id} 
+          review={review}   
+          large={large}
+        />
+      ))
+    }
+  </ReviewGridStyles>
+)
 
-export default Reviews
+
+export default ReviewsGrid

@@ -14,11 +14,11 @@ grid-gap: 15px;
 margin-top: 30px;
 `
 
-const RecommendationsSmallGrid = ({ loading, recommendations, component }) => {
+const RecommendationsSmallGrid = ({ loading, recommendations, skeletonCount }) => {
   return(
     <MediaPosterGridStyles>
       {loading ? 
-        <Skeleton number={8} component="recommendation-small" /> :
+        <Skeleton number={skeletonCount} component="recommendation-small" /> :
         recommendations?.map(recommendation => (
           <RecommendationCardSmall 
             key={recommendation._id} 

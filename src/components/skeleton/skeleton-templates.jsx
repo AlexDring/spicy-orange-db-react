@@ -41,7 +41,7 @@ const SmallRecommendationSkeleton = (props) => (
   </ContentLoader>
 )
 
-const MediaDetailSkeleton = (props) => (
+const RecommendationDetailSkeleton = (props) => (
   <ContentLoader 
     style={{background: 'white', width: '100%', height: '100%'}}
     speed={2}
@@ -71,6 +71,24 @@ const MediaDetailSkeleton = (props) => (
     <rect x="625" y="428.2" rx="3" ry="3" width="52" height="6" />
     <rect x="697" y="420.2" rx="0" ry="0" width="40" height="20" /> 
     <rect x="752" y="428.2" rx="3" ry="3" width="52" height="6" />
+  </ContentLoader>
+)
+
+const RecommendationInfoSkeleton = (props) => (
+  <ContentLoader 
+    speed={2}
+    width={750}
+    height={200}
+    viewBox="0 0 750 200"
+    backgroundColor="#f3f3f3"
+    foregroundColor="#ecebeb"
+    {...props}
+  >
+    <rect x="0" y="0" rx="3" ry="3" width="410" height="24" /> 
+    <rect x="0" y="50" rx="3" ry="3" width="750" height="6" /> 
+    <rect x="0" y="82" rx="3" ry="3" width="650" height="6" /> 
+    <rect x="0" y="98" rx="3" ry="3" width="550" height="6" /> 
+    <rect x="0" y="66" rx="3" ry="3" width="750" height="6" />
   </ContentLoader>
 )
 
@@ -117,8 +135,9 @@ const ReviewSkeleton = (props) => (
 
 export {
   RecommendationSkeleton,
+  RecommendationInfoSkeleton,
   SmallRecommendationSkeleton,
-  MediaDetailSkeleton,
+  RecommendationDetailSkeleton,
   SearchResultSkeleton,
   ReviewSkeleton
 }

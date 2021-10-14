@@ -6,12 +6,12 @@ import { PropTypes } from 'prop-types'
 import Section from 'components/layout/section'
 import Breadcrumbs from 'components/breadcrumbs'
 import WatchlistToggle from './components/watchlist-toggle'
-import { MediaDetailSkeleton } from 'components/skeleton/skeleton-templates'
+import { RecommendationDetailSkeleton, RecommendationInfoSkeleton } from 'components/skeleton/skeleton-templates'
 import RecommendationMeta from './components/recommendation-meta'
 import RottenReviews from './components/rotten-reviews'
 import ThirdPartyReviews from './components/third-party-review.'
 import RecommendationInformation from './components/recommendation-information'
-import Reviews from 'components/cards/reviews'
+import ReviewsGrid from 'components/cards/reviews'
 
 const TopRowWrapper = styled.div`
   display: flex;
@@ -55,7 +55,8 @@ function Recommendation({ user }) {
   if(isLoading) {
     return (
       <Section>
-        <MediaDetailSkeleton />
+        <RecommendationDetailSkeleton />
+        <RecommendationInfoSkeleton />
       </Section>
     )
   } 
@@ -74,19 +75,37 @@ function Recommendation({ user }) {
               breadcrumb: `${recommendation.Title}` 
             }
           ]} />
-          <WatchlistToggle user={user} recommendation_id={recommendation._id} />
+          <WatchlistToggle
+            user={user}
+            recommendationId={recommendation._id}
+          />
         </TopRowWrapper>
         <RecommendationCardWrapper> 
-          <img src={recommendation.Poster} alt={`${recommendation.Title} poster`} />
-          <RecommendationMeta user={user} recommendation={recommendation} remove={remove} />
-          <RottenReviews user={user} recommendation={recommendation} loading={isLoading} />
+          <img
+            src={recommendation.Poster}
+            alt={`${recommendation.Title} poster`}   
+          />
+          <RecommendationMeta
+            user={user}
+            recommendation={recommendation}
+            remove={remove}   
+          />
+          <RottenReviews
+            user={user}
+            recommendation={recommendation}
+            loading={isLoading}   
+          />
           <ThirdPartyReviews recommendation={recommendation} />
         </RecommendationCardWrapper>
         <RecommendationInformation recommendation={recommendation} />
       </Section>
       <Section id='rottenGas' orange>
         <h2>Rotten Ga&apos;s</h2>
-        <Reviews loading={isLoading} reviews={recommendation.mediaDetail.rottenReviews} />
+        <ReviewsGrid
+          loading={isLoading}
+          reviews={recommendation.mediaDetail.rottenReviews} 
+          skeletonCount={4} 
+        />
       </Section>
     </>
   )
