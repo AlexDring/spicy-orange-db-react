@@ -1,20 +1,27 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
-
 import 'normalize.css'
 import Typography from './styles/Typography'
 import GlobalStyles from './styles/GlobalStyles'
 import Layout from './components/layout/layout-wrapper'
-
-
 import authRouter from './utils/login'
 import storage from './utils/storage'
-import {ErrorBoundary} from 'react-error-boundary'
+import { ErrorBoundary } from 'react-error-boundary'
 import AuthenticatedApp from './authenticated-app'
 import UnauthenticatedApp from './unauthenticated-app'
-import {useAsync} from './utils/hooks'
+import { useAsync } from './utils/hooks'
 import { FullPageSpinner, ErrorMessage } from 'components/lib'
+import Section from 'components/layout/section'
 
+const errorFallback = ({error, resetErrorBoundary}) => {
+  return(
+    <Section>
+      <div>Oops, there was an error: {' '}
+        <pre style={{whiteSpace: 'normal'}}>{error.message}</pre>
+        <button onClick={resetErrorBoundary}>Try again</button>
+      </div>
+    </Section>
+  )}
 
 async function getUser() {
   let user = null
@@ -69,7 +76,7 @@ function App() {
               /> :
               isSuccess ? (
                 user ? (
-                  <ErrorBoundary FallbackComponent={ErrorMessage}>
+                  <ErrorBoundary FallbackComponent={errorFallback}>
                     <AuthenticatedApp user={user} logout={logout} />
                   </ErrorBoundary>
                 ) :

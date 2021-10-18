@@ -33,11 +33,13 @@ const RottenReviewStyles = styled.div`
     text-align: right;
     margin: 24px 0 auto;
   }
+  button {
+    margin-top: 15px;
+  }
 `
 
 const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, user }) => {
   const [review, setReview] = useState(recommendation.mediaDetail.rottenReviews.find(u => u.user === user.username))
-
   const create = useCreateReview()
   const update = useUpdateReview(user)
   const remove = useRemoveReview(user)
@@ -60,13 +62,8 @@ const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, user
     setDisplayModal(!displayModal)
   }
 
-  function removeReview() {
-    remove.mutateAsync({mediaDetailId: recommendation.mediaDetail._id, reviewId: review._id})
-    setReview(null)
-    setDisplayModal(!displayModal)
-  }
-
-  function updateReview() {
+  function updateReview(e) {
+    e.preventDefault()
     update.mutateAsync({ 
       mediaId: recommendation._id,
       reviewId: review._id,
@@ -79,13 +76,19 @@ const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, user
     setDisplayModal(!displayModal)
   }
 
+  function removeReview() {
+    remove.mutateAsync({mediaDetailId: recommendation.mediaDetail._id, reviewId: review._id})
+    setReview(null)
+    setDisplayModal(!displayModal)
+  }
+
   return(
     <Modal displayModal={displayModal} setDisplayModal={setDisplayModal}>
       <RottenReviewStyles>
         <img src={rottenIcons.noReview} alt="" />
         <small>You Rating</small>
         <h1>{recommendation.Title}</h1>
-        <form>
+        <form onSubmit={review?._id ? updateReview : addReviewSubmit}>
           <input
             type="number"
             min="1"
@@ -100,8 +103,8 @@ const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, user
             onChange={({ target }) => setReview({...review, review: target.value })}
           />
         </form>
-        <button style={{marginTop: 16}} onClick={review?._id ? updateReview : addReviewSubmit}>Save</button>
-        {review && <button className='minimal' onClick={() => removeReview()} >Delete</button>}
+        <button type="submit">Save</button>
+        {review && <button className='minimal' onClick={() => removeReview()}>Delete</button>}
       </RottenReviewStyles>
     </Modal>
   )
