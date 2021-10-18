@@ -4,8 +4,8 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import 'normalize.css'
 import Typography from './styles/Typography'
 import GlobalStyles from './styles/GlobalStyles'
-import Layout from './components/Layout'
-import {ErrorMessage, FullPageSpinner} from './components/lib'
+import Layout from './components/layout/layout-wrapper'
+
 
 import authRouter from './utils/login'
 import storage from './utils/storage'
@@ -13,6 +13,8 @@ import {ErrorBoundary} from 'react-error-boundary'
 import AuthenticatedApp from './authenticated-app'
 import UnauthenticatedApp from './unauthenticated-app'
 import {useAsync} from './utils/hooks'
+import { FullPageSpinner, ErrorMessage } from 'components/lib'
+
 
 async function getUser() {
   let user = null
@@ -53,7 +55,6 @@ function App() {
     setData(null)
   }
 
-  console.log(error?.data)
   return (
     <>
       <GlobalStyles />
@@ -62,7 +63,6 @@ function App() {
         <Layout> 
           {isLoading ? <FullPageSpinner /> :
             isError ? 
-            
               <ErrorMessage 
                 error={error} 
                 messge="There &apos;s an error, try refreshing the app." 

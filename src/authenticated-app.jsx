@@ -1,12 +1,10 @@
 import { Switch, Route } from 'react-router-dom'
-import ErrorBoundary from 'react-error-boundary'
-import Home from './pages/Home'
-import Media from './pages/Media'
-import AddRecommendation from './pages/AddRecommendation'
-import Recommendations from './pages/Reccomendations'
-import Watchlist from './pages/Watchlist'
-import Search from './pages/Search'
 import PropTypes from 'prop-types'
+import Home from 'pages/home'
+import Recommendations from 'pages/recommendations'
+import Watchlist from 'pages/watchlist'
+import Search from 'pages/search/search'
+import Recommendation from 'pages/recommendation/recommendation'
 
 function AuthenticatedApp({ user }) {
   return (
@@ -20,11 +18,8 @@ function AuthenticatedApp({ user }) {
       <Route path='/recommendations'>
         <Recommendations />
       </Route>
-      <Route path='/add-recommendation'>
-        <AddRecommendation user={user} />
-      </Route>
       <Route path='/recommendation/:id' >
-        <Media user={user} />
+        <Recommendation user={user} />
       </Route>
       <Route path='/'>
         <Home />

@@ -2,7 +2,8 @@ import { SectionStyles } from './styles/styles'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { useAsync } from './utils/hooks'
-import { ErrorMessage } from './components/lib'
+import { ErrorMessage } from 'components/lib'
+
 
 const LoginForm = styled.form`
 display: flex;

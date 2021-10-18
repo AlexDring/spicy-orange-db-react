@@ -7,4 +7,24 @@ grid-gap: 24px;
 align-items: baseline;
 `
 
-export default ReviewGridStyles
+const MediaCardGridStyles = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-gap: 30px;
+`
+
+const MediaPosterGridStyles = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, minmax(180px, 1fr));
+  grid-auto-rows: 1fr;
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  grid-gap: 15px;
+  margin-top: 30px;
+`
+export {
+  ReviewGridStyles,
+  MediaCardGridStyles,
+  MediaPosterGridStyles
+}

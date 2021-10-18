@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import logo from '../assets/images/spicy-orange-logo.svg'
-import avatar from '../assets/images/avatar.png'
-import OMDbSearch from './OMDbSearch'
+import logo from 'assets/images/spicy-orange-logo.svg'
+import avatar from 'assets/images/avatar.png'
+import OMDbSearch from './nav-bar-search'
 import PropTypes from 'prop-types'
-import storage from '../utils/storage'
+import storage from 'utils/storage'
 
 const NavStyles = styled.nav`
   background: var(--orange);
@@ -28,6 +28,7 @@ const NavStyles = styled.nav`
     padding: 0;
     align-items: center;
     width: 100%;
+    z-index: 9999;
     a {
       font-weight: 700;
     }
@@ -99,7 +100,7 @@ const NavStyles = styled.nav`
   }
 `
 
-const Nav = ({setSearchQuery}) => {
+const Nav = () => {
   const [openNav, setOpenNav] = useState(false)
 
   return(
