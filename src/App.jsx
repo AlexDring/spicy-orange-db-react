@@ -14,10 +14,11 @@ import { FullPageSpinner, ErrorMessage } from 'components/lib'
 import Section from 'components/layout/section'
 
 const errorFallback = ({error, resetErrorBoundary}) => {
+  const message = error.response.data.error ? error.response.data.error : error.message
   return(
     <Section>
       <div>Oops, there was an error: {' '}
-        <pre style={{whiteSpace: 'normal'}}>{error.message}</pre>
+        <pre style={{whiteSpace: 'normal'}}>{message}</pre>
         <button onClick={resetErrorBoundary}>Try again</button>
       </div>
     </Section>

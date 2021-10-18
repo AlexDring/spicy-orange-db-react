@@ -5,9 +5,6 @@ import ReviewsGrid from 'components/cards/grids/review-grid'
 import RecommendationsGrid from 'components/cards/grids/recommendations-grid'
 import RecommendationsSmallGrid from 'components/cards/grids/recommendations-small-grid'
 
-const Bomb = () => {
-  throw new Error('Kaboom')
-}
 function Home() {
   const { recommendations, isLoading: recommendationsLoading } = useRecommendations()
   const {reviews, isLoading: reviewsLoading} = useReviews()

@@ -27,7 +27,12 @@ const queryClient = new QueryClient({
 
 Sentry.init({
   dsn: 'https://63118595db634539948fc0b214a262c3@o1042898.ingest.sentry.io/6012108',
-  integrations: [new Integrations.BrowserTracing()],
+  integrations: [
+    new Integrations.BrowserTracing(),
+    new Sentry.Integrations.Breadcrumbs({
+      console: false
+    })
+  ],
 
   // Set tracesSampleRate to 1.0 to capture 100%
   // of transactions for performance monitoring.

@@ -36,7 +36,12 @@ const RottenReviews = ({ recommendation, user }) => {
   
   return (
     <>
-      <RottenReviewModal recommendation={recommendation} user={user} displayModal={displayModal} setDisplayModal={setDisplayModal} />
+      <RottenReviewModal
+        recommendation={recommendation}
+        user={user}
+        displayModal={displayModal}
+        setDisplayModal={setDisplayModal} 
+      />
       <RottenWrapper>
         <HashLink to='#rottenGas'>
           <RottenScoreStyles>

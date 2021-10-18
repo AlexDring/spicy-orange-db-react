@@ -40,6 +40,7 @@ const RottenReviewStyles = styled.div`
 
 const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, user }) => {
   const [review, setReview] = useState(recommendation.mediaDetail.rottenReviews.find(u => u.user === user.username))
+  console.log(review)
   const create = useCreateReview()
   const update = useUpdateReview(user)
   const remove = useRemoveReview(user)
@@ -81,7 +82,7 @@ const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, user
     setReview(null)
     setDisplayModal(!displayModal)
   }
-
+  console.log(review?._id)
   return(
     <Modal displayModal={displayModal} setDisplayModal={setDisplayModal}>
       <RottenReviewStyles>
@@ -102,9 +103,9 @@ const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, user
             value={review?.review ? review.review : ''}
             onChange={({ target }) => setReview({...review, review: target.value })}
           />
+          <button type="submit">Save</button>
+          {review && <button className='minimal' onClick={() => removeReview()}>Delete</button>}
         </form>
-        <button type="submit">Save</button>
-        {review && <button className='minimal' onClick={() => removeReview()}>Delete</button>}
       </RottenReviewStyles>
     </Modal>
   )
