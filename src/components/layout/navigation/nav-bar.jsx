@@ -28,6 +28,7 @@ const NavStyles = styled.nav`
     padding: 0;
     align-items: center;
     width: 100%;
+    z-index: 9999;
     a {
       font-weight: 700;
     }

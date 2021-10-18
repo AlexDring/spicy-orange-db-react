@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-undef */
-import {useAddWatchlist, useRemoveWatchlist, useWatchlistItem} from '../../../utils/profile'
+import {useAddWatchlist, useRemoveWatchlist, useWatchlistItem} from 'utils/profile'
 import {FaBookmark, FaRegBookmark} from 'react-icons/fa'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { useAsync } from '../../../utils/hooks'
+import { useAsync } from 'utils/hooks'
 import { BiErrorCircle } from 'react-icons/bi'
+import { Loading } from 'components/lib'
 
 const WatchlistToggleStyles = styled.div`
   display: flex;
@@ -31,7 +32,7 @@ const WatchlistToggle = ({ user, recommendationId }) => {
         <IconButton 
           label={'In your Watchlist'}
           icon={<FaBookmark/>}
-          onClick={() => remove.mutateAsync({profile_id: user.profile_id, watchlist_id: item._id})} 
+          onClick={() => remove.mutateAsync({profile_id: user.profile_id, watchlist_id: item?._id})} 
         /> :
         <IconButton 
           label={'Add to Watchlist'}
@@ -55,7 +56,11 @@ function IconButton({label, icon, onClick}) {
 
   return(
     <span onClick={handleClick}>
-      <span style={{color: isError && 'red', fontSize: isError && '12px'}}>{isError ? <BiErrorCircle /> : icon} {isError ? error : label}</span>
+      <span style={{color: isError && 'red', fontSize: isError && '12px'}}>
+        {isLoading ? <Loading />  : 
+          isError ? <BiErrorCircle /> : icon} 
+        {isError ? error : label}
+      </span>
     </span>
   )
 }

@@ -18,7 +18,7 @@ const RecommendationsSmallGrid = ({ loading, recommendations, skeletonCount }) =
   return(
     <MediaPosterGridStyles>
       {loading ? 
-        <Skeleton number={skeletonCount} component="recommendation-small" /> :
+        <Skeleton count={skeletonCount} component="recommendation-small" /> :
         recommendations?.map(recommendation => (
           <RecommendationCardSmall 
             key={recommendation._id} 

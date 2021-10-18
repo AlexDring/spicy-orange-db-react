@@ -12,8 +12,9 @@ function Search({ user }) {
   const [queried, setQueried] = useState(false)
   const [reccommendationId, setReccommendationId] = useState(null)
   const [displayModal, setDisplayModal] = useState(null)
-
   const {search, isSuccess, isLoading} = useSearch(query, queried)
+  
+  console.log(search)
 
   const searchForm = async (e) => {
     e.preventDefault()

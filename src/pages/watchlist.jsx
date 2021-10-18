@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import { useProfile } from '../utils/profile'
 import Section from 'components/layout/section'
-import RecommendationsGrid from 'components/recommendations/recommendations-grid'
-import { Spinner } from 'components/lib'
+import RecommendationsGrid from 'components/cards/grids/recommendations-grid'
+import { Loading } from 'components/lib'
 
 const Watchlist = ({ user }) => {
   const {profile, isLoading} = useProfile(user)
@@ -10,7 +10,7 @@ const Watchlist = ({ user }) => {
 
   return(
     <Section>
-      <h1>Your Watchlist • {isLoading ? <Spinner /> : totalItems} items</h1>
+      <h1>Your Watchlist • {isLoading ? <Loading /> : totalItems} items</h1>
       <RecommendationsGrid
         loading={isLoading}
         recommendations={profile?.watchlist}

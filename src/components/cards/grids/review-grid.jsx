@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import Skeleton from 'components/skeleton/skeleton'
 import styled from 'styled-components'
-import ReviewCard from './review-card'
+import ReviewCard from '../review-card'
 
 const ReviewGridStyles = styled.div`
 display: grid;

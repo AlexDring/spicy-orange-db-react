@@ -1,9 +1,9 @@
 import Section from 'components/layout/section'
 import { useRecommendations } from 'utils/recommendations'
 import { useReviews } from 'utils/reviews'
-import ReviewsGrid from 'components/cards/reviews'
-import RecommendationsGrid from 'components/recommendations/recommendations-grid'
-import RecommendationsSmallGrid from 'components/recommendations/recommendations-small-grid'
+import ReviewsGrid from 'components/cards/grids/review-grid'
+import RecommendationsGrid from 'components/cards/grids/recommendations-grid'
+import RecommendationsSmallGrid from 'components/cards/grids/recommendations-small-grid'
 
 function Home() {
   const { recommendations, isLoading: recommendationsLoading } = useRecommendations()

@@ -1,12 +1,12 @@
 import axios from 'axios'
-import { useQuery } from 'react-query'
+import { useInfiniteQuery, useQuery } from 'react-query'
 const baseUrl = '/api/omdb'
 
 function useSearch (query, queried){
-  const result = useQuery({
+  const result = useInfiniteQuery({
     queryKey: ['mediaSearch', {query}],
     queryFn: () => 
-      axios.get(`${baseUrl}/${query}`)
+      axios.get(`${baseUrl}/${query}/page=`)
         .then(search => search.data),
     enabled: !!queried
   })

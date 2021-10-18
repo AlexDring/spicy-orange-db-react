@@ -4,20 +4,19 @@ import styled from 'styled-components'
 import reviewLogos from 'assets/images/review-logos/review-icons'
 import { rottenReviewImage } from 'utils/misc'
 
-
 const MediaCardStyles = styled.div`
   box-sizing: border-box;
   border: 1px solid var(--lighter-gray);
-  background: white;
   display: flex;
   min-height: 319px;
   height: 100%;
   transition: all 0.5s ease;
+  max-width: 470px;
   &:hover {
     background: var(--lighter-gray);
   }
   > img {
-    min-width: 209.1px;
+    /* min-width: 209.1px; */
     max-width: 44.68%;
     object-fit: cover;
   }
@@ -26,6 +25,7 @@ const MediaCardStyles = styled.div`
 const MediaWrapperStyles = styled.div`
   display: flex;
   flex-direction: column;
+  background: white;
   align-items: space-between;
   border-top: ${props => props.type === 'movie' ? '3px solid #FFB17A' : '3px solid #FCE762'};
   width: 100%;
@@ -106,49 +106,47 @@ const RottenReviewStyles = styled.div`
 const RecommendationCard = ({ recommendation }) => {
   const { Poster, Type, _id, Title, Year, Runtime, Genre, imdbRating, Metascore, rottenAverage, rottenCount } = recommendation
   return(
-    <div>
-      <MediaCardStyles>
-        <img src={Poster} alt="" />
-        <MediaWrapperStyles type={Type}>
-          <MediaMetaStyles>
-            <Link to={`/recommendation/${_id}`} >
-              <h3>{Title}</h3>
-            </Link>
-            <p><span>{Type}</span> • {Year} • {Runtime}</p>
-            <p className="gray">{Genre}</p>
-          </MediaMetaStyles>
-          <MediaRatingsStyles>
-            {imdbRating !== 'N/A' ?
-              <div>
-                <img 
-                  height='20px' 
-                  width='45px'
-                  style={{}} 
-                  src={reviewLogos.IMDb} 
-                  alt="" />{imdbRating}/10
-              </div> : '' }
-            {Metascore !== 'N/A'  ? 
-              <div>
-                <img className='reviewIcon'
-                  width="22.1px"
-                  height="20px"
-                  src={reviewLogos.metaCritic} 
-                  alt="" /> {Metascore}/100
-              </div> : ''}
-          </MediaRatingsStyles>
-          <RottenReviewStyles className='rottenReviews'>
-            <img 
-              src={rottenReviewImage(rottenAverage)} 
-              alt="review score icon" />
-            <RottenScoreStyles>
-              {!rottenAverage ? <small>Not yet rated</small> : 
-                <><p> {rottenAverage}<span>/1000</span></p>
-                  <small>{rottenCount} Reviews</small></> }
-            </RottenScoreStyles>
-          </RottenReviewStyles>
-        </MediaWrapperStyles>
-      </ MediaCardStyles>
-    </div>
+    <MediaCardStyles>
+      <img src={Poster} alt="" />
+      <MediaWrapperStyles type={Type}>
+        <MediaMetaStyles>
+          <Link to={`/recommendation/${_id}`} >
+            <h3>{Title}</h3>
+          </Link>
+          <p><span>{Type}</span> • {Year} • {Runtime}</p>
+          <p className="gray">{Genre}</p>
+        </MediaMetaStyles>
+        <MediaRatingsStyles>
+          {imdbRating !== 'N/A' ?
+            <div>
+              <img 
+                height='20px' 
+                width='45px'
+                style={{}} 
+                src={reviewLogos.IMDb} 
+                alt="" />{imdbRating}/10
+            </div> : '' }
+          {Metascore !== 'N/A'  ? 
+            <div>
+              <img className='reviewIcon'
+                width="22.1px"
+                height="20px"
+                src={reviewLogos.metaCritic} 
+                alt="" /> {Metascore}/100
+            </div> : ''}
+        </MediaRatingsStyles>
+        <RottenReviewStyles className='rottenReviews'>
+          <img 
+            src={rottenReviewImage(rottenAverage)} 
+            alt="review score icon" />
+          <RottenScoreStyles>
+            {!rottenAverage ? <small>Not yet rated</small> : 
+              <><p> {rottenAverage}<span>/1000</span></p>
+                <small>{rottenCount} Reviews</small></> }
+          </RottenScoreStyles>
+        </RottenReviewStyles>
+      </MediaWrapperStyles>
+    </ MediaCardStyles>
   )
 }
 

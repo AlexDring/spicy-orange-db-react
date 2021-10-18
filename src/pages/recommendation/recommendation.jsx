@@ -11,7 +11,7 @@ import RecommendationMeta from './components/recommendation-meta'
 import RottenReviews from './components/rotten-reviews'
 import ThirdPartyReviews from './components/third-party-review.'
 import RecommendationInformation from './components/recommendation-information'
-import ReviewsGrid from 'components/cards/reviews'
+import ReviewsGrid from 'components/cards/grids/review-grid'
 
 const TopRowWrapper = styled.div`
   display: flex;
