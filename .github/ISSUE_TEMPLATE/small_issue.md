@@ -5,16 +5,12 @@ about: A small task that is, most likely, part of an Epic. It will usually be la
 
 <!-- Issue title should mirror the Task Title. -->
 
-# Task Title
-
-Task: Task Title
-
-## Task Description
+# Task: Task Title
 
 This Task will...
 
-## Epic Parent
+## Parent
 
-<!-- The link below should link to its Epic Parent. -->
+<!-- The link below should link to its Parent. -->
 
-[Feature: Awesome Feature Title](https://github.com/AlexDring/spicy-orange-expressjs/issues/1)
+- #
