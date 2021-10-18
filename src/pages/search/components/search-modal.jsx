@@ -4,7 +4,7 @@ import { useAddRecommendation } from 'utils/recommendations'
 import { useIndividualSearch } from 'utils/search'
 import { SearchResultSkeleton } from 'utils/skeleton'
 
-import Modal from 'components/modals/modal-wrapper'
+import Modal from 'components/modal-wrapper'
 import { ErrorMessage } from 'components/lib'
 
 const SearchModalStyles = styled.div`

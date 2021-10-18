@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useCreateReview, useUpdateReview, useRemoveReview } from 'utils/reviews'
 import styled from 'styled-components'
 import rottenIcons from 'assets/images/rotten-gas/rottenIcons'
-import Modal from 'components/modals/modal-wrapper'
+import Modal from 'components/modal-wrapper'
 
 const RottenReviewStyles = styled.div`
   padding: 75px 24px 24px;
