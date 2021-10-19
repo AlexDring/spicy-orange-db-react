@@ -124,7 +124,7 @@ const RecommendationCard = ({ recommendation }) => {
                 width='45px'
                 style={{}} 
                 src={reviewLogos.IMDb} 
-                alt="" />{imdbRating}/10
+                alt="" /><p>{imdbRating}<small>/10</small></p>
             </div> : '' }
           {Metascore !== 'N/A'  ? 
             <div>
@@ -132,7 +132,7 @@ const RecommendationCard = ({ recommendation }) => {
                 width="22.1px"
                 height="20px"
                 src={reviewLogos.metaCritic} 
-                alt="" /> {Metascore}/100
+                alt="" /> <p>{Metascore}<small>/100</small></p>
             </div> : ''}
         </MediaRatingsStyles>
         <RottenReviewStyles className='rottenReviews'>
@@ -141,7 +141,7 @@ const RecommendationCard = ({ recommendation }) => {
             alt="review score icon" />
           <RottenScoreStyles>
             {!rottenAverage ? <small>Not yet rated</small> : 
-              <><p> {rottenAverage}<span>/1000</span></p>
+              <><p> {rottenAverage}<small>/1000</small></p>
                 <small>{rottenCount} Reviews</small></> }
           </RottenScoreStyles>
         </RottenReviewStyles>

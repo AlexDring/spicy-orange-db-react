@@ -70,11 +70,7 @@ function App() {
       <Router>
         <Layout> 
           {isLoading ? <FullPageSpinner /> :
-            isError ? 
-              <ErrorMessage 
-                error={error} 
-                messge="There &apos;s an error, try refreshing the app." 
-              /> :
+            isError ? {error} :
               isSuccess ? (
                 user ? (
                   <ErrorBoundary FallbackComponent={errorFallback}>

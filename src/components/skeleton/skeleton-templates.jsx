@@ -94,7 +94,7 @@ const RecommendationInfoSkeleton = (props) => (
 
 const SearchResultSkeleton = (props) => (
   <ContentLoader 
-    style={{backgroundColor: '#fff8ed'}}
+    style={{backgroundColor: '#fff8ed', width: '100%'}}
     speed={2}
     width={550}
     height={490}

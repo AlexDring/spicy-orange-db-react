@@ -36,6 +36,7 @@ module.exports = {
       'error',
       'never'
     ],
+    'template-curly-spacing': 'off',
     'react/react-in-jsx-scope': 'off',
     'react-hooks/exhaustive-deps': 'warn' 
   }
