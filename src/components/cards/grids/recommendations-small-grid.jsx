@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { RecommendationCardSmall, RecommendationPosterCard } from 'components/cards'
 import Skeleton from 'components/skeleton/skeleton'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const MediaPosterGridStyles = styled.div`
@@ -20,10 +21,11 @@ const RecommendationsSmallGrid = ({ loading, recommendations, skeletonCount }) =
       {loading ? 
         <Skeleton count={skeletonCount} component="recommendation-small" /> :
         recommendations?.map(recommendation => (
-          <RecommendationPosterCard 
-            key={recommendation._id} 
-            data={recommendation} 
-          />
+          <Link key={recommendation._id} to={'/recommendation/' + recommendation._id} >
+            <RecommendationPosterCard 
+              data={recommendation} 
+            />
+          </Link>
         ))
       }
     </MediaPosterGridStyles>

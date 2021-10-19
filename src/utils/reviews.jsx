@@ -6,7 +6,17 @@ const baseUrl = '/api/rottenReviews'
 function useReviews() {
   const result = useQuery({
     queryKey: 'reviews',
-    queryFn: () => axios.get(baseUrl).then(response => response.data)
+    queryFn: async ({ pageParam = 0 }) => {
+      const response = await axios.get(`${baseUrl}?page=${pageParam}`)
+      const pagesNo = Math.ceil(response.data.totalResults/10)
+      return {
+        reviews: response.data.reviews, 
+        totalResults: response.data.totalReviews, 
+        totalPages: pagesNo, 
+        nextPage: pageParam === pagesNo ? undefined : pageParam + 1
+      }
+    },
+    getNextPageParam: (lastPage, pages) => lastPage.nextPage
   })
   return {...result, reviews: result.data}
 }

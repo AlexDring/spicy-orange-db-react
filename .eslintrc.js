@@ -21,9 +21,9 @@ module.exports = {
   'rules': {
     'no-unused-vars': 'off',
     'indent': [
-      'error',
-      2
-    ],
+      'error', 2, {
+        'ignoredNodes': ['TemplateLiteral']
+      }],
     'linebreak-style': [
       'error',
       'unix'
@@ -36,7 +36,7 @@ module.exports = {
       'error',
       'never'
     ],
-    'template-curly-spacing': 'off',
+    'template-curly-spacing' : 'off',
     'react/react-in-jsx-scope': 'off',
     'react-hooks/exhaustive-deps': 'warn' 
   }

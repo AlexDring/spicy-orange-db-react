@@ -6,11 +6,12 @@ import RecommendationsGrid from 'components/cards/grids/recommendations-grid'
 import RecommendationsSmallGrid from 'components/cards/grids/recommendations-small-grid'
 
 function Home() {
-  const { recommendations, isLoading: recommendationsLoading } = useRecommendations()
+  const { data, isLoading: recommendationsLoading } = useRecommendations()
   const {reviews, isLoading: reviewsLoading} = useReviews()
+  console.log(reviews?.reviews)
 
-  const highlightedRecommendations = recommendations?.slice(0, 4)
-  const remainingRecommendations = recommendations?.slice(4) 
+  const highlightedRecommendations = data?.pages[0].recommendations.slice(0, 4)
+  const remainingRecommendations = data?.pages[0].recommendations.slice(4) 
 
   return(
     <>
@@ -31,7 +32,7 @@ function Home() {
         <h1>Recent Reviews</h1>
         <ReviewsGrid
           loading={reviewsLoading}
-          reviews={reviews}
+          reviews={reviews?.reviews}
           skeletonCount={12}
           large 
         />

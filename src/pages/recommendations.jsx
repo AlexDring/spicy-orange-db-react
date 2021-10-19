@@ -2,11 +2,9 @@
 import Breadcrumbs from 'components/layout/navigation/breadcrumbs'
 import Section from 'components/layout/section'
 import { Spinner } from 'components/lib'
-
-
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { useTable, useBlockLayout } from 'react-table'
+import { useTable } from 'react-table'
 import styled from 'styled-components'
 import { rottenReviewImage } from 'utils/misc'
 import { useRecommendations } from 'utils/recommendations'
@@ -60,9 +58,9 @@ const TableStyles = styled.table`
 
 
 const Recommendations = () => {
-  const { recommendations, isLoading, isSuccess } = useRecommendations()
-
-  const data = useMemo(() => recommendations, [recommendations])
+  const { data: recommendationsData, isLoading, isSuccess } = useRecommendations()
+  console.log(recommendationsData)
+  const data = useMemo(() => recommendationsData?.recommendations, [recommendationsData?.recommendations])
   const columns = useMemo(() => [
     {
       Header: 'Title',
@@ -136,7 +134,7 @@ const Recommendations = () => {
           { path: '/recommendations', breadcrumb: 'Recommendations' }
         ]} 
       />
-      <h1>Recommendations</h1>
+      <h1>Recommendations {recommendationsData?.totalRecommendations}</h1>
       {isLoading ? <Spinner /> : 
         (<TableStyles {...getTableProps()}>
           <thead>
