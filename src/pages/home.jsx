@@ -4,11 +4,20 @@ import { useReviews } from 'utils/reviews'
 import ReviewsGrid from 'components/cards/grids/review-grid'
 import RecommendationsGrid from 'components/cards/grids/recommendations-grid'
 import RecommendationsSmallGrid from 'components/cards/grids/recommendations-small-grid'
+import { ReviewGridStyles } from 'styles/grids'
+import Skeleton from 'components/skeleton/skeleton'
+import { ReviewCard } from 'components/cards'
 
 function Home() {
   const { data, isLoading: recommendationsLoading } = useRecommendations()
-  const {reviews, isLoading: reviewsLoading} = useReviews()
-  console.log(reviews?.reviews)
+  const {
+    data: reviewsData, 
+    isLoading: reviewsLoading, 
+    fetchNextPage,
+    isFetchingNextPage,
+    isFetching,
+    hasNextPage
+  } = useReviews()
 
   const highlightedRecommendations = data?.pages[0].recommendations.slice(0, 4)
   const remainingRecommendations = data?.pages[0].recommendations.slice(4) 
@@ -30,12 +39,37 @@ function Home() {
       </Section>
       <Section orange>
         <h1>Recent Reviews</h1>
-        <ReviewsGrid
-          loading={reviewsLoading}
-          reviews={reviews?.reviews}
-          skeletonCount={12}
-          large 
-        />
+        <ReviewGridStyles>
+          {reviewsLoading ? 
+            <Skeleton count={12} component="review" /> : 
+            reviewsData?.pages.map(data => (
+              data?.reviews.map((review, index) => (
+                <ReviewCard 
+                  key={review._id} 
+                  review={review}   
+                  large
+                />
+              ))
+            ))
+          }
+        </ReviewGridStyles>
+        <div style={{display: 'flex', justifyContent: 'center', marginTop: 30}}>
+          <button
+            onClick={() => fetchNextPage()}
+            disabled={!hasNextPage || isFetchingNextPage}
+          >
+            {isFetchingNextPage
+              ? 'Loading more...'
+              : hasNextPage
+                ? 'Load more reviews'
+                : 'No more reviews to load'}
+          </button>
+        </div>
+        <div>
+          {isFetching && !isFetchingNextPage
+            ? 'Background Updating...'
+            : null}
+        </div>
       </Section>
     </>
   )
