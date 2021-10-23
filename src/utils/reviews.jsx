@@ -14,7 +14,7 @@ function useReviews() {
         reviews: response.data.reviews, 
         totalReviews: response.data.totalReviews, 
         totalPages: pagesNo, 
-        nextPage: pageParam === pagesNo ? undefined : pageParam + 1
+        nextPage: pageParam + 1 === pagesNo ? undefined : pageParam + 1
       }
     },
     getNextPageParam: (lastPage, pages) => lastPage.nextPage

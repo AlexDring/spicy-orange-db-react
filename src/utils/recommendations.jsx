@@ -9,12 +9,13 @@ function useRecommendations () {
     queryKey: 'recommendations', 
     queryFn: async ({ pageParam = 0 }) => {
       const response = await axios.get(`${baseUrl}?page=${pageParam}`)
-      const pagesNo = Math.ceil(response.data.totalResults/10)
+      const pagesNo = Math.ceil(response.data.totalRecommendations/10)
+      console.log(response.data)
       return {
         recommendations: response.data.recommendations, 
         totalResults: response.data.totalRecommendations, 
         totalPages: pagesNo, 
-        nextPage: pageParam === pagesNo ? undefined : pageParam + 1
+        nextPage: pageParam + 1 === pagesNo ? undefined : pageParam + 1
       }
     },
     getNextPageParam: (lastPage, pages) => lastPage.nextPage

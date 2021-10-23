@@ -20,6 +20,11 @@ const RecRowWrapper = styled.div`
   }
   h3 {
     margin-bottom: 0;
+    span {
+      font-family: 'Poppins';
+      font-size: 14px;
+      font-weight: 200
+    }
   }
   @media (max-width: 450px) {
     padding: 15px;
