@@ -10,8 +10,10 @@ const rottenReviewImage = (rottenAverage) => (
   rottenAverage > 849 ? rottenIcons.certifiedGa : 
     rottenAverage > 599 ? rottenIcons.freshGa :
       rottenAverage < 599 ? rottenIcons.rottenGa :
-        rottenIcons.noReview
+        !rottenAverage ? rottenIcons.noReview : 
+          null
 )
+
 export {
   getConfig,
   rottenReviewImage

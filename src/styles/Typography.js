@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
 import '@fontsource/poppins'
 import '@fontsource/poppins/700.css'
+import '@fontsource/poppins/300.css'
 import '@fontsource/lora'
 import '@fontsource/lora/700.css'
 
