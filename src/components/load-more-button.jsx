@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import styled from 'styled-components'
+import { Spinner } from './lib'
 
 const LoadMoreStyles = styled.div`
   display: flex; 
@@ -19,7 +20,7 @@ const LoadMoreButton = ({ result }) => {
           disabled={!hasNextPage || isFetchingNextPage}
         >
           {isFetchingNextPage
-            ? 'Loading more...'
+            ? <Spinner />
             : hasNextPage
               ? 'Load more'
               : 'Nothing else to load'}
@@ -30,6 +31,7 @@ const LoadMoreButton = ({ result }) => {
           ? 'Background Updating...'
           : null}
       </div>
+      <div>{isFetching && !isFetchingNextPage ? <Spinner /> : null}</div>
     </>
   )
 }

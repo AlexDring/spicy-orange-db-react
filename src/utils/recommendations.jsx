@@ -10,7 +10,7 @@ function useRecommendations () {
     queryFn: async ({ pageParam = 0 }) => {
       const response = await axios.get(`${baseUrl}?page=${pageParam}`)
       const pagesNo = Math.ceil(response.data.totalRecommendations/12)
-      console.log(pagesNo)
+
       return {
         recommendations: response.data.recommendations, 
         totalResults: response.data.totalRecommendations, 
