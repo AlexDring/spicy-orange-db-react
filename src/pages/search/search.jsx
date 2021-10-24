@@ -6,6 +6,7 @@ import SearchModal from './components/search-modal'
 import styled from 'styled-components'
 import { RecommendationPosterCard } from 'components/cards'
 import { useSearch } from 'utils/search'
+import LoadMoreButton from 'components/load-more-button'
 
 const SearchGrid = styled.div`
   display: grid;
@@ -23,15 +24,7 @@ function Search({ user }) {
   const [reccommendationId, setReccommendationId] = useState(null)
   const [displayModal, setDisplayModal] = useState(null)
 
-  const {
-    data,
-    error,
-    fetchNextPage,
-    hasNextPage,
-    isFetching,
-    isFetchingNextPage,
-    isSuccess
-  } = useSearch(query, queried)
+  const result = useSearch(query, queried)
 
   const searchForm = async (e) => {
     e.preventDefault()
@@ -63,11 +56,11 @@ function Search({ user }) {
         </form>
         <div style={{marginTop: 15}}>
           {!queried ? <p>Search for a film or tv show to add to the Spicy Orange Database.</p> : 
-            isSuccess ? <p>Found {data?.pages[0].totalResults} results. Find more film and tv shows with the search bar above.</p> : 
+            result.isSuccess ? <p>Found {result.data?.pages[0].totalResults} results. Find more film and tv shows with the search bar above.</p> : 
               null}
         </div>
         <SearchGrid>
-          {data?.pages.map(search => (
+          {result.data?.pages.map(search => (
             search.results.map((result, index) => (
               <div  
                 key={index}
@@ -79,20 +72,8 @@ function Search({ user }) {
             ))
           ))}
         </SearchGrid>
-        {isSuccess && (
-          <div style={{display: 'flex', justifyContent: 'center', marginTop: 30}}>
-            <button
-              onClick={() => fetchNextPage()}
-              disabled={!hasNextPage || isFetchingNextPage}
-            >{isFetchingNextPage
-                ? 'Loading more...'
-                : hasNextPage
-                  ? 'Load More'
-                  : 'No more results'}
-            </button>
-          </div>
-        )}
-        <div>{isFetching && !isFetchingNextPage ? 'Fetching...' : null}</div>
+        {result.isSuccess && <LoadMoreButton result={result} />}
+        {/* <div>{isFetching && !isFetchingNextPage ? 'Fetching...' : null}</div> */}
       </Section>
     </>
   )

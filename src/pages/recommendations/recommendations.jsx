@@ -1,24 +1,17 @@
 import Section from 'components/layout/section'
+import LoadMoreButton from 'components/load-more-button'
 import { Link } from 'react-router-dom'
 import { useRecommendations } from 'utils/recommendations'
 import RecommendationsRow from './components/recommendations-row'
 
 const Recommendations = () => {
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isFetching
-  } = useRecommendations()
-
-  console.log(hasNextPage)
+  const result = useRecommendations()
 
   return(
     <Section>
       <h1>Recommendations</h1>
       <ul>
-        {data?.pages.map(page =>
+        {result.data?.pages.map(page =>
           page?.recommendations.map(recommentation =>
             <Link key={recommentation._id} to={`/recommendation/${recommentation._id}`}>
               <RecommendationsRow recommendation={recommentation} />
@@ -26,23 +19,7 @@ const Recommendations = () => {
           )
         )}
       </ul>
-      <div style={{display: 'flex', justifyContent: 'center', marginTop: 30}}>
-        <button
-          onClick={() => fetchNextPage()}
-          disabled={!hasNextPage || isFetchingNextPage}
-        >
-          {isFetchingNextPage
-            ? 'Loading more...'
-            : hasNextPage
-              ? 'Load more recommendations'
-              : 'No more recommendations to load'}
-        </button>
-      </div>
-      <div>
-        {isFetching && !isFetchingNextPage
-          ? 'Background Updating...'
-          : null}
-      </div>
+      {result.isSuccess && <LoadMoreButton result={result} />}
     </Section>  
   )
 }
