@@ -8,7 +8,7 @@ const MediaCardStyles = styled.div`
   box-sizing: border-box;
   border: 1px solid var(--lighter-gray);
   display: flex;
-  min-height: 319px;
+  /* min-height: 319px; */
   height: 100%;
   transition: all 0.5s ease;
   max-width: 470px;
@@ -17,7 +17,9 @@ const MediaCardStyles = styled.div`
   }
   > img {
     /* min-width: 209.1px; */
-    max-width: 44.68%;
+    height: 314px;
+    max-width: 50%;
+    /* max-width: 44.68%; */
     object-fit: cover;
   }
 `

@@ -3,20 +3,25 @@ import styled from 'styled-components'
 import { rottenReviewImage } from 'utils/misc'
 
 const RecommendationPosterStyles = styled.div`
-display: flex;
-flex-direction: column;
-cursor: pointer;
-text-align: center;
-
-> div {
-  background-color: white;
-  padding: 12px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  border: 1px solid var(--lighter-gray);
-  border-top: ${props => props.type === 'movie' ? '3px solid #FFB17A' : '3px solid #FCE762'};
-}
+  cursor: pointer;
+  text-align: center;
+  > div {
+    background-color: white;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid var(--lighter-gray);
+    border-top: ${props => props.type === 'movie' ? '3px solid #FFB17A' : '3px solid #FCE762'};
+  }
+  > img {
+    height: 314px;
+    width: 100%;
+    object-fit: cover;
+    
+  }
 `
 
 const RottenGaStyles = styled.div`
@@ -43,14 +48,14 @@ const RottenGaStyles = styled.div`
 
 const RecommendationPosterCard = ({ data }) => {
   return(
-    <RecommendationPosterStyles>
+    <RecommendationPosterStyles type={data.Type}>
       <img src={data.Poster} />
       <div>
         <h4>{data.Title}</h4>
         <small>{data.Year} • {data.Type}</small>
         {data.rottenCount ? 
           ( // This hides it if it's being used in a search results page
-            <RottenGaStyles className='rottenGas' type={data.Type} >
+            <RottenGaStyles className='rottenGas'>
               <img className='rottenIcon' 
                 src={rottenReviewImage(data.rottenAverage)}  
                 alt="" /> 

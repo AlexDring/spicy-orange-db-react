@@ -19,9 +19,6 @@ font-size: 14px;
 img {
   height: 20px;
   margin-right: 6px;
-  @media (max-width: 500px) {
-    margin-right: 0;
-  }
 }
 `
 

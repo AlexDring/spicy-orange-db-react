@@ -9,7 +9,7 @@ const RecRowWrapper = styled.div`
   background: white;
   padding: 0 24px;
   border-top: 1px solid var(--light-gray);
-  border-left: 3px solid var(--orange);
+  border-left: ${props => props.type === 'movie' ? '3px solid #FFB17A' : '3px solid #FCE762'};
   > div:nth-child(1n + 1) {
     padding: 24px 0;
   }
@@ -37,6 +37,9 @@ const RecRowWrapper = styled.div`
 
 const InfoStyles = styled.div`
   flex: 3;
+  /* img {
+    padding-right: 6px;
+  } */
   > div:first-of-type {
     padding: 5px 0;
     text-transform: capitalize;
@@ -55,12 +58,26 @@ const GenreStyles = styled.div`
 `
 const RottenReviewStyles = styled.div`
   display: flex;
-  margin-left: auto;
+  /* margin-left: auto; */
   align-self: center;
+  text-align: center;
+  > div {
+    align-self: center;
+  }
+  img {
+    width: 45px;
+    margin-right: 6px;
+    object-fit: contain;
+  }
   @media (max-width: 450px) {
     flex-direction: column  ;
     order: -1;
     align-self: center;
+    margin-right: 15px;
+    img {
+      margin: 0;
+      width: 30px;
+    }
     span {
       display: none;
     }
@@ -69,11 +86,11 @@ const RottenReviewStyles = styled.div`
 
 const RecommendationsRow = ({ recommendation }) => {
   return(
-    <RecRowWrapper>
+    <RecRowWrapper type={recommendation.Type}>
       <img src={recommendation.Poster} />
       <InfoStyles>
         <h3>{recommendation.Title} <span>({recommendation.Year})</span></h3>
-        <div>{recommendation.Type} • {recommendation.Runtime !== 'N/A' && recommendation.Runtime}</div>
+        <div>{recommendation.Type} {recommendation.Runtime !== 'N/A' && '• ' + recommendation.Runtime}</div>
         <ExternalReviews imdbRating={recommendation.imdbRating} Metascore={recommendation.Metascore} />
       </InfoStyles>
       <GenreStyles>
@@ -82,9 +99,7 @@ const RecommendationsRow = ({ recommendation }) => {
       </GenreStyles>
       <RottenReviewStyles>
         {recommendation.rottenAverage && 
-          <img
-            style={{paddingRight: 15, objectFit: 'contain'}} 
-            width={40} 
+          <img 
             src={rottenReviewImage(recommendation.rottenAverage)} 
             alt="" />
         }

@@ -21,8 +21,8 @@ const LoadMoreButton = ({ result }) => {
           {isFetchingNextPage
             ? 'Loading more...'
             : hasNextPage
-              ? 'Load more recommendations'
-              : 'No more recommendations to load'}
+              ? 'Load more'
+              : 'Nothing else to load'}
         </button>
       </LoadMoreStyles>
       <div>

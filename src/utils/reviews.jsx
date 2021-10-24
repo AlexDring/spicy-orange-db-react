@@ -8,7 +8,7 @@ function useReviews() {
     queryKey: 'reviews',
     queryFn: async ({ pageParam = 0 }) => {
       const response = await axios.get(`${baseUrl}?page=${pageParam}`)
-      const pagesNo = Math.ceil(response.data.totalReviews/4)
+      const pagesNo = Math.ceil(response.data.totalReviews/12)
       console.log(pagesNo)
       return {
         reviews: response.data.reviews, 
