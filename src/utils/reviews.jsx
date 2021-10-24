@@ -1,14 +1,25 @@
 import axios from 'axios'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query'
 import { getConfig } from './misc'
 const baseUrl = '/api/rottenReviews'
 
 function useReviews() {
-  const result = useQuery({
+  const result = useInfiniteQuery({
     queryKey: 'reviews',
-    queryFn: () => axios.get(baseUrl).then(response => response.data)
+    queryFn: async ({ pageParam = 0 }) => {
+      const response = await axios.get(`${baseUrl}?page=${pageParam}`)
+      const pagesNo = Math.ceil(response.data.totalReviews/12)
+      console.log(pagesNo)
+      return {
+        reviews: response.data.reviews, 
+        totalReviews: response.data.totalReviews, 
+        totalPages: pagesNo, 
+        nextPage: pageParam + 1 === pagesNo ? undefined : pageParam + 1
+      }
+    },
+    getNextPageParam: (lastPage, pages) => lastPage.nextPage
   })
-  return {...result, reviews: result.data}
+  return result
 }
 
 function useCreateReview () {

@@ -1,19 +1,19 @@
 import Section from 'components/layout/section'
 import { useRecommendations } from 'utils/recommendations'
 import { useReviews } from 'utils/reviews'
-import ReviewsGrid from 'components/cards/grids/review-grid'
 import RecommendationsGrid from 'components/cards/grids/recommendations-grid'
 import RecommendationsSmallGrid from 'components/cards/grids/recommendations-small-grid'
+import { ReviewGridStyles } from 'styles/grids'
+import Skeleton from 'components/skeleton/skeleton'
+import { ReviewCard } from 'components/cards'
+import LoadMoreButton from 'components/load-more-button'
 
-const Bomb = () => {
-  throw new Error('Kaboom')
-}
 function Home() {
-  const { recommendations, isLoading: recommendationsLoading } = useRecommendations()
-  const {reviews, isLoading: reviewsLoading} = useReviews()
+  const { data, isLoading: recommendationsLoading } = useRecommendations()
+  const result = useReviews()
 
-  const highlightedRecommendations = recommendations?.slice(0, 4)
-  const remainingRecommendations = recommendations?.slice(4) 
+  const highlightedRecommendations = data?.pages[0].recommendations.slice(0, 4)
+  const remainingRecommendations = data?.pages[0].recommendations.slice(4) 
 
   return(
     <>
@@ -32,12 +32,21 @@ function Home() {
       </Section>
       <Section orange>
         <h1>Recent Reviews</h1>
-        <ReviewsGrid
-          loading={reviewsLoading}
-          reviews={reviews}
-          skeletonCount={12}
-          large 
-        />
+        <ReviewGridStyles>
+          {result.loading ? 
+            <Skeleton count={12} component="review" /> : 
+            result.data?.pages.map(reviews => (
+              reviews?.reviews.map((review, index) => (
+                <ReviewCard 
+                  key={review._id} 
+                  review={review}   
+                  large
+                />
+              ))
+            ))
+          }
+        </ReviewGridStyles>
+        {result.isSuccess && <LoadMoreButton result={result} />}
       </Section>
     </>
   )

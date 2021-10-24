@@ -8,7 +8,7 @@ const MediaCardStyles = styled.div`
   box-sizing: border-box;
   border: 1px solid var(--lighter-gray);
   display: flex;
-  min-height: 319px;
+  /* min-height: 319px; */
   height: 100%;
   transition: all 0.5s ease;
   max-width: 470px;
@@ -17,7 +17,9 @@ const MediaCardStyles = styled.div`
   }
   > img {
     /* min-width: 209.1px; */
-    max-width: 44.68%;
+    height: 314px;
+    max-width: 50%;
+    /* max-width: 44.68%; */
     object-fit: cover;
   }
 `
@@ -124,7 +126,7 @@ const RecommendationCard = ({ recommendation }) => {
                 width='45px'
                 style={{}} 
                 src={reviewLogos.IMDb} 
-                alt="" />{imdbRating}/10
+                alt="" /><p>{imdbRating}<small>/10</small></p>
             </div> : '' }
           {Metascore !== 'N/A'  ? 
             <div>
@@ -132,7 +134,7 @@ const RecommendationCard = ({ recommendation }) => {
                 width="22.1px"
                 height="20px"
                 src={reviewLogos.metaCritic} 
-                alt="" /> {Metascore}/100
+                alt="" /> <p>{Metascore}<small>/100</small></p>
             </div> : ''}
         </MediaRatingsStyles>
         <RottenReviewStyles className='rottenReviews'>
@@ -141,7 +143,7 @@ const RecommendationCard = ({ recommendation }) => {
             alt="review score icon" />
           <RottenScoreStyles>
             {!rottenAverage ? <small>Not yet rated</small> : 
-              <><p> {rottenAverage}<span>/1000</span></p>
+              <><p> {rottenAverage}<small>/1000</small></p>
                 <small>{rottenCount} Reviews</small></> }
           </RottenScoreStyles>
         </RottenReviewStyles>

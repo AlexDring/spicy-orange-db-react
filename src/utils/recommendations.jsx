@@ -1,16 +1,26 @@
 import axios from 'axios'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query'
 import { useHistory } from 'react-router'
 import { getConfig } from './misc'
-import storage from './storage'
 const baseUrl = '/api/media'
 
 function useRecommendations () {
-  const result = useQuery({
-    queryKey: 'recommendations',
-    queryFn: () => axios.get(baseUrl).then(response => response.data)
+  const result = useInfiniteQuery({
+    queryKey: 'recommendations', 
+    queryFn: async ({ pageParam = 0 }) => {
+      const response = await axios.get(`${baseUrl}?page=${pageParam}`)
+      const pagesNo = Math.ceil(response.data.totalRecommendations/12)
+      console.log(pagesNo)
+      return {
+        recommendations: response.data.recommendations, 
+        totalResults: response.data.totalRecommendations, 
+        totalPages: pagesNo, 
+        nextPage: pageParam + 1 === pagesNo ? undefined : pageParam + 1
+      }
+    },
+    getNextPageParam: (lastPage, pages) => lastPage.nextPage
   })
-  return {...result, recommendations: result.data}
+  return result
 }
 
 function useRecommendation(id) {
@@ -39,7 +49,8 @@ function useAddRecommendation(user) {
 function useRemoveRecommendation(user) {
   const queryClient = useQueryClient()
   return useMutation(
-    ({media_id, mediaDetail_id}) => axios.delete(`${baseUrl}/${media_id}/${mediaDetail_id}`, getConfig(user.token)),
+    ({media_id, mediaDetail_id}) => axios.delete(`${baseUrl}/${media_id}/${mediaDetail_id}`,
+      getConfig(user.token)),
     {onSuccess: () => queryClient.invalidateQueries('recommendations')}
   )
 }

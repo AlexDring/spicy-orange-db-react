@@ -12,6 +12,13 @@ const GlobalStyles = createGlobalStyle`
     --light-orange: #FFF8ED;
     --san-serif: 'Lora', Georgia, Cambria, "Times New Roman", Times, serif;
   }
+
+  *,
+  *::after,
+  *::before {
+    box-sizing: border-box;
+  }
+
   html, body {
     height: 100%;
     background-color: var(--light-yellow);

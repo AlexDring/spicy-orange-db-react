@@ -4,10 +4,18 @@ const baseUrl = '/api/omdb'
 
 function useSearch (query, queried){
   const result = useInfiniteQuery({
-    queryKey: ['mediaSearch', {query}],
-    queryFn: () => 
-      axios.get(`${baseUrl}/${query}/page=`)
-        .then(search => search.data),
+    queryKey: ['search', {query}], 
+    queryFn: async ({ pageParam = 1 }) => {
+      const response = await axios.get(`${baseUrl}/${query}/page=${pageParam}`)
+      const pagesNo = Math.ceil(response.data.totalResults/10)
+      return {
+        results: response.data.Search, 
+        totalResults: response.data.totalResults, 
+        totalPages: pagesNo, 
+        nextPage: pageParam + 1 === pagesNo ? undefined : pageParam + 1
+      }
+    },
+    getNextPageParam: (lastPage, pages) => lastPage.nextPage,
     enabled: !!queried
   })
   return {...result, search: result.data}
