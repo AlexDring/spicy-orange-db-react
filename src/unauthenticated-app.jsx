@@ -1,9 +1,10 @@
-import { SectionStyles } from './styles/styles'
+import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { AuthContext } from './context/auth-context'
+import { SectionStyles } from './styles/styles'
 import { useAsync } from './utils/hooks'
-import { ErrorMessage } from 'components/lib'
-
+import { ErrorMessage } from './components/lib'
 
 const LoginForm = styled.form`
 display: flex;
@@ -18,8 +19,12 @@ input[type="submit"] {
 }
 `
 
-const UnauthenticatedApp = ({ login }) => {
+const UnauthenticatedApp = () => {
+  const {login} = useContext(AuthContext)
+  console.log(login)
+  console.log(AuthContext)
   const { error, isError, run } = useAsync()
+
   const userLogin = (e) => {
     e.preventDefault()
     const {username, password} = e.target.elements  

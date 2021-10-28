@@ -8,6 +8,11 @@ const RecommendationPosterStyles = styled.div`
   flex-direction: column;
   cursor: pointer;
   text-align: center;
+  > img {
+    height: 314px;
+    width: 100%;
+    object-fit: cover; 
+  }
   > div {
     background-color: white;
     padding: 12px;
@@ -28,11 +33,6 @@ const RecommendationPosterStyles = styled.div`
         margin-right: 5px;
       }
     }
-  }
-  > img {
-    height: 314px;
-    width: 100%;
-    object-fit: cover; 
   }
 `
 

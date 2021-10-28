@@ -1,5 +1,5 @@
 import axios from 'axios'
-import storage from '../utils/storage'
+import storage from './storage'
 const baseUrl = '/api/login'
 
 axios.interceptors.response.use(function (response) { // If token has expired intercept error code and logout

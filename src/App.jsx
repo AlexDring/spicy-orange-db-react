@@ -1,17 +1,18 @@
+import 'normalize.css'
 import { useEffect } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
-import 'normalize.css'
 import Typography from './styles/Typography'
 import GlobalStyles from './styles/GlobalStyles'
 import Layout from './components/layout/layout-wrapper'
-import authRouter from './utils/login'
+import authRouter from './utils/auth-provider'
 import storage from './utils/storage'
 import { ErrorBoundary } from 'react-error-boundary'
 import AuthenticatedApp from './authenticated-app'
 import UnauthenticatedApp from './unauthenticated-app'
 import { useAsync } from './utils/hooks'
-import { FullPageSpinner, ErrorMessage } from 'components/lib'
-import Section from 'components/layout/section'
+import { FullPageSpinner } from './components/lib'
+import Section from './components/layout/section'
+import { AuthContext } from './context/auth-context'
 
 const errorFallback = ({error, resetErrorBoundary}) => {
   const message = error.response.data.error ? error.response.data.error : error.message
@@ -68,19 +69,21 @@ function App() {
       <GlobalStyles />
       <Typography /> 
       <Router>
-        <Layout> 
-          {isLoading ? <FullPageSpinner /> :
-            isError ? {error} :
-              isSuccess ? (
-                user ? (
-                  <ErrorBoundary FallbackComponent={errorFallback}>
-                    <AuthenticatedApp user={user} logout={logout} />
-                  </ErrorBoundary>
-                ) :
-                  <UnauthenticatedApp login={login} />
-              ) : null
-          }
-        </Layout> 
+        <AuthContext.Provider value={{login, logout, user}} >
+          <Layout> 
+            {isLoading ? <FullPageSpinner /> :
+              isError ? {error} :
+                isSuccess ? (
+                  user ? (
+                    <ErrorBoundary FallbackComponent={errorFallback}>
+                      <AuthenticatedApp />
+                    </ErrorBoundary>
+                  ) :
+                    <UnauthenticatedApp />
+                ) : null
+            }
+          </Layout> 
+        </AuthContext.Provider>
       </Router>
     </>
   )

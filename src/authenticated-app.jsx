@@ -1,12 +1,15 @@
 import { Switch, Route } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import Home from 'pages/home'
-import Recommendations from 'pages/recommendations/recommendations'
-import Watchlist from 'pages/watchlist'
-import Search from 'pages/search/search'
-import Recommendation from 'pages/recommendation/recommendation'
+import Home from './pages/home'
+import Recommendations from './pages/recommendations/recommendations'
+import Watchlist from './pages/watchlist'
+import Search from './pages/search/search'
+import Recommendation from './pages/recommendation/recommendation'
+import { useContext } from 'react'
+import { AuthContext } from 'context/auth-context'
 
-function AuthenticatedApp({ user }) {
+function AuthenticatedApp() {
+  const { user } = useContext(AuthContext)
   return (
     <Switch>
       <Route path='/search'>

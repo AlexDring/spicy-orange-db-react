@@ -3,7 +3,6 @@ import { useInfiniteQuery, useQuery } from 'react-query'
 const baseUrl = '/api/omdb'
 
 function useSearch(query, queried) {
-  console.log(query, queried)
   const result = useInfiniteQuery({
     queryKey: ['search', {query}], 
     queryFn: async ({ pageParam = 1 }) => {
