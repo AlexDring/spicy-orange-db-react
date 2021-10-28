@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
-import { useProfile } from './utils/profile'
-import Section from './components/layout/section'
-import RecommendationsGrid from './components/cards/grids/recommendations-grid'
-import { Loading } from './components/lib'
+import { useProfile } from 'utils/profile'
+import Section from 'components/layout/section'
+import RecommendationsGrid from 'components/cards/grids/recommendations-grid'
+import { Loading } from 'components/lib'
 
-const Watchlist = ({ user }) => {
-  const {profile, isLoading} = useProfile(user)
+const Watchlist = () => {
+  const {profile, isLoading} = useProfile()
   const totalItems = profile?.watchlist.length
 
   return(
@@ -18,10 +18,6 @@ const Watchlist = ({ user }) => {
       />
     </Section>
   )
-}
-
-Watchlist.propTypes = {
-  user: PropTypes.object
 }
 
 export default Watchlist

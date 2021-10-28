@@ -22,9 +22,9 @@ const WatchlistToggleStyles = styled.div`
 `
 
 const WatchlistToggle = ({ user, recommendationId }) => {
-  const item = useWatchlistItem(user, recommendationId)
-  const create = useAddWatchlist(user)
-  const remove = useRemoveWatchlist(user)
+  const item = useWatchlistItem(recommendationId)
+  const create = useAddWatchlist()
+  const remove = useRemoveWatchlist()
 
   return(
     <WatchlistToggleStyles>

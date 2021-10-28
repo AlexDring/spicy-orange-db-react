@@ -1,7 +1,9 @@
 import axios from 'axios'
+import { AuthContext } from 'context/auth-context'
+import { useContext } from 'react'
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query'
 import { useHistory } from 'react-router'
-import { getConfig } from './misc'
+import { authHeader } from './misc'
 const baseUrl = '/api/media'
 
 function useRecommendations () {
@@ -31,11 +33,12 @@ function useRecommendation(id) {
   return {...result, recommendation: result.data}
 }
 
-function useAddRecommendation(user) {
+function useAddRecommendation() {
+  const { user } = useContext(AuthContext)
   const queryClient = useQueryClient()
   const history = useHistory()
   return useMutation(
-    recommendation => axios.post(baseUrl, recommendation, getConfig(user.token)),
+    recommendation => axios.post(baseUrl, recommendation, authHeader(user.token)),
     {
       onError: err => console.log(err, 'err'), 
       onSuccess: data => {
@@ -50,7 +53,7 @@ function useRemoveRecommendation(user) {
   const queryClient = useQueryClient()
   return useMutation(
     ({media_id, mediaDetail_id}) => axios.delete(`${baseUrl}/${media_id}/${mediaDetail_id}`,
-      getConfig(user.token)),
+      authHeader(user.token)),
     {onSuccess: () => queryClient.invalidateQueries('recommendations')}
   )
 }

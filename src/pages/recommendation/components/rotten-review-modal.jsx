@@ -42,8 +42,8 @@ const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, user
   const [review, setReview] = useState(recommendation.mediaDetail.rottenReviews.find(u => u.user === user.username))
   console.log(review)
   const create = useCreateReview()
-  const update = useUpdateReview(user)
-  const remove = useRemoveReview(user)
+  const update = useUpdateReview()
+  const remove = useRemoveReview()
 
   function addReviewSubmit(e) {
     e.preventDefault()

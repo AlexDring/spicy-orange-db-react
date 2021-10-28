@@ -47,10 +47,10 @@ const RecommendationCardWrapper = styled.div`
   }
 `
 
-function Recommendation({ user }) {
+function Recommendation() {
   const {id} = useParams()
   const {recommendation, isLoading} = useRecommendation(id)
-  const remove = useRemoveRecommendation(user)
+  const remove = useRemoveRecommendation()
 
   if(isLoading) {
     return (
@@ -76,7 +76,6 @@ function Recommendation({ user }) {
             }
           ]} />
           <WatchlistToggle
-            user={user}
             recommendationId={recommendation._id}
           />
         </TopRowWrapper>
@@ -86,12 +85,10 @@ function Recommendation({ user }) {
             alt={`${recommendation.Title} poster`}   
           />
           <RecommendationMeta
-            user={user}
             recommendation={recommendation}
             remove={remove}   
           />
           <RottenReviews
-            user={user}
             recommendation={recommendation}
             loading={isLoading}   
           />

@@ -45,7 +45,7 @@ const MediaInformationStyles = styled.ul`
 // eslint-disable-next-line react/prop-types
 const SearchModal = ({ user, recId, displayModal, setDisplayModal }) => {
   const {data: searchResult, isLoading, isIdle} = useIndividualSearch(recId)
-  const create = useAddRecommendation(user)
+  const create = useAddRecommendation()
   
   if(isIdle) {
     return null

@@ -1,6 +1,6 @@
 import { Switch, Route } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import Home from './pages/home'
+import Home from 'pages/home'
 import Recommendations from './pages/recommendations/recommendations'
 import Watchlist from './pages/watchlist'
 import Search from './pages/search/search'
@@ -13,10 +13,10 @@ function AuthenticatedApp() {
   return (
     <Switch>
       <Route path='/search'>
-        <Search user={user} />
+        <Search />
       </Route>
       <Route path='/watchlist'>
-        <Watchlist user={user} />
+        <Watchlist />
       </Route>
       <Route path='/recommendations'>
         <Recommendations />

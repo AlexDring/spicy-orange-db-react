@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 import {AiOutlineSearch} from 'react-icons/ai'
 import Section from 'components/layout/section'
 import SearchModal from './components/search-modal'
@@ -18,7 +17,7 @@ const SearchGrid = styled.div`
   margin-top: 30px;
 `
 
-function Search({ user }) {
+function Search() {
   const [query, setQuery] = useState('')
   const [queried, setQueried] = useState(false)
   const [reccommendationId, setReccommendationId] = useState(null)
@@ -36,7 +35,6 @@ function Search({ user }) {
   return(
     <>
       <SearchModal
-        user={user}
         recId={reccommendationId}
         displayModal={displayModal}
         setDisplayModal={setDisplayModal}
@@ -78,10 +76,6 @@ function Search({ user }) {
       </Section>
     </>
   )
-}
-
-Search.propTypes = {
-  user: PropTypes.object
 }
 
 export default Search

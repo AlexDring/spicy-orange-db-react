@@ -1,6 +1,6 @@
 import rottenIcons from 'assets/images/rotten-gas/rottenIcons'
 
-const getConfig = (token) => {
+const authHeader = (token) => {
   return {
     headers: { Authorization: `bearer ${token}` }
   }
@@ -15,6 +15,6 @@ const rottenReviewImage = (rottenAverage) => (
 )
 
 export {
-  getConfig,
+  authHeader,
   rottenReviewImage
 }

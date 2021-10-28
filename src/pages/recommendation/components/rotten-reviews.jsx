@@ -3,7 +3,8 @@ import { HashLink } from 'react-router-hash-link'
 import { rottenReviewImage } from 'utils/misc'
 import styled from 'styled-components'
 import RottenReviewModal from './rotten-review-modal'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { AuthContext } from 'context/auth-context'
 
 const RottenWrapper = styled.div`
   grid-area: rottenGas;
@@ -30,7 +31,8 @@ const RottenScoreStyles = styled.div`
   }
 `
 
-const RottenReviews = ({ recommendation, user }) => {
+const RottenReviews = ({ recommendation }) => {
+  const { user } = useContext(AuthContext)
   const [displayModal, setDisplayModal] = useState(false)
   const userScore = recommendation.mediaDetail.rottenReviews.find(review => review.user === user.username)
   
