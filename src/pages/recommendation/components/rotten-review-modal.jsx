@@ -56,7 +56,8 @@ const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, user
       title: recommendation.Title,
       poster: recommendation.Poster,
       user: user.username,
-      avatar: user.avatar
+      avatar: user.avatar,
+      updatedOn: new Date()
     }, {
       onSuccess: ({data}) => setReview(data.rottenReviews.find(u => u.user === user.username))
     })
@@ -70,7 +71,8 @@ const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, user
       reviewId: review._id,
       mediaDetailId: recommendation.mediaDetail._id,
       score: review.score, 
-      review: review.review,  
+      review: review.review,
+      updatedOn: new Date()
     }, {
       onSuccess: ({data}) => setReview(data.rottenReviews.find(u => u.user === user.username))
     })
