@@ -25,6 +25,7 @@ function Search({ user }) {
   const [displayModal, setDisplayModal] = useState(null)
 
   const result = useSearch(query, queried)
+  console.log(result.data)
 
   const searchForm = async (e) => {
     e.preventDefault()

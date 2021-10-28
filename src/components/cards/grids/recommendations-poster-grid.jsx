@@ -4,7 +4,7 @@ import Skeleton from 'components/skeleton/skeleton'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-const MediaPosterGridStyles = styled.div`
+const RecommendationsPosterGridStyles = styled.div`
 display: grid;
 grid-template-columns: repeat(4, minmax(180px, 1fr));
 /* grid-auto-rows: 1fr; */
@@ -12,12 +12,12 @@ grid-template-columns: repeat(4, minmax(180px, 1fr));
   grid-template-columns: 1fr 1fr;
 }
 grid-gap: 15px;
-margin-top: 30px;
+margin-top: 15px;
 `
 
-const RecommendationsSmallGrid = ({ loading, recommendations, skeletonCount }) => {
+const RecommendationsPosterGrid = ({ loading, recommendations, skeletonCount }) => {
   return(
-    <MediaPosterGridStyles>
+    <RecommendationsPosterGridStyles>
       {loading ? 
         <Skeleton count={skeletonCount} component="recommendation-small" /> :
         recommendations?.map(recommendation => (
@@ -28,8 +28,8 @@ const RecommendationsSmallGrid = ({ loading, recommendations, skeletonCount }) =
           </Link>
         ))
       }
-    </MediaPosterGridStyles>
+    </RecommendationsPosterGridStyles>
   )
 }
 
-export default RecommendationsSmallGrid
+export default RecommendationsPosterGrid

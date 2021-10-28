@@ -2,7 +2,7 @@ import Section from 'components/layout/section'
 import { useRecommendations } from 'utils/recommendations'
 import { useReviews } from 'utils/reviews'
 import RecommendationsGrid from 'components/cards/grids/recommendations-grid'
-import RecommendationsSmallGrid from 'components/cards/grids/recommendations-small-grid'
+import RecommendationsSmallGrid from 'components/cards/grids/recommendations-poster-grid'
 import { ReviewGridStyles } from 'styles/grids'
 import Skeleton from 'components/skeleton/skeleton'
 import { ReviewCard } from 'components/cards'
@@ -36,7 +36,7 @@ function Home() {
           {result.loading ? 
             <Skeleton count={12} component="review" /> : 
             result.data?.pages.map(reviews => (
-              reviews?.reviews.map((review, index) => (
+              reviews?.reviews.map(review => (
                 <ReviewCard 
                   key={review._id} 
                   review={review}   

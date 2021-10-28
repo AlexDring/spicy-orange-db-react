@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import ExternalReviews from 'components/external-reviews'
+import RecommendationMeta from 'components/recommendation-meta'
+import RottenReview from 'components/rotten-review'
 import styled from 'styled-components'
-import { rottenReviewImage } from 'utils/misc'
 
 const RecRowWrapper = styled.div`
   display: flex;
@@ -17,6 +18,7 @@ const RecRowWrapper = styled.div`
     padding-right: 24px;
     align-self: center;
     max-height: 110px;
+    min-width: 98.8167px;
   }
   h3 {
     margin-bottom: 0;
@@ -31,20 +33,19 @@ const RecRowWrapper = styled.div`
     > img {
       margin: 0 10px 0 0;
       padding-right: 6px;
+      min-width: 0;
+    }
+    > div:last-of-type {
+      flex-direction: column  ;
+      order: -1;
     }
   } 
 `
 
 const InfoStyles = styled.div`
   flex: 3;
-  /* img {
-    padding-right: 6px;
-  } */
-  > div:first-of-type {
+  > ul:first-of-type {
     padding: 5px 0;
-    text-transform: capitalize;
-    font-size: 14px;
-    font-weight: 200;
   }
 `
 
@@ -56,61 +57,22 @@ const GenreStyles = styled.div`
     display: none;
   }
 `
-const RottenReviewStyles = styled.div`
-  display: flex;
-  /* margin-left: auto; */
-  align-self: center;
-  text-align: center;
-  > div {
-    align-self: center;
-  }
-  img {
-    width: 45px;
-    margin-right: 6px;
-    object-fit: contain;
-  }
-  @media (max-width: 450px) {
-    flex-direction: column  ;
-    order: -1;
-    align-self: center;
-    margin-right: 15px;
-    img {
-      margin: 0;
-      width: 30px;
-    }
-    span {
-      display: none;
-    }
-  }
-`
 
 const RecommendationsRow = ({ recommendation }) => {
+  const { Type, Poster, Title, Year, Runtime, imdbRating, Metascore, Director, Genre, rottenAverage, rottenCount } = recommendation
   return(
-    <RecRowWrapper type={recommendation.Type}>
-      <img src={recommendation.Poster} />
+    <RecRowWrapper type={Type}>
+      <img src={Poster} />
       <InfoStyles>
-        <h3>{recommendation.Title} <span>({recommendation.Year})</span></h3>
-        <div>{recommendation.Type} {recommendation.Runtime !== 'N/A' && '• ' + recommendation.Runtime}</div>
-        <ExternalReviews imdbRating={recommendation.imdbRating} Metascore={recommendation.Metascore} />
+        <h3>{Title} <span>({Year})</span></h3>
+        <RecommendationMeta meta={[Type, Runtime]} />
+        <ExternalReviews imdbRating={imdbRating} Metascore={Metascore} />
       </InfoStyles>
       <GenreStyles>
-        {/* {recommendation.Director !== 'N/A' && <div style={{marginBottom: 5}}>Director: {recommendation.Director}</div>}  */}
-        {recommendation.Genre}
+        {Director !== 'N/A' && <div style={{marginBottom: 5}}>Director: {Director}</div>} 
+        {Genre}
       </GenreStyles>
-      <RottenReviewStyles>
-        {recommendation.rottenAverage && 
-          <img 
-            src={rottenReviewImage(recommendation.rottenAverage)} 
-            alt="" />
-        }
-        <div>
-          {recommendation.rottenAverage && <div>{recommendation.rottenAverage.toFixed()}<span style={{fontWeight: 200, fontSize: 12}}>/1000</span></div>}
-          {recommendation.rottenAverage ? 
-            <span style={{fontWeight: 200, fontSize: 12, textAlign: 'center'}}>{recommendation.rottenCount} Reviews</span> : 
-            <span>No Reviews</span>
-          }
-        </div>
-      </RottenReviewStyles>
+      <RottenReview rottenAverage={rottenAverage} rottenCount={rottenCount} />
     </RecRowWrapper>
   )
 }
