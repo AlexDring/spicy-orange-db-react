@@ -1,7 +1,6 @@
 import axios from 'axios'
-import { useAuth } from 'context/auth-context'
+import { useAuth, authHeader } from 'context/auth-context'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { authHeader } from './misc'
 const baseUrl = '/api/profile/'
 
 function useProfile() {
@@ -15,10 +14,10 @@ function useProfile() {
 }
 
 function useAddWatchlist() {
-  const { user } = useAuth()
+  const tokenHeader = authHeader()
   const queryClient = useQueryClient()
   return useMutation(
-    addItem => axios.post(`${baseUrl}/${addItem.profile_id}/watchlist`, addItem, authHeader(user.token)),
+    addItem => axios.post(`${baseUrl}/${addItem.profile_id}/watchlist`, addItem, tokenHeader),
     {
       onMutate: async newItem => {
         // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
@@ -45,10 +44,10 @@ function useAddWatchlist() {
 }
 
 function useRemoveWatchlist() {
-  const { user } = useAuth()
+  const tokenHeader = authHeader()
   const queryClient = useQueryClient()
   return useMutation(
-    ({profile_id, watchlist_id}) => axios.delete(`${baseUrl}/${profile_id}/watchlist/${watchlist_id}`, authHeader(user.token)),
+    ({profile_id, watchlist_id}) => axios.delete(`${baseUrl}/${profile_id}/watchlist/${watchlist_id}`, tokenHeader),
     {
       onMutate: async removeItem => {
         await queryClient.cancelQueries('profile')

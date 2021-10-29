@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import { useAsync } from 'utils/hooks'
 import { BiErrorCircle } from 'react-icons/bi'
 import { Loading } from 'components/lib'
+import { useAuth } from 'context/auth-context'
 
 const WatchlistToggleStyles = styled.div`
   display: flex;
@@ -21,10 +22,11 @@ const WatchlistToggleStyles = styled.div`
   }
 `
 
-const WatchlistToggle = ({ user, recommendationId }) => {
+const WatchlistToggle = ({ recommendationId }) => {
+  const { user } = useAuth()
   const item = useWatchlistItem(recommendationId)
-  const create = useAddWatchlist()
-  const remove = useRemoveWatchlist()
+  const create = useAddWatchlist(user)
+  const remove = useRemoveWatchlist(user)
 
   return(
     <WatchlistToggleStyles>

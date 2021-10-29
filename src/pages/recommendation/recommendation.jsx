@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import { useParams } from 'react-router'
 import { useRecommendation, useRemoveRecommendation } from 'utils/recommendations'
 import { PropTypes } from 'prop-types'
-
 import Section from 'components/layout/section'
 import Breadcrumbs from 'components/layout/navigation/breadcrumbs'
 import WatchlistToggle from './components/watchlist-toggle'
@@ -17,6 +16,7 @@ const TopRowWrapper = styled.div`
   display: flex;
   justify-content: space-between; 
   flex-wrap: wrap;
+  margin-bottom: 10px;
 `
 
 const RecommendationCardWrapper = styled.div`
@@ -63,7 +63,7 @@ function Recommendation() {
   return(
     <>
       <Section>
-        <TopRowWrapper style={{'display': 'flex', 'justifyContent': 'space-between', 'flexWrap': 'wrap'}}>
+        <TopRowWrapper>
           <Breadcrumbs routes={[
             { path: '/',
               breadcrumb: 'Home' 
@@ -75,9 +75,7 @@ function Recommendation() {
               breadcrumb: `${recommendation.Title}` 
             }
           ]} />
-          <WatchlistToggle
-            recommendationId={recommendation._id}
-          />
+          <WatchlistToggle recommendationId={recommendation._id} />
         </TopRowWrapper>
         <RecommendationCardWrapper> 
           <img

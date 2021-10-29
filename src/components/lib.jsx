@@ -50,7 +50,8 @@ const Spinner = () => (
 
 
 const StyledFullPageSpinner = styled.div`
-  height: 100%;
+  height: 100vh;
+  background: var(--light-yellow);
   display: flex;
   align-items: center;
   justify-content: center;

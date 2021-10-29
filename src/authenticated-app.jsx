@@ -1,5 +1,5 @@
 import { Switch, Route } from 'react-router-dom'
-import Home from 'pages/home'
+import Home from './pages/home'
 import Recommendations from './pages/recommendations/recommendations'
 import Watchlist from './pages/watchlist'
 import Search from './pages/search/search'

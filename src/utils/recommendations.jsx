@@ -1,8 +1,7 @@
 import axios from 'axios'
-import { useAuth } from 'context/auth-context'
+import { authHeader } from 'context/auth-context'
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query'
 import { useHistory } from 'react-router'
-import { authHeader } from './misc'
 const baseUrl = '/api/media'
 
 function useRecommendations () {
@@ -33,11 +32,11 @@ function useRecommendation(id) {
 }
 
 function useAddRecommendation() {
-  const { user } = useAuth()
+  const tokenHeader = authHeader()
   const queryClient = useQueryClient()
   const history = useHistory()
   return useMutation(
-    recommendation => axios.post(baseUrl, recommendation, authHeader(user.token)),
+    recommendation => axios.post(baseUrl, recommendation, tokenHeader),
     {
       onError: err => console.log(err, 'err'), 
       onSuccess: data => {
