@@ -1,6 +1,5 @@
 import axios from 'axios'
-import { AuthContext } from 'context/auth-context'
-import { useContext } from 'react'
+import { useAuth } from 'context/auth-context'
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query'
 import { useHistory } from 'react-router'
 import { authHeader } from './misc'
@@ -34,7 +33,7 @@ function useRecommendation(id) {
 }
 
 function useAddRecommendation() {
-  const { user } = useContext(AuthContext)
+  const { user } = useAuth()
   const queryClient = useQueryClient()
   const history = useHistory()
   return useMutation(

@@ -9,6 +9,7 @@ const RecommendationWrapper = styled.div`
   background: white;
   display: flex;
   border: 1px solid var(--lighter-gray);
+  height: 100%;
   > img {
     width: 100%;
     max-width: 50%;

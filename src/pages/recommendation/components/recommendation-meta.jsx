@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
-import { AuthContext } from 'context/auth-context'
-import { useContext } from 'react'
+import { useAuth } from 'context/auth-context'
 import styled from 'styled-components'
 
 const RecommendationMetaStyles = styled.div`
@@ -14,7 +13,7 @@ const RecommendationMetaStyles = styled.div`
 `
 
 const RecommendationMeta = ({ recommendation, remove }) => {
-  const { user } = useContext(AuthContext)
+  const { user } = useAuth()
   return(
     <RecommendationMetaStyles type={recommendation.Type}>
       <small>Added by {recommendation.user}</small>

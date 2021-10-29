@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { AuthContext } from './context/auth-context'
+import { useAuth } from './context/auth-context'
 import { SectionStyles } from './styles/styles'
 import { useAsync } from './utils/hooks'
 import { ErrorMessage } from './components/lib'
@@ -20,9 +20,7 @@ input[type="submit"] {
 `
 
 const UnauthenticatedApp = () => {
-  const {login} = useContext(AuthContext)
-  console.log(login)
-  console.log(AuthContext)
+  const {login} = useAuth()
   const { error, isError, run } = useAsync()
 
   const userLogin = (e) => {

@@ -1,12 +1,11 @@
 import axios from 'axios'
-import { AuthContext } from 'context/auth-context'
-import { useContext } from 'react'
+import { useAuth } from 'context/auth-context'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { authHeader } from './misc'
 const baseUrl = '/api/profile/'
 
 function useProfile() {
-  const { user } = useContext(AuthContext)
+  const { user } = useAuth()
   const result = useQuery({
     queryKey: 'profile',
     queryFn: () => 
@@ -16,7 +15,7 @@ function useProfile() {
 }
 
 function useAddWatchlist() {
-  const { user } = useContext(AuthContext)
+  const { user } = useAuth()
   const queryClient = useQueryClient()
   return useMutation(
     addItem => axios.post(`${baseUrl}/${addItem.profile_id}/watchlist`, addItem, authHeader(user.token)),
@@ -46,7 +45,7 @@ function useAddWatchlist() {
 }
 
 function useRemoveWatchlist() {
-  const { user } = useContext(AuthContext)
+  const { user } = useAuth()
   const queryClient = useQueryClient()
   return useMutation(
     ({profile_id, watchlist_id}) => axios.delete(`${baseUrl}/${profile_id}/watchlist/${watchlist_id}`, authHeader(user.token)),
@@ -73,7 +72,7 @@ function useRemoveWatchlist() {
 }
 
 function useWatchlistItem (mediaId) {
-  const { user } = useContext(AuthContext)
+  const { user } = useAuth()
   const { profile } = useProfile(user)
   return profile?.watchlist.find(w => w.media_id === mediaId) ?? null
 }
