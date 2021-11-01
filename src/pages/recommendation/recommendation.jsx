@@ -31,19 +31,25 @@ const RecommendationCardWrapper = styled.div`
         "poster reviews";
   > img {
     width: 100%;
-    min-width: 300px;
+    /* min-width: 300px; */
     height: 100%;
     object-fit: cover;
     grid-area: poster;
   }
-  @media (max-width: 600px){
-    grid-template-columns: 150px 1fr;
+  @media (max-width: 450px){
+    grid-template-columns: 100% 1fr;
     grid-template-rows: auto auto auto;
     grid-column-gap: 0;
     grid-template-areas:
-      "poster meta"
-      "poster reviews"
+      "meta meta"
+      "reviews reviews"
       "rottenGas rottenGas";
+    > ul {
+      margin-top: 16px;
+    }
+    > img {
+      display: none;
+    }
   }
 `
 

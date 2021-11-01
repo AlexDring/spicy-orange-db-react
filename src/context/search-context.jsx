@@ -12,10 +12,8 @@ function SearchProvider(props) {
     let imdbKey = query.match(/tt?\d+/)
     console.log(imdbKey)
     if(url && !imdbKey) {
-      console.log('Here!')
-      return 
+      setSearchQuery('i=XXXXX')
     } else if (url && imdbKey) {
-      console.log('here')
       setSearchQuery(`i=${imdbKey}`)
     } else {
       setSearchQuery(`s=${query.trim()}`)

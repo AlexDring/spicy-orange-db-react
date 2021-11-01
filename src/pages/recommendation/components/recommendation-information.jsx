@@ -9,6 +9,7 @@ const RecommendationInfoWrapper = styled.section`
 `
 
 const RecommendationInfoUlStyles = styled.ul`
+  padding-top: 16px;
   li {
     margin-bottom: 16px;
   }
@@ -18,6 +19,9 @@ const RecommendationInfoUlStyles = styled.ul`
     width: 150px;
     display: inline-block;
     margin-right: 16px;
+    @media(max-width: 450px) {
+      width: 100%;
+    }
   }
 `
 const RecommendationInfoLi = ({role, item}) => ((item === 'N/A' || !item) ? null : <li><span>{role}</span>{item}</li>)

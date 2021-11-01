@@ -19,7 +19,7 @@ const SearchGrid = styled.div`
 function Search() {
   const [reccommendationId, setReccommendationId] = useState(null)
   const [displayModal, setDisplayModal] = useState(null)
-  const { searchResults, searchQuery, imdbInput } = useContext(SearchContext)
+  const { searchResults, searchQuery } = useContext(SearchContext)
   const resultsReturned = searchResults.data?.pages[0].totalResults
   console.log(searchResults)
   return(
@@ -40,9 +40,9 @@ function Search() {
           }
         </div>
         <SearchGrid>
-          {searchResults.data?.pages[0].results && searchResults.data?.pages.map(search => {
-            console.log(search)
-            return (search.results.map((result, index) => (
+          {searchResults.data?.pages[0].results && // This shows if incorrect link pasted in search bar.
+          searchResults.data?.pages.map(search => (
+            search.results.map((result, index) => (
               <div  
                 key={index}
                 onClick={() => {
@@ -51,7 +51,7 @@ function Search() {
                 <RecommendationPosterCard data={result} />
               </div>
             ))
-            )})}
+          ))}
         </SearchGrid>
         {resultsReturned && <LoadMoreButton result={searchResults} />}
       </Section>

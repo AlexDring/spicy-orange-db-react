@@ -22,11 +22,13 @@ const GlobalStyles = createGlobalStyle`
   html, body {
     height: 100%;
     background-color: var(--light-yellow);
+    overflow: hidden;
   }
   #root {
     display: flex; 
     flex-direction: column;
     height: 100%;
+    overflow-y: scroll;
   }
   main {
     flex: 1 0 auto;

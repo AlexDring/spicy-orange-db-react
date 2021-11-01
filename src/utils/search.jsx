@@ -8,10 +8,9 @@ function useSearch(query) {
     queryFn: async ({ pageParam = 1 }) => {
       const response = await axios.get(`${baseUrl}/${query}/page=${pageParam}`)
       const pagesNo = Math.ceil(response.data.totalResults/10)
-      console.log(response)
       return {
         error: response.data.Error,
-        results: response.data.Search ? response.data.Search : [response.data], // This displays result whether general search s= or imdb search i=
+        results: response.data.Search ? response.data.Search : [response.data], // This displays result whether general search s= or imdb search i= query is used.
         totalResults: response.data.totalResults,
         totalPages: pagesNo,
         nextPage: pageParam + 1 === pagesNo ? undefined : pageParam + 1
