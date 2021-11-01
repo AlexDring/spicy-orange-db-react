@@ -5,10 +5,9 @@ const SearchContext = createContext()
 
 function SearchProvider(props) {
   const [searchQuery, setSearchQuery] = useState()
+  const searchResults = useSearch(searchQuery)
 
   const searchInput = query => setSearchQuery(query)
-
-  const searchResults = useSearch(searchQuery)
 
   return <SearchContext.Provider value={{searchResults, searchInput, searchQuery}} {...props} />
   

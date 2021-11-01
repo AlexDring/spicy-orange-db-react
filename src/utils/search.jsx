@@ -8,7 +8,9 @@ function useSearch(query) {
     queryFn: async ({ pageParam = 1 }) => {
       const response = await axios.get(`${baseUrl}/s=${query.trim()}/page=${pageParam}`)
       const pagesNo = Math.ceil(response.data.totalResults/10)
+      console.log(response)
       return {
+        error: response.data.Error,
         results: response.data.Search,
         totalResults: response.data.totalResults,
         totalPages: pagesNo,

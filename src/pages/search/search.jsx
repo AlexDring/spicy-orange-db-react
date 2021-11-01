@@ -19,9 +19,9 @@ const SearchGrid = styled.div`
 function Search() {
   const [reccommendationId, setReccommendationId] = useState(null)
   const [displayModal, setDisplayModal] = useState(null)
-  const { searchResults } = useContext(SearchContext)
+  const { searchResults, searchQuery } = useContext(SearchContext)
   const resultsReturned = searchResults.data?.pages[0].totalResults
-  
+
   return(
     <>
       <SearchModal
@@ -30,11 +30,11 @@ function Search() {
         setDisplayModal={setDisplayModal}
       />
       <Section>
-        <h1>`Search - ${}`</h1>
+        <h1>Search - {searchQuery}</h1>
         <div style={{marginTop: 15}}>
           {!searchResults.isSuccess ? <p>Search for a film or tv show to add to the Spicy Orange Database.</p> : 
-            resultsReturned ? <p>Found {resultsReturned} results. Find more film and tv shows with the search bar above.</p> : 
-              <p>No results found, please try again</p>
+            searchResults.data.pages[0].error ? <p>{searchResults.data.pages[0].error} Please try again.</p> :
+              resultsReturned ? <p>Found {resultsReturned} results. Find more film and tv shows with the search bar above.</p> : null
           }
         </div>
         <SearchGrid>
