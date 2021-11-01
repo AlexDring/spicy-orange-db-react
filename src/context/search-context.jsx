@@ -1,4 +1,5 @@
 import { createContext, useState } from 'react'
+import { useSearch } from 'utils/search'
 
 const SearchContext = createContext()
 
@@ -7,7 +8,9 @@ function SearchProvider(props) {
 
   const searchInput = query => setSearchQuery(query)
 
-  return <SearchContext.Provider value={{searchInput, searchQuery}} {...props} />
+  const searchResults = useSearch(searchQuery)
+
+  return <SearchContext.Provider value={{searchResults, searchInput, searchQuery}} {...props} />
   
 }
 
