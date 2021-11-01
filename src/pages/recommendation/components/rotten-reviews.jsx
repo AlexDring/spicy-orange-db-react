@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
-import { HashLink } from 'react-router-hash-link'
-import { rottenReviewImage } from 'utils/misc'
-import styled from 'styled-components'
-import RottenReviewModal from './rotten-review-modal'
 import { useState } from 'react'
+import { HashLink } from 'react-router-hash-link'
+import { useAuth } from 'context/auth-context'
+import styled from 'styled-components'
+import { rottenReviewImage } from 'utils/misc'
+import RottenReviewModal from './rotten-review-modal'
 
 const RottenWrapper = styled.div`
   grid-area: rottenGas;
@@ -30,7 +31,8 @@ const RottenScoreStyles = styled.div`
   }
 `
 
-const RottenReviews = ({ recommendation, user }) => {
+const RottenReviews = ({ recommendation }) => {
+  const { user } =  useAuth()
   const [displayModal, setDisplayModal] = useState(false)
   const userScore = recommendation.mediaDetail.rottenReviews.find(review => review.user === user.username)
   

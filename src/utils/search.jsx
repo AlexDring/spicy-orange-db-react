@@ -2,15 +2,16 @@ import axios from 'axios'
 import { useInfiniteQuery, useQuery } from 'react-query'
 const baseUrl = '/api/omdb'
 
-function useSearch(query, queried) {
-  console.log(query, queried)
+function useSearch(query) {
   const result = useInfiniteQuery({
     queryKey: ['search', {query}], 
     queryFn: async ({ pageParam = 1 }) => {
       const response = await axios.get(`${baseUrl}/${query}/page=${pageParam}`)
       const pagesNo = Math.ceil(response.data.totalResults/10)
+      console.log(response)
       return {
-        results: response.data.Search,
+        error: response.data.Error,
+        results: response.data.Search ? response.data.Search : [response.data], // This displays result whether general search s= or imdb search i=
         totalResults: response.data.totalResults,
         totalPages: pagesNo,
         nextPage: pageParam + 1 === pagesNo ? undefined : pageParam + 1

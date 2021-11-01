@@ -1,29 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
 import reportWebVitals from './reportWebVitals'
 import * as Sentry from '@sentry/react'
 import { Integrations } from '@sentry/tracing'
-import { QueryClientProvider, QueryClient } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      useErrorBoundary: true,
-      refetchOnWindowFocus: false,
-      retry(failureCount, error) {
-        if (error.status === 404) return false
-        else if (failureCount < 2) return true
-        else return false
-      }
-    },
-    mutations: {
-      onError: (err, variables, recover) => 
-        typeof recover === 'function' ? recover() : null // If mutation has recovery function on error, call it.
-    }
-  },
-})
+import 'normalize.css'
+import AppProviders from 'context/app-providers'
+import App from './App'
 
 Sentry.init({
   dsn: 'https://63118595db634539948fc0b214a262c3@o1042898.ingest.sentry.io/6012108',
@@ -42,10 +24,9 @@ Sentry.init({
 
 ReactDOM.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
+    <AppProviders>
       <App />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    </AppProviders>
   </React.StrictMode>,
   document.getElementById('root')
 )

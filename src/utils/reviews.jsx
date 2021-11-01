@@ -1,6 +1,6 @@
 import axios from 'axios'
+import { authHeader } from 'context/auth-context'
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query'
-import { getConfig } from './misc'
 const baseUrl = '/api/rottenReviews'
 
 function useReviews() {
@@ -30,18 +30,21 @@ function useCreateReview () {
   )
 }
 
-function useUpdateReview (user) {
+function useUpdateReview () {
+  const tokenHeader = authHeader()
+  console.log(tokenHeader)
   const queryClient = useQueryClient()
   return useMutation(
-    updates => axios.put(`${baseUrl}/${updates.mediaDetailId}/${updates.reviewId}`, updates, getConfig(user.token)),
+    updates => axios.put(`${baseUrl}/${updates.mediaDetailId}/${updates.reviewId}`, updates, tokenHeader),
     {onSettled: () => queryClient.invalidateQueries('recommendation')}
   )
 }
 
-function useRemoveReview (user) {
+function useRemoveReview () {
+  const tokenHeader = authHeader()
   const queryClient = useQueryClient()
   return useMutation(
-    data => axios.delete(`${baseUrl}/${data.mediaDetailId}/${data.reviewId}`, getConfig(user.token)),
+    data => axios.delete(`${baseUrl}/${data.mediaDetailId}/${data.reviewId}`, tokenHeader),
     {onSettled: () => queryClient.invalidateQueries('recommendation')}
   )
 }

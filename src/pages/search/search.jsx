@@ -1,12 +1,10 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import {AiOutlineSearch} from 'react-icons/ai'
+import React, { useContext, useState } from 'react'
 import Section from 'components/layout/section'
 import SearchModal from './components/search-modal'
 import styled from 'styled-components'
 import { RecommendationPosterCard } from 'components/cards'
-import { useSearch } from 'utils/search'
 import LoadMoreButton from 'components/load-more-button'
+import { SearchContext } from 'context/search-context'
 
 const SearchGrid = styled.div`
   display: grid;
@@ -18,51 +16,33 @@ const SearchGrid = styled.div`
   margin-top: 30px;
 `
 
-function Search({ user }) {
-  const [query, setQuery] = useState('')
-  const [queried, setQueried] = useState(false)
+function Search() {
   const [reccommendationId, setReccommendationId] = useState(null)
   const [displayModal, setDisplayModal] = useState(null)
-
-  const result = useSearch(query, queried)
-  console.log(result.data)
-
-  const searchForm = async (e) => {
-    e.preventDefault()
-    setQuery(`s=${e.target.elements.search.value}`)
-    setQueried(true)
-  }
-
+  const { searchResults, searchQuery, imdbInput } = useContext(SearchContext)
+  const resultsReturned = searchResults.data?.pages[0].totalResults
+  console.log(searchResults)
   return(
     <>
       <SearchModal
-        user={user}
         recId={reccommendationId}
         displayModal={displayModal}
         setDisplayModal={setDisplayModal}
       />
       <Section>
-        <h1>Search</h1>
-        <form onSubmit={searchForm}>
-          <input
-            type="text"
-            id="search"
-            placeholder={query ? query : 'Add recommendation'}  
-          />
-          <label htmlFor="search">
-            <button>
-              <AiOutlineSearch size={20} />
-            </button>
-          </label>
-        </form>
+        <h1>Search {searchQuery && `- ${searchQuery.substring(2)}`}</h1>
         <div style={{marginTop: 15}}>
-          {!queried ? <p>Search for a film or tv show to add to the Spicy Orange Database.</p> : 
-            result.isSuccess ? <p>Found {result.data?.pages[0].totalResults} results. Find more film and tv shows with the search bar above.</p> : 
-              null}
+          {!searchResults.isSuccess ? <p>Search for a film or tv show to add to the Spicy Orange Database.</p> : 
+            searchResults.data.pages[0].error ? <p>{searchResults.data.pages[0].error} Please try again.</p> :
+              resultsReturned ? <>
+                <p>Found {resultsReturned} results. If you can&apos;t find the recommendation in the results below, try copy and pasting the imdb url into the search bar above.</p>
+              </> : null
+          }
         </div>
         <SearchGrid>
-          {result.data?.pages.map(search => (
-            search.results.map((result, index) => (
+          {searchResults.data?.pages[0].results && searchResults.data?.pages.map(search => {
+            console.log(search)
+            return (search.results.map((result, index) => (
               <div  
                 key={index}
                 onClick={() => {
@@ -71,17 +51,12 @@ function Search({ user }) {
                 <RecommendationPosterCard data={result} />
               </div>
             ))
-          ))}
+            )})}
         </SearchGrid>
-        {result.isSuccess && <LoadMoreButton result={result} />}
-        {/* <div>{isFetching && !isFetchingNextPage ? 'Fetching...' : null}</div> */}
+        {resultsReturned && <LoadMoreButton result={searchResults} />}
       </Section>
     </>
   )
-}
-
-Search.propTypes = {
-  user: PropTypes.object
 }
 
 export default Search

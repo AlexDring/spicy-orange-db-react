@@ -1,21 +1,23 @@
 import axios from 'axios'
+import { useAuth, authHeader } from 'context/auth-context'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { getConfig } from './misc'
 const baseUrl = '/api/profile/'
 
-function useProfile({profile_id}) {
+function useProfile() {
+  const { user } = useAuth()
   const result = useQuery({
     queryKey: 'profile',
     queryFn: () => 
-      axios.get(`${baseUrl}/${profile_id}/watchlist`).then(response => response.data)
+      axios.get(`${baseUrl}/${user.profile_id}/watchlist`).then(response => response.data)
   })
   return {...result, profile: result.data }
 }
 
-function useAddWatchlist(user) {
+function useAddWatchlist() {
+  const tokenHeader = authHeader()
   const queryClient = useQueryClient()
   return useMutation(
-    addItem => axios.post(`${baseUrl}/${addItem.profile_id}/watchlist`, addItem, getConfig(user.token)),
+    addItem => axios.post(`${baseUrl}/${addItem.profile_id}/watchlist`, addItem, tokenHeader),
     {
       onMutate: async newItem => {
         // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
@@ -41,10 +43,11 @@ function useAddWatchlist(user) {
   )
 }
 
-function useRemoveWatchlist(user) {
+function useRemoveWatchlist() {
+  const tokenHeader = authHeader()
   const queryClient = useQueryClient()
   return useMutation(
-    ({profile_id, watchlist_id}) => axios.delete(`${baseUrl}/${profile_id}/watchlist/${watchlist_id}`, getConfig(user.token)),
+    ({profile_id, watchlist_id}) => axios.delete(`${baseUrl}/${profile_id}/watchlist/${watchlist_id}`, tokenHeader),
     {
       onMutate: async removeItem => {
         await queryClient.cancelQueries('profile')
@@ -67,8 +70,9 @@ function useRemoveWatchlist(user) {
   )
 }
 
-function useWatchlistItem (user, mediaId) {
-  const {profile} = useProfile(user)
+function useWatchlistItem (mediaId) {
+  const { user } = useAuth()
+  const { profile } = useProfile(user)
   return profile?.watchlist.find(w => w.media_id === mediaId) ?? null
 }
 

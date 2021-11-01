@@ -25,39 +25,37 @@ const ReviewStyles = styled.div`
 `
 
 const MediaScore = styled.div`
-    display: flex;
-    align-items: center;
-    font-size: 1;
-    padding-bottom: 6px;
-    > * {
-      margin-right: 6px
-    }
-  `
+  display: flex;
+  align-items: center;
+  font-size: 1;
+  padding-bottom: 6px;
+  > * {
+    margin-right: 6px
+  }
+`
 
-const ReviewCard = ({ large, review }) => {
-  console.log(review)
-  return(
-    <ReviewStyles large={large}>
-      {large && <img src={review.poster} alt="" />}
-      <div>
-        <MediaScore>
-          <img height="25" 
-            src={avatar}
-            alt="Logged in users avatar" />
-          <span>{review.user}</span>
-          <img height="25" 
-            src={rottenReviewImage(review.score)} 
-            alt="review score icon" />
-          <span>{review.score}<span className="gray" style={{fontSize: 12}}>/1000</span></span>
-        </MediaScore>
-        {large && 
+const ReviewCard = ({ large, review }) => (
+  <ReviewStyles large={large}>
+    {large && <img src={review.poster} alt="" />}
+    <div>
+      <MediaScore>
+        <img height="25" 
+          src={avatar}
+          alt="Logged in users avatar" />
+        <span>{review.user}</span>
+        <img height="25" 
+          src={rottenReviewImage(review.score)} 
+          alt="review score icon" />
+        <span>{review.score}<span className="gray" style={{fontSize: 12}}>/1000</span></span>
+      </MediaScore>
+      {large && 
         <Link to={`/recommendation/${review.mediaId}`}>
           <h3>{review.title}</h3><small>{review.year}</small>
         </Link>}
-      </div>
-      <p className='mediaReview'>{review.review}</p>
-    </ReviewStyles>
-  )}
+    </div>
+    <p className='mediaReview'>{review.review}</p>
+  </ReviewStyles>
+)
 
 ReviewCard.propTypes = {
   large: PropTypes.bool,

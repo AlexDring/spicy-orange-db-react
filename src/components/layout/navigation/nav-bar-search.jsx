@@ -1,22 +1,17 @@
-import PropTypes from 'prop-types'
-import { useState } from 'react'
+import { SearchContext } from 'context/search-context'
+import { useContext } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { useHistory } from 'react-router'
-import { useSearch } from 'utils/search'
 
-const OMDbSearch = ({setSearchQuery}) => {
+const OMDbSearch = () => {
   const history = useHistory()
-  const [query, setQuery] = useState('')
-  const [queried, setQueried] = useState(false)
-
+  const { searchInput } = useContext(SearchContext)
+  
   const searchQuery = async (e) => {
     e.preventDefault()
-    setQuery(`s=${e.target.elements.search.value}`)
-    setQueried(true)
+    searchInput(e.target.elements.search.value)
     history.push('/search')
   }
-  
-  const result = useSearch(query, queried) 
   
   return(
     <form onSubmit={searchQuery}>
@@ -28,8 +23,5 @@ const OMDbSearch = ({setSearchQuery}) => {
   )
 }
 
-OMDbSearch.propTypes = {
-  setSearchQuery: PropTypes.func
-}
 
 export default OMDbSearch

@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { rottenReviewImage } from 'utils/misc'
 import styled from 'styled-components'
 import ExternalReviews from 'components/external-reviews'
 import RecommendationMeta from 'components/recommendation-meta'
@@ -10,6 +9,7 @@ const RecommendationWrapper = styled.div`
   background: white;
   display: flex;
   border: 1px solid var(--lighter-gray);
+  height: 100%;
   > img {
     width: 100%;
     max-width: 50%;
@@ -32,11 +32,19 @@ const RecommendationContainer = styled.div`
   }
   > div:first-of-type {
     margin: auto 0 16px;
+    @media (max-width: 450px) {
+      margin: 7.5px 0;
+  }
   }
   > div:last-of-type {
+    margin-right: 0;
     > img {
-      /* margin-right: 7.5px; */
-      width: 50px;
+      margin-right: 10px;
+      width: 70px;
+      @media (max-width: 450px) {
+        margin-right: 5px;
+        width: 55px;
+      }
     }
     @media (max-width: 450px) {
       align-self: flex-start;
@@ -49,15 +57,6 @@ const RecommendationContainer = styled.div`
     padding: 18px;
   }
 `
-
-// const RottenWrapper = styled.div`
-//   display: flex;
-//   align-items: center;
-//   img {
-//     margin-right: 15px;
-//     width: 50px;
-//   }
-// `
 
 const RecommendationCard = ({ recommendation }) => {
   const { 
@@ -83,19 +82,6 @@ const RecommendationCard = ({ recommendation }) => {
           <RecommendationMeta meta={[Type, Year, Runtime]} />
           <p className="gray">{Genre}</p>
           <ExternalReviews imdbRating={imdbRating} Metascore={Metascore} />
-          {/* <RottenWrapper className='rottenReviews'>
-            <img 
-              src={rottenReviewImage(rottenAverage)} 
-              alt="review score icon" />
-            <div>
-              {!rottenAverage ? <small>Not yet rated</small> : 
-                <>
-                  <p> {rottenAverage}<small>/1000</small></p>
-                  <small>{rottenCount} Reviews</small>
-                </> 
-              }
-            </div>
-          </RottenWrapper> */}
           <RottenReview rottenAverage={rottenAverage} rottenCount={rottenCount} />
         </RecommendationContainer>
       </RecommendationWrapper>

@@ -135,8 +135,7 @@ const Nav = () => {
   )}
 
 Nav.propTypes = {
-  profileId: PropTypes.string,
-  setSearchQuery: PropTypes.func
+  profileId: PropTypes.string
   // Defining types for component props improves reusability of your components by validating received data. It can warn other developers if they make a mistake while reusing the component with improper data type.
   // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prop-types.md
   // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prop-types.md#rule-options

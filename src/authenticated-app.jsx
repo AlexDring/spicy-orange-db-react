@@ -1,35 +1,42 @@
 import { Switch, Route } from 'react-router-dom'
-import PropTypes from 'prop-types'
-import Home from 'pages/home'
-import Recommendations from 'pages/recommendations/recommendations'
-import Watchlist from 'pages/watchlist'
-import Search from 'pages/search/search'
-import Recommendation from 'pages/recommendation/recommendation'
+import Home from './pages/home'
+import Recommendations from './pages/recommendations/recommendations'
+import Watchlist from './pages/watchlist'
+import Search from './pages/search/search'
+import Recommendation from './pages/recommendation/recommendation'
+import Layout from 'components/layout/layout-wrapper'
+import { SearchProvider } from 'context/search-context'
 
-function AuthenticatedApp({ user }) {
+function AuthenticatedApp() {
   return (
+    <SearchProvider>
+      <Layout>
+        <AppRoutes /> 
+      </Layout>
+    </SearchProvider>
+  )
+}
+
+function AppRoutes() {
+  return(
     <Switch>
       <Route path='/search'>
-        <Search user={user} />
+        <Search />
       </Route>
       <Route path='/watchlist'>
-        <Watchlist user={user} />
+        <Watchlist />
       </Route>
       <Route path='/recommendations'>
         <Recommendations />
       </Route>
       <Route path='/recommendation/:id' >
-        <Recommendation user={user} />
+        <Recommendation />
       </Route>
       <Route path='/'>
         <Home />
       </Route>
     </Switch>
   )
-}
-
-AuthenticatedApp.propTypes = {
-  user: PropTypes.object
 }
 
 export default AuthenticatedApp

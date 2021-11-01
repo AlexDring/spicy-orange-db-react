@@ -2,12 +2,18 @@
 import RecommendationMeta from 'components/recommendation-meta'
 import RottenReview from 'components/rotten-review'
 import styled from 'styled-components'
+import searchPlaceholder from '../../assets/images/search-placeholder.png'
 
 const RecommendationPosterStyles = styled.div`
   display: flex;
   flex-direction: column;
   cursor: pointer;
   text-align: center;
+  > img {
+    height: 314px;
+    width: 100%;
+    object-fit: cover; 
+  }
   > div {
     background-color: white;
     padding: 12px;
@@ -29,18 +35,13 @@ const RecommendationPosterStyles = styled.div`
       }
     }
   }
-  > img {
-    height: 314px;
-    width: 100%;
-    object-fit: cover; 
-  }
 `
 
 const RecommendationPosterCard = ({ data }) => {
   const { Poster, Title, Year, Type, rottenCount, rottenAverage } = data
   return(
     <RecommendationPosterStyles type={Type}>
-      <img src={Poster} />
+      <img src={Poster !== 'N/A' ? Poster : searchPlaceholder} />
       <div>
         <h4>{Title}</h4>
         <RecommendationMeta meta={[Year, Type]} />
