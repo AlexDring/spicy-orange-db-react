@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { FullPageSpinner } from 'components/lib'
 import { createContext, useContext, useEffect } from 'react'
 import authRouter from 'utils/auth-provider'
@@ -19,7 +18,6 @@ function useAuth() {
 async function getUser() {
   let user = null
   const token = await storage.getToken()
-
   if(token) {  
     const {data} = await authRouter.checkToken(token)
     user = {
@@ -27,12 +25,10 @@ async function getUser() {
       token
     }
   }
-  console.log(user)
   return user
 }
 
 const AuthProvider = (props) => {
-  console.log(props)
   const {
     data: user, 
     error, 
@@ -73,10 +69,6 @@ const authHeader = () => {
   return {
     headers: { Authorization: `bearer ${token}` }
   }
-}
-
-AuthProvider.propTypes = {
-  children: PropTypes.node
 }
 
 

@@ -2,11 +2,11 @@ import axios from 'axios'
 import { useInfiniteQuery, useQuery } from 'react-query'
 const baseUrl = '/api/omdb'
 
-function useSearch(query, queried) {
+function useSearch(query) {
   const result = useInfiniteQuery({
     queryKey: ['search', {query}], 
     queryFn: async ({ pageParam = 1 }) => {
-      const response = await axios.get(`${baseUrl}/${query}/page=${pageParam}`)
+      const response = await axios.get(`${baseUrl}/s=${query.trim()}/page=${pageParam}`)
       const pagesNo = Math.ceil(response.data.totalResults/10)
       return {
         results: response.data.Search,

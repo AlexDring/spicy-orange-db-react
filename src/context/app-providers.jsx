@@ -6,7 +6,6 @@ import { AuthProvider } from 'context/auth-context'
 import { ErrorBoundary } from 'react-error-boundary'
 import GlobalStyles from 'styles/GlobalStyles'
 import Typography from 'styles/Typography'
-import Layout from 'components/layout/layout-wrapper'
 import Section from 'components/layout/section'
 
 function AppProviders({ children }) {
@@ -47,11 +46,9 @@ function AppProviders({ children }) {
       <GlobalStyles />
       <Typography /> 
       <Router>
-        <Layout> 
-          <ErrorBoundary FallbackComponent={errorFallback}>
-            <AuthProvider>{children}</AuthProvider>
-          </ErrorBoundary>
-        </Layout>
+        <ErrorBoundary FallbackComponent={errorFallback}>
+          <AuthProvider>{children}</AuthProvider>
+        </ErrorBoundary>
       </Router>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
