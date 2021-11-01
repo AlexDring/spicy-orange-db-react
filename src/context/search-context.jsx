@@ -7,7 +7,20 @@ function SearchProvider(props) {
   const [searchQuery, setSearchQuery] = useState()
   const searchResults = useSearch(searchQuery)
 
-  const searchInput = query => setSearchQuery(query)
+  const searchInput = query => {
+    const url = /^(http|https):/.test(query)
+    let imdbKey = query.match(/tt?\d+/)
+    console.log(imdbKey)
+    if(url && !imdbKey) {
+      console.log('Here!')
+      return 
+    } else if (url && imdbKey) {
+      console.log('here')
+      setSearchQuery(`i=${imdbKey}`)
+    } else {
+      setSearchQuery(`s=${query.trim()}`)
+    }
+  }
 
   return <SearchContext.Provider value={{searchResults, searchInput, searchQuery}} {...props} />
   
