@@ -25,6 +25,9 @@ const RottenReviewStyles = styled.div`
       margin: 0;
       width: 30px;
     }
+    > div {
+      max-width: 30px;
+    }
     span {
       display: none;
     }
@@ -33,7 +36,7 @@ const RottenReviewStyles = styled.div`
 
 const RottenReview = ({ rottenAverage, rottenCount }) => (
   <RottenReviewStyles>
-    {rottenAverage && <img src={rottenReviewImage(rottenAverage)}  />}
+    <img src={rottenReviewImage(rottenAverage)}  />
     <div>
       {rottenAverage && 
           <div>{rottenAverage.toFixed()}
@@ -41,7 +44,7 @@ const RottenReview = ({ rottenAverage, rottenCount }) => (
           </div>}
       {rottenAverage ? 
         <span>{rottenCount} Reviews</span> : 
-        <span style={{display: 'block'}}>No Reviews</span>
+        <span style={{display: 'block'}}>No reviews</span>
       }
     </div>
   </RottenReviewStyles>

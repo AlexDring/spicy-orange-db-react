@@ -7,12 +7,15 @@ import LoadMoreButton from 'components/load-more-button'
 import { SearchContext } from 'context/search-context'
 
 const SearchGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(5, minmax(180px, 1fr));
-  @media (max-width: 500px) {
-    grid-template-columns: 48% 48%;
+  display: flex;
+  flex-wrap: wrap;
+  > div {
+    flex: 0 1 calc(25% - 15px);
+    margin: 7.5px;
+    @media(max-width: 450px) {
+      flex: 1 1 calc(50% - 15px);
+    }
   }
-  grid-gap: 15px;
   margin-top: 30px;
 `
 
@@ -21,7 +24,7 @@ function Search() {
   const [displayModal, setDisplayModal] = useState(null)
   const { searchResults, searchQuery } = useContext(SearchContext)
   const resultsReturned = searchResults.data?.pages[0].totalResults
-  console.log(searchResults)
+
   return(
     <>
       <SearchModal
@@ -34,13 +37,14 @@ function Search() {
         <div style={{marginTop: 15}}>
           {!searchResults.isSuccess ? <p>Search for a film or tv show to add to the Spicy Orange Database.</p> : 
             searchResults.data.pages[0].error ? <p>{searchResults.data.pages[0].error} Please try again.</p> :
-              resultsReturned ? <>
-                <p>Found {resultsReturned} results. If you can&apos;t find the recommendation in the results below, try copy and pasting the imdb url into the search bar above.</p>
-              </> : null
+              resultsReturned ? 
+                <>
+                  <p>Found {resultsReturned} results. If you can&apos;t find the recommendation in the results below, try copy and pasting the imdb url into the search bar above.</p>
+                </> : null
           }
         </div>
         <SearchGrid>
-          {searchResults.data?.pages[0].results && // This shows if incorrect link pasted in search bar.
+          {searchResults.data?.pages[0].results && // This shows single empty card if incorrect link pasted in search bar.
           searchResults.data?.pages.map(search => (
             search.results.map((result, index) => (
               <div  

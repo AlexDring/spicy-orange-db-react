@@ -3,6 +3,7 @@ import ExternalReviews from 'components/external-reviews'
 import RecommendationMeta from 'components/recommendation-meta'
 import RottenReview from 'components/rotten-review'
 import styled from 'styled-components'
+import { borderColor } from 'utils/misc'
 
 const RecRowWrapper = styled.div`
   display: flex;
@@ -10,8 +11,8 @@ const RecRowWrapper = styled.div`
   background: white;
   padding: 0 24px;
   border-top: 1px solid var(--light-gray);
-  border-left: ${props => props.type === 'movie' ? '3px solid #FFB17A' : '3px solid #FCE762'};
-  > div:nth-child(1n + 1) {
+  border-left: ${props => borderColor(props.type)};
+  > div:nth-child(n + 1):nth-child(-n + 3) {
     padding: 24px 0;
   }
   > img {
@@ -60,6 +61,7 @@ const GenreStyles = styled.div`
 
 const RecommendationsRow = ({ recommendation }) => {
   const { Type, Poster, Title, Year, Runtime, imdbRating, Metascore, Director, Genre, rottenAverage, rottenCount } = recommendation
+
   return(
     <RecRowWrapper type={Type}>
       <img src={Poster} />

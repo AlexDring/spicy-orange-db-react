@@ -22,17 +22,16 @@ const GlobalStyles = createGlobalStyle`
   html, body {
     height: 100%;
     background-color: var(--light-yellow);
-    overflow: hidden;
   }
   #root {
     display: flex; 
     flex-direction: column;
     height: 100%;
-    overflow-y: scroll;
   }
   main {
     flex: 1 0 auto;
   }
+
   footer {
     flex-shrink: 0;
   }
@@ -65,6 +64,16 @@ const GlobalStyles = createGlobalStyle`
     :focus {
       outline: none !important;
       border: 1px solid var(--orange);
+    }
+  }
+
+  /* Reach Dialog component */
+  [data-reach-dialog-content] {
+    padding: 24px;
+    @media(max-width: 650px) {
+      width: 96vw;
+      padding: 0;
+      margin: 110px auto;
     }
   }
 `

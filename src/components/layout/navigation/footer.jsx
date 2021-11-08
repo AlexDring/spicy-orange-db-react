@@ -6,7 +6,7 @@ import {
 const FooterStyles = styled.footer`
   background: var(--navy);
   padding: 24px 0;
-  ul {
+  /* ul {
     list-style: none;
     display: flex;
     max-width: 970px;
@@ -18,13 +18,13 @@ const FooterStyles = styled.footer`
   }
   a {
     color: white;
-  }
+  } */
 `
 
 const Footer = () => {
   return(
     <FooterStyles>
-      <Router>
+      {/* <Router>
         <ul>
           <li>
             <Link to='/'>Home</Link>
@@ -36,7 +36,7 @@ const Footer = () => {
             <Link to='/watchlist'>Watchlist</Link>
           </li>
         </ul>
-      </Router>
+      </Router> */}
     </FooterStyles>
   )
 }
