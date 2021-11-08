@@ -1,5 +1,6 @@
 import { FullPageSpinner } from 'components/lib'
 import { createContext, useContext, useEffect } from 'react'
+import { QueryClient } from 'react-query'
 import authRouter from 'utils/auth-provider'
 import { useAsync } from 'utils/hooks'
 import storage from 'utils/storage'
@@ -39,6 +40,7 @@ const AuthProvider = (props) => {
     run,
     setData 
   } = useAsync()
+  const queryClient = new QueryClient()
 
   useEffect(() => {
     run(getUser())
@@ -52,6 +54,7 @@ const AuthProvider = (props) => {
   
   const logout = () => {
     storage.logoutUser()
+    queryClient.clear()
     setData(null)
   }
 
