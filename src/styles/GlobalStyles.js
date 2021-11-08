@@ -76,6 +76,22 @@ const GlobalStyles = createGlobalStyle`
       margin: 110px auto;
     }
   }
+
+  /* Reach Menu Button component */
+  [data-reach-popover] {
+    z-index: 999;
+  }
+  [data-reach-menu-items] {
+    border: solid 1px var(--light-gray);
+    padding: 0;
+  }
+  [data-reach-menu-item] {  
+    padding: 12px;
+    &[data-selected] {
+      background: var(--light-orange)
+    }
+  }
+
 `
 
 export default GlobalStyles

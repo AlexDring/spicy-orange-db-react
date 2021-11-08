@@ -6,6 +6,9 @@ import avatar from 'assets/images/avatar.png'
 import OMDbSearch from './nav-bar-search'
 import PropTypes from 'prop-types'
 import storage from 'utils/storage'
+import {  Menu,  MenuList,  MenuButton,  MenuItem,  MenuItems,  MenuPopover,  MenuLink,} from '@reach/menu-button'
+import '@reach/menu-button/styles.css'
+import { useAuth } from 'context/auth-context'
 
 const NavStyles = styled.nav`
   background: var(--orange);
@@ -28,9 +31,13 @@ const NavStyles = styled.nav`
     padding: 0;
     align-items: center;
     width: 100%;
-    z-index: 9999;
+    z-index: 10;
     a {
       font-weight: 700;
+    }
+    button {
+      padding: 0;
+      background: transparent;
     }
     @media (max-width: 900px) {
       display: none;
@@ -102,6 +109,7 @@ const NavStyles = styled.nav`
 
 const Nav = () => {
   const [openNav, setOpenNav] = useState(false)
+  const { logout } = useAuth()
 
   return(
     <NavStyles>
@@ -120,13 +128,13 @@ const Nav = () => {
           <Link onClick={() => setOpenNav(!openNav)} to='/watchlist'>Watchlist</Link>
         </li>
         <li>
-          <Link onClick={() => {
-            storage.logoutUser()
-            setOpenNav(!openNav)
-          }} to='/user/'>Logout</Link>
-        </li>
-        <li>
-          <Link onClick={() => setOpenNav(!openNav)} to='/user/'><img height="40" src={avatar} alt="Logged in users avatar" /></Link>
+          <Menu>
+            <MenuButton><img height="40" src={avatar} alt="Logged in users avatar" /></MenuButton>
+            <MenuList>
+              <MenuItem onSelect={() => {}}><Link to='/recommendations'>Your Recommendations</Link></MenuItem>
+              <MenuItem onSelect={() => {logout()}}>Log Out</MenuItem>
+            </MenuList>
+          </Menu>
         </li>
       </ul>
       <button onClick={() => setOpenNav(!openNav)} style={{'fontSize': 48}}>☰</button>
