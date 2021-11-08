@@ -11,6 +11,8 @@ import RottenReviews from './components/rotten-reviews'
 import ThirdPartyReviews from './components/third-party-review.'
 import RecommendationInformation from './components/recommendation-information'
 import ReviewsGrid from 'components/cards/grids/review-grid'
+import rottenIcon from 'assets/images/rotten-gas/rottenIcons'
+import EmptyPlaceholder from 'components/empty-placeholder'
 
 const TopRowWrapper = styled.div`
   display: flex;
@@ -31,19 +33,25 @@ const RecommendationCardWrapper = styled.div`
         "poster reviews";
   > img {
     width: 100%;
-    min-width: 300px;
+    /* min-width: 300px; */
     height: 100%;
     object-fit: cover;
     grid-area: poster;
   }
-  @media (max-width: 600px){
-    grid-template-columns: 150px 1fr;
+  @media (max-width: 450px){
+    grid-template-columns: 100% 1fr;
     grid-template-rows: auto auto auto;
     grid-column-gap: 0;
     grid-template-areas:
-      "poster meta"
-      "poster reviews"
+      "meta meta"
+      "reviews reviews"
       "rottenGas rottenGas";
+    > ul {
+      margin-top: 16px;
+    }
+    > img {
+      display: none;
+    }
   }
 `
 
@@ -96,11 +104,16 @@ function Recommendation() {
       </Section>
       <Section id='rottenGas' orange>
         <h2>Rotten Ga&apos;s</h2>
-        <ReviewsGrid
-          loading={isLoading}
-          reviews={recommendation.mediaDetail.rottenReviews} 
-          skeletonCount={4} 
-        />
+        {recommendation.mediaDetail.rottenReviews.length === 0 ?
+          <EmptyPlaceholder
+            icon={<img src={rottenIcon.noReview} />}
+            text={<p>No reviews.</p>} />
+          :
+          <ReviewsGrid
+            loading={isLoading}
+            reviews={recommendation.mediaDetail.rottenReviews} 
+            skeletonCount={4} 
+          />}
       </Section>
     </>
   )

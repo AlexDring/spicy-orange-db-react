@@ -4,16 +4,19 @@ import { useAddRecommendation } from 'utils/recommendations'
 import { useIndividualSearch } from 'utils/search'
 import { SearchResultSkeleton } from 'utils/skeleton'
 
-import Modal from 'components/modal-wrapper'
+// import Modal from 'components/modal-wrapper'
 import { ErrorMessage } from 'components/lib'
+import { Dialog, DialogOverlay, DialogContent } from '@reach/dialog'
+import '@reach/dialog/styles.css'
+
 
 const SearchModalStyles = styled.div`
   box-sizing: border-box;
-  background: var(--light-orange);
+  /* background: var(--light-orange); */
   display: flex;
   flex-direction: column;
   padding: 0 24px 24px;
-  max-width: 550px;
+  /* max-width: 550px; */
   img {
     /* max-width: 120px; */
     max-height: 180px;
@@ -46,12 +49,13 @@ const MediaInformationStyles = styled.ul`
 const SearchModal = ({ user, recId, displayModal, setDisplayModal }) => {
   const {data: searchResult, isLoading, isIdle} = useIndividualSearch(recId)
   const create = useAddRecommendation()
-  
+
   if(isIdle) {
     return null
   }
   return(
-    <Modal displayModal={displayModal} setDisplayModal={setDisplayModal} > 
+
+    <Dialog style={{ background: '#FFF8ED' }} isOpen={displayModal} onDismiss={() => setDisplayModal(false)} aria-label="search result modal">
       {isLoading ? <SearchResultSkeleton /> : (
         <SearchModalStyles>
           <img src={searchResult.Poster} alt="" />
@@ -80,7 +84,8 @@ const SearchModal = ({ user, recId, displayModal, setDisplayModal }) => {
           <button onClick={() => create.mutateAsync({...searchResult, date_added: new Date()})}>Add to Recommendations</button>
         </SearchModalStyles>
       )}
-    </Modal>
+    </Dialog>
+
   )
 }
 

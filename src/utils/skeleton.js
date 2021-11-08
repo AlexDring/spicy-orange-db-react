@@ -78,7 +78,7 @@ const SearchResultSkeleton = (props) => (
   <ContentLoader 
     style={{backgroundColor: '#fff8ed'}}
     speed={2}
-    width={550}
+    width={'100%'}
     height={490}
     viewBox="0 0 490 490"
     backgroundColor="#f9e8cd"

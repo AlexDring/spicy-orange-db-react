@@ -26,7 +26,7 @@ const RottenScoreStyles = styled.div`
     margin-bottom: 6px;
   }
   img {
-    height: 140px;
+    height: 100px;
     margin-bottom: 12px;
   }
 `

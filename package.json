@@ -6,6 +6,7 @@
     "@fontsource/lora": "^4.4.5",
     "@fontsource/poppins": "^4.4.5",
     "@reach/alert": "^0.16.0",
+    "@reach/dialog": "^0.16.2",
     "@sentry/react": "^6.13.3",
     "@sentry/tracing": "^6.13.3",
     "@testing-library/jest-dom": "^5.14.1",

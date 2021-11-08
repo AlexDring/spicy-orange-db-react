@@ -6,6 +6,7 @@ import Search from './pages/search/search'
 import Recommendation from './pages/recommendation/recommendation'
 import Layout from 'components/layout/layout-wrapper'
 import { SearchProvider } from 'context/search-context'
+import PageNotFound from 'pages/404'
 
 function AuthenticatedApp() {
   return (
@@ -32,8 +33,11 @@ function AppRoutes() {
       <Route path='/recommendation/:id' >
         <Recommendation />
       </Route>
-      <Route path='/'>
+      <Route exact path='/'>
         <Home />
+      </Route>
+      <Route path='/*'>
+        <PageNotFound />
       </Route>
     </Switch>
   )

@@ -4,12 +4,14 @@ import styled from 'styled-components'
 import ExternalReviews from 'components/external-reviews'
 import RecommendationMeta from 'components/recommendation-meta'
 import RottenReview from 'components/rotten-review'
+import { borderColor } from 'utils/misc'
 
 const RecommendationWrapper = styled.div`
   background: white;
   display: flex;
   border: 1px solid var(--lighter-gray);
   height: 100%;
+  max-width: 462.5px;
   > img {
     width: 100%;
     max-width: 50%;
@@ -22,7 +24,7 @@ const RecommendationContainer = styled.div`
   width: 100%;
   flex-direction: column;
   padding: 24px;
-  border-top: ${props => props.type === 'movie' ? '3px solid #FFB17A' : '3px solid #FCE762'};
+  border-top: ${props => borderColor(props.type)};
   ul {
     margin: 0 0 5px;
   }
