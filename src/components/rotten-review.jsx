@@ -25,9 +25,6 @@ const RottenReviewStyles = styled.div`
       margin: 0;
       width: 30px;
     }
-    > div {
-      max-width: 30px;
-    }
     span {
       display: none;
     }

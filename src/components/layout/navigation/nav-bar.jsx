@@ -5,7 +5,6 @@ import logo from 'assets/images/spicy-orange-logo.svg'
 import avatar from 'assets/images/avatar.png'
 import OMDbSearch from './nav-bar-search'
 import PropTypes from 'prop-types'
-import storage from 'utils/storage'
 import {  Menu,  MenuList,  MenuButton,  MenuItem,  MenuItems,  MenuPopover,  MenuLink,} from '@reach/menu-button'
 import '@reach/menu-button/styles.css'
 import { useAuth } from 'context/auth-context'
@@ -69,14 +68,14 @@ const NavStyles = styled.nav`
     position: relative;
     display: flex;
     align-content: center;
+    > button {
+      background: transparent;
+      margin-left: -30px;
+      padding: 0;
+    }
     @media (max-width: 900px) {
       padding-left: 0;
     }
-    > button {
-    background: transparent;
-    margin-left: -30px;
-    padding: 0;
-  }
   }
   input {
     height: 36px;

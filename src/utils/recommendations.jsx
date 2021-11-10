@@ -4,11 +4,14 @@ import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-q
 import { useHistory } from 'react-router'
 const baseUrl = '/api/media'
 
-function useRecommendations () {
+function useRecommendations (query) {
+  const searchQuery = query ? query : 'all'
+  console.log(searchQuery)
   const result = useInfiniteQuery({
-    queryKey: 'recommendations', 
+    queryKey: ['recommendations', query], 
     queryFn: async ({ pageParam = 0 }) => {
-      const response = await axios.get(`${baseUrl}?page=${pageParam}`)
+      const response = await axios.get(`${baseUrl}?page=${pageParam}&title=${searchQuery}`)
+      // console.log(`${baseUrl}?page=${pageParam}?title=${searchQuery}`)
       const pagesNo = Math.ceil(response.data.totalRecommendations/12)
 
       return {

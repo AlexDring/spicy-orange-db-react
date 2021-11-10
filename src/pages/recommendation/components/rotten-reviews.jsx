@@ -45,7 +45,7 @@ const RottenReviews = ({ recommendation }) => {
         setDisplayModal={setDisplayModal} 
       />
       <RottenWrapper>
-        <HashLink to='#rottenGas'>
+        <HashLink to='#rotten-gas'>
           <RottenScoreStyles>
             <small>Rotten Ga&apos;s Total</small>
             <img src={rottenReviewImage(recommendation.rottenAverage)} alt="" />

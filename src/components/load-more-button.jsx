@@ -6,7 +6,7 @@ import { Loading } from './lib'
 const LoadMoreStyles = styled.div`
   display: flex; 
   justify-content: center; 
-  margin-top: 30;
+  margin-top: 30px;
 `
 
 const LoadMoreButton = ({ result }) => {

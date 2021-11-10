@@ -105,8 +105,10 @@ const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, user
             value={review?.review ? review.review : ''}
             onChange={({ target }) => setReview({...review, review: target.value })}
           />
-          <button type="submit">Save</button>
-          {review && <button className='minimal' onClick={() => removeReview()}>Delete</button>}
+          <div>
+            <button type="submit">Save</button>
+            {review && <button className='minimal' onClick={() => removeReview()}>Delete</button>}
+          </div>
         </form>
       </RottenReviewStyles>
     </Modal>

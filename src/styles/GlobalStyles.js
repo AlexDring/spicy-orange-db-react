@@ -71,9 +71,9 @@ const GlobalStyles = createGlobalStyle`
   [data-reach-dialog-content] {
     padding: 24px;
     @media(max-width: 650px) {
-      width: 96vw;
+      width: 95vw;
       padding: 0;
-      margin: 110px auto;
+      margin: 126px auto;
     }
   }
 
