@@ -1,107 +1,86 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+/* eslint-disable react/prop-types */
+import { useContext, useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import logo from 'assets/images/spicy-orange-logo.svg'
-import avatar from 'assets/images/avatar.png'
-import OMDbSearch from './nav-bar-search'
 import PropTypes from 'prop-types'
-import {  Menu,  MenuList,  MenuButton,  MenuItem,  MenuItems,  MenuPopover,  MenuLink,} from '@reach/menu-button'
+import {  Menu,  MenuList,  MenuButton,  MenuItem } from '@reach/menu-button'
 import '@reach/menu-button/styles.css'
+import { SearchContext } from 'context/search-context'
 import { useAuth } from 'context/auth-context'
+import SearchInput from 'components/search-input'
+import { useHistory } from 'react-router'
 
-const NavStyles = styled.nav`
-  background: var(--orange);
-  position: relative;
+
+const NavStyles = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  background: var(--orange);
   align-items: center;
-  min-height: 79px;
-  .logo {
-    position: absolute;
-    height: 100%;
-    top: 0;
-    left: 0;
-  }
-  ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    align-items: center;
-    width: 100%;
-    z-index: 10;
-    a {
-      font-weight: 700;
-    }
-    button {
-      padding: 0;
-      background: transparent;
-    }
-    @media (max-width: 900px) {
-      display: none;
-      position: absolute;
-      top: 79px;
-      background: var(--orange);
-      text-align: center;
-      &.active {
-        display: flex;
-        flex-direction: column;
-      }
-    }
-  }
-  li {
-    color: var(--navy);
-    margin: 16px 36px 16px 0;
-    &:first-child {
-      flex-grow: 2;
-      @media (max-width: 900px) {
-        order: 1;
-      }
-    }
-    @media (max-width: 900px) {
-      margin: 16px;
-    }
-  }
+  position: relative;
   form {
-    padding-left: 115px;
-    position: relative;
-    display: flex;
-    align-content: center;
-    > button {
-      background: transparent;
-      margin-left: -30px;
-      padding: 0;
-    }
-    @media (max-width: 900px) {
-      padding-left: 0;
+    margin-left: 15px;
+    @media(max-width: 450px) {
+      margin-left: 0;
     }
   }
-  input {
-    height: 36px;
-    width: 250px;
-    background: var(--light-yellow);
-    border: 0;
-    border-radius: 3px;
-    font-size: 14px;
-    padding: 0 12px;
-  }
-  
-  input:focus {
-    outline-color: var(--yellow);
-  }
-  svg {
-    fill: var(--gray);
-    height: 20px;
+  nav {
+    flex: 1;
   }
   > button {
-    display: none; 
-    background: transparent;
-    @media (max-width: 900px) {
+    display: none;
+    @media(max-width: 600px) {
       display: block;
-      position: absolute;
-      right: 0;
-      top: -5px;
+      margin-left: auto;
+      background: transparent;
+    }
+  }
+`
+
+const NavLinksStyles = styled.nav`
+  ul {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  li {
+    padding: 0 15px;
+    a {
+      position: relative;
+      &.active:before {
+        content: '';
+        width: 5px;
+        height: 5px;
+        background: var(--light-yellow);
+        border-radius: 50%;
+        position: absolute;
+        bottom: -10px;
+        right: 50%;
+        left: 50%;
+      }
+    }
+  }
+  button {
+    background: transparent;
+    padding: 0;
+  }
+  
+  @media (max-width: 600px) {
+    position: absolute;
+    right: 0;
+    top: 79px;
+    background: var(--orange);
+    height: calc(70vh - 79px);
+    width: 60%;
+    z-index: 100;
+    transform: ${({ openNav }) => openNav ? 'translateX(0)' : 'translateX(100%)'};
+    transition: transform .2s ease-in;
+    ul {
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-evenly;
+    }
+    li a.active:before {
+      /* transform: scale(0); */
     }
   }
 `
@@ -109,37 +88,52 @@ const NavStyles = styled.nav`
 const Nav = () => {
   const [openNav, setOpenNav] = useState(false)
   const { logout } = useAuth()
+  const history = useHistory()
+  const { searchInput } = useContext(SearchContext)
+  const {user: {avatar}} = useAuth()
+  
+  const searchQuery = async (e) => {
+    e.preventDefault()
+    searchInput(e.target.elements.search.value)
+    history.push('/search')
+  }
+
+  const toggle = () => setOpenNav(!openNav)
 
   return(
     <NavStyles>
       <img className="logo" src={logo} alt="Spicy Orange Database Logo" />
-      <ul className={openNav ? 'active' : ''}>
-        <li>
-          <OMDbSearch />
-        </li>
-        <li>
-          <Link onClick={() => setOpenNav(!openNav)} to='/'>Home</Link>
-        </li>
-        <li>
-          <Link onClick={() => setOpenNav(!openNav)} to='/recommendations'>Recommendations</Link>
-        </li>
-        <li>
-          <Link onClick={() => setOpenNav(!openNav)} to='/watchlist'>Watchlist</Link>
-        </li>
-        <li>
-          <Menu>
-            <MenuButton><img height="40" src={avatar} alt="Logged in users avatar" /></MenuButton>
-            <MenuList>
-              <MenuItem onSelect={() => {}}><Link to='/recommendations'>Your Recommendations</Link></MenuItem>
-              <MenuItem onSelect={() => {logout()}}>Log Out</MenuItem>
-            </MenuList>
-          </Menu>
-        </li>
-      </ul>
-      <button onClick={() => setOpenNav(!openNav)} style={{'fontSize': 48}}>☰</button>
-        
+      <SearchInput onSubmit={searchQuery} placeholder="Add recommendation" />
+      <NavLinksStyles openNav={openNav}>
+        <ul>
+          <li>
+            <NavLink exact to='/' onClick={toggle}>Home</NavLink>
+          </li>
+          <li>
+            <NavLink to='/recommendations' onClick={toggle}>Recommendations</NavLink>
+          </li>
+          <li>
+            <NavLink to='/watchlist' onClick={toggle}>Watchlist</NavLink>
+          </li>
+          <li>
+            <Menu>
+              <MenuButton><img height="40" src={avatar} alt="Logged in users avatar" /></MenuButton>
+              <MenuList>
+                <MenuItem onSelect={() => {toggle()}}><NavLink to='/recommendations'>Your Recommendations</NavLink></MenuItem>
+                <MenuItem onSelect={() => {logout()}}>Log Out</MenuItem>
+              </MenuList>
+            </Menu>
+          </li>
+        </ul>
+      </NavLinksStyles>
+      <button 
+        aria-expanded={openNav ? 'true' : 'false'}
+        aria-label="Mobile Navigation Button" 
+        onClick={toggle} 
+        style={{'fontSize': 48}}>☰</button>
     </NavStyles>
   )}
+
 
 Nav.propTypes = {
   profileId: PropTypes.string

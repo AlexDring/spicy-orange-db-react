@@ -22,6 +22,8 @@ const GlobalStyles = createGlobalStyle`
   html, body {
     height: 100%;
     background-color: var(--light-yellow);
+    ${'' /* overflow-x: hidden; */}
+
   }
   #root {
     display: flex; 
@@ -88,7 +90,8 @@ const GlobalStyles = createGlobalStyle`
   [data-reach-menu-item] {  
     padding: 12px;
     &[data-selected] {
-      background: var(--light-orange)
+      background: var(--light-orange);
+      color: var(--navy);
     }
   }
 
