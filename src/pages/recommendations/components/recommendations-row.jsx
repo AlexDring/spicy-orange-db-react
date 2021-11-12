@@ -73,8 +73,8 @@ const RecommendationsRow = ({ recommendation }) => {
       <img src={Poster} />
       <InfoStyles>
         <h3>{Title} <span>({Year})</span></h3>
-        <ExternalReviews imdbRating={imdbRating} Metascore={Metascore} />
         <RecommendationMeta meta={[Type, Runtime]} />
+        <ExternalReviews imdbRating={imdbRating} Metascore={Metascore} />
       </InfoStyles>
       <GenreStyles>
         {Director !== 'N/A' && <div>Director: {Director}</div>} 

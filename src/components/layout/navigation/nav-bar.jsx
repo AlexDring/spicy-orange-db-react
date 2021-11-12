@@ -11,7 +11,6 @@ import { useAuth } from 'context/auth-context'
 import SearchInput from 'components/search-input'
 import { useHistory } from 'react-router'
 
-
 const NavStyles = styled.div`
   display: flex;
   background: var(--orange);
@@ -80,7 +79,6 @@ const NavLinksStyles = styled.nav`
       justify-content: space-evenly;
     }
     li a.active:before {
-      /* transform: scale(0); */
     }
   }
 `
