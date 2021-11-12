@@ -22,8 +22,9 @@ const GlobalStyles = createGlobalStyle`
   html, body {
     height: 100%;
     background-color: var(--light-yellow);
-    ${'' /* overflow-x: hidden; */}
-
+    @media(max-width: 600px) {
+      overflow-x: hidden;
+    }
   }
   #root {
     display: flex; 
