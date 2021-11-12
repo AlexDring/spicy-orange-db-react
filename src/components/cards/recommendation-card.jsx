@@ -17,6 +17,9 @@ const RecommendationWrapper = styled.div`
     max-width: 50%;
     object-fit: cover;
   }
+  h2 {
+    margin-bottom: 12px;
+  }
 `
 
 const RecommendationContainer = styled.div`
@@ -35,7 +38,7 @@ const RecommendationContainer = styled.div`
   > div:first-of-type {
     margin: auto 0 16px;
     @media (max-width: 450px) {
-      margin: 7.5px 0;
+      margin: auto 0 7.5px;
   }
   }
   > div:last-of-type {
@@ -57,6 +60,12 @@ const RecommendationContainer = styled.div`
   }
   @media (max-width: 450px) {
     padding: 18px;
+    h2 {
+      font-size: 20px;
+    }
+    p {
+      margin-bottom: 5px;
+    }
   }
 `
 

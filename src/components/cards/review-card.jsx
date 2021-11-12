@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import avatar from 'assets/images/avatar.png'
 import { rottenReviewImage } from 'utils/misc'
+import { useAuth } from 'context/auth-context'
 
 const ReviewStyles = styled.div`
   display: grid;
@@ -34,28 +34,31 @@ const MediaScore = styled.div`
   }
 `
 
-const ReviewCard = ({ large, review }) => (
-  <ReviewStyles large={large}>
-    {large && <img src={review.poster} alt="" />}
-    <div>
-      <MediaScore>
-        <img height="25" 
-          src={avatar}
-          alt="Logged in users avatar" />
-        <span>{review.user}</span>
-        <img height="25" 
-          src={rottenReviewImage(review.score)} 
-          alt="review score icon" />
-        <span>{review.score}<span className="gray" style={{fontSize: 12}}>/1000</span></span>
-      </MediaScore>
-      {large && 
+const ReviewCard = ({ large, review }) => {
+  const { user: {avatar} } = useAuth()
+  
+  return (
+    <ReviewStyles large={large}>
+      {large && <img src={review.poster} alt="" />}
+      <div>
+        <MediaScore>
+          <img height="25" 
+            src={avatar}
+            alt="Logged in users avatar" />
+          <span>{review.user}</span>
+          <img height="25" 
+            src={rottenReviewImage(review.score)} 
+            alt="review score icon" />
+          <span>{review.score}<span className="gray" style={{fontSize: 12}}>/1000</span></span>
+        </MediaScore>
+        {large && 
         <Link to={`/recommendation/${review.mediaId}`}>
           <h3>{review.title}</h3><small>{review.year}</small>
         </Link>}
-    </div>
-    <p className='mediaReview'>{review.review}</p>
-  </ReviewStyles>
-)
+      </div>
+      <p className='mediaReview'>{review.review}</p>
+    </ReviewStyles>
+  )}
 
 ReviewCard.propTypes = {
   large: PropTypes.bool,
