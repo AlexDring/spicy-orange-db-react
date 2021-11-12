@@ -7,11 +7,15 @@ import Recommendation from './pages/recommendation/recommendation'
 import Layout from 'components/layout/layout-wrapper'
 import { SearchProvider } from 'context/search-context'
 import PageNotFound from 'pages/404'
+import { SkipNavContent, SkipNavLink } from '@reach/skip-nav'
+import '@reach/skip-nav/styles.css'
 
 function AuthenticatedApp() {
   return (
     <SearchProvider>
+      <SkipNavLink />
       <Layout>
+        <SkipNavContent />
         <AppRoutes /> 
       </Layout>
     </SearchProvider>

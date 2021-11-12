@@ -102,8 +102,8 @@ function Recommendation() {
         </RecommendationCardWrapper>
         <RecommendationInformation recommendation={recommendation} />
       </Section>
-      <Section id='rottenGas' orange>
-        <h2>Rotten Ga&apos;s</h2>
+      <Section orange>
+        <h2 id='rotten-gas'>Rotten Ga&apos;s</h2>
         {recommendation.mediaDetail.rottenReviews.length === 0 ?
           <EmptyPlaceholder
             icon={<img src={rottenIcon.noReview} />}

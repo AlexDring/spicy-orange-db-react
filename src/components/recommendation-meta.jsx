@@ -7,6 +7,7 @@ const RecommendationMetaStyles = styled.ul`
   text-transform: capitalize;
   font-size: 14px;
   font-weight: 200;
+  flex-wrap: wrap;
   li + li:before {
     content: '•';
     margin: 0 3px;

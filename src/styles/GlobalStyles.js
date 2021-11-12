@@ -22,6 +22,9 @@ const GlobalStyles = createGlobalStyle`
   html, body {
     height: 100%;
     background-color: var(--light-yellow);
+    @media(max-width: 600px) {
+      overflow-x: hidden;
+    }
   }
   #root {
     display: flex; 
@@ -71,9 +74,9 @@ const GlobalStyles = createGlobalStyle`
   [data-reach-dialog-content] {
     padding: 24px;
     @media(max-width: 650px) {
-      width: 96vw;
+      width: 95vw;
       padding: 0;
-      margin: 110px auto;
+      margin: 126px auto;
     }
   }
 
@@ -88,7 +91,8 @@ const GlobalStyles = createGlobalStyle`
   [data-reach-menu-item] {  
     padding: 12px;
     &[data-selected] {
-      background: var(--light-orange)
+      background: var(--light-orange);
+      color: var(--navy);
     }
   }
 
