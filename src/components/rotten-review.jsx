@@ -21,6 +21,8 @@ const RottenReviewStyles = styled.div`
   @media (max-width: 450px) {
     align-self: center;
     margin-right: 15px;
+    width: ${({vertical}) => vertical ? '50px' : 'auto'};
+    align-items: center;
     img {
       margin: 0;
       width: 30px;
@@ -30,9 +32,9 @@ const RottenReviewStyles = styled.div`
     }
   }
 `
-
-const RottenReview = ({ rottenAverage, rottenCount }) => (
-  <RottenReviewStyles>
+// 'vertical' prop breaks vertically on mobile.
+const RottenReview = ({ rottenAverage, rottenCount, vertical }) => (
+  <RottenReviewStyles vertical={vertical}>
     <img src={rottenReviewImage(rottenAverage)}  />
     <div>
       {rottenAverage && 

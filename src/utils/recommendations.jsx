@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { authHeader } from 'context/auth-context'
+import toast from 'react-hot-toast'
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query'
 import { useHistory } from 'react-router'
 const baseUrl = '/api/media'
@@ -35,11 +36,19 @@ function useAddRecommendation() {
   const tokenHeader = authHeader()
   const queryClient = useQueryClient()
   const history = useHistory()
+
   return useMutation(
     recommendation => axios.post(baseUrl, recommendation, tokenHeader),
     {
-      onError: err => console.log(err, 'err'), 
+      onError: err => {
+        if(err.response.data) {
+          toast.error(err.response.data.error)
+        } else {
+          toast.error(err)
+        }
+      }, 
       onSuccess: data => {
+        toast.success('Recommendation added!')
         queryClient.invalidateQueries('recommendations')
         history.push(`/recommendation/${data.data._id}`)
       }
@@ -47,12 +56,21 @@ function useAddRecommendation() {
   )
 }
 
-function useRemoveRecommendation(user) {
+function useRemoveRecommendation() {
   const queryClient = useQueryClient()
+  const tokenHeader = authHeader()
+  const history = useHistory()
+
   return useMutation(
-    ({media_id, mediaDetail_id}) => axios.delete(`${baseUrl}/${media_id}/${mediaDetail_id}`,
-      authHeader(user.token)),
-    {onSuccess: () => queryClient.invalidateQueries('recommendations')}
+    ({media_id, mediaDetail_id}) => axios.delete(`${baseUrl}/${media_id}/${mediaDetail_id}`, tokenHeader),
+    {
+      onSuccess: () => {
+        toast('Recommendation removed', { icon: '😭' })
+        queryClient.invalidateQueries('recommendations')
+        history.push('/recommendations')
+      },
+      onError: (error) => toast.error(error.response.data.error)
+    }
   )
 }
 

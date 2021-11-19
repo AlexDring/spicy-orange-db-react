@@ -5,20 +5,26 @@ import { useIndividualSearch } from 'utils/search'
 import { SearchResultSkeleton } from 'utils/skeleton'
 
 // import Modal from 'components/modal-wrapper'
-import { ErrorMessage } from 'components/lib'
+// import { ErrorMessage } from 'components/lib'
 import { Dialog, DialogOverlay, DialogContent } from '@reach/dialog'
 import '@reach/dialog/styles.css'
 
 
 const SearchModalStyles = styled.div`
   box-sizing: border-box;
-  /* background: var(--light-orange); */
   display: flex;
   flex-direction: column;
   padding: 0 24px 24px;
-  /* max-width: 550px; */
+  > div {
+    text-align: center; 
+    margin-bottom: 24px;
+  }
+  h2 {
+    display: inline-block; 
+    margin-bottom: 6px; 
+    margin-right: 6px;
+  }
   img {
-    /* max-width: 120px; */
     max-height: 180px;
     object-fit: cover;
     margin: -110px auto 0;
@@ -30,6 +36,7 @@ const SearchModalStyles = styled.div`
 `
 
 const MediaInformationStyles = styled.ul`
+  margin-top: 16px;
   li {
     margin-bottom: 16px;
   }
@@ -45,22 +52,22 @@ const MediaInformationStyles = styled.ul`
   }
 `
 
+
 // eslint-disable-next-line react/prop-types
-const SearchModal = ({ user, recId, displayModal, setDisplayModal }) => {
-  const {data: searchResult, isLoading, isIdle} = useIndividualSearch(recId)
+const SearchModal = ({ recId, displayModal, setDisplayModal }) => {
+  const {data: searchResult, isLoading, isIdle } = useIndividualSearch(recId)
   const create = useAddRecommendation()
 
   if(isIdle) {
     return null
   }
   return(
-
-    <Dialog style={{ background: '#FFF8ED' }} isOpen={displayModal} onDismiss={() => setDisplayModal(false)} aria-label="search result modal">
+    <Dialog isOpen={displayModal} onDismiss={() => setDisplayModal(false)} aria-label="search result modal">
       {isLoading ? <SearchResultSkeleton /> : (
         <SearchModalStyles>
           <img src={searchResult.Poster} alt="" />
-          <div style={{'textAlign': 'center', 'marginBottom': 24  }}>
-            <h2 style={{'display': 'inline-block', 'marginBottom': 6, 'marginRight': 6}}>{searchResult.Title} </h2>
+          <div>
+            <h2>{searchResult.Title} </h2>
             <span className="caps gray">  
               {searchResult.Runtime !== 'N/A' && searchResult.Year}  
               {searchResult.Runtime !== 'N/A' && `• ${searchResult.Runtime}`} 
@@ -80,8 +87,7 @@ const SearchModal = ({ user, recId, displayModal, setDisplayModal }) => {
             <li><span>Writer</span><div>{searchResult.Writer}</div></li>
             <li><span>Cast</span><div>{searchResult.Actors}</div></li>
           </MediaInformationStyles>
-          {create.isError && <ErrorMessage error={create.error} />}
-          <button onClick={() => create.mutateAsync({...searchResult, date_added: new Date()})}>Add to Recommendations</button>
+          <button onClick={() => create.mutate({...searchResult, date_added: new Date()})}>Add to Recommendations</button>
         </SearchModalStyles>
       )}
     </Dialog>

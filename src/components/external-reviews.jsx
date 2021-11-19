@@ -4,8 +4,6 @@ import reviewLogos from 'assets/images/review-logos/review-icons'
 
 const MediaRatingsStyles = styled.div`
 display: flex;
-/* align-items: flex-end; */
-/* flex-wrap: wrap; */
 font-size: 14px;
 > div {
   display: flex;

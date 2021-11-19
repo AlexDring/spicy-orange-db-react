@@ -41,7 +41,7 @@ const AuthProvider = (props) => {
     setData 
   } = useAsync()
   const queryClient = new QueryClient()
-  console.log(user)
+
   useEffect(() => {
     run(getUser())
   }, [run])

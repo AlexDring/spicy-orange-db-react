@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { QueryClientProvider, QueryClient } from 'react-query'
+import { QueryClientProvider, QueryClient, QueryCache } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { AuthProvider } from 'context/auth-context'
 import { ErrorBoundary } from 'react-error-boundary'
+import toast, { Toaster } from 'react-hot-toast'
 import GlobalStyles from 'styles/GlobalStyles'
 import Typography from 'styles/Typography'
 import Section from 'components/layout/section'
@@ -26,19 +27,25 @@ function AppProviders({ children }) {
           typeof recover === 'function' ? recover() : null // If mutation has recovery function on error, call it.
       }
     },
+    queryCache: new QueryCache({
+      onError: (error) =>
+        toast.error(`Something went wrong: ${error.message}`),
+    }),
   })
 
 
   const errorFallback = ({error, resetErrorBoundary}) => {
-    const message = error.response.data.error ? error.response.data.error : error.message
-    return(
-      <Section>
-        <div>Oops, there was an error: {' '}
-          <pre style={{whiteSpace: 'normal'}}>{message}</pre>
-          <button onClick={resetErrorBoundary}>Try again</button>
-        </div>
-      </Section>
-    )
+    // const message = error.response.data.error ? error.response.data.error : error.message
+    // console.log('geeraosndmpoasdjkpoaskdpok')
+    // return(
+    //   <Section>
+    //     <div>Oops, there was an error: {' '}
+    //       <pre style={{whiteSpace: 'normal'}}>{message}</pre>
+    //       <button onClick={resetErrorBoundary}>Try again</button>
+    //     </div>
+    //   </Section>
+    // )
+    toast.error('Oops, something went wrong.')
   }
 
   return(
@@ -48,6 +55,7 @@ function AppProviders({ children }) {
       <Router>
         <ErrorBoundary FallbackComponent={errorFallback}>
           <AuthProvider>{children}</AuthProvider>
+          <Toaster />
         </ErrorBoundary>
       </Router>
       <ReactQueryDevtools initialIsOpen={false} />

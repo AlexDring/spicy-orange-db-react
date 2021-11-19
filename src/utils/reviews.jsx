@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { authHeader } from 'context/auth-context'
+import toast from 'react-hot-toast'
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query'
 const baseUrl = '/api/rottenReviews'
 
@@ -9,7 +10,6 @@ function useReviews() {
     queryFn: async ({ pageParam = 0 }) => {
       const response = await axios.get(`${baseUrl}?page=${pageParam}`)
       const pagesNo = Math.ceil(response.data.totalReviews/12)
-      console.log(pagesNo)
       return {
         reviews: response.data.reviews, 
         totalReviews: response.data.totalReviews, 
@@ -26,7 +26,10 @@ function useCreateReview () {
   const queryClient = useQueryClient()
   return useMutation(
     updates => axios.post(`${baseUrl}/${updates.mediaDetailId}`, updates),
-    {onSettled: () => queryClient.invalidateQueries('recommendation')}
+    {
+      onSuccess: () => toast.success('Review added!'),
+      onSettled: () => queryClient.invalidateQueries('recommendation')
+    }
   )
 }
 
@@ -36,7 +39,10 @@ function useUpdateReview () {
   const queryClient = useQueryClient()
   return useMutation(
     updates => axios.put(`${baseUrl}/${updates.mediaDetailId}/${updates.reviewId}`, updates, tokenHeader),
-    {onSettled: () => queryClient.invalidateQueries('recommendation')}
+    {
+      onSuccess: () => toast.success('Review updated'),
+      onSettled: () => queryClient.invalidateQueries('recommendation')
+    }
   )
 }
 

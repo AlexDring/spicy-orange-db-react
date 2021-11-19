@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useAuth, authHeader } from 'context/auth-context'
+import toast from 'react-hot-toast'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 const baseUrl = '/api/profile/'
 
@@ -39,6 +40,7 @@ function useAddWatchlist() {
       onSettled: () => {
         queryClient.invalidateQueries('profile')
       },
+      onSuccess: () => toast.success('Added to watchlist!')
     }
   )
 }
@@ -66,6 +68,7 @@ function useRemoveWatchlist() {
       onSettled: () => {
         queryClient.invalidateQueries('profile')
       },
+      onSuccess: () => toast.success('Removed from watchlist!')
     }
   )
 }

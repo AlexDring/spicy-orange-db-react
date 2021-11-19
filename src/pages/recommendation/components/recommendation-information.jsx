@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import styled from 'styled-components'
 
-const RecommendationInfoWrapper = styled.section`
-  padding: 0;
+const RecommendationInfoWrapper = styled.div`
+  padding-top: 48px;
   p {
     max-width: 750px;
   }

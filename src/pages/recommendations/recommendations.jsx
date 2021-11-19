@@ -12,11 +12,15 @@ const TopRowStyles = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  @media(max-width: 450px) {
+    margin-bottom: 16px;
+  }
 `
 
 const Recommendations = () => {
   const [search, setSearch] = useState()
   const result = useRecommendations(search)
+  const itemCount = result.data?.pages[0].totalResults
 
   const searchRecommendations = (e) => {
     e.preventDefault()
@@ -27,8 +31,8 @@ const Recommendations = () => {
     <Section>
       <TopRowStyles>
         <h1>{search ? 
-        `Results: ${search} - ${result.data?.pages[0].totalResults} items` : 
-        `Recommendations - ${result.data?.pages[0].totalResults} items`}</h1>
+        `Results: ${search} - ${itemCount} items` : 
+        `Recommendations - ${itemCount} items`}</h1>
         <SearchInput
           onSubmit={searchRecommendations}
           placeholder={'Search recommendations'} 
