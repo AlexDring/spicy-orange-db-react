@@ -73,6 +73,8 @@ const GlobalStyles = createGlobalStyle`
   /* Reach Dialog component */
   [data-reach-dialog-content] {
     padding: 24px;
+    background: var(--light-yellow);
+    max-width: 750px;
     @media(max-width: 650px) {
       width: 95vw;
       padding: 0;

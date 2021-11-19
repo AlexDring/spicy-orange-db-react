@@ -16,6 +16,13 @@ flex-wrap: wrap;
    padding: 3px;
    color: var(--gray);
  }
+ @media(max-width: 450px) {
+   width: 100%;
+   margin-bottom: 5px;
+   li:nth-last-child(1) {
+      display: none;
+   }
+ }
 `
 
 const Breadcrumbs = ({ routes }) => {

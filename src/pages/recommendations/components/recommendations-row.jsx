@@ -54,7 +54,7 @@ const GenreStyles = styled.div`
   flex: 2;
   font-size: 14px;
   font-weight: 200;
-  div:nth-child(1n + 0) {
+  p:nth-child(1n + 0) {
     margin-bottom: 5px;
   }
   @media (max-width: 450px) {
@@ -64,9 +64,9 @@ const GenreStyles = styled.div`
 
 const RecommendationsRow = ({ recommendation }) => {
   const { Type, Poster, Title, Year, Runtime, imdbRating, Metascore, Director, Genre, rottenAverage, rottenCount, user, dateAdded } = recommendation
-  
+
   const date = new Date(dateAdded)
-  const convertedDate = (new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: '2-digit', month: 'short', year: '2-digit' }).format(date)) 
+  const convertedDate = (new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: '2-digit' }).format(date)) 
 
   return(
     <RecRowWrapper type={Type}>
@@ -77,11 +77,11 @@ const RecommendationsRow = ({ recommendation }) => {
         <ExternalReviews imdbRating={imdbRating} Metascore={Metascore} />
       </InfoStyles>
       <GenreStyles>
-        {Director !== 'N/A' && <div>Director: {Director}</div>} 
-        <div>{Genre}</div>
-        <div>Added by {user} {convertedDate}</div>
+        {Director !== 'N/A' && <p>Director: {Director}</p>} 
+        <p>{Genre}</p>
+        <p>Added by {user} {convertedDate}</p>
       </GenreStyles>
-      <RottenReview rottenAverage={rottenAverage} rottenCount={rottenCount} />
+      <RottenReview rottenAverage={rottenAverage} rottenCount={rottenCount} vertical />
     </RecRowWrapper>
   )
 }

@@ -64,6 +64,7 @@ const FullPageSpinner = () => (
 
 
 function ErrorMessage({error}) {
+  console.log(error, 'hereheheheh')
   return (
     <Alert 
       type="assertive"
@@ -75,7 +76,7 @@ function ErrorMessage({error}) {
         position: 'absolute',
         bottom: '0'
       }}>      
-      ❗️ {error} <button style={{padding: '15px'}} className="minimal"><AiOutlineCloseSquare size={20} /></button>
+      ❗️ {error.error} <button style={{padding: '15px'}} className="minimal"><AiOutlineCloseSquare size={20} /></button>
     </Alert>
   )
 }
