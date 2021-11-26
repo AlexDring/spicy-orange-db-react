@@ -4,7 +4,7 @@ const baseUrl = '/api/omdb'
 
 function useSearch(query) {
   const result = useInfiniteQuery({
-    queryKey: ['search', {query}], 
+    queryKey: ['search', query], 
     queryFn: async ({ pageParam = 1 }) => {
       const response = await axios.get(`${baseUrl}/${query}/page=${pageParam}`)
       const pagesNo = Math.ceil(response.data.totalResults/10)

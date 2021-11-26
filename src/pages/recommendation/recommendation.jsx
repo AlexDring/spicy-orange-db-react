@@ -83,7 +83,9 @@ function Recommendation() {
               breadcrumb: `${recommendation.Title}` 
             }
           ]} />
-          <WatchlistToggle recommendationId={recommendation._id} />
+          <WatchlistToggle
+            recommendationId={recommendation._id}
+            recommendationDetailId={recommendation?.mediaDetail._id} />
         </TopRowWrapper>
         <RecommendationCardWrapper> 
           <img

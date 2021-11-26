@@ -10,6 +10,7 @@ import { SearchContext } from 'context/search-context'
 import { useAuth } from 'context/auth-context'
 import SearchInput from 'components/search-input'
 import { useHistory } from 'react-router'
+import { useProfile } from 'utils/profile'
 
 const NavStyles = styled.div`
   display: flex;
@@ -89,6 +90,7 @@ const Nav = () => {
   const history = useHistory()
   const { searchInput } = useContext(SearchContext)
   const {user: {avatar}} = useAuth()
+  const {profile, isLoading} = useProfile()
   
   const searchQuery = async (e) => {
     e.preventDefault()
@@ -111,7 +113,7 @@ const Nav = () => {
             <NavLink to='/recommendations' onClick={toggle}>Recommendations</NavLink>
           </li>
           <li>
-            <NavLink to='/watchlist' onClick={toggle}>Watchlist</NavLink>
+            <NavLink to='/watchlist' onClick={toggle}>Watchlist {profile?.watchlist.length}</NavLink>
           </li>
           <li>
             <Menu>
