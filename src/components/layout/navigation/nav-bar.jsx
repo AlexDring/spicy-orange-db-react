@@ -122,6 +122,7 @@ const Nav = () => {
               <MenuButton><img width="40" height="40" src={profile?.avatar} alt="Logged in users avatar" /></MenuButton>
               <MenuList>
                 <MenuItem onSelect={() => {toggle()}}><NavLink to={`/${profile?._id}/recommendations`}>Your Recommendations</NavLink></MenuItem>
+                <MenuItem onSelect={() => {toggle()}}><NavLink to={`/${profile?._id}/reviews`}>Your Reviews</NavLink></MenuItem>
                 <MenuItem onSelect={() => {logout()}}>Log Out</MenuItem>
               </MenuList>
             </Menu>

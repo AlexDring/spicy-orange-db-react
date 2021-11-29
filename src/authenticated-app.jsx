@@ -10,6 +10,7 @@ import PageNotFound from 'pages/404'
 import { SkipNavContent, SkipNavLink } from '@reach/skip-nav'
 import '@reach/skip-nav/styles.css'
 import ProfileRecommendations from 'pages/profile_recommendations'
+import ProfileReviews from 'pages/profile_reviews'
 
 function AuthenticatedApp() {
   return (
@@ -40,6 +41,9 @@ function AppRoutes() {
       </Route>
       <Route path='/:userId/recommendations' >
         <ProfileRecommendations />
+      </Route>
+      <Route path='/:userId/reviews' >
+        <ProfileReviews />
       </Route>
       <Route exact path='/'>
         <Home />
