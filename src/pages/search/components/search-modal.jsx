@@ -3,10 +3,7 @@ import PropTypes from 'prop-types'
 import { useAddRecommendation } from 'utils/recommendations'
 import { useIndividualSearch } from 'utils/search'
 import { SearchResultSkeleton } from 'utils/skeleton'
-
-// import Modal from 'components/modal-wrapper'
-// import { ErrorMessage } from 'components/lib'
-import { Dialog, DialogOverlay, DialogContent } from '@reach/dialog'
+import { Dialog } from '@reach/dialog'
 import '@reach/dialog/styles.css'
 
 

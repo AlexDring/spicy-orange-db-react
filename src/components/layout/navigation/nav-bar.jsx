@@ -11,6 +11,7 @@ import { useAuth } from 'context/auth-context'
 import SearchInput from 'components/search-input'
 import { useHistory } from 'react-router'
 import { useProfile } from 'utils/profile'
+import ItemCount from 'components/item-count'
 
 const NavStyles = styled.div`
   display: flex;
@@ -89,7 +90,6 @@ const Nav = () => {
   const { logout } = useAuth()
   const history = useHistory()
   const { searchInput } = useContext(SearchContext)
-  const {user: {avatar}} = useAuth()
   const {profile, isLoading} = useProfile()
   
   const searchQuery = async (e) => {
@@ -113,13 +113,15 @@ const Nav = () => {
             <NavLink to='/recommendations' onClick={toggle}>Recommendations</NavLink>
           </li>
           <li>
-            <NavLink to='/watchlist' onClick={toggle}>Watchlist {profile?.watchlist.length}</NavLink>
+            <NavLink to='/watchlist' onClick={toggle}>
+              Watchlist <ItemCount isLoading={isLoading} count={profile?.watchlist.length} fontSize={'12px'} />
+            </NavLink>
           </li>
           <li>
             <Menu>
-              <MenuButton><img height="40" src={avatar} alt="Logged in users avatar" /></MenuButton>
+              <MenuButton><img width="40" height="40" src={profile?.avatar} alt="Logged in users avatar" /></MenuButton>
               <MenuList>
-                <MenuItem onSelect={() => {toggle()}}><NavLink to='/recommendations'>Your Recommendations</NavLink></MenuItem>
+                <MenuItem onSelect={() => {toggle()}}><NavLink to={`/${profile?._id}/recommendations`}>Your Recommendations</NavLink></MenuItem>
                 <MenuItem onSelect={() => {logout()}}>Log Out</MenuItem>
               </MenuList>
             </Menu>

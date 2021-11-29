@@ -2,12 +2,11 @@ import PropTypes from 'prop-types'
 import { useState } from 'react'
 import { useCreateReview, useUpdateReview, useRemoveReview } from 'utils/reviews'
 import styled from 'styled-components'
-import rottenIcons from 'assets/images/rotten-gas/rottenIcons'
-import Modal from 'components/modal-wrapper'
+import Dialog from '@reach/dialog'
+import { rottenReviewImage } from 'utils/misc'
 
 const RottenReviewStyles = styled.div`
   padding: 75px 24px 24px;
-  width: 550px;
   text-align: center;
   background: var(--light-orange);
   position: relative;
@@ -22,10 +21,10 @@ const RottenReviewStyles = styled.div`
     transform: translate(-50%, -50%);
   }
   textarea {
-    width: 80%;
+    width: 95%;
   }
   input:first-child {
-    width: 100px;
+    width: 130px;
     margin-bottom: 24px;
     font-size: 36px;
   }
@@ -40,7 +39,6 @@ const RottenReviewStyles = styled.div`
 
 const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, user }) => {
   const [review, setReview] = useState(recommendation.mediaDetail.rottenReviews.find(u => u.user === user.username))
-  console.log(review)
   const create = useCreateReview()
   const update = useUpdateReview()
   const remove = useRemoveReview()
@@ -84,11 +82,11 @@ const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, user
     setReview(null)
     setDisplayModal(!displayModal)
   }
-  console.log(review?._id)
+
   return(
-    <Modal displayModal={displayModal} setDisplayModal={setDisplayModal}>
+    <Dialog isOpen={displayModal} onDismiss={() => setDisplayModal(false)} aria-label="review modal">
       <RottenReviewStyles>
-        <img src={rottenIcons.noReview} alt="" />
+        <img src={rottenReviewImage(review?.score)} alt="" />
         <small>You Rating</small>
         <h1>{recommendation.Title}</h1>
         <form onSubmit={review?._id ? updateReview : addReviewSubmit}>
@@ -111,7 +109,7 @@ const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, user
           </div>
         </form>
       </RottenReviewStyles>
-    </Modal>
+    </Dialog>
   )
 }
 

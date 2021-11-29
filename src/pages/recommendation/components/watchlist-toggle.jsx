@@ -6,7 +6,6 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { useAsync } from 'utils/hooks'
 import { BiErrorCircle } from 'react-icons/bi'
-import { Loading } from 'components/lib'
 import { useAuth } from 'context/auth-context'
 
 const WatchlistToggleStyles = styled.div`
@@ -25,7 +24,6 @@ const WatchlistToggleStyles = styled.div`
 const WatchlistToggle = ({ recommendationId, recommendationDetailId }) => {
   const { user:{ _id: user_id } } = useAuth()
   const item = useWatchlistItem(recommendationId)
-  console.log({item})
   const create = useAddWatchlist()
   const remove = useRemoveWatchlist()
 

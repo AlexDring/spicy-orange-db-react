@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import styled, { keyframes } from 'styled-components'
 import Alert from '@reach/alert'
-import { AiOutlineCloseSquare, AiOutlineLoading3Quarters } from 'react-icons/ai'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 
 const StyledSpinner = styled.svg`
 animation: rotate 2s linear infinite;
@@ -63,24 +63,6 @@ const FullPageSpinner = () => (
 )
 
 
-function ErrorMessage({error}) {
-  console.log(error, 'hereheheheh')
-  return (
-    <Alert 
-      type="assertive"
-      style={{
-        display: 'inline-block', 
-        background: 'hsla(10, 50%, 50%, .10)', 
-        padding: '10px', 
-        margin: '15px 0',
-        position: 'absolute',
-        bottom: '0'
-      }}>      
-      ❗️ {error.error} <button style={{padding: '15px'}} className="minimal"><AiOutlineCloseSquare size={20} /></button>
-    </Alert>
-  )
-}
-
 
 const rotate = keyframes`
   from {
@@ -101,7 +83,6 @@ const Loading = styled(AiOutlineLoading3Quarters)`
 export {
   Spinner,
   Loading,
-  FullPageSpinner,
-  ErrorMessage
+  FullPageSpinner
 }
 

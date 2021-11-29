@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { useAuth, authHeader } from 'context/auth-context'
-import toast from 'react-hot-toast'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 const baseUrl = '/api/users'
 
@@ -8,8 +7,7 @@ function useProfile() {
   const { user } = useAuth()
   const result = useQuery({
     queryKey: ['profile'],
-    queryFn: () => 
-      axios.get(`${baseUrl}/${user._id}`).then(response => response.data)
+    queryFn: () => axios.get(`${baseUrl}/${user?._id}`).then(response => response.data)
   })
 
   return {...result, profile: result.data }
@@ -23,6 +21,12 @@ function useWatchlist() {
       axios.get(`${baseUrl}/${user._id}/watchlist`).then(response => response.data)
   })
   return {...result, watchlist: result.data }
+}
+
+function useWatchlistItem (recommendationId) {
+  const { watchlist } = useWatchlist()
+
+  return watchlist?.find(w => w.recommendation?._id === recommendationId) ?? null
 }
 
 function useAddWatchlist() {
@@ -49,7 +53,7 @@ function useAddWatchlist() {
         queryClient.invalidateQueries(['watchlist'])
         queryClient.invalidateQueries(['profile'])
       },
-      onSuccess: () => toast.success('Added to watchlist!')
+      // onSuccess: () => toast.success('Added to watchlist!')
     }
   )
 }
@@ -80,20 +84,27 @@ function useRemoveWatchlist() {
         queryClient.invalidateQueries(['watchlist'])
         queryClient.invalidateQueries(['profile'])
       },
-      onSuccess: () => toast.success('Removed from watchlist!')
+      // onSuccess: () => toast.success('Removed from watchlist!')
     }
   )
 }
 
-function useWatchlistItem (recommendationId) {
-  const { watchlist } = useWatchlist()
-  return watchlist?.find(w => w.recommendation._id === recommendationId) ?? null
+function useProfileRecommendations (userId) {
+  console.log(userId)
+  const result = useQuery({
+    queryKey: ['profile_recommendations'],
+    queryFn: () => axios.get(`${baseUrl}/${userId}/recommendations`)
+  })
+  console.log(result.data?.data)
+  return {...result, recommendations: result.data?.data}
 }
+
 
 export {
   useProfile,
   useWatchlist,
+  useWatchlistItem,
   useAddWatchlist,
   useRemoveWatchlist,
-  useWatchlistItem
+  useProfileRecommendations
 }

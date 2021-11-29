@@ -37,7 +37,7 @@ const RottenReview = ({ rottenAverage, rottenCount, vertical }) => (
   <RottenReviewStyles vertical={vertical}>
     <img src={rottenReviewImage(rottenAverage)}  />
     <div>
-      {rottenAverage && 
+      {rottenAverage > 0 && 
           <div>{rottenAverage.toFixed()}
             <span>/1000</span>
           </div>}

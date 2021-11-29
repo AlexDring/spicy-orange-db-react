@@ -21,6 +21,7 @@ function useRecommendations (query) {
     },
     getNextPageParam: (lastPage, pages) => lastPage.nextPage
   })
+  console.log(result)
   return result
 }
 
