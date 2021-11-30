@@ -35,7 +35,7 @@ const RottenReviews = ({ recommendation }) => {
   const { user } =  useAuth()
   const [displayModal, setDisplayModal] = useState(false)
   const userScore = recommendation.mediaDetail.rottenReviews.find(review => review.user === user.username)
-  console.log(recommendation.rottenCount)
+
   return (
     <>
       <RottenReviewModal

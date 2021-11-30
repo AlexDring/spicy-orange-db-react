@@ -5,9 +5,12 @@ const baseUrl = '/api/users'
 
 function useProfile() {
   const { user } = useAuth()
+  const tokenHeader = authHeader()
+
+  console.log({user})
   const result = useQuery({
     queryKey: ['profile'],
-    queryFn: () => axios.get(`${baseUrl}/${user?._id}`).then(response => response.data)
+    queryFn: () => axios.get(`${baseUrl}/${user._id}`, tokenHeader).then(response => response.data)
   })
 
   return {...result, profile: result.data }

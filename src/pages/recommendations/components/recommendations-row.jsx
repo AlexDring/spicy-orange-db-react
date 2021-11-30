@@ -19,7 +19,8 @@ const RecRowWrapper = styled.div`
     padding-right: 24px;
     align-self: center;
     max-height: 110px;
-    min-width: 98.8167px;
+    /* min-width: 98.8167px; */
+    max-width: 100px;
   }
   h3 {
     margin-bottom: 0;

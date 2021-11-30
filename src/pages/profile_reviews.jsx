@@ -9,10 +9,10 @@ import { useProfileReviews } from 'utils/profile'
 const ProfileReviews = () => {
   const {userId} = useParams()
   const { isLoading, reviews } = useProfileReviews(userId)
-  console.log(reviews)
+  const username = reviews?.length > 0 ? `${reviews[0].user}'s` : null
   return(
     <Section>
-      <h1>{isLoading ? <Loading /> : reviews[0].user}&apos;s Reviews</h1>
+      <h1>{isLoading ? <Loading /> : username} Reviews</h1>
       <ReviewGridStyles>
         {isLoading ? 
           <Skeleton count={12} component="review" /> : 

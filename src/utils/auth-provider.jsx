@@ -25,7 +25,6 @@ const client = axios.create({
 const checkToken = () => { 
   const response = client.get('/me')
   return response.then(response => {
-    console.log(response.data)
     return response
   })
 }

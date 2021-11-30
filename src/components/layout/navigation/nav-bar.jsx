@@ -90,8 +90,8 @@ const Nav = () => {
   const { logout } = useAuth()
   const history = useHistory()
   const { searchInput } = useContext(SearchContext)
-  const {profile, isLoading} = useProfile()
-  
+  const { profile, isLoading } = useProfile()
+
   const searchQuery = async (e) => {
     e.preventDefault()
     searchInput(e.target.elements.search.value)
