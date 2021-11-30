@@ -24,7 +24,9 @@ const client = axios.create({
 
 const checkToken = () => { 
   const response = client.get('/me')
-  return response.then(data => data)
+  return response.then(response => {
+    return response
+  })
 }
 
 const login = (user) => {

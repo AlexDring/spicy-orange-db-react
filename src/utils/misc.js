@@ -4,7 +4,7 @@ const rottenReviewImage = (rottenAverage) => {
   return (
     rottenAverage > 849 ? rottenIcons.certifiedSmall : 
       rottenAverage > 599 ? rottenIcons.freshSmall :
-        rottenAverage < 599 ? rottenIcons.rottenSmall : 
+        rottenAverage > 0 ? rottenIcons.rottenSmall : 
           rottenIcons.noReviewSmall 
   )
 }

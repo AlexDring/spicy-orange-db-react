@@ -1,10 +1,9 @@
-import { useContext } from 'react'
 import PropTypes from 'prop-types'
+import toast from 'react-hot-toast'
 import styled from 'styled-components'
 import { useAuth } from './context/auth-context'
 import { SectionStyles } from './styles/styles'
 import { useAsync } from './utils/hooks'
-import { ErrorMessage } from './components/lib'
 
 const LoginForm = styled.form`
 display: flex;
@@ -20,7 +19,7 @@ input[type="submit"] {
 `
 
 const UnauthenticatedApp = () => {
-  const {login} = useAuth()
+  const { login } = useAuth()
   const { error, isError, run } = useAsync()
 
   const userLogin = (e) => {
@@ -34,6 +33,9 @@ const UnauthenticatedApp = () => {
     )
   }
 
+  // if(isError) {
+  // }
+
   return(
     <SectionStyles>
       <section>
@@ -45,7 +47,7 @@ const UnauthenticatedApp = () => {
           <input type="password" id="password" />
           <input type='submit' value="Login" />
         </LoginForm>
-        {isError ? <ErrorMessage error={error} /> : null}
+        {isError && toast.error(error)}
       </section>
     </SectionStyles>
   )

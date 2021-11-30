@@ -16,7 +16,7 @@ const Typography = createGlobalStyle`
     font-weight: 700;
   }
   h1,h2,h3,h4,h5,h6, nav>ul>li>a {
-    font-family: var(--san-serif);
+    font-family: var(--serif);
     font-weight: 700;
     margin: 0;
     line-height: 1.2;

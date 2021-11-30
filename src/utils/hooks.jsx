@@ -5,6 +5,7 @@ import {
   useEffect, 
   useRef, 
   useState } from 'react'
+import toast from 'react-hot-toast'
 
 // export const useWindowSize = () => {
 //   // Initialize state with undefined width/height so server and client renders match
@@ -96,12 +97,10 @@ function useAsync(initialState) {
         },
         error => { // This is the Epic React useAsync hook. The error needs to be caught to avoid 'Unhandled Rejection (Error)'
           if(error.response) {
-            console.log(error.response)
-            console.log(error.response.data)
-
+            console.log('this1')
             setError(error.response.data.error ? error.response.data.error : error.response.data)
           } else {
-            console.log(error)
+            console.log('this2')
             setError(error)
           }
         },

@@ -6,7 +6,6 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { useAsync } from 'utils/hooks'
 import { BiErrorCircle } from 'react-icons/bi'
-import { Loading } from 'components/lib'
 import { useAuth } from 'context/auth-context'
 
 const WatchlistToggleStyles = styled.div`
@@ -22,24 +21,33 @@ const WatchlistToggleStyles = styled.div`
   }
 `
 
-const WatchlistToggle = ({ recommendationId }) => {
-  const { user } = useAuth()
+const WatchlistToggle = ({ recommendationId, recommendationDetailId }) => {
+  const { user:{ _id: user_id } } = useAuth()
   const item = useWatchlistItem(recommendationId)
-  const create = useAddWatchlist(user)
-  const remove = useRemoveWatchlist(user)
+  const create = useAddWatchlist()
+  const remove = useRemoveWatchlist()
 
   return(
     <WatchlistToggleStyles>
-      {item?._id ? 
+      {item ? 
         <IconButton 
           label={'In your Watchlist'}
           icon={<FaBookmark/>}
-          onClick={() => remove.mutateAsync({profile_id: user.profile_id, watchlist_id: item?._id})} 
+          onClick={() => remove.mutateAsync({
+            user_id,
+            watchlist_id: item?._id,
+            recommendation_detail_id: recommendationDetailId
+          })} 
         /> :
         <IconButton 
           label={'Add to Watchlist'}
           icon={<FaRegBookmark />}
-          onClick={() => create.mutateAsync({profile_id: user.profile_id, media_id: recommendationId, media: recommendationId, date_added: new Date()})} 
+          onClick={() => create.mutateAsync({
+            user_id, 
+            recommendation: recommendationId, 
+            recommendation_detail_id: recommendationDetailId, 
+            date_added: new Date()
+          })} 
         />}
     </WatchlistToggleStyles>
   )
@@ -59,7 +67,7 @@ function IconButton({label, icon, onClick}) {
   return(
     <span onClick={handleClick}>
       <span style={{color: isError && 'red', fontSize: isError && '12px'}}>
-        {isLoading ? <Loading />  : 
+        {
           isError ? <BiErrorCircle /> : icon} 
         {isError ? error : label}
       </span>

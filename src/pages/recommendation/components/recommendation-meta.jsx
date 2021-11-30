@@ -21,7 +21,7 @@ const RecommendationMeta = ({ recommendation, remove }) => {
     <button 
       className='minimal'
       style={{padding: 'none', fontSize: 12}} 
-      onClick={() => remove.mutateAsync({media_id: recommendation._id, mediaDetail_id: recommendation.mediaDetail._id})} 
+      onClick={() => remove.mutate({media_id: recommendation._id, mediaDetail_id: recommendation.mediaDetail._id})} 
     >
       Delete
     </button>

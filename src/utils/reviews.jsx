@@ -23,9 +23,10 @@ function useReviews() {
 }
 
 function useCreateReview () {
+  const tokenHeader = authHeader()
   const queryClient = useQueryClient()
   return useMutation(
-    updates => axios.post(`${baseUrl}/${updates.mediaDetailId}`, updates),
+    review => axios.post(`${baseUrl}/${review.mediaDetailId}`, review, tokenHeader),
     {
       onSuccess: () => toast.success('Review added!'),
       onSettled: () => queryClient.invalidateQueries('recommendation')

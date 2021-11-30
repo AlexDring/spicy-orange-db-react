@@ -10,7 +10,7 @@ const RecommendationsGrid = ({ loading, recommendations, skeletonCount }) =>
       recommendations?.map(recommendation => (
         <RecommendationCard 
           key={recommendation._id} 
-          recommendation={recommendation.media ? recommendation.media : recommendation} // watchlist populates data.media
+          recommendation={recommendation.recommendation ? recommendation.recommendation : recommendation} // watchlist populates data.media
         />
       ))}
   </MediaCardGridStyles>)

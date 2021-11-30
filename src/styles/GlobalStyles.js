@@ -10,7 +10,9 @@ const GlobalStyles = createGlobalStyle`
     --lighter-gray: #f7f7f7;
     --light-yellow: #FFFDED;
     --light-orange: #FFF8ED;
-    --san-serif: 'Lora', Georgia, Cambria, "Times New Roman", Times, serif;
+    --serif: 'Lora', Georgia, Cambria, "Times New Roman", Times, serif;
+    --san-serif: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', san-serif;
   }
 
   *,

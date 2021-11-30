@@ -7,6 +7,7 @@ import RecommendationsRow from './components/recommendations-row'
 import { useState } from 'react'
 import SearchInput from 'components/search-input'
 import { FullPageSpinner } from 'components/lib'
+import ItemCount from 'components/item-count'
 
 const TopRowStyles = styled.div`
   display: flex;
@@ -26,13 +27,15 @@ const Recommendations = () => {
     e.preventDefault()
     setSearch(e.target.elements.search.value)
   }
-
+  console.log(result.isFetching, itemCount)
   return(
     <Section>
       <TopRowStyles>
-        <h1>{search ? 
-        `Results: ${search} - ${itemCount} items` : 
-        `Recommendations - ${itemCount} items`}</h1>
+        <h1>{
+          search 
+            ? `Results: ${search}` 
+            : 'Recommendations' 
+        } <ItemCount loading={result.isFetching} count={`${itemCount} items`} fontSize={'18px'} /></h1>
         <SearchInput
           onSubmit={searchRecommendations}
           placeholder={'Search recommendations'} 

@@ -35,7 +35,7 @@ const RottenReviews = ({ recommendation }) => {
   const { user } =  useAuth()
   const [displayModal, setDisplayModal] = useState(false)
   const userScore = recommendation.mediaDetail.rottenReviews.find(review => review.user === user.username)
-  
+
   return (
     <>
       <RottenReviewModal
@@ -49,7 +49,7 @@ const RottenReviews = ({ recommendation }) => {
           <RottenScoreStyles>
             <small>Rotten Ga&apos;s Total</small>
             <img src={rottenReviewImage(recommendation.rottenAverage)} alt="" />
-            {recommendation.rottenCount !== 0 ? 
+            {(recommendation.rottenCount !== undefined && recommendation.rottenCount !== 0) ? 
               <>
                 <div>{recommendation.rottenAverage}/1000</div>
                 <small>{recommendation.rottenCount} Reviews</small>
@@ -60,9 +60,9 @@ const RottenReviews = ({ recommendation }) => {
         </HashLink>
         <RottenScoreStyles onClick={() => setDisplayModal(!displayModal)}>
           <small>Your Rating</small>
+          <img src={rottenReviewImage(userScore?.score)} alt="" />
           {userScore ? 
             <>
-              <img src={rottenReviewImage(userScore.score)} alt="" />
               <div>{userScore.score}/1000</div>
             </> : <div>Click to rate.</div> 
           }
