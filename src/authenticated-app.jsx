@@ -11,6 +11,8 @@ import { SkipNavContent, SkipNavLink } from '@reach/skip-nav'
 import '@reach/skip-nav/styles.css'
 import ProfileRecommendations from 'pages/profile_recommendations'
 import ProfileReviews from 'pages/profile_reviews'
+import AuthenticationButton from 'components/auth/authentication-button'
+import ProtectedRoute from 'auth/protected-route'
 
 function AuthenticatedApp() {
   return (
@@ -18,6 +20,7 @@ function AuthenticatedApp() {
       <SkipNavLink />
       <Layout>
         <SkipNavContent />
+        <AuthenticationButton />
         <AppRoutes /> 
       </Layout>
     </SearchProvider>
@@ -27,30 +30,14 @@ function AuthenticatedApp() {
 function AppRoutes() {
   return(
     <Switch>
-      <Route path='/search'>
-        <Search />
-      </Route>
-      <Route path='/watchlist'>
-        <Watchlist />
-      </Route>
-      <Route path='/recommendations'>
-        <Recommendations />
-      </Route>
-      <Route path='/recommendation/:id' >
-        <Recommendation />
-      </Route>
-      <Route path='/:userId/recommendations' >
-        <ProfileRecommendations />
-      </Route>
-      <Route path='/:userId/reviews' >
-        <ProfileReviews />
-      </Route>
-      <Route exact path='/'>
-        <Home />
-      </Route>
-      <Route path='/*'>
-        <PageNotFound />
-      </Route>
+      <ProtectedRoute path='/search' component={Search} />
+      <ProtectedRoute path='/watchlist' component={Watchlist} />
+      <ProtectedRoute path='/recommendations' component={Recommendations} />
+      <ProtectedRoute path='/recommendation/:id'  component={Recommendation} />
+      <ProtectedRoute path='/:userId/recommendations' component={ProfileRecommendations} />
+      <ProtectedRoute path='/:userId/reviews' component={ProfileReviews} />
+      <ProtectedRoute exact path='/' component={Home} />
+      <Route path='/*' component={PageNotFound} />
     </Switch>
   )
 }

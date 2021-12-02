@@ -32,18 +32,18 @@ const RottenScoreStyles = styled.div`
 `
 
 const RottenReviews = ({ recommendation }) => {
-  const { user } =  useAuth()
+  // const { user } =  useAuth()
   const [displayModal, setDisplayModal] = useState(false)
-  const userScore = recommendation.mediaDetail.rottenReviews.find(review => review.user === user.username)
+  // const userScore = recommendation.mediaDetail.rottenReviews.find(review => review.user === user.username)
 
   return (
     <>
-      <RottenReviewModal
+      {/* <RottenReviewModal
         recommendation={recommendation}
-        user={user}
+        // user={user}
         displayModal={displayModal}
         setDisplayModal={setDisplayModal} 
-      />
+      /> */}
       <RottenWrapper>
         <HashLink to='#rotten-gas'>
           <RottenScoreStyles>
@@ -60,12 +60,12 @@ const RottenReviews = ({ recommendation }) => {
         </HashLink>
         <RottenScoreStyles onClick={() => setDisplayModal(!displayModal)}>
           <small>Your Rating</small>
-          <img src={rottenReviewImage(userScore?.score)} alt="" />
+          {/* <img src={rottenReviewImage(userScore?.score)} alt="" />
           {userScore ? 
             <>
               <div>{userScore.score}/1000</div>
             </> : <div>Click to rate.</div> 
-          }
+          } */}
         </RottenScoreStyles>
       </RottenWrapper>
     </>

@@ -8,7 +8,7 @@ import ItemCount from 'components/item-count'
 const Watchlist = () => {
   const { watchlist, isLoading, isFetching } = useWatchlist()
   const totalItems = watchlist?.length
-  console.log(isLoading, isFetching, watchlist)
+
   return(
     <Section>
       <h1>Your Watchlist <ItemCount isLoading={isFetching} count={watchlist?.length + ' items'} fontSize={'18px'} /></h1>

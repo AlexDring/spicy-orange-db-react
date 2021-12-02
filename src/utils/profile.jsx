@@ -1,27 +1,32 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import axios from 'axios'
 import { useAuth, authHeader } from 'context/auth-context'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 const baseUrl = '/api/users'
 
 function useProfile() {
-  const { user } = useAuth()
-  const tokenHeader = authHeader()
+  const { user } = useAuth0()
+  const user_id = user && user['https://spicy-orange.co.uk/db_id']
 
-  console.log({user})
   const result = useQuery({
-    queryKey: ['profile'],
-    queryFn: () => axios.get(`${baseUrl}/${user._id}`, tokenHeader).then(response => response.data)
+    queryKey: ['profile', { user_id }],
+    queryFn: () => user_id && axios.get(`${baseUrl}/${user_id}`).then(response => response.data)
   })
+
+  console.log(result.data)
 
   return {...result, profile: result.data }
 }
 
 function useWatchlist() {
-  const { user } = useAuth()
+  const { user } = useAuth0()
+  // const user_id = user?.sub
+  const user_id = user && user['https://spicy-orange.co.uk/db_id']
+
   const result = useQuery({
-    queryKey: ['watchlist'],
+    queryKey: ['profile', 'watchlist', { user_id }],
     queryFn: () => 
-      axios.get(`${baseUrl}/${user._id}/watchlist`).then(response => response.data)
+      axios.get(`${baseUrl}/${user_id}/watchlist`).then(response => response.data)
   })
   return {...result, watchlist: result.data }
 }
@@ -33,25 +38,14 @@ function useWatchlistItem (recommendationId) {
 }
 
 function useAddWatchlist() {
-  const tokenHeader = authHeader()
+  // const tokenHeader = authHeader()
   const queryClient = useQueryClient()
+  const { user } = useAuth0()
+  const user_id = user?.sub
+
   return useMutation(
-    addItem => axios.post(`${baseUrl}/${addItem.user_id}/watchlist`, addItem, tokenHeader),
+    addItem => axios.post(`${baseUrl}/${user_id}/watchlist`, addItem),
     {
-      onMutate: async newItem => {
-        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-        await queryClient.cancelQueries(['watchlist'])
-        // Snapshot the previous value
-        const previousWatchlist = queryClient.getQueryData(['watchlist'])
-        // Optimistically update to the new value
-        queryClient.setQueryData(['watchlist'], oldWatchlist => oldWatchlist.concat(newItem))
-        return {previousWatchlist}
-      },
-      // If the mutation fails, use the context returned from onMutate to roll back
-      onError: (err, newWatchlistItem, context) => {
-        queryClient.setQueryData(['watchlist'], context.previousWatchlist)
-      },
-      // Always refetch after error or success:
       onSettled: () => {
         queryClient.invalidateQueries(['watchlist'])
         queryClient.invalidateQueries(['profile'])
@@ -62,12 +56,14 @@ function useAddWatchlist() {
 }
 
 function useRemoveWatchlist() {
-  const { user } = useAuth()
+  // const { user } = useAuth()
+  const { user } = useAuth0()
+  const user_id = user?.sub
   const queryClient = useQueryClient()
   return useMutation(
-    ({user_id, watchlist_id, recommendation_detail_id}) => 
+    ({watchlist_id, recommendation_detail_id}) => 
       axios.delete(`${baseUrl}/${user_id}/watchlist/${watchlist_id}`, {
-        headers: { Authorization: `bearer ${user.token}` },
+        // headers: { Authorization: `bearer ${user.token}` },
         data: { recommendation_detail_id }
       }),
     {

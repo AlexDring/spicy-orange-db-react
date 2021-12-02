@@ -13,11 +13,11 @@ const RecommendationMetaStyles = styled.div`
 `
 
 const RecommendationMeta = ({ recommendation, remove }) => {
-  const { user } = useAuth()
+  // const { user } = useAuth()
   return(
     <RecommendationMetaStyles type={recommendation.Type}>
       <small>Added by {recommendation.user}</small>
-      {recommendation.user === user.username && 
+      {/* {recommendation.user === user.username && 
     <button 
       className='minimal'
       style={{padding: 'none', fontSize: 12}} 
@@ -25,7 +25,7 @@ const RecommendationMeta = ({ recommendation, remove }) => {
     >
       Delete
     </button>
-      }
+      } */}
       <h1>{recommendation.Title}</h1>
       <p><span style={{'textTransform': 'capitalize'}}>{recommendation.Type}</span> • {recommendation.Year} • {recommendation.Runtime}</p>
     </RecommendationMetaStyles>

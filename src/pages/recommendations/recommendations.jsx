@@ -27,7 +27,7 @@ const Recommendations = () => {
     e.preventDefault()
     setSearch(e.target.elements.search.value)
   }
-  console.log(result.isFetching, itemCount)
+
   return(
     <Section>
       <TopRowStyles>

@@ -58,7 +58,7 @@ const RecommendationCardWrapper = styled.div`
 function Recommendation() {
   const {id} = useParams()
   const {recommendation, isLoading} = useRecommendation(id)
-  const remove = useRemoveRecommendation()
+  // const remove = useRemoveRecommendation()
 
   if(isLoading) {
     return (
@@ -94,7 +94,7 @@ function Recommendation() {
           />
           <RecommendationMeta
             recommendation={recommendation}
-            remove={remove}   
+            // remove={remove}   
           />
           <RottenReviews
             recommendation={recommendation}

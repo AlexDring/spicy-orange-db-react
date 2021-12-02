@@ -7,7 +7,8 @@ import { ErrorBoundary } from 'react-error-boundary'
 import toast, { Toaster } from 'react-hot-toast'
 import GlobalStyles from 'styles/GlobalStyles'
 import Typography from 'styles/Typography'
-import Section from 'components/layout/section'
+import { Auth0Provider } from '@auth0/auth0-react'
+import Auth0ProviderWithHistory from 'auth/auth0-provider-with-history'
 
 function AppProviders({ children }) {
 
@@ -54,7 +55,13 @@ function AppProviders({ children }) {
       <Typography /> 
       <Router>
         <ErrorBoundary FallbackComponent={errorFallback}>
-          <AuthProvider>{children}</AuthProvider>
+          <Auth0Provider>
+            <Auth0ProviderWithHistory>
+              {/* <AuthProvider> */}
+              {children}
+              {/* </AuthProvider> */}
+            </Auth0ProviderWithHistory>
+          </Auth0Provider>
           <Toaster />
         </ErrorBoundary>
       </Router>

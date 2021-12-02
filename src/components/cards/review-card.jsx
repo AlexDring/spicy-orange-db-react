@@ -35,16 +35,16 @@ const MediaScore = styled.div`
 `
 
 const ReviewCard = ({ large, review }) => {
-  const { user: {avatar} } = useAuth()
+  // const { user: {avatar} } = useAuth()
   
   return (
     <ReviewStyles large={large}>
       {large && <img src={review.poster} alt="" />}
       <div>
         <MediaScore>
-          <img height="25" 
+          {/* <img height="25" 
             src={avatar}
-            alt="Logged in users avatar" />
+            alt="Logged in users avatar" /> */}
           <span>{review.user}</span>
           <img height="25" 
             src={rottenReviewImage(review.score)} 
