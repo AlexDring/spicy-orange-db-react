@@ -5,6 +5,7 @@ import { useIndividualSearch } from 'utils/search'
 import { SearchResultSkeleton } from 'utils/skeleton'
 import { Dialog } from '@reach/dialog'
 import '@reach/dialog/styles.css'
+import { useProfile } from 'utils/profile'
 
 
 const SearchModalStyles = styled.div`
@@ -52,6 +53,7 @@ const MediaInformationStyles = styled.ul`
 
 // eslint-disable-next-line react/prop-types
 const SearchModal = ({ recId, displayModal, setDisplayModal }) => {
+  const {profile} = useProfile()
   const {data: searchResult, isLoading, isIdle } = useIndividualSearch(recId)
   const create = useAddRecommendation()
 
@@ -84,7 +86,12 @@ const SearchModal = ({ recId, displayModal, setDisplayModal }) => {
             <li><span>Writer</span><div>{searchResult.Writer}</div></li>
             <li><span>Cast</span><div>{searchResult.Actors}</div></li>
           </MediaInformationStyles>
-          <button onClick={() => create.mutate({...searchResult, date_added: new Date()})}>Add to Recommendations</button>
+          <button onClick={() => create.mutate(
+            {
+              user_id: profile._id, 
+              ...searchResult, 
+              date_added: new Date()
+            })}>Add to Recommendations</button>
         </SearchModalStyles>
       )}
     </Dialog>

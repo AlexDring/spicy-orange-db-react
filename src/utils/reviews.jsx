@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { authHeader } from 'context/auth-context'
 import toast from 'react-hot-toast'
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query'
+import { useAuthHeader } from './hooks'
 const baseUrl = '/api/rottenReviews'
 
 function useReviews() {
@@ -23,36 +23,41 @@ function useReviews() {
 }
 
 function useCreateReview () {
-  const tokenHeader = authHeader()
+  const tokenHeader = useAuthHeader()
   const queryClient = useQueryClient()
   return useMutation(
     review => axios.post(`${baseUrl}/${review.mediaDetailId}`, review, tokenHeader),
     {
       onSuccess: () => toast.success('Review added!'),
+      onError: () => toast.error('Oops something went wrong.'),
       onSettled: () => queryClient.invalidateQueries('recommendation')
     }
   )
 }
 
 function useUpdateReview () {
-  const tokenHeader = authHeader()
-  console.log(tokenHeader)
+  const tokenHeader = useAuthHeader()
   const queryClient = useQueryClient()
   return useMutation(
     updates => axios.put(`${baseUrl}/${updates.mediaDetailId}/${updates.reviewId}`, updates, tokenHeader),
     {
       onSuccess: () => toast.success('Review updated'),
+      onError: () => toast.error('Oops something went wrong.'),
       onSettled: () => queryClient.invalidateQueries('recommendation')
     }
   )
 }
 
 function useRemoveReview () {
-  const tokenHeader = authHeader()
+  const tokenHeader = useAuthHeader()
   const queryClient = useQueryClient()
   return useMutation(
     data => axios.delete(`${baseUrl}/${data.mediaDetailId}/${data.reviewId}`, tokenHeader),
-    {onSettled: () => queryClient.invalidateQueries('recommendation')}
+    {
+      onSuccess: () => toast.success('Review deleted'),
+      onError: () => toast.error('Oops something went wrong.'),
+      onSettled: () => queryClient.invalidateQueries('recommendation')
+    }
   )
 }
 

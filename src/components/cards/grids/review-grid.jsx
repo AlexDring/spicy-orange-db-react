@@ -4,10 +4,10 @@ import styled from 'styled-components'
 import ReviewCard from '../review-card'
 
 const ReviewGridStyles = styled.div`
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-grid-gap: 24px;
-align-items: baseline;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-gap: 24px;
+  align-items: center;
 `
 
 const ReviewsGrid = ({ loading, reviews, large, skeletonCount }) => (

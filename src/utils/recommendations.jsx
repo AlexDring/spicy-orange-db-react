@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { authHeader } from 'context/auth-context'
 import toast from 'react-hot-toast'
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query'
 import { useHistory } from 'react-router'
+import { useAuthHeader } from './hooks'
 const baseUrl = '/api/media'
 
 function useRecommendations (query) {
@@ -34,12 +34,12 @@ function useRecommendation(id) {
 }
 
 function useAddRecommendation() {
-  const tokenHeader = authHeader()
+  const authHeader = useAuthHeader()
   const queryClient = useQueryClient()
   const history = useHistory()
 
   return useMutation(
-    recommendation => axios.post(baseUrl, recommendation, tokenHeader),
+    recommendation => axios.post(baseUrl, recommendation, authHeader),
     {
       onError: err => {
         if(err.response.data) {
@@ -59,11 +59,11 @@ function useAddRecommendation() {
 
 function useRemoveRecommendation() {
   const queryClient = useQueryClient()
-  const tokenHeader = authHeader()
+  const authHeader = useAuthHeader()
   const history = useHistory()
 
   return useMutation(
-    ({media_id, mediaDetail_id}) => axios.delete(`${baseUrl}/${media_id}/${mediaDetail_id}`, tokenHeader),
+    ({media_id, mediaDetail_id}) => axios.delete(`${baseUrl}/${media_id}/${mediaDetail_id}`, authHeader),
     {
       onSuccess: () => {
         toast('Recommendation removed', { icon: '😭' })

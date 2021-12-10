@@ -6,7 +6,8 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { useAsync } from 'utils/hooks'
 import { BiErrorCircle } from 'react-icons/bi'
-import { useAuth } from 'context/auth-context'
+import { Loading } from 'components/lib'
+import { useProfile } from 'utils/profile'
 
 const WatchlistToggleStyles = styled.div`
   display: flex;
@@ -22,10 +23,10 @@ const WatchlistToggleStyles = styled.div`
 `
 
 const WatchlistToggle = ({ recommendationId, recommendationDetailId }) => {
-  // const { user:{ _id: user_id } } = useAuth()
-  const item = useWatchlistItem(recommendationId)
+  const {profile} = useProfile()
   const create = useAddWatchlist()
   const remove = useRemoveWatchlist()
+  const item = profile?.watchlist.find(i => i.recommendation === recommendationId)
 
   return(
     <WatchlistToggleStyles>
@@ -34,16 +35,14 @@ const WatchlistToggle = ({ recommendationId, recommendationDetailId }) => {
           label={'In your Watchlist'}
           icon={<FaBookmark/>}
           onClick={() => remove.mutateAsync({
-            // user_id,
-            watchlist_id: item?._id,
+            watchlist_id: item._id,
             recommendation_detail_id: recommendationDetailId
           })} 
         /> :
         <IconButton 
           label={'Add to Watchlist'}
           icon={<FaRegBookmark />}
-          onClick={() => create.mutateAsync({
-            // user_id, 
+          onClick={() => create.mutateAsync({ 
             recommendation: recommendationId, 
             recommendation_detail_id: recommendationDetailId, 
             date_added: new Date()
@@ -68,7 +67,7 @@ function IconButton({label, icon, onClick}) {
     <span onClick={handleClick}>
       <span style={{color: isError && 'red', fontSize: isError && '12px'}}>
         {
-          isError ? <BiErrorCircle /> : icon} 
+          isLoading ? <Loading /> : isError ? <BiErrorCircle /> : icon} 
         {isError ? error : label}
       </span>
     </span>

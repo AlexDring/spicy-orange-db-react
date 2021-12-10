@@ -7,7 +7,6 @@ import PropTypes from 'prop-types'
 import {  Menu,  MenuList,  MenuButton,  MenuItem } from '@reach/menu-button'
 import '@reach/menu-button/styles.css'
 import { SearchContext } from 'context/search-context'
-import { useAuth } from 'context/auth-context'
 import SearchInput from 'components/search-input'
 import { useHistory } from 'react-router'
 import { useProfile } from 'utils/profile'
@@ -88,11 +87,12 @@ const NavLinksStyles = styled.nav`
 
 const Nav = () => {
   const [openNav, setOpenNav] = useState(false)
-  // const { logout } = useAuth()
+  const { logout } = useAuth0()
   const history = useHistory()
   const { searchInput } = useContext(SearchContext)
   const { profile, isLoading } = useProfile()
-  console.log(profile)
+  
+  // console.log(profile)
   
   const searchQuery = async (e) => {
     e.preventDefault()
@@ -123,9 +123,9 @@ const Nav = () => {
             <Menu>
               <MenuButton><img width="40" height="40" src={profile?.avatar} alt="Logged in users avatar" /></MenuButton>
               <MenuList>
-                <MenuItem onSelect={() => {toggle()}}><NavLink to={`/${profile?._id}/recommendations`}>Your Recommendations</NavLink></MenuItem>
-                <MenuItem onSelect={() => {toggle()}}><NavLink to={`/${profile?._id}/reviews`}>Your Reviews</NavLink></MenuItem>
-                {/* <MenuItem onSelect={() => {logout()}}>Log Out</MenuItem> */}
+                <MenuItem onSelect={() => toggle()}><NavLink to={`/${profile?._id}/recommendations`}>Your Recommendations</NavLink></MenuItem>
+                <MenuItem onSelect={() => toggle()}><NavLink to={`/${profile?._id}/reviews`}>Your Reviews</NavLink></MenuItem>
+                <MenuItem onSelect={() => logout({returnTo: window.location.origin})}>Log Out</MenuItem>
               </MenuList>
             </Menu>
           </li>

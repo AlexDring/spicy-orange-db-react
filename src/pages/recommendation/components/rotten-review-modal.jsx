@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import PropTypes from 'prop-types'
 import { useState } from 'react'
 import { useCreateReview, useUpdateReview, useRemoveReview } from 'utils/reviews'
@@ -8,7 +9,6 @@ import { rottenReviewImage } from 'utils/misc'
 const RottenReviewStyles = styled.div`
   padding: 75px 24px 24px;
   text-align: center;
-  background: var(--light-orange);
   position: relative;
   @media (max-width: 500px) {
     width: auto;
@@ -37,15 +37,17 @@ const RottenReviewStyles = styled.div`
   }
 `
 
-const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, user }) => {
-  const [review, setReview] = useState(recommendation.mediaDetail.rottenReviews.find(u => u.user === user.username))
+const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, profile }) => {
+  const [review, setReview] = useState(recommendation.mediaDetail.rottenReviews.find(u => u.user === profile.username))
+
   const create = useCreateReview()
   const update = useUpdateReview()
   const remove = useRemoveReview()
 
   function addReviewSubmit(e) {
     e.preventDefault()
-    create.mutateAsync({ 
+    create.mutate({ 
+      user_id: profile._id,
       mediaId: recommendation._id,
       reviewId: review._id,
       mediaDetailId: recommendation.mediaDetail._id,
@@ -53,18 +55,18 @@ const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, user
       review: review.review,  
       title: recommendation.Title,
       poster: recommendation.Poster,
-      user: user.username,
-      avatar: user.avatar,
+      user: profile.username,
+      avatar: profile.avatar,
       updatedOn: new Date()
     }, {
-      onSuccess: ({data}) => setReview(data.rottenReviews.find(u => u.user === user.username))
+      onSuccess: ({data}) => setReview(data.rottenReviews.find(u => u.user === profile.username))
     })
     setDisplayModal(!displayModal)
   }
 
   function updateReview(e) {
     e.preventDefault()
-    update.mutateAsync({ 
+    update.mutate({ 
       mediaId: recommendation._id,
       reviewId: review._id,
       mediaDetailId: recommendation.mediaDetail._id,
@@ -72,13 +74,17 @@ const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, user
       review: review.review,
       updatedOn: new Date()
     }, {
-      onSuccess: ({data}) => setReview(data.rottenReviews.find(u => u.user === user.username))
+      onSuccess: ({data}) => setReview(data.rottenReviews.find(u => u.user === profile.username))
     })
     setDisplayModal(!displayModal)
   }
 
   function removeReview() {
-    remove.mutateAsync({mediaDetailId: recommendation.mediaDetail._id, reviewId: review._id})
+    remove.mutate({
+      user_id: profile._id,
+      mediaDetailId: recommendation.mediaDetail._id, 
+      reviewId: review._id
+    })
     setReview(null)
     setDisplayModal(!displayModal)
   }

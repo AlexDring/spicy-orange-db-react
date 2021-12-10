@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { 
   useLayoutEffect, 
   useReducer, 
@@ -126,5 +127,32 @@ function useAsync(initialState) {
   }
 }
 
-export {useAsync}
+const useToken = () => {
+  const [token, setToken] = useState()
+  const { getAccessTokenSilently } = useAuth0()
+
+  useEffect(() => {
+    (async () => {
+      setToken(await getAccessTokenSilently())
+    })()
+  }, [getAccessTokenSilently])
+
+  return token
+}
+
+const useAuthHeader = () => {
+  const token = useToken()
+
+  return {
+    headers: { Authorization: `bearer ${token}` }
+  }
+}
+
+const useUserId = () => {
+  const { user, isAuthenticated } = useAuth0()
+  if (isAuthenticated) return user['https://spicy-orange.co.uk/db_id']
+}
+
+
+export { useAsync, useToken, useAuthHeader, useUserId }
 

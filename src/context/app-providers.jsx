@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { QueryClientProvider, QueryClient, QueryCache } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import { AuthProvider } from 'context/auth-context'
 import { ErrorBoundary } from 'react-error-boundary'
 import toast, { Toaster } from 'react-hot-toast'
 import GlobalStyles from 'styles/GlobalStyles'
@@ -57,9 +56,7 @@ function AppProviders({ children }) {
         <ErrorBoundary FallbackComponent={errorFallback}>
           <Auth0Provider>
             <Auth0ProviderWithHistory>
-              {/* <AuthProvider> */}
               {children}
-              {/* </AuthProvider> */}
             </Auth0ProviderWithHistory>
           </Auth0Provider>
           <Toaster />
