@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useCallback } from 'react'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { useAuthHeader, useUserId, useToken } from './hooks'
 const baseUrl = '/api/users'
@@ -15,14 +16,27 @@ function useProfile() {
   return {...result, profile: result.data }
 }
 
+const getWatchlistConfig = (user_id) => ({
+  queryKey: ['profile', 'watchlist'],
+  queryFn: () => axios.get(`${baseUrl}/${user_id}/watchlist`).then(response => response.data)
+})
+
 function useWatchlist() {
-  const user_id = useUserId()
-  const result = useQuery({
-    queryKey: ['profile', 'watchlist'],
-    queryFn: () => axios.get(`${baseUrl}/${user_id}/watchlist`).then(response => response.data)
-  })
-  
+  const user_id = useUserId() 
+  const result = useQuery(getWatchlistConfig(user_id))
   return {...result, watchlist: result.data }
+}
+
+function useRefetchWatchlist () {
+  const queryClient = useQueryClient()
+  const user_id = useUserId() 
+  return useCallback(
+    async function refetchWatchlist() {
+      queryClient.removeQueries(['profile', 'watchlist'])
+      await queryClient.prefetchQuery(getWatchlistConfig(user_id))
+    },
+    [queryClient, user_id]
+  )
 }
 
 const useAddWatchlist = () => {
@@ -85,7 +99,7 @@ function useProfileReviews (userId) {
 export {
   useProfile,
   useWatchlist,
-  // useWatchlistItem,
+  useRefetchWatchlist,
   useAddWatchlist,
   useRemoveWatchlist,
   useProfileRecommendations,

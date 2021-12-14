@@ -4,9 +4,11 @@ import RecommendationsGrid from 'components/cards/grids/recommendations-grid'
 import { FaRegBookmark} from 'react-icons/fa'
 import EmptyPlaceholder from 'components/empty-placeholder'
 import ItemCount from 'components/item-count'
+import { useProfile } from 'utils/profile'
 
 const Watchlist = () => {
   const { watchlist, isLoading, isFetching } = useWatchlist()
+  const { profile } = useProfile()
   const totalItems = watchlist?.length
 
   return(
@@ -19,9 +21,9 @@ const Watchlist = () => {
           text={<p>Your watchlist is empty.</p>} 
         /> : 
         <RecommendationsGrid
-          loading={isLoading}
+          loading={isLoading || isFetching}
           recommendations={watchlist}
-          skeletonCount={8}
+          skeletonCount={profile?.watchlist}
         />
       }
     </Section>

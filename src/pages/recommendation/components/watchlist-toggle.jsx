@@ -8,6 +8,8 @@ import { useAsync } from 'utils/hooks'
 import { BiErrorCircle } from 'react-icons/bi'
 import { Loading } from 'components/lib'
 import { useProfile } from 'utils/profile'
+import { useRefetchWatchlist } from 'utils/profile'
+import { useEffect } from 'react'
 
 const WatchlistToggleStyles = styled.div`
   display: flex;
@@ -23,10 +25,15 @@ const WatchlistToggleStyles = styled.div`
 `
 
 const WatchlistToggle = ({ recommendationId, recommendationDetailId }) => {
-  const {profile} = useProfile()
+  const { profile } = useProfile()
   const create = useAddWatchlist()
   const remove = useRemoveWatchlist()
+  const refetchWatchlist = useRefetchWatchlist()
   const item = profile?.watchlist.find(i => i.recommendation === recommendationId)
+
+  useEffect(() => {
+    return () => refetchWatchlist()
+  }, [refetchWatchlist])
 
   return(
     <WatchlistToggleStyles>
