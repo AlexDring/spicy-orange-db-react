@@ -91,7 +91,7 @@ function useProfileReviews (userId) {
     queryKey: ['profile_reviews'],
     queryFn: () => axios.get(`${baseUrl}/${userId}/reviews`)
   })
-  console.log({result})
+
   return {...result, reviews: result.data?.data}
 }
 

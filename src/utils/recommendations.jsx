@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useCallback } from 'react'
 import toast from 'react-hot-toast'
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query'
 import { useHistory } from 'react-router'
@@ -6,9 +7,14 @@ import { useAuthHeader } from './hooks'
 const baseUrl = '/api/media'
 
 function useRecommendations (query) {
+  const result = useInfiniteQuery(recommendationsConfig(query))
+  return result
+}
+
+const recommendationsConfig = (query) => {
   const searchQuery = query ? query : 'all'
-  const result = useInfiniteQuery({
-    queryKey: ['recommendations', query], 
+  return {
+    queryKey: ['recommendations', searchQuery], 
     queryFn: async ({ pageParam = 0 }) => {
       const response = await axios.get(`${baseUrl}?page=${pageParam}&title=${searchQuery}`)
       const pagesNo = Math.ceil(response.data.totalRecommendations/12)
@@ -20,9 +26,7 @@ function useRecommendations (query) {
       }
     },
     getNextPageParam: (lastPage, pages) => lastPage.nextPage
-  })
-
-  return result
+  }
 }
 
 function useRecommendation(id) {
@@ -75,9 +79,22 @@ function useRemoveRecommendation() {
   )
 }
 
+const useRefetchRecommendations = () => {
+  const queryClient = useQueryClient()
+  queryClient.removeQueries(['recommendations'])
+  return useCallback(
+    async function refetchRecommendations() {
+      queryClient.removeQueries(['recommendations'])
+      await queryClient.prefetchInfiniteQuery(recommendationsConfig())
+    },
+    [queryClient]
+  )
+}
+
 export {
   useRecommendations,
   useRecommendation,
   useAddRecommendation,
-  useRemoveRecommendation
+  useRemoveRecommendation,
+  useRefetchRecommendations
 }

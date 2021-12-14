@@ -7,14 +7,15 @@ import { ReviewGridStyles } from 'styles/grids'
 import Skeleton from 'components/skeleton/skeleton'
 import { ReviewCard } from 'components/cards'
 import LoadMoreButton from 'components/load-more-button'
+import { useState } from 'react'
+import { FullPageSpinner } from 'components/lib'
 
 function Home() {
   const { data, isLoading: recommendationsLoading } = useRecommendations()
   const result = useReviews()
 
-  const highlightedRecommendations = data?.pages[0].recommendations.slice(0, 4)
-  const remainingRecommendations = data?.pages[0].recommendations.slice(4) 
-
+  const highlightedRecommendations = data?.pages[0]?.recommendations.slice(0, 4)
+  const remainingRecommendations = data?.pages[0]?.recommendations.slice(4) 
   return(
     <>
       <Section>

@@ -8,7 +8,7 @@ import { useProfile } from 'utils/profile'
 
 const Watchlist = () => {
   const { watchlist, isLoading, isFetching } = useWatchlist()
-  const { profile } = useProfile()
+  const { profile } = useProfile() // useProfile to get existing number of watchlist items, pre population on the backend.
   const totalItems = watchlist?.length
 
   return(

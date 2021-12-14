@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { useAddRecommendation } from 'utils/recommendations'
+import { useAddRecommendation, useRefetchRecommendations } from 'utils/recommendations'
 import { useIndividualSearch } from 'utils/search'
 import { SearchResultSkeleton } from 'utils/skeleton'
 import { Dialog } from '@reach/dialog'
 import '@reach/dialog/styles.css'
 import { useProfile } from 'utils/profile'
-
+import { useEffect } from 'react'
 
 const SearchModalStyles = styled.div`
   box-sizing: border-box;
@@ -56,6 +56,12 @@ const SearchModal = ({ recId, displayModal, setDisplayModal }) => {
   const {profile} = useProfile()
   const {data: searchResult, isLoading, isIdle } = useIndividualSearch(recId)
   const create = useAddRecommendation()
+  const refetchRecommendations = useRefetchRecommendations()
+
+  useEffect(() => {
+    console.log('running')
+    return () => refetchRecommendations()
+  }, [refetchRecommendations])
 
   if(isIdle) {
     return null
