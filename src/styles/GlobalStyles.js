@@ -24,6 +24,7 @@ const GlobalStyles = createGlobalStyle`
   html, body {
     height: 100%;
     background-color: var(--light-yellow);
+    width: 100vw; /* To stop scrollbar adding width to pages */ 
     @media(max-width: 600px) {
       overflow-x: hidden;
     }

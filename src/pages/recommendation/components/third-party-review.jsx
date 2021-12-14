@@ -28,9 +28,6 @@ const ThirdPartyReviewsWrapper = styled.ul`
   @media (max-width: 600px) {
     padding-bottom: 0;
     justify-content: space-evenly;
-    img {
-      margin-bottom: 6px;
-    }
     > li {
       flex-direction: column;
       align-items: center;

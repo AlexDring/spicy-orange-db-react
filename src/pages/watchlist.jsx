@@ -14,7 +14,6 @@ const Watchlist = () => {
   return(
     <Section>
       <h1>Your Watchlist <ItemCount isLoading={isFetching} count={watchlist?.length + ' items'} fontSize={'18px'} /></h1>
-
       {totalItems === 0 ? 
         <EmptyPlaceholder
           icon={<FaRegBookmark size={80} />}

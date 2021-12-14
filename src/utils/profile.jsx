@@ -24,19 +24,8 @@ const getWatchlistConfig = (user_id) => ({
 function useWatchlist() {
   const user_id = useUserId() 
   const result = useQuery(getWatchlistConfig(user_id))
+  console.log(result)
   return {...result, watchlist: result.data }
-}
-
-function useRefetchWatchlist () {
-  const queryClient = useQueryClient()
-  const user_id = useUserId() 
-  return useCallback(
-    async function refetchWatchlist() {
-      queryClient.removeQueries(['profile', 'watchlist'])
-      await queryClient.prefetchQuery(getWatchlistConfig(user_id))
-    },
-    [queryClient, user_id]
-  )
 }
 
 const useAddWatchlist = () => {
@@ -99,7 +88,6 @@ function useProfileReviews (userId) {
 export {
   useProfile,
   useWatchlist,
-  useRefetchWatchlist,
   useAddWatchlist,
   useRemoveWatchlist,
   useProfileRecommendations,

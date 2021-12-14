@@ -3,8 +3,8 @@ import RecommendationCard from 'components/cards/recommendation-card'
 import Skeleton from 'components/skeleton/skeleton'
 import { MediaCardGridStyles } from 'styles/grids'
 
-const RecommendationsGrid = ({ loading, recommendations, skeletonCount }) =>  
-  (<MediaCardGridStyles>
+const RecommendationsGrid = ({ loading, recommendations, skeletonCount }) =>  (
+  <MediaCardGridStyles>
     {loading ? 
       <Skeleton count={skeletonCount} component="recommendation" /> :
       recommendations?.map(recommendation => (
@@ -13,6 +13,7 @@ const RecommendationsGrid = ({ loading, recommendations, skeletonCount }) =>
           recommendation={recommendation.recommendation ? recommendation.recommendation : recommendation} // watchlist populates data.media
         />
       ))}
-  </MediaCardGridStyles>)
+  </MediaCardGridStyles>
+)
 
 export default RecommendationsGrid

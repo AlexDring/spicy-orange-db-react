@@ -33,6 +33,8 @@ const NavStyles = styled.div`
       display: block;
       margin-left: auto;
       background: transparent;
+      font-size: 48px;
+      padding: 10px;
     }
   }
 `
@@ -134,8 +136,8 @@ const Nav = () => {
       <button 
         aria-expanded={openNav ? 'true' : 'false'}
         aria-label="Mobile Navigation Button" 
-        onClick={toggle} 
-        style={{'fontSize': 48}}>☰</button>
+        onClick={toggle}
+      >☰</button>
     </NavStyles>
   )}
 

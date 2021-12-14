@@ -14,10 +14,11 @@ import { useEffect } from 'react'
 const WatchlistToggleStyles = styled.div`
   display: flex;
   span {
+    font-size: 14px;
     cursor: pointer;
     display: flex; 
     align-items: center; 
-    margin-right: 12px
+    /* margin-right: 12px */
   }
   svg {
     margin-right: 6px;
@@ -28,12 +29,7 @@ const WatchlistToggle = ({ recommendationId, recommendationDetailId }) => {
   const { profile } = useProfile()
   const create = useAddWatchlist()
   const remove = useRemoveWatchlist()
-  const refetchWatchlist = useRefetchWatchlist()
   const item = profile?.watchlist.find(i => i.recommendation === recommendationId)
-
-  useEffect(() => {
-    return () => refetchWatchlist()
-  }, [refetchWatchlist])
 
   return(
     <WatchlistToggleStyles>
