@@ -38,7 +38,7 @@ const RottenReviewStyles = styled.div`
 `
 
 const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, profile }) => {
-  const [review, setReview] = useState(recommendation.recommendationDetail.rottenReviews?.find(u => u.user === profile.username))
+  const [review, setReview] = useState(recommendation.rottenReviews?.find(u => u.user === profile.username))
 
   const create = useCreateReview()
   const update = useUpdateReview()

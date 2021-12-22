@@ -14,11 +14,11 @@ const RecommendationMetaStyles = styled.div`
 
 const RecommendationMeta = ({ recommendation, remove }) => {
   const { profile } = useProfile()
-
+  console.log(profile)
   return(
     <RecommendationMetaStyles type={recommendation.Type}>
       <small>Added by {recommendation.user}</small>
-      {recommendation.user === profile.username && 
+      {recommendation.user === profile?.username && 
     <button 
       className='minimal'
       style={{padding: 'none', fontSize: 12}} 

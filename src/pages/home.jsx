@@ -3,12 +3,10 @@ import { useRecommendations } from 'utils/recommendations'
 import { useReviews } from 'utils/reviews'
 import RecommendationsGrid from 'components/cards/grids/recommendations-grid'
 import RecommendationsSmallGrid from 'components/cards/grids/recommendations-poster-grid'
-import { ReviewGridStyles } from 'styles/grids'
+import { ReviewGridStyles } from '../styles/grids'
 import Skeleton from 'components/skeleton/skeleton'
 import { ReviewCard } from 'components/cards'
 import LoadMoreButton from 'components/load-more-button'
-import { useState } from 'react'
-import { FullPageSpinner } from 'components/lib'
 
 function Home() {
   const { data, isLoading: recommendationsLoading } = useRecommendations()

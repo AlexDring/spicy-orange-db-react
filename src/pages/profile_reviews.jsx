@@ -3,7 +3,7 @@ import Section from 'components/layout/section'
 import { Loading } from 'components/lib'
 import Skeleton from 'components/skeleton/skeleton'
 import { useParams } from 'react-router'
-import { ReviewGridStyles } from 'styles/grids'
+import { ReviewGridStyles } from '../styles/grids'
 import { useProfileReviews } from 'utils/profile'
 
 const ProfileReviews = () => {
