@@ -1,14 +1,20 @@
 import axios from 'axios'
-import { authHeader } from 'context/auth-context'
+import { useCallback } from 'react'
 import toast from 'react-hot-toast'
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query'
 import { useHistory } from 'react-router'
-const baseUrl = '/api/media'
+import { useAuthHeader } from './hooks'
+const baseUrl = '/api/recommendations'
 
 function useRecommendations (query) {
+  const result = useInfiniteQuery(recommendationsConfig(query))
+  return result
+}
+
+const recommendationsConfig = (query) => {
   const searchQuery = query ? query : 'all'
-  const result = useInfiniteQuery({
-    queryKey: ['recommendations', query], 
+  return {
+    queryKey: ['recommendations', searchQuery], 
     queryFn: async ({ pageParam = 0 }) => {
       const response = await axios.get(`${baseUrl}?page=${pageParam}&title=${searchQuery}`)
       const pagesNo = Math.ceil(response.data.totalRecommendations/12)
@@ -20,26 +26,29 @@ function useRecommendations (query) {
       }
     },
     getNextPageParam: (lastPage, pages) => lastPage.nextPage
-  })
-  console.log(result)
-  return result
+  }
 }
 
 function useRecommendation(id) {
+  const queryClient = useQueryClient()
   const result = useQuery({
-    queryKey: ['recommendation', id],
-    queryFn: () => axios.get(`${baseUrl}/${id}`).then(response => response.data)
+    queryKey: ['recommendations', id],
+    queryFn: () => axios.get(`${baseUrl}/${id}`).then(response => response.data),
+    initialData: () => {
+      console.log(queryClient.getQueryData(['recommendations', 'all'])?.pages[0].recommendations.find(p => p._id === id))
+      return queryClient.getQueryData(['recommendations', 'all'])?.pages[0].recommendations.find(p => p._id === id)
+    }
   })
   return {...result, recommendation: result.data}
 }
 
 function useAddRecommendation() {
-  const tokenHeader = authHeader()
+  const authHeader = useAuthHeader()
   const queryClient = useQueryClient()
   const history = useHistory()
 
   return useMutation(
-    recommendation => axios.post(baseUrl, recommendation, tokenHeader),
+    recommendation => axios.post(baseUrl, recommendation, authHeader),
     {
       onError: err => {
         if(err.response.data) {
@@ -59,11 +68,11 @@ function useAddRecommendation() {
 
 function useRemoveRecommendation() {
   const queryClient = useQueryClient()
-  const tokenHeader = authHeader()
+  const authHeader = useAuthHeader()
   const history = useHistory()
 
   return useMutation(
-    ({media_id, mediaDetail_id}) => axios.delete(`${baseUrl}/${media_id}/${mediaDetail_id}`, tokenHeader),
+    ({recommendationId, recommendationDetailId}) => axios.delete(`${baseUrl}/${recommendationId}/${recommendationDetailId}`, authHeader),
     {
       onSuccess: () => {
         toast('Recommendation removed', { icon: '😭' })
@@ -75,9 +84,22 @@ function useRemoveRecommendation() {
   )
 }
 
+const useRefetchRecommendations = () => {
+  const queryClient = useQueryClient()
+  queryClient.removeQueries(['recommendations'])
+  return useCallback(
+    async function refetchRecommendations() {
+      queryClient.removeQueries(['recommendations'])
+      await queryClient.prefetchInfiniteQuery(recommendationsConfig())
+    },
+    [queryClient]
+  )
+}
+
 export {
   useRecommendations,
   useRecommendation,
   useAddRecommendation,
-  useRemoveRecommendation
+  useRemoveRecommendation,
+  useRefetchRecommendations
 }

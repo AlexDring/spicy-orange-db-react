@@ -17,7 +17,7 @@ flex-wrap: wrap;
    color: var(--gray);
  }
  @media(max-width: 450px) {
-   width: 100%;
+   /* width: 100%; */
    margin-bottom: 5px;
    li:nth-last-child(1) {
       display: none;

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@auth0/auth0-react": "^1.8.0",
     "@fontsource/lora": "^4.4.5",
     "@fontsource/poppins": "^4.4.5",
     "@reach/alert": "^0.16.0",

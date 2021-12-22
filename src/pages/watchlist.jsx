@@ -4,15 +4,23 @@ import RecommendationsGrid from 'components/cards/grids/recommendations-grid'
 import { FaRegBookmark} from 'react-icons/fa'
 import EmptyPlaceholder from 'components/empty-placeholder'
 import ItemCount from 'components/item-count'
+import { useProfile } from 'utils/profile'
 
 const Watchlist = () => {
   const { watchlist, isLoading, isFetching } = useWatchlist()
+  const { profile } = useProfile() // useProfile to get existing number of watchlist items, pre population on the backend.
   const totalItems = watchlist?.length
-  console.log(isLoading, isFetching, watchlist)
+
   return(
     <Section>
-      <h1>Your Watchlist <ItemCount isLoading={isFetching} count={watchlist?.length + ' items'} fontSize={'18px'} /></h1>
-
+      <h1>Your Watchlist 
+        <ItemCount
+          isLoading={isFetching}
+          count={watchlist?.length}
+          fontSize={'18px'} 
+          background={'#FFB17A'}
+        />
+      </h1>
       {totalItems === 0 ? 
         <EmptyPlaceholder
           icon={<FaRegBookmark size={80} />}
@@ -21,7 +29,7 @@ const Watchlist = () => {
         <RecommendationsGrid
           loading={isLoading}
           recommendations={watchlist}
-          skeletonCount={8}
+          skeletonCount={profile?.watchlist}
         />
       }
     </Section>

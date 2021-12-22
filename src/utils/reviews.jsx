@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { authHeader } from 'context/auth-context'
 import toast from 'react-hot-toast'
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query'
+import { useAuthHeader } from './hooks'
 const baseUrl = '/api/rottenReviews'
 
 function useReviews() {
@@ -23,36 +23,41 @@ function useReviews() {
 }
 
 function useCreateReview () {
-  const tokenHeader = authHeader()
+  const tokenHeader = useAuthHeader()
   const queryClient = useQueryClient()
   return useMutation(
-    review => axios.post(`${baseUrl}/${review.mediaDetailId}`, review, tokenHeader),
+    review => axios.post(`${baseUrl}/${review.recommendationDetailId}`, review, tokenHeader),
     {
       onSuccess: () => toast.success('Review added!'),
-      onSettled: () => queryClient.invalidateQueries('recommendation')
+      onError: () => toast.error('Oops something went wrong.'),
+      onSettled: () => queryClient.invalidateQueries('recommendations')
     }
   )
 }
 
 function useUpdateReview () {
-  const tokenHeader = authHeader()
-  console.log(tokenHeader)
+  const tokenHeader = useAuthHeader()
   const queryClient = useQueryClient()
   return useMutation(
-    updates => axios.put(`${baseUrl}/${updates.mediaDetailId}/${updates.reviewId}`, updates, tokenHeader),
+    updates => axios.put(`${baseUrl}/${updates.recommendationDetailId}/${updates.reviewId}`, updates, tokenHeader),
     {
       onSuccess: () => toast.success('Review updated'),
-      onSettled: () => queryClient.invalidateQueries('recommendation')
+      onError: () => toast.error('Oops something went wrong.'),
+      onSettled: () => queryClient.invalidateQueries('recommendations')
     }
   )
 }
 
 function useRemoveReview () {
-  const tokenHeader = authHeader()
+  const tokenHeader = useAuthHeader()
   const queryClient = useQueryClient()
   return useMutation(
-    data => axios.delete(`${baseUrl}/${data.mediaDetailId}/${data.reviewId}`, tokenHeader),
-    {onSettled: () => queryClient.invalidateQueries('recommendation')}
+    data => axios.delete(`${baseUrl}/${data.recommendationDetailId}/${data.reviewId}`, tokenHeader),
+    {
+      onSuccess: () => toast.success('Review deleted'),
+      onError: () => toast.error('Oops something went wrong.'),
+      onSettled: () => queryClient.invalidateQueries('recommendations')
+    }
   )
 }
 

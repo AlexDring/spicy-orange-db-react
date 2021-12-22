@@ -25,6 +25,7 @@ const GlobalStyles = createGlobalStyle`
     height: 100%;
     background-color: var(--light-yellow);
     @media(max-width: 600px) {
+      width: 100vw; /* To stop scrollbar adding width to pages */ 
       overflow-x: hidden;
     }
   }
@@ -75,7 +76,7 @@ const GlobalStyles = createGlobalStyle`
   /* Reach Dialog component */
   [data-reach-dialog-content] {
     padding: 24px;
-    background: var(--light-yellow);
+    background: var(--light-orange);
     max-width: 750px;
     @media(max-width: 650px) {
       width: 95vw;

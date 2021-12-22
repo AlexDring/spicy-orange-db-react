@@ -7,6 +7,9 @@ section {
   padding: 48px 15px;
   max-width: 970px;
   margin: auto;
+  @media(max-width: 450px) {
+    padding: 48px 7.5px;
+  }
 }
 `
 const Section = ({orange, children}) => (

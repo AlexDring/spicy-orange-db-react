@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react'
 import { HashLink } from 'react-router-hash-link'
-import { useAuth } from 'context/auth-context'
 import styled from 'styled-components'
 import { rottenReviewImage } from 'utils/misc'
 import RottenReviewModal from './rotten-review-modal'
+import { useProfile } from 'utils/profile'
 
 const RottenWrapper = styled.div`
   grid-area: rottenGas;
@@ -32,15 +32,15 @@ const RottenScoreStyles = styled.div`
 `
 
 const RottenReviews = ({ recommendation }) => {
-  const { user } =  useAuth()
+  const {profile} = useProfile()
   const [displayModal, setDisplayModal] = useState(false)
-  const userScore = recommendation.mediaDetail.rottenReviews.find(review => review.user === user.username)
+  const userScore = recommendation.recommendationDetail.rottenReviews?.find(review => review.user === profile.username)
 
   return (
     <>
       <RottenReviewModal
         recommendation={recommendation}
-        user={user}
+        profile={profile}
         displayModal={displayModal}
         setDisplayModal={setDisplayModal} 
       />
@@ -63,7 +63,7 @@ const RottenReviews = ({ recommendation }) => {
           <img src={rottenReviewImage(userScore?.score)} alt="" />
           {userScore ? 
             <>
-              <div>{userScore.score}/1000</div>
+              <div>{userScore.score.toFixed()}/1000</div>
             </> : <div>Click to rate.</div> 
           }
         </RottenScoreStyles>

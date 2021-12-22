@@ -3,7 +3,7 @@ import ExternalReviews from 'components/external-reviews'
 import RecommendationMeta from 'components/recommendation-meta'
 import RottenReview from 'components/rotten-review'
 import styled from 'styled-components'
-import { borderColor } from 'utils/misc'
+import { borderColor, convertDate } from 'utils/misc'
 
 const RecRowWrapper = styled.div`
   display: flex;
@@ -66,9 +66,6 @@ const GenreStyles = styled.div`
 const RecommendationsRow = ({ recommendation }) => {
   const { Type, Poster, Title, Year, Runtime, imdbRating, Metascore, Director, Genre, rottenAverage, rottenCount, user, dateAdded } = recommendation
 
-  const date = new Date(dateAdded)
-  const convertedDate = (new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: '2-digit' }).format(date)) 
-
   return(
     <RecRowWrapper type={Type}>
       <img src={Poster} />
@@ -80,7 +77,7 @@ const RecommendationsRow = ({ recommendation }) => {
       <GenreStyles>
         {Director !== 'N/A' && <p>Director: {Director}</p>} 
         <p>{Genre}</p>
-        <p>Added by {user} {convertedDate}</p>
+        <p>Added by {user} {convertDate(dateAdded)}</p>
       </GenreStyles>
       <RottenReview rottenAverage={rottenAverage} rottenCount={rottenCount} vertical />
     </RecRowWrapper>

@@ -6,19 +6,19 @@ const ItemCountStyles = styled.div`
   justify-content: center;
   align-items: center;
   font-size: ${props => props.fontSize || 'inherit'};
-  background: var(--light-yellow);
+  background: ${props => props.background || '#FFFDED'};
   font-family: var(--san-serif);
   font-weight: 400;
   margin-left: 2px;
-  padding: 2px 5px;
+  padding: 3px 7px;
   border: 0px solid;
   border-radius: 10%;
 `
 
 // eslint-disable-next-line react/prop-types
-const ItemCount = ({ count, loading, fontSize }) => {
+const ItemCount = ({ count, loading, fontSize, background }) => {
   return(
-    <ItemCountStyles fontSize={fontSize}>
+    <ItemCountStyles fontSize={fontSize} background={background}>
       <span>{loading ? <Loading /> : count}</span>
     </ItemCountStyles>
   )

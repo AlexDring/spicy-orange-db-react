@@ -1,8 +1,9 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { rottenReviewImage } from 'utils/misc'
-import { useAuth } from 'context/auth-context'
+import { convertDate, rottenReviewImage } from 'utils/misc'
+import { useProfile } from 'utils/profile'
+import spicyLogo from 'assets/images/spicy-orange-logo.png'
 
 const ReviewStyles = styled.div`
   display: grid;
@@ -19,6 +20,7 @@ const ReviewStyles = styled.div`
     margin-right: 6;
   }
   > p {
+    white-space: pre-wrap;
     margin-top: 6px;
     grid-column: 1 / -1;
   }
@@ -35,15 +37,15 @@ const MediaScore = styled.div`
 `
 
 const ReviewCard = ({ large, review }) => {
-  const { user: {avatar} } = useAuth()
-  
+  const { profile: {avatar} } = useProfile()
+  // console.log(review)
   return (
     <ReviewStyles large={large}>
       {large && <img src={review.poster} alt="" />}
       <div>
         <MediaScore>
           <img height="25" 
-            src={avatar}
+            src={avatar ? avatar : spicyLogo}
             alt="Logged in users avatar" />
           <span>{review.user}</span>
           <img height="25" 
@@ -52,7 +54,7 @@ const ReviewCard = ({ large, review }) => {
           <span>{review.score}<span className="gray" style={{fontSize: 12}}>/1000</span></span>
         </MediaScore>
         {large && 
-        <Link to={`/recommendation/${review.mediaId}`}>
+        <Link to={`/recommendation/${review.recommendationId}`}>
           <h3>{review.title}</h3><small>{review.year}</small>
         </Link>}
       </div>

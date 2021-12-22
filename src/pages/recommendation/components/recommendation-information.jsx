@@ -30,14 +30,14 @@ const RecommendationInformation = ({ recommendation }) => {
   return (
     <RecommendationInfoWrapper>
       <h2>{recommendation.Title} Information</h2>
-      <p>{recommendation.mediaDetail.Plot}</p>
+      <p>{recommendation.recommendationDetail.Plot}</p>
       <RecommendationInfoUlStyles>
         <RecommendationInfoLi role={'Director'} item={recommendation.Director}/>
-        <RecommendationInfoLi role={'Writer'} item={recommendation.mediaDetail.Writer}/>
-        <RecommendationInfoLi role={'Cast'} item={recommendation.mediaDetail.Actors}/>
-        <RecommendationInfoLi role={'Production'} item={recommendation.mediaDetail.Production}/>
-        <RecommendationInfoLi role={'Awards'} item={recommendation.mediaDetail.Awards}/>
-        <RecommendationInfoLi role={'Box Office'} item={recommendation.mediaDetail.BoxOffice}/>
+        <RecommendationInfoLi role={'Writer'} item={recommendation.recommendationDetail.Writer}/>
+        <RecommendationInfoLi role={'Cast'} item={recommendation.recommendationDetail.Actors}/>
+        <RecommendationInfoLi role={'Production'} item={recommendation.recommendationDetail.Production}/>
+        <RecommendationInfoLi role={'Awards'} item={recommendation.recommendationDetail.Awards}/>
+        <RecommendationInfoLi role={'Box Office'} item={recommendation.recommendationDetail.BoxOffice}/>
       </RecommendationInfoUlStyles>
     </RecommendationInfoWrapper>
   )

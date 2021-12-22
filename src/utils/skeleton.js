@@ -24,7 +24,7 @@ const CardSkeleton = (props) => (
     speed={2}
     width={470}
     height={327.05}
-    viewBox="0 0 470 325.5"
+    viewBox="0 0 470 327.05"
     backgroundColor="#f3f3f3"
     foregroundColor="#ecebeb"
     {...props}
@@ -37,7 +37,7 @@ const CardSkeleton = (props) => (
     <circle cx="284" cy="252" r="44" /> 
     <rect x="136" y="227" rx="0" ry="0" width="1" height="0" /> 
     <rect x="20" y="166" rx="0" ry="0" width="1" height="0" /> 
-    <rect x="0" y="0" rx="0" ry="0" width="209" height="325.5" />
+    <rect x="0" y="0" rx="0" ry="0" width="209" height="327.05" />
   </ContentLoader>
 )
 
