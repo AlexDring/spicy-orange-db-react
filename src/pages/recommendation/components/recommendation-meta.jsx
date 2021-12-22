@@ -18,13 +18,13 @@ const RecommendationMeta = ({ recommendation, remove }) => {
   return(
     <RecommendationMetaStyles type={recommendation.Type}>
       <small>Added by {recommendation.user}</small>
-      {recommendation.user === profile.username && 
+      {recommendation.user === profile?.username && 
     <button 
       className='minimal'
       style={{padding: 'none', fontSize: 12}} 
       onClick={() => remove.mutate({
-        recommendationId: recommendation._id, 
-        recommendationDetailId: recommendation.recommendationDetail._id
+        userId: profile._id,
+        recommendationId: recommendation._id
       })} 
     >
       Delete

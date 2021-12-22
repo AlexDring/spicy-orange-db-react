@@ -3,6 +3,7 @@ import { useCallback } from 'react'
 import toast from 'react-hot-toast'
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query'
 import { useHistory } from 'react-router'
+import { useToken } from './hooks'
 import { useAuthHeader } from './hooks'
 const baseUrl = '/api/recommendations'
 
@@ -68,11 +69,14 @@ function useAddRecommendation() {
 
 function useRemoveRecommendation() {
   const queryClient = useQueryClient()
-  const authHeader = useAuthHeader()
+  const token = useToken()
   const history = useHistory()
 
   return useMutation(
-    ({recommendationId, recommendationDetailId}) => axios.delete(`${baseUrl}/${recommendationId}/${recommendationDetailId}`, authHeader),
+    ({recommendationId, userId}) => axios.delete(`${baseUrl}/${recommendationId}`, { 
+      headers: { Authorization: `bearer ${token}` },
+      data: { userId: userId }
+    }),
     {
       onSuccess: () => {
         toast('Recommendation removed', { icon: '😭' })

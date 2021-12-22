@@ -59,7 +59,7 @@ function Recommendation() {
   const {id} = useParams()
   const {recommendation, isLoading} = useRecommendation(id)
   const remove = useRemoveRecommendation()
-
+  console.log(recommendation)
   if(isLoading) {
     return (
       <Section>
@@ -83,9 +83,7 @@ function Recommendation() {
               breadcrumb: `${recommendation.Title}` 
             }
           ]} />
-          <WatchlistToggle
-            recommendationId={recommendation._id}
-            recommendationDetailId={recommendation?.recommendationDetail._id} />
+          <WatchlistToggle recommendationId={recommendation._id} />
         </TopRowWrapper>
         <RecommendationCardWrapper> 
           <img
@@ -100,20 +98,20 @@ function Recommendation() {
             recommendation={recommendation}
             loading={isLoading}   
           />
-          {/* <ThirdPartyReviews recommendation={recommendation} /> */}
+          <ThirdPartyReviews recommendation={recommendation} />
         </RecommendationCardWrapper>
         <RecommendationInformation recommendation={recommendation} />
       </Section>
       <Section orange>
         <h2 id='rotten-gas'>Rotten Ga&apos;s</h2>
-        {recommendation.recommendationDetail.rottenReviews?.length === 0 ?
+        {recommendation.rottenReviews.length === 0 ?
           <EmptyPlaceholder
             icon={<img src={rottenIcon.noReview} />}
             text={<p>No reviews.</p>} />
           :
           <ReviewsGrid
             loading={isLoading}
-            reviews={recommendation.recommendationDetail.rottenReviews} 
+            reviews={recommendation.rottenReviews} 
             skeletonCount={4} 
           />}
       </Section>

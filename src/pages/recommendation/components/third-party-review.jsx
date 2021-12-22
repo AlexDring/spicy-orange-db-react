@@ -37,11 +37,11 @@ const ThirdPartyReviewsWrapper = styled.ul`
 
 const ThirdPartyReviews = ({ recommendation }) => ( 
   <ThirdPartyReviewsWrapper>
-    {recommendation.recommendationDetail.Ratings.map(r => 
+    {recommendation.Ratings.map(r => 
       (<li key={r._id}>
         <a 
           href={
-            r.Source === 'Internet Movie Database' ? `https://www.imdb.com/title/${recommendation.recommendationDetail.imdbID}` : 
+            r.Source === 'Internet Movie Database' ? `https://www.imdb.com/title/${recommendation.imdbID}` : 
               r.Source === 'Rotten Tomatoes' ? `https://www.rottentomatoes.com/search?search=${recommendation.Title}` : 
                 r.Source === 'Metacritic' ? `https://www.metacritic.com/search/all/${recommendation.Title}/results` : 
                   null }  target='_blank' rel='noopener noreferrer'>
