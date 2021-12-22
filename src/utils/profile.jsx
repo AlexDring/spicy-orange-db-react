@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { useCallback } from 'react'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { useAuthHeader, useUserId, useToken } from './hooks'
 const baseUrl = '/api/users'
@@ -51,9 +50,9 @@ function useRemoveWatchlist() {
   const queryClient = useQueryClient()
 
   return useMutation(
-    ({watchlist_id, recommendation_detail_id}) => 
-      axios.delete(`${baseUrl}/${user_id}/watchlist/${watchlist_id}`, {
-        data: { recommendation_detail_id },
+    ({watchlistId, recommendationId}) => 
+      axios.delete(`${baseUrl}/${user_id}/watchlist/${watchlistId}`, {
+        data: { recommendationId },
         headers: { Authorization: `bearer ${token}` }
       }),
     {

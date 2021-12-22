@@ -14,7 +14,7 @@ const RecommendationMetaStyles = styled.div`
 
 const RecommendationMeta = ({ recommendation, remove }) => {
   const { profile } = useProfile()
-  console.log(profile)
+
   return(
     <RecommendationMetaStyles type={recommendation.Type}>
       <small>Added by {recommendation.user}</small>
@@ -23,8 +23,8 @@ const RecommendationMeta = ({ recommendation, remove }) => {
       className='minimal'
       style={{padding: 'none', fontSize: 12}} 
       onClick={() => remove.mutate({
-        recommendationId: recommendation._id, 
-        recommendationDetailId: recommendation.recommendationDetail._id
+        userId: profile._id,
+        recommendationId: recommendation._id
       })} 
     >
       Delete

@@ -59,7 +59,7 @@ function Recommendation() {
   const {id} = useParams()
   const {recommendation, isLoading} = useRecommendation(id)
   const remove = useRemoveRecommendation()
-
+  console.log(recommendation)
   if(isLoading) {
     return (
       <Section>

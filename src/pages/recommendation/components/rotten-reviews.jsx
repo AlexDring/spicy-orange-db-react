@@ -32,10 +32,10 @@ const RottenScoreStyles = styled.div`
 `
 
 const RottenReviews = ({ recommendation }) => {
-  const {profile} = useProfile()
+  const { profile } = useProfile()
   const [displayModal, setDisplayModal] = useState(false)
-  const userScore = recommendation.rottenReviews?.find(review => review.user === profile.username)
-
+  const userScore = recommendation.rottenReviews.find(review => review.user === profile?.username)
+  console.log(userScore)
   return (
     <>
       <RottenReviewModal
@@ -51,7 +51,7 @@ const RottenReviews = ({ recommendation }) => {
             <img src={rottenReviewImage(recommendation.rottenAverage)} alt="" />
             {(recommendation.rottenCount !== undefined && recommendation.rottenCount !== 0) ? 
               <>
-                <div>{recommendation.rottenAverage}/1000</div>
+                <div>{recommendation.rottenAverage.toFixed()}/1000</div>
                 <small>{recommendation.rottenCount} Reviews</small>
               </> : 
               <small>No Ratings</small>
