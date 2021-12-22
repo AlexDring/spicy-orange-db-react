@@ -17,7 +17,13 @@ function borderColor(recommendationType) {
   )
 }
 
+function convertDate(date) {
+  const dateToConvert = new Date(date)
+  return (new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: '2-digit' }).format(dateToConvert)) 
+}
+
 export {
   rottenReviewImage,
-  borderColor
+  borderColor,
+  convertDate
 }

@@ -13,14 +13,21 @@ const Watchlist = () => {
 
   return(
     <Section>
-      <h1>Your Watchlist <ItemCount isLoading={isFetching} count={watchlist?.length + ' items'} fontSize={'18px'} /></h1>
+      <h1>Your Watchlist 
+        <ItemCount
+          isLoading={isFetching}
+          count={watchlist?.length}
+          fontSize={'18px'} 
+          background={'#FFB17A'}
+        />
+      </h1>
       {totalItems === 0 ? 
         <EmptyPlaceholder
           icon={<FaRegBookmark size={80} />}
           text={<p>Your watchlist is empty.</p>} 
         /> : 
         <RecommendationsGrid
-          loading={isLoading || isFetching}
+          loading={isLoading}
           recommendations={watchlist}
           skeletonCount={profile?.watchlist}
         />

@@ -14,7 +14,7 @@ const ReviewsGrid = ({ loading, reviews, large, skeletonCount }) => (
   <ReviewGridStyles>
     {loading ? 
       <Skeleton count={skeletonCount} component="review" /> : 
-      reviews.map(review => (
+      reviews?.map(review => (
         <ReviewCard 
           key={review._id} 
           review={review}   

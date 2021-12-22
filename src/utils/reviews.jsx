@@ -26,11 +26,11 @@ function useCreateReview () {
   const tokenHeader = useAuthHeader()
   const queryClient = useQueryClient()
   return useMutation(
-    review => axios.post(`${baseUrl}/${review.mediaDetailId}`, review, tokenHeader),
+    review => axios.post(`${baseUrl}/${review.recommendationDetailId}`, review, tokenHeader),
     {
       onSuccess: () => toast.success('Review added!'),
       onError: () => toast.error('Oops something went wrong.'),
-      onSettled: () => queryClient.invalidateQueries('recommendation')
+      onSettled: () => queryClient.invalidateQueries('recommendations')
     }
   )
 }
@@ -39,11 +39,11 @@ function useUpdateReview () {
   const tokenHeader = useAuthHeader()
   const queryClient = useQueryClient()
   return useMutation(
-    updates => axios.put(`${baseUrl}/${updates.mediaDetailId}/${updates.reviewId}`, updates, tokenHeader),
+    updates => axios.put(`${baseUrl}/${updates.recommendationDetailId}/${updates.reviewId}`, updates, tokenHeader),
     {
       onSuccess: () => toast.success('Review updated'),
       onError: () => toast.error('Oops something went wrong.'),
-      onSettled: () => queryClient.invalidateQueries('recommendation')
+      onSettled: () => queryClient.invalidateQueries('recommendations')
     }
   )
 }
@@ -52,11 +52,11 @@ function useRemoveReview () {
   const tokenHeader = useAuthHeader()
   const queryClient = useQueryClient()
   return useMutation(
-    data => axios.delete(`${baseUrl}/${data.mediaDetailId}/${data.reviewId}`, tokenHeader),
+    data => axios.delete(`${baseUrl}/${data.recommendationDetailId}/${data.reviewId}`, tokenHeader),
     {
       onSuccess: () => toast.success('Review deleted'),
       onError: () => toast.error('Oops something went wrong.'),
-      onSettled: () => queryClient.invalidateQueries('recommendation')
+      onSettled: () => queryClient.invalidateQueries('recommendations')
     }
   )
 }

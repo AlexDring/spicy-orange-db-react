@@ -38,7 +38,7 @@ const RottenReviewStyles = styled.div`
 `
 
 const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, profile }) => {
-  const [review, setReview] = useState(recommendation.mediaDetail.rottenReviews.find(u => u.user === profile.username))
+  const [review, setReview] = useState(recommendation.recommendationDetail.rottenReviews?.find(u => u.user === profile.username))
 
   const create = useCreateReview()
   const update = useUpdateReview()
@@ -47,10 +47,9 @@ const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, prof
   function addReviewSubmit(e) {
     e.preventDefault()
     create.mutate({ 
-      user_id: profile._id,
-      mediaId: recommendation._id,
-      reviewId: review._id,
-      mediaDetailId: recommendation.mediaDetail._id,
+      userId: profile._id,
+      recommendationId: recommendation._id,
+      recommendationDetailId: recommendation.recommendationDetail._id,
       score: review.score, 
       review: review.review,  
       title: recommendation.Title,
@@ -67,9 +66,9 @@ const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, prof
   function updateReview(e) {
     e.preventDefault()
     update.mutate({ 
-      mediaId: recommendation._id,
+      recommendationId: recommendation._id,
       reviewId: review._id,
-      mediaDetailId: recommendation.mediaDetail._id,
+      recommendationDetailId: recommendation.recommendationDetail._id,
       score: review.score, 
       review: review.review,
       updatedOn: new Date()
@@ -81,8 +80,8 @@ const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, prof
 
   function removeReview() {
     remove.mutate({
-      user_id: profile._id,
-      mediaDetailId: recommendation.mediaDetail._id, 
+      userId: profile._id,
+      recommendationDetailId: recommendation.recommendationDetail._id, 
       reviewId: review._id
     })
     setReview(null)

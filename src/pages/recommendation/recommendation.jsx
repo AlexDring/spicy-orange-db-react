@@ -85,7 +85,7 @@ function Recommendation() {
           ]} />
           <WatchlistToggle
             recommendationId={recommendation._id}
-            recommendationDetailId={recommendation?.mediaDetail._id} />
+            recommendationDetailId={recommendation?.recommendationDetail._id} />
         </TopRowWrapper>
         <RecommendationCardWrapper> 
           <img
@@ -100,20 +100,20 @@ function Recommendation() {
             recommendation={recommendation}
             loading={isLoading}   
           />
-          <ThirdPartyReviews recommendation={recommendation} />
+          {/* <ThirdPartyReviews recommendation={recommendation} /> */}
         </RecommendationCardWrapper>
         <RecommendationInformation recommendation={recommendation} />
       </Section>
       <Section orange>
         <h2 id='rotten-gas'>Rotten Ga&apos;s</h2>
-        {recommendation.mediaDetail.rottenReviews.length === 0 ?
+        {recommendation.recommendationDetail.rottenReviews?.length === 0 ?
           <EmptyPlaceholder
             icon={<img src={rottenIcon.noReview} />}
             text={<p>No reviews.</p>} />
           :
           <ReviewsGrid
             loading={isLoading}
-            reviews={recommendation.mediaDetail.rottenReviews} 
+            reviews={recommendation.recommendationDetail.rottenReviews} 
             skeletonCount={4} 
           />}
       </Section>

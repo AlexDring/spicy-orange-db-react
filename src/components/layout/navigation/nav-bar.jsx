@@ -12,6 +12,7 @@ import { useHistory } from 'react-router'
 import { useProfile } from 'utils/profile'
 import ItemCount from 'components/item-count'
 import { useAuth0 } from '@auth0/auth0-react'
+import spicyLogo from 'assets/images/spicy-orange-logo.png'
 
 const NavStyles = styled.div`
   display: flex;
@@ -123,7 +124,7 @@ const Nav = () => {
           </li>
           <li>
             <Menu>
-              <MenuButton><img width="40" height="40" src={profile?.avatar} alt="Logged in users avatar" /></MenuButton>
+              <MenuButton><img width="40" height="40" src={profile?.avatar ? profile?.avatar : spicyLogo} alt="Logged in users avatar" /></MenuButton>
               <MenuList>
                 <MenuItem onSelect={() => toggle()}><NavLink to={`/${profile?._id}/recommendations`}>Your Recommendations</NavLink></MenuItem>
                 <MenuItem onSelect={() => toggle()}><NavLink to={`/${profile?._id}/reviews`}>Your Reviews</NavLink></MenuItem>

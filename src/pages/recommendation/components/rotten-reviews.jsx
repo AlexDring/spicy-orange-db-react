@@ -34,7 +34,7 @@ const RottenScoreStyles = styled.div`
 const RottenReviews = ({ recommendation }) => {
   const {profile} = useProfile()
   const [displayModal, setDisplayModal] = useState(false)
-  const userScore = recommendation.mediaDetail.rottenReviews.find(review => review.user === profile.username)
+  const userScore = recommendation.recommendationDetail.rottenReviews?.find(review => review.user === profile.username)
 
   return (
     <>

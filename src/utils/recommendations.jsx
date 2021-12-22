@@ -4,7 +4,7 @@ import toast from 'react-hot-toast'
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query'
 import { useHistory } from 'react-router'
 import { useAuthHeader } from './hooks'
-const baseUrl = '/api/media'
+const baseUrl = '/api/recommendations'
 
 function useRecommendations (query) {
   const result = useInfiniteQuery(recommendationsConfig(query))
@@ -30,9 +30,14 @@ const recommendationsConfig = (query) => {
 }
 
 function useRecommendation(id) {
+  const queryClient = useQueryClient()
   const result = useQuery({
-    queryKey: ['recommendation', id],
-    queryFn: () => axios.get(`${baseUrl}/${id}`).then(response => response.data)
+    queryKey: ['recommendations', id],
+    queryFn: () => axios.get(`${baseUrl}/${id}`).then(response => response.data),
+    initialData: () => {
+      console.log(queryClient.getQueryData(['recommendations', 'all'])?.pages[0].recommendations.find(p => p._id === id))
+      return queryClient.getQueryData(['recommendations', 'all'])?.pages[0].recommendations.find(p => p._id === id)
+    }
   })
   return {...result, recommendation: result.data}
 }
@@ -67,7 +72,7 @@ function useRemoveRecommendation() {
   const history = useHistory()
 
   return useMutation(
-    ({media_id, mediaDetail_id}) => axios.delete(`${baseUrl}/${media_id}/${mediaDetail_id}`, authHeader),
+    ({recommendationId, recommendationDetailId}) => axios.delete(`${baseUrl}/${recommendationId}/${recommendationDetailId}`, authHeader),
     {
       onSuccess: () => {
         toast('Recommendation removed', { icon: '😭' })

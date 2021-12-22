@@ -22,7 +22,10 @@ const RecommendationMeta = ({ recommendation, remove }) => {
     <button 
       className='minimal'
       style={{padding: 'none', fontSize: 12}} 
-      onClick={() => remove.mutate({media_id: recommendation._id, mediaDetail_id: recommendation.mediaDetail._id})} 
+      onClick={() => remove.mutate({
+        recommendationId: recommendation._id, 
+        recommendationDetailId: recommendation.recommendationDetail._id
+      })} 
     >
       Delete
     </button>

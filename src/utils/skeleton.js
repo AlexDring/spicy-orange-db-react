@@ -24,7 +24,7 @@ const CardSkeleton = (props) => (
     speed={2}
     width={470}
     height={327.05}
-    viewBox="0 0 470 325.5"
+    viewBox="0 0 470 327.05"
     backgroundColor="#f3f3f3"
     foregroundColor="#ecebeb"
     {...props}
