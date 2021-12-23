@@ -94,10 +94,35 @@ const SearchResultSkeleton = (props) => (
   </ContentLoader>
 )
 
+const RecommendationsRowSkeleton = (props) => (
+  <ContentLoader 
+    style={{backgroundColor: '#fff'}}
+    speed={2}
+    width={940}
+    height={130}
+    viewBox="0 0 940 130"
+    backgroundColor="#f3f3f3"
+    foregroundColor="#ecebeb"
+    {...props}
+  >
+    <rect x="24" y="10" rx="0" ry="0" width="76" height="110" /> {/* Poster */}
+    <rect x="124" y="30" rx="3" ry="3" width="180" height="16" /> {/* Meta */} 
+    <rect x="124" y="60" rx="3" ry="3" width="130" height="6" /> {/* Meta */} 
+    <rect x="124" y="80" rx="3" ry="3" width="120" height="6" /> {/* Meta */} 
+    <rect x="531" y="40" rx="3" ry="3" width="180" height="6" /> 
+    <rect x="531" y="60" rx="3" ry="3" width="180" height="6" /> 
+    <rect x="531" y="80" rx="3" ry="3" width="160" height="6" />
+    <rect x="860" y="43" rx="3" ry="3" width="50" height="6" /> 
+    <rect x="860" y="61" rx="3" ry="3" width="52" height="6" /> 
+    <circle cx="827" cy="55" r="20" /> 
+  </ContentLoader>
+)
+
 export {
   PosterSkeleton,
   CardSkeleton,
   MediaDetailSkeleton,
-  SearchResultSkeleton
+  SearchResultSkeleton,
+  RecommendationsRowSkeleton
 }
 

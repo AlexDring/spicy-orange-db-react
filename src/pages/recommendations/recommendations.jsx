@@ -8,6 +8,7 @@ import { useState } from 'react'
 import SearchInput from 'components/search-input'
 import { FullPageSpinner } from 'components/lib'
 import ItemCount from 'components/item-count'
+import { RecommendationsRowSkeleton } from 'utils/skeleton'
 
 const TopRowStyles = styled.div`
   display: flex;
@@ -41,7 +42,7 @@ const Recommendations = () => {
           placeholder={'Search recommendations'} 
         />
       </TopRowStyles>
-      {result.isLoading && <FullPageSpinner />}
+      {result.isLoading && Array.from({length: 12}, (v, i) =>  <RecommendationsRowSkeleton />)}
       <ul>
         {result.data?.pages.map(page => 
           page?.recommendations.map(recommentation =>
@@ -51,6 +52,7 @@ const Recommendations = () => {
           )
         )}
       </ul>
+      {result.isFetching && Array.from({length: 12}, (v, i) =>  <RecommendationsRowSkeleton />)}
       {result.data?.pages[0].recommendations.length !== 0 && <LoadMoreButton result={result} />}
     </Section>  
   )
