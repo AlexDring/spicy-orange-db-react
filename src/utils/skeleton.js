@@ -118,11 +118,29 @@ const RecommendationsRowSkeleton = (props) => (
   </ContentLoader>
 )
 
+const SearchSkeleton = (props) => (
+  <ContentLoader 
+    style={{backgroundColor: '#fff'}}
+    speed={2}
+    width={205}
+    height={400}
+    viewBox="0 0 205 400"
+    backgroundColor="#f3f3f3"
+    foregroundColor="#ecebeb"
+    {...props}
+  >
+    <rect x="0" y="0" rx="0" ry="0" width="205" height="330" />
+    <rect x="40" y="344" rx="3" ry="3" width="140" height="10" /> 
+    <rect x="55" y="364" rx="3" ry="3" width="110" height="6" /> 
+  </ContentLoader>
+)
+
 export {
   PosterSkeleton,
   CardSkeleton,
   MediaDetailSkeleton,
   SearchResultSkeleton,
+  SearchSkeleton,
   RecommendationsRowSkeleton
 }
 
