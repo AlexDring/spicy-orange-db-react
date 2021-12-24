@@ -1,9 +1,9 @@
-/* eslint-disable react/prop-types */
 import RecommendationMeta from 'components/recommendation-meta'
 import RottenReview from 'components/rotten-review'
 import styled from 'styled-components'
 import { borderColor } from 'utils/misc'
 import searchPlaceholder from '../../assets/images/search-placeholder.png'
+import PropTypes from 'prop-types'
 
 const RecommendationPosterStyles = styled.div`
   display: flex;
@@ -52,6 +52,11 @@ const RecommendationPosterCard = ({ data }) => {
       </div>
     </RecommendationPosterStyles>
   )
+}
+
+
+RecommendationPosterCard.propTypes = {
+  data: PropTypes.object,
 }
 
 export default RecommendationPosterCard

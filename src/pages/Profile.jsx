@@ -7,7 +7,6 @@ import styled from 'styled-components'
 import { ReviewGridStyles } from 'styles/grids'
 import { useGetProfile } from 'utils/profile'
 import spicyLogo from 'assets/images/spicy-orange-logo.png'
-import { Link } from 'react-router-dom'
 import EmptyPlaceholder from 'components/empty-placeholder'
 import rottenIcons from 'assets/images/rotten-gas/rottenIcons'
 

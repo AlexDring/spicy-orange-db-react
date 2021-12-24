@@ -1,9 +1,9 @@
-/* eslint-disable react/prop-types */
 import ExternalReviews from 'components/external-reviews'
 import RecommendationMeta from 'components/recommendation-meta'
 import RottenReview from 'components/rotten-review'
 import styled from 'styled-components'
 import { borderColor, convertDate } from 'utils/misc'
+import PropTypes from 'prop-types'
 
 const RecRowWrapper = styled.div`
   display: flex;
@@ -82,6 +82,11 @@ const RecommendationsRow = ({ recommendation }) => {
       <RottenReview rottenAverage={rottenAverage} rottenCount={rottenCount} vertical />
     </RecRowWrapper>
   )
+}
+
+
+RecommendationsRow.propTypes = {
+  recommendation: PropTypes.object,
 }
 
 export default RecommendationsRow

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { convertDate, rottenReviewImage } from 'utils/misc'
+import { rottenReviewImage } from 'utils/misc'
 import { useProfile } from 'utils/profile'
 import spicyLogo from 'assets/images/spicy-orange-logo.png'
 

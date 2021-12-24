@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { useParams } from 'react-router'
 import { useRecommendation, useRemoveRecommendation } from 'utils/recommendations'
-import { PropTypes } from 'prop-types'
 import Section from 'components/layout/section'
 import Breadcrumbs from 'components/layout/navigation/breadcrumbs'
 import WatchlistToggle from './components/watchlist-toggle'
@@ -33,7 +32,6 @@ const RecommendationCardWrapper = styled.div`
         "poster reviews";
   > img {
     width: 100%;
-    /* min-width: 300px; */
     height: 100%;
     object-fit: cover;
     grid-area: poster;
@@ -117,10 +115,6 @@ function Recommendation() {
       </Section>
     </>
   )
-}
-
-Recommendation.propTypes = {
-  user: PropTypes.object
 }
 
 export default Recommendation

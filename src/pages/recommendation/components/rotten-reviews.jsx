@@ -1,10 +1,10 @@
-/* eslint-disable react/prop-types */
 import { useState } from 'react'
 import { HashLink } from 'react-router-hash-link'
 import styled from 'styled-components'
 import { rottenReviewImage } from 'utils/misc'
 import RottenReviewModal from './rotten-review-modal'
 import { useProfile } from 'utils/profile'
+import PropTypes from 'prop-types'
 
 const RottenWrapper = styled.div`
   grid-area: rottenGas;
@@ -69,6 +69,10 @@ const RottenReviews = ({ recommendation }) => {
       </RottenWrapper>
     </>
   )
+}
+
+RottenReviews.propTypes = {
+  recommendation: PropTypes.object
 }
 
 export default RottenReviews

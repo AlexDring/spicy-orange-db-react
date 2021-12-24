@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 import styled from 'styled-components'
 import { useProfile } from 'utils/profile'
+import PropTypes from 'prop-types'
 
 const RecommendationMetaStyles = styled.div`
   grid-area: meta;
@@ -36,6 +36,9 @@ const RecommendationMeta = ({ recommendation, remove }) => {
   )
 }
 
-
+RecommendationMeta.propTypes = {
+  recommendation: PropTypes.object,
+  remove: PropTypes.object
+}
 
 export default RecommendationMeta

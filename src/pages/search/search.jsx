@@ -58,7 +58,7 @@ function Search() {
               </div>
             ))
           ))}
-          {searchResults.isFetching && Array.from({length: 10}, (v, i) => <SearchSkeleton />)}
+          {searchResults.isFetching && Array.from({length: 10}, (v, i) => <SearchSkeleton key={`search-skeleton-${i}`} />)}
         </SearchGrid>
         {resultsReturned && <LoadMoreButton result={searchResults} />}
       </Section>

@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Loading } from './lib'
+import PropTypes from 'prop-types'
 
 const ItemCountStyles = styled.div`
   display: inline-flex;
@@ -15,13 +16,19 @@ const ItemCountStyles = styled.div`
   border-radius: 10%;
 `
 
-// eslint-disable-next-line react/prop-types
 const ItemCount = ({ count, loading, fontSize, background }) => {
   return(
     <ItemCountStyles fontSize={fontSize} background={background}>
       <span>{loading ? <Loading /> : count}</span>
     </ItemCountStyles>
   )
+}
+
+ItemCount.propTypes = {
+  count: PropTypes.number,
+  loading: PropTypes.bool,
+  fontSize: PropTypes.string,
+  background: PropTypes.string
 }
 
 export default ItemCount

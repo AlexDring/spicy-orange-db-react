@@ -59,7 +59,7 @@ const MediaInformationStyles = styled.ul`
     overflow: hidden;
   }
 `
-// eslint-disable-next-line react/prop-types
+
 const SearchModal = ({ recId, displayModal, setDisplayModal }) => {
   const {profile} = useProfile()
   const {data: searchResult, isLoading, isIdle } = useIndividualSearch(recId)
@@ -118,7 +118,8 @@ const SearchModal = ({ recId, displayModal, setDisplayModal }) => {
 
 SearchModal.propTypes = {
   recId: PropTypes.string,
-  user: PropTypes.object
+  displayModal: PropTypes.object,
+  setDisplayModal: PropTypes.func,
 }
 
 export default SearchModal

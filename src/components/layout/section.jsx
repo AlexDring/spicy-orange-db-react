@@ -12,7 +12,7 @@ section {
   }
 }
 `
-const Section = ({orange, children}) => (
+const Section = ({ orange, children }) => (
   <SectionStyles orange={orange}>
     <section>
       {children}

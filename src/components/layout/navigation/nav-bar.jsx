@@ -1,11 +1,9 @@
-/* eslint-disable react/prop-types */
 import { useContext, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import '@reach/menu-button/styles.css'
+import {  Menu,  MenuList,  MenuButton,  MenuItem } from '@reach/menu-button'
 import styled from 'styled-components'
 import logo from 'assets/images/spicy-orange-logo.svg'
-import PropTypes from 'prop-types'
-import {  Menu,  MenuList,  MenuButton,  MenuItem } from '@reach/menu-button'
-import '@reach/menu-button/styles.css'
 import { SearchContext } from 'context/search-context'
 import SearchInput from 'components/search-input'
 import { useHistory } from 'react-router'
@@ -141,13 +139,5 @@ const Nav = () => {
       >☰</button>
     </NavStyles>
   )}
-
-
-Nav.propTypes = {
-  profileId: PropTypes.string
-  // Defining types for component props improves reusability of your components by validating received data. It can warn other developers if they make a mistake while reusing the component with improper data type.
-  // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prop-types.md
-  // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prop-types.md#rule-options
-}
 
 export default Nav

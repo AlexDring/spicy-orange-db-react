@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 import styled from 'styled-components'
 import reviewLogos from 'assets/images/review-logos/review-icons'
+import PropTypes from 'prop-types'
 
 const MediaRatingsStyles = styled.div`
 display: flex;
@@ -40,6 +40,16 @@ const SingleReview = ({ rating, icon }) => {
         </div> : '' }
     </>
   )
+}
+
+ExternalReviews.propTypes = {
+  imdbRating: PropTypes.string,
+  Metascore: PropTypes.string
+}
+
+SingleReview.propTypes = {
+  rating: PropTypes.string,
+  icon: PropTypes.string
 }
 
 export default ExternalReviews

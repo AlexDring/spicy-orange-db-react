@@ -7,7 +7,6 @@ import { ReviewGridStyles } from '../styles/grids'
 import Skeleton from 'components/skeleton/skeleton'
 import { ReviewCard } from 'components/cards'
 import LoadMoreButton from 'components/load-more-button'
-import { FullPageSpinner } from 'components/lib'
 
 function Home() {
   const { data, isLoading: recommendationsLoading } = useRecommendations()

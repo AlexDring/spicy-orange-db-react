@@ -1,7 +1,6 @@
-/* eslint-disable react/prop-types */
-
 import styled from 'styled-components'
 import { Loading } from './lib'
+import PropTypes from 'prop-types'
 
 const LoadMoreStyles = styled.div`
   display: flex; 
@@ -34,6 +33,11 @@ const LoadMoreButton = ({ result }) => {
       {/* <div>{isFetching && !isFetchingNextPage ?  <Loading /> : null}</div> */}
     </>
   )
+}
+
+
+LoadMoreButton.propTypes = {
+  result: PropTypes.object,
 }
 
 export default LoadMoreButton

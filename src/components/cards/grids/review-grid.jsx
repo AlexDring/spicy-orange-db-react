@@ -1,7 +1,7 @@
-/* eslint-disable react/prop-types */
 import Skeleton from 'components/skeleton/skeleton'
 import styled from 'styled-components'
 import ReviewCard from '../review-card'
+import PropTypes from 'prop-types'
 
 const ReviewGridStyles = styled.div`
   display: grid;
@@ -24,6 +24,13 @@ const ReviewsGrid = ({ loading, reviews, large, skeletonCount }) => (
     }
   </ReviewGridStyles>
 )
+
+ReviewsGrid.propTypes = {
+  loading: PropTypes.bool,
+  reviews: PropTypes.array,
+  large: PropTypes.bool,
+  skeletonCount: PropTypes.number,
+}
 
 
 export default ReviewsGrid

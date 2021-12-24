@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 import reviewLogos from 'assets/images/review-logos/review-icons'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const ThirdPartyReviewsWrapper = styled.ul`
   display: flex;
@@ -60,5 +60,10 @@ const ThirdPartyReviews = ({ recommendation }) => (
     )}
   </ThirdPartyReviewsWrapper>
 )
+
+
+ThirdPartyReviews.propTypes = {
+  recommendation: PropTypes.object,
+}
 
 export default ThirdPartyReviews

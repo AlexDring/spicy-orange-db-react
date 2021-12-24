@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import PropTypes from 'prop-types'
 import { useState } from 'react'
 import { useCreateReview, useUpdateReview, useRemoveReview } from 'utils/reviews'
@@ -129,6 +128,7 @@ const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, prof
 
 RottenReviewModal.propTypes = {
   recommendation: PropTypes.object,
+  profile: PropTypes.object,
   setDisplayModal: PropTypes.func,
   displayModal: PropTypes.bool,
   user: PropTypes.object

@@ -1,8 +1,8 @@
-/* eslint-disable react/prop-types */
-import { RecommendationCardSmall, RecommendationPosterCard } from 'components/cards'
-import Skeleton from 'components/skeleton/skeleton'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+import { RecommendationPosterCard } from 'components/cards'
+import Skeleton from 'components/skeleton/skeleton'
+import PropTypes from 'prop-types'
 
 const RecommendationsPosterGridStyles = styled.div`
 display: grid;
@@ -30,6 +30,12 @@ const RecommendationsPosterGrid = ({ loading, recommendations, skeletonCount }) 
       }
     </RecommendationsPosterGridStyles>
   )
+}
+
+RecommendationsPosterGrid.propTypes = {
+  loading: PropTypes.bool,
+  recommendations: PropTypes.array,
+  skeletonCount: PropTypes.number,
 }
 
 export default RecommendationsPosterGrid

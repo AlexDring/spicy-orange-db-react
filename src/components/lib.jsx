@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import styled, { keyframes } from 'styled-components'
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 import adamLoader2 from '../assets/images/adam-loader2.png'

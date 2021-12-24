@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 import styled from 'styled-components'
 import { rottenReviewImage } from 'utils/misc'
+import PropTypes from 'prop-types'
 
 const RottenReviewStyles = styled.div`
   display: flex;
@@ -49,5 +49,10 @@ const RottenReview = ({ rottenAverage, rottenCount, vertical }) => (
   </RottenReviewStyles>
 )
 
+RottenReview.propTypes = {
+  rottenAverage: PropTypes.number,
+  rottenCount: PropTypes.number,
+  vertical: PropTypes.bool,
+}
 
 export default RottenReview

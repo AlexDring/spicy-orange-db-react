@@ -1,5 +1,4 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-undef */
+
 import {useAddWatchlist, useRemoveWatchlist, useWatchlistItem} from 'utils/profile'
 import {FaBookmark, FaRegBookmark} from 'react-icons/fa'
 import styled from 'styled-components'
@@ -8,8 +7,6 @@ import { useAsync } from 'utils/hooks'
 import { BiErrorCircle } from 'react-icons/bi'
 import { Loading } from 'components/lib'
 import { useProfile } from 'utils/profile'
-import { useRefetchWatchlist } from 'utils/profile'
-import { useEffect } from 'react'
 
 const WatchlistToggleStyles = styled.div`
   display: flex;
@@ -81,8 +78,14 @@ function IconButton({loading, label, icon, onClick}) {
 }
 
 WatchlistToggle.propTypes = {
-  mediaId: PropTypes.string,
-  user: PropTypes.object,
+  recommendationId: PropTypes.string,
+}
+
+IconButton.propTypes = {
+  loading: PropTypes.bool,
+  label: PropTypes.string,
+  icon: PropTypes.object,
+  onClick: PropTypes.func,
 }
 
 export default WatchlistToggle

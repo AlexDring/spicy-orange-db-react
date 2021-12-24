@@ -1,7 +1,7 @@
-/* eslint-disable react/prop-types */
 import RecommendationCard from 'components/cards/recommendation-card'
 import Skeleton from 'components/skeleton/skeleton'
 import { MediaCardGridStyles } from 'styles/grids'
+import PropTypes from 'prop-types'
 
 const RecommendationsGrid = ({ loading, recommendations, skeletonCount }) =>  {
   return (
@@ -16,5 +16,11 @@ const RecommendationsGrid = ({ loading, recommendations, skeletonCount }) =>  {
         ))}
     </MediaCardGridStyles>
   )}
+
+RecommendationsGrid.propTypes = {
+  loading: PropTypes.bool,
+  recommendations: PropTypes.array,
+  skeletonCount: PropTypes.number,
+}
 
 export default RecommendationsGrid

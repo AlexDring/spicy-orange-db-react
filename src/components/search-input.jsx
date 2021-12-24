@@ -1,5 +1,6 @@
 import { AiOutlineSearch } from 'react-icons/ai'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const RecommendationsSearchStyles = styled.form`
   input {
@@ -21,7 +22,6 @@ const RecommendationsSearchStyles = styled.form`
   }
 `
 
-// eslint-disable-next-line react/prop-types
 const SearchInput = ({ onSubmit, placeholder }) => {
   return(
     <RecommendationsSearchStyles role="search" onSubmit={onSubmit} >
@@ -31,6 +31,11 @@ const SearchInput = ({ onSubmit, placeholder }) => {
       </button>
     </RecommendationsSearchStyles>
   )
+}
+
+SearchInput.propTypes = {
+  onSubmit: PropTypes.func,
+  placeholder: PropTypes.string
 }
 
 export default SearchInput

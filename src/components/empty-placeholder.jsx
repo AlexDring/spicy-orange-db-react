@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const EmptyPlaceholderStyles = styled.div`
 display: flex;
@@ -21,6 +21,11 @@ function EmptyPlaceholder ({ icon, text }) {
       </div>
     </EmptyPlaceholderStyles>
   )
+}
+
+EmptyPlaceholder.propTypes = {
+  icon: PropTypes.object,
+  text: PropTypes.object
 }
 
 export default EmptyPlaceholder

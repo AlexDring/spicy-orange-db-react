@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const RecommendationInfoWrapper = styled.div`
   padding-top: 48px;
@@ -41,6 +41,15 @@ const RecommendationInformation = ({ recommendation }) => {
       </RecommendationInfoUlStyles>
     </RecommendationInfoWrapper>
   )
+}
+
+
+RecommendationInfoLi.propTypes = {
+  role: PropTypes.string,
+  item: PropTypes.string,
+}
+RecommendationInformation.propTypes = {
+  recommendation: PropTypes.object,
 }
 
 export default RecommendationInformation

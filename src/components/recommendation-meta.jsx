@@ -1,6 +1,5 @@
-/* eslint-disable react/prop-types */
-
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const RecommendationMetaStyles = styled.ul`
   display: flex;
@@ -24,6 +23,11 @@ const RecommendationMeta = ({ meta }) => {
       }
     </RecommendationMetaStyles>
   )
+}
+
+
+RecommendationMeta.propTypes = {
+  meta: PropTypes.array
 }
 
 export default RecommendationMeta
