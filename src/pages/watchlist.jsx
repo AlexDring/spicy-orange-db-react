@@ -8,14 +8,14 @@ import { useProfile } from 'utils/profile'
 
 const Watchlist = () => {
   const { watchlist, isLoading, isFetching } = useWatchlist()
-  const { profile } = useProfile() // useProfile to get existing number of watchlist items, pre population on the backend.
+  // const { profile } = useProfile() // useProfile to get existing number of watchlist items, pre population on the backend.
   const totalItems = watchlist?.length
 
   return(
     <Section>
-      <h1>Your Watchlist 
+      <h1>`Your Watchlist `
         <ItemCount
-          isLoading={isFetching}
+          loading={isLoading}
           count={watchlist?.length}
           fontSize={'18px'} 
           background={'#FFB17A'}
@@ -29,7 +29,7 @@ const Watchlist = () => {
         <RecommendationsGrid
           loading={isLoading}
           recommendations={watchlist}
-          skeletonCount={profile?.watchlist}
+          skeletonCount={8}
         />
       }
     </Section>

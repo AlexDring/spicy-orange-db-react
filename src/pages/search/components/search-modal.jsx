@@ -12,7 +12,17 @@ const SearchModalStyles = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  position: relative;
   padding: 0 24px 24px;
+  margin-top: 10%;
+  > button:first-of-type {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 30px;
+    padding: 0;
+    margin-right: 15px;
+  }
   > div {
     text-align: center; 
     margin-bottom: 24px;
@@ -49,8 +59,6 @@ const MediaInformationStyles = styled.ul`
     overflow: hidden;
   }
 `
-
-
 // eslint-disable-next-line react/prop-types
 const SearchModal = ({ recId, displayModal, setDisplayModal }) => {
   const {profile} = useProfile()
@@ -62,6 +70,8 @@ const SearchModal = ({ recId, displayModal, setDisplayModal }) => {
     console.log('running')
     return () => refetchRecommendations()
   }, [refetchRecommendations])
+  
+  const close = () => setDisplayModal(false)
 
   if(isIdle) {
     return null
@@ -70,6 +80,7 @@ const SearchModal = ({ recId, displayModal, setDisplayModal }) => {
     <Dialog isOpen={displayModal} onDismiss={() => setDisplayModal(false)} aria-label="search result modal">
       {isLoading ? <SearchResultSkeleton /> : (
         <SearchModalStyles>
+          <button className='minimal' onClick={close} aria-label="Close search result modal box">×</button>
           <img src={searchResult.Poster} alt="" />
           <div>
             <h2>{searchResult.Title} </h2>

@@ -26,7 +26,7 @@ const recommendationsConfig = (query) => {
         nextPage: pageParam + 1 === pagesNo ? undefined : pageParam + 1
       }
     },
-    getNextPageParam: (lastPage, pages) => lastPage.nextPage
+    getNextPageParam: (lastPage, pages) => lastPage.nextPage,
   }
 }
 
@@ -36,8 +36,14 @@ function useRecommendation(id) {
     queryKey: ['recommendations', id],
     queryFn: () => axios.get(`${baseUrl}/${id}`).then(response => response.data),
     initialData: () => {
-      console.log(queryClient.getQueryData(['recommendations', 'all'])?.pages[0].recommendations.find(p => p._id === id))
-      return queryClient.getQueryData(['recommendations', 'all'])?.pages[0].recommendations.find(p => p._id === id)
+      const pages = queryClient.getQueryData(['recommendations', 'all'])?.pages
+      if(pages) {
+        for(let p of pages) {
+          for(let r of p.recommendations) {
+            if(r._id === id) return r
+          }
+        }
+      }
     }
   })
   return {...result, recommendation: result.data}

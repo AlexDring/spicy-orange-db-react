@@ -6,7 +6,6 @@ import { useRecommendations } from 'utils/recommendations'
 import RecommendationsRow from './components/recommendations-row'
 import { useState } from 'react'
 import SearchInput from 'components/search-input'
-import { FullPageSpinner } from 'components/lib'
 import ItemCount from 'components/item-count'
 import { RecommendationsRowSkeleton } from 'utils/skeleton'
 
@@ -36,13 +35,13 @@ const Recommendations = () => {
           search 
             ? `Results: ${search}` 
             : 'Recommendations' 
-        } <ItemCount loading={result.isFetching} count={`${itemCount} items`} fontSize={'18px'} /></h1>
+        } <ItemCount loading={result.isLoading} count={itemCount} background={'#FFB17A'} fontSize={'18px'} /></h1>
         <SearchInput
           onSubmit={searchRecommendations}
           placeholder={'Search recommendations'} 
         />
       </TopRowStyles>
-      {result.isLoading && Array.from({length: 12}, (v, i) =>  <RecommendationsRowSkeleton />)}
+      {result.isLoading && Array.from({length: 12}, (v, i) =>  <RecommendationsRowSkeleton key={`recommendation-card-${i}`} />)}
       <ul>
         {result.data?.pages.map(page => 
           page?.recommendations.map(recommentation =>
@@ -52,7 +51,7 @@ const Recommendations = () => {
           )
         )}
       </ul>
-      {result.isFetching && Array.from({length: 12}, (v, i) =>  <RecommendationsRowSkeleton />)}
+      {result.isFetching && Array.from({length: 12}, (v, i) =>  <RecommendationsRowSkeleton key={`recommendation-card-${i}`}  />)}
       {result.data?.pages[0].recommendations.length !== 0 && <LoadMoreButton result={result} />}
     </Section>  
   )

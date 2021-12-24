@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 import styled, { keyframes } from 'styled-components'
-import Alert from '@reach/alert'
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'
+import adamLoader2 from '../assets/images/adam-loader2.png'
 
 const StyledSpinner = styled.svg`
 animation: rotate 2s linear infinite;
 margin: -25px 0 0 -25px;
-width: 50px;
-height: 50px;
+width: 305px;
+height: 305px;
 
 & .path {
   stroke: #FFB17A;
@@ -55,10 +55,23 @@ const StyledFullPageSpinner = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  > img {
+    animation: rotate 7s linear infinite;
+    margin: -25px 0 0 -25px;
+    width: 220px;
+    height: 220px;
+    position:absolute;
+  @keyframes rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  }
 `
 const FullPageSpinner = () => (
   <StyledFullPageSpinner>
-    <Spinner />
+    <img src={adamLoader2} />
+    {/* <Spinner /> */}
   </StyledFullPageSpinner>
 )
 

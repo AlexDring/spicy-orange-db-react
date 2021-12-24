@@ -77,7 +77,7 @@ const RecommendationsRow = ({ recommendation }) => {
       <GenreStyles>
         {Director !== 'N/A' && <p>Director: {Director}</p>} 
         <p>{Genre}</p>
-        <p>Added by {user} {convertDate(dateAdded)}</p>
+        <p>Added by <span className='capitalise'>{user}</span> {convertDate(dateAdded)}</p>
       </GenreStyles>
       <RottenReview rottenAverage={rottenAverage} rottenCount={rottenCount} vertical />
     </RecRowWrapper>

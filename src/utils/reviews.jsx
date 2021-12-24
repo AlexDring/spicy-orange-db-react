@@ -30,7 +30,11 @@ function useCreateReview () {
     {
       onSuccess: () => toast.success('Review added!'),
       onError: () => toast.error('Oops something went wrong.'),
-      onSettled: () => queryClient.invalidateQueries('recommendations')
+      onSettled: () => {
+        console.log('here')
+        queryClient.setQueryData(['recommendations'], oldData => console.log(oldData))
+        queryClient.invalidateQueries(['recommendations'])
+      }
     }
   )
 }
@@ -43,7 +47,7 @@ function useUpdateReview () {
     {
       onSuccess: () => toast.success('Review updated'),
       onError: () => toast.error('Oops something went wrong.'),
-      onSettled: () => queryClient.invalidateQueries('recommendations')
+      onSettled: () => queryClient.invalidateQueries(['recommendations'])
     }
   )
 }

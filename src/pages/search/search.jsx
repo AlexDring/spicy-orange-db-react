@@ -11,9 +11,8 @@ const SearchGrid = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 7.5px;
-  > div {
+  > * {
     flex: 0 1 calc(25% - 15px);
-    /* margin: 7.5px; */
     @media(max-width: 450px) {
       flex: 1 1 calc(50% - 15px);
     }
@@ -46,7 +45,7 @@ function Search() {
           }
         </div>
         <SearchGrid>
-          {searchResults.isLoading && Array.from({length: 10}, (v, i) => <SearchSkeleton />)}
+          {searchResults.isLoading && Array.from({length: 10}, (v, i) => <SearchSkeleton key={`search-skeleton-${i}`} />)}
           {searchResults.data?.pages[0].results && // This shows single empty card if incorrect link pasted in search bar.
           searchResults.data?.pages.map(search => (
             search.results.map((result, index) => (
