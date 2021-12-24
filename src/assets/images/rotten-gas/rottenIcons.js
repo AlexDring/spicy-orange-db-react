@@ -6,6 +6,9 @@ import certifiedSmall from './Certified-small.png'
 import freshSmall from './fresh-small.png'
 import rottenSmall from './stinker-small.png'
 import noReviewSmall from './noReview-small.png'
+import certified140 from '../rotten-gas/certtified140.png'
+import fresh140 from '../rotten-gas/fresh140.png'
+import stinker140 from '../rotten-gas/stinker140.png'
 
 export default {
   certifiedGa: certified,
@@ -15,5 +18,8 @@ export default {
   certifiedSmall,
   freshSmall,
   rottenSmall,
-  noReviewSmall
+  noReviewSmall,
+  certified140,
+  fresh140,
+  stinker140
 }

@@ -35,7 +35,6 @@ const RottenReviews = ({ recommendation }) => {
   const { profile } = useProfile()
   const [displayModal, setDisplayModal] = useState(false)
   const userScore = recommendation.rottenReviews.find(review => review.user === profile?.username)
-  console.log(userScore)
   return (
     <>
       <RottenReviewModal

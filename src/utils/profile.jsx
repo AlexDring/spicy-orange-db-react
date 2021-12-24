@@ -11,6 +11,15 @@ function useProfile() {
   }, {
     enabled: user_id,
   })
+  return {...result, profile: result.data }
+}
+function useGetProfile(username) {
+  const result = useQuery({
+    queryKey: ['profile', {username}],
+    queryFn: () => axios.get(`${baseUrl}/${username}/profile`).then(response => response.data)
+  }, {
+    enabled: username,
+  })
 
   return {...result, profile: result.data }
 }
@@ -90,5 +99,6 @@ export {
   useAddWatchlist,
   useRemoveWatchlist,
   useProfileRecommendations,
-  useProfileReviews
+  useProfileReviews,
+  useGetProfile
 }

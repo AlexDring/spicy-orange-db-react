@@ -10,6 +10,14 @@ const RottenReviewStyles = styled.div`
   padding: 75px 24px 24px;
   text-align: center;
   position: relative;
+  > button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 30px;
+    padding: 0;
+    margin-right: 15px;
+  }
   @media (max-width: 500px) {
     width: auto;
   }
@@ -85,10 +93,12 @@ const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, prof
     setReview(null)
     setDisplayModal(!displayModal)
   }
+  const close = () => setDisplayModal(false)
 
   return(
     <Dialog isOpen={displayModal} onDismiss={() => setDisplayModal(false)} aria-label="review modal">
       <RottenReviewStyles>
+        <button  className='minimal' onClick={close} aria-label="Close review modal box">×</button>
         <img src={rottenReviewImage(review?.score)} alt="" />
         <small>You Rating</small>
         <h1>{recommendation.Title}</h1>
@@ -99,6 +109,7 @@ const RottenReviewModal = ({ recommendation, setDisplayModal, displayModal, prof
             max="1000"
             value={review?.score ? review.score : ''}
             onChange={({ target }) => setReview({...review, score: target.value })} 
+            required
           /> /1000 
           <textarea
             placeholder="Review (Optional)"

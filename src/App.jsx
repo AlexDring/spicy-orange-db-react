@@ -15,6 +15,7 @@ import PageNotFound from 'pages/404'
 import ProfileRecommendations from 'pages/profile_recommendations'
 import ProfileReviews from 'pages/profile_reviews'
 import ProtectedRoute from 'auth/protected-route'
+import Profile from 'pages/Profile'
 
 
 function App() {
@@ -41,6 +42,7 @@ function AppRoutes() {
       <ProtectedRoute path='/watchlist' component={Watchlist} />
       <ProtectedRoute path='/recommendations' component={Recommendations} />
       <ProtectedRoute path='/recommendation/:id'  component={Recommendation} />
+      <ProtectedRoute path='/:userId/profile' component={Profile} />
       <ProtectedRoute path='/:userId/recommendations' component={ProfileRecommendations} />
       <ProtectedRoute path='/:userId/reviews' component={ProfileReviews} />
       <ProtectedRoute exact path='/' component={Home} />

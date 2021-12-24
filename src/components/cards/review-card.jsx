@@ -37,17 +37,16 @@ const MediaScore = styled.div`
 `
 
 const ReviewCard = ({ large, review }) => {
-  const { profile: {avatar} } = useProfile()
-  // console.log(review)
+  const { profile } = useProfile()
   return (
     <ReviewStyles large={large}>
       {large && <img src={review.poster} alt="" />}
       <div>
         <MediaScore>
           <img height="25" 
-            src={avatar ? avatar : spicyLogo}
+            src={profile?.avatar ? profile?.avatar : spicyLogo}
             alt="Logged in users avatar" />
-          <span>{review.user}</span>
+          <Link to={`/${review.user}/profile`}><span className='capitalise'>{review.user}</span></Link>
           <img height="25" 
             src={rottenReviewImage(review.score)} 
             alt="review score icon" />

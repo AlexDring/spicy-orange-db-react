@@ -120,7 +120,7 @@ const RecommendationsRowSkeleton = (props) => (
 
 const SearchSkeleton = (props) => (
   <ContentLoader 
-    style={{backgroundColor: '#fff'}}
+    style={{backgroundColor: '#fff', width: '100%', height: '100%'}}
     speed={2}
     width={205}
     height={400}

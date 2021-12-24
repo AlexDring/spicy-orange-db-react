@@ -72,6 +72,9 @@ const GlobalStyles = createGlobalStyle`
       border: 1px solid var(--orange);
     }
   }
+  .capitalise {
+    text-transform: capitalize;
+  }
 
   /* Reach Dialog component */
   [data-reach-dialog-content] {
@@ -81,7 +84,7 @@ const GlobalStyles = createGlobalStyle`
     @media(max-width: 650px) {
       width: 95vw;
       padding: 0;
-      margin: 126px auto;
+      ${'' /* margin: 126px auto; */}
     }
   }
 

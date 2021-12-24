@@ -2,9 +2,9 @@ import rottenIcons from 'assets/images/rotten-gas/rottenIcons'
 
 const rottenReviewImage = (rottenAverage) => {
   return (
-    rottenAverage > 849 ? rottenIcons.certifiedSmall : 
-      rottenAverage > 599 ? rottenIcons.freshSmall :
-        rottenAverage > 0 ? rottenIcons.rottenSmall : 
+    rottenAverage > 849 ? rottenIcons.certified140 : 
+      rottenAverage > 599 ? rottenIcons.fresh140 :
+        rottenAverage > 0 ? rottenIcons.stinker140 : 
           rottenIcons.noReviewSmall 
   )
 }

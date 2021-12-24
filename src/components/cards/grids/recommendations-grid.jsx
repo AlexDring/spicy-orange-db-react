@@ -4,7 +4,6 @@ import Skeleton from 'components/skeleton/skeleton'
 import { MediaCardGridStyles } from 'styles/grids'
 
 const RecommendationsGrid = ({ loading, recommendations, skeletonCount }) =>  {
-  console.log(recommendations)
   return (
     <MediaCardGridStyles>
       {loading ? 
