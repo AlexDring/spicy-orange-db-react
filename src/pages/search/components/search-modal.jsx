@@ -105,7 +105,7 @@ const SearchModal = ({ recId, displayModal, setDisplayModal }) => {
           </MediaInformationStyles>
           <button onClick={() => create.mutate(
             {
-              user_id: profile._id, 
+              userId: profile._id,
               ...searchResult, 
               date_added: new Date()
             })}>Add to Recommendations</button>
@@ -118,7 +118,7 @@ const SearchModal = ({ recId, displayModal, setDisplayModal }) => {
 
 SearchModal.propTypes = {
   recId: PropTypes.string,
-  displayModal: PropTypes.object,
+  displayModal: PropTypes.bool,
   setDisplayModal: PropTypes.func,
 }
 
