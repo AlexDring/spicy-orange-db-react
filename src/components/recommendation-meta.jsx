@@ -14,6 +14,7 @@ const RecommendationMetaStyles = styled.ul`
 `
 
 const RecommendationMeta = ({ meta }) => {
+
   return(
     <RecommendationMetaStyles>
       {meta.map((meta, i) => 

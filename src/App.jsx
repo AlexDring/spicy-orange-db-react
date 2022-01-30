@@ -15,6 +15,7 @@ import ProfileRecommendations from 'pages/profile_recommendations'
 import ProfileReviews from 'pages/profile_reviews'
 import ProtectedRoute from 'auth/protected-route'
 import Profile from 'pages/Profile'
+import { ScrollToTop } from 'utils/misc'
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
   return (
     <SearchProvider>
       <SkipNavLink />
+      <ScrollToTop />
       <Layout>
         <SkipNavContent />
         <AppRoutes /> 

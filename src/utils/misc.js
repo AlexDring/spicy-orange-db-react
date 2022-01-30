@@ -1,4 +1,6 @@
 import rottenIcons from 'assets/images/rotten-gas/rottenIcons'
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 
 const rottenReviewImage = (rottenAverage) => {
   return (
@@ -22,8 +24,20 @@ function convertDate(date) {
   return (new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: '2-digit' }).format(dateToConvert)) 
 }
 
+function ScrollToTop() {
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+
+  return null
+}
+
+
 export {
   rottenReviewImage,
   borderColor,
-  convertDate
+  convertDate,
+  ScrollToTop
 }

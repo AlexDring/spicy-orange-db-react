@@ -1,17 +1,23 @@
 import styled from 'styled-components'
 import { useParams } from 'react-router'
 import { useRecommendation, useRemoveRecommendation } from 'utils/recommendations'
+
 import Section from 'components/layout/section'
 import Breadcrumbs from 'components/layout/navigation/breadcrumbs'
-import WatchlistToggle from './components/watchlist-toggle'
 import { RecommendationDetailSkeleton, RecommendationInfoSkeleton } from 'components/skeleton/skeleton-templates'
+import ReviewsGrid from 'components/cards/grids/review-grid'
+import EmptyPlaceholder from 'components/empty-placeholder'
+
+import WatchlistToggle from './components/watchlist-toggle'
 import RecommendationMeta from './components/recommendation-meta'
 import RottenReviews from './components/rotten-reviews'
 import ThirdPartyReviews from './components/third-party-review'
 import RecommendationInformation from './components/recommendation-information'
-import ReviewsGrid from 'components/cards/grids/review-grid'
+import DownloadReview from './components/download-review'
+
 import rottenIcon from 'assets/images/rotten-gas/rottenIcons'
-import EmptyPlaceholder from 'components/empty-placeholder'
+import { useState } from 'react'
+import { exportComponentAsJPEG } from 'react-component-export-image'
 
 const TopRowWrapper = styled.div`
   display: flex;
@@ -55,9 +61,10 @@ const RecommendationCardWrapper = styled.div`
 
 function Recommendation() {
   const {id} = useParams()
+  const [downloadData, setDownloadData] = useState()
   const {recommendation, isLoading} = useRecommendation(id)
   const remove = useRemoveRecommendation()
-
+  
   if(isLoading) {
     return (
       <Section>
@@ -66,9 +73,15 @@ function Recommendation() {
       </Section>
     )
   } 
+
   return(
     <>
       <Section>
+        <DownloadReview
+          review={downloadData}
+          recommendation={recommendation}
+          setDownloadData={setDownloadData}
+        />
         <TopRowWrapper>
           <Breadcrumbs routes={[
             { path: '/',
@@ -108,6 +121,7 @@ function Recommendation() {
             text={<p>No reviews.</p>} />
           :
           <ReviewsGrid
+            setDownloadData={setDownloadData}
             loading={isLoading}
             reviews={recommendation.rottenReviews} 
             skeletonCount={4} 

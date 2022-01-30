@@ -60,6 +60,9 @@ function useAddRecommendation() {
       onError: err => {
         if(err.response.data) {
           toast.error(err.response.data.error)
+          if(err.response.status === 409) {
+            history.push(`/recommendation/${err.response.data.id}`)
+          } 
         } else {
           toast.error(err)
         }

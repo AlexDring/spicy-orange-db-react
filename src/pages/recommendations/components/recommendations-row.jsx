@@ -13,13 +13,12 @@ const RecRowWrapper = styled.div`
   border-top: 1px solid var(--light-gray);
   border-left: ${props => borderColor(props.type)};
   > div:nth-child(n + 1):nth-child(-n + 3) {
-    padding: 24px 0;
+    padding: 24px 10px 0 0;
   }
   > img {
     padding-right: 24px;
     align-self: center;
     max-height: 110px;
-    /* min-width: 98.8167px; */
     max-width: 100px;
   }
   h3 {

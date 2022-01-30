@@ -10,12 +10,14 @@ const ReviewGridStyles = styled.div`
   align-items: center;
 `
 
-const ReviewsGrid = ({ loading, reviews, large, skeletonCount }) => (
+// eslint-disable-next-line react/prop-types
+const ReviewsGrid = ({ loading, reviews, large, skeletonCount, setDownloadData }) => (
   <ReviewGridStyles>
     {loading ? 
       <Skeleton count={skeletonCount} component="review" /> : 
       reviews?.map(review => (
         <ReviewCard 
+          setDownloadData={setDownloadData}
           key={review._id} 
           review={review}   
           large={large}

@@ -107,7 +107,7 @@ const SearchModal = ({ recId, displayModal, setDisplayModal }) => {
             {
               userId: profile._id,
               ...searchResult, 
-              date_added: new Date()
+              dateAdded: new Date()
             })}>Add to Recommendations</button>
         </SearchModalStyles>
       )}

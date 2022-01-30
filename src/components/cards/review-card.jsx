@@ -2,8 +2,8 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { rottenReviewImage } from 'utils/misc'
-import { useProfile } from 'utils/profile'
 import spicyLogo from 'assets/images/spicy-orange-logo.png'
+import { AiFillSave } from 'react-icons/ai'
 
 const ReviewStyles = styled.div`
   display: grid;
@@ -34,23 +34,33 @@ const MediaScore = styled.div`
   > * {
     margin-right: 6px
   }
+  button {
+    padding: 0;
+    margin: 0;
+    background: none;
+    color: var(--navy);
+  }
 `
 
-const ReviewCard = ({ large, review }) => {
-  const { profile } = useProfile()
+// eslint-disable-next-line react/prop-types
+const ReviewCard = ({ large, review, setDownloadData }) => {
   return (
     <ReviewStyles large={large}>
       {large && <img src={review.poster} alt="" />}
       <div>
         <MediaScore>
           <img height="25" 
-            src={profile?.avatar ? profile?.avatar : spicyLogo}
+            src={review?.avatar ? review?.avatar : spicyLogo}
             alt="Logged in users avatar" />
           <Link to={`/${review.user}/profile`}><span className='capitalise'>{review.user}</span></Link>
           <img height="25" 
             src={rottenReviewImage(review.score)} 
             alt="review score icon" />
           <span>{review.score}<span className="gray" style={{fontSize: 12}}>/1000</span></span>
+          {setDownloadData && 
+          <button onClick={() => setDownloadData(review)}>
+            <AiFillSave />
+          </button>}
         </MediaScore>
         {large && 
         <Link to={`/recommendation/${review.recommendationId}`}>
