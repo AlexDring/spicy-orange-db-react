@@ -5,7 +5,6 @@ import { useRecommendation, useRemoveRecommendation } from 'utils/recommendation
 import Section from 'components/layout/section'
 import Breadcrumbs from 'components/layout/navigation/breadcrumbs'
 import { RecommendationDetailSkeleton, RecommendationInfoSkeleton } from 'components/skeleton/skeleton-templates'
-import ReviewsGrid from 'components/cards/grids/review-grid'
 import EmptyPlaceholder from 'components/empty-placeholder'
 
 import WatchlistToggle from './components/watchlist-toggle'
@@ -15,9 +14,11 @@ import ThirdPartyReviews from './components/third-party-review'
 import RecommendationInformation from './components/recommendation-information'
 import DownloadReview from './components/download-review'
 
-import rottenIcon from 'assets/images/rotten-gas/rottenIcons'
 import { useState } from 'react'
-import { exportComponentAsJPEG } from 'react-component-export-image'
+import Skeleton from 'components/skeleton/skeleton'
+import { ReviewCard } from 'components/cards'
+import {ReviewGridStyles} from 'styles/grids'
+import rottenIcons from 'assets/images/rotten-gas/rottenIcons'
 
 const TopRowWrapper = styled.div`
   display: flex;
@@ -72,16 +73,17 @@ function Recommendation() {
         <RecommendationInfoSkeleton />
       </Section>
     )
-  } 
+  }
 
   return(
     <>
       <Section>
-        <DownloadReview
-          review={downloadData}
-          recommendation={recommendation}
-          setDownloadData={setDownloadData}
-        />
+        {downloadData && 
+          <DownloadReview
+            review={downloadData}
+            recommendation={recommendation}
+            setDownloadData={setDownloadData}
+          />}
         <TopRowWrapper>
           <Breadcrumbs routes={[
             { path: '/',
@@ -115,17 +117,22 @@ function Recommendation() {
       </Section>
       <Section orange>
         <h2 id='rotten-gas'>Rotten Ga&apos;s</h2>
-        {recommendation.rottenReviews.length === 0 ?
+        <ReviewGridStyles>
+          {!recommendation.rottenReviews.length && 
           <EmptyPlaceholder
-            icon={<img src={rottenIcon.noReview} />}
+            icon={<img src={rottenIcons.noReview} />}
             text={<p>No reviews.</p>} />
-          :
-          <ReviewsGrid
-            setDownloadData={setDownloadData}
-            loading={isLoading}
-            reviews={recommendation.rottenReviews} 
-            skeletonCount={4} 
-          />}
+          }
+          {recommendation.rottenReviews.length && 
+            isLoading 
+            ? <Skeleton count={4} component="review" />
+            : recommendation.rottenReviews?.map(review => (
+              <ReviewCard 
+                setDownloadData={setDownloadData}
+                key={review._id} 
+                review={review}   
+              />))}
+        </ReviewGridStyles>
       </Section>
     </>
   )

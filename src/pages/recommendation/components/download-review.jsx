@@ -22,6 +22,16 @@ const RottenScoreStyles = styled.div`
   }
 `
 
+const RottenHeaderStyles = styled.div`
+  h1 {
+    margin-bottom: 0;
+  }
+  ul {
+    display: inline-flex;
+    margin-bottom: 24px;
+  }
+`
+
 const RottenWrapper = styled.div`
   grid-area: rottenGas;
   display: flex;
@@ -49,10 +59,10 @@ const Reviews = forwardRef((props, ref) => (
 const Test = (props) => {
   return(
     <>
-      <div style={{textAlign: 'center'}}>
+      <RottenHeaderStyles style={{textAlign: 'center'}}>
         <h1>{props.recommendation.Title}</h1>
         <RecommendationMeta meta={[props.recommendation.Type, props.recommendation.Year, props.recommendation.Runtime]} />
-      </div>
+      </RottenHeaderStyles>
       <ThirdPartyReviews recommendation={props.recommendation} />
       <RottenWrapper>
         <RottenScoreStyles>

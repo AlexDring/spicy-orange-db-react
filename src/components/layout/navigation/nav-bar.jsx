@@ -93,8 +93,6 @@ const Nav = () => {
   const { searchInput } = useContext(SearchContext)
   const { profile, isLoading } = useProfile()
   
-  // console.log(profile)
-  
   const searchQuery = async (e) => {
     e.preventDefault()
     searchInput(e.target.elements.search.value)
