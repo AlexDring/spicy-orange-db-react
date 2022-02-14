@@ -32,7 +32,7 @@ function useCreateReview () {
       onError: () => toast.error('Oops something went wrong.'),
       onSettled: () => {
         console.log('here')
-        queryClient.setQueryData(['recommendations'], oldData => console.log(oldData))
+        queryClient.setQueryData(['recommendations'])
         queryClient.invalidateQueries(['recommendations'])
       }
     }
